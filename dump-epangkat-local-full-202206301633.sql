@@ -5,7 +5,7 @@
 -- Dumped from database version 14.1
 -- Dumped by pg_dump version 14.1
 
--- Started on 2022-06-30 15:59:08
+-- Started on 2022-06-30 16:33:03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -262,7 +262,7 @@ CREATE TABLE public.lnpt_ukp12 (
     id bigint NOT NULL,
     tahun integer,
     markah numeric,
-    id_permohonan integer,
+    id_pemohon integer,
     flag integer,
     delete_id integer,
     created_at timestamp(0) without time zone,
@@ -2081,12 +2081,12 @@ ALTER TABLE ONLY public.jawapan_lnpk
 
 
 --
--- TOC entry 3402 (class 2606 OID 54217)
--- Name: lnpt_ukp12 lnpt_ukp12_id_permohonan; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- TOC entry 3402 (class 2606 OID 54330)
+-- Name: lnpt_ukp12 lnpt_ukp12_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY public.lnpt_ukp12
-    ADD CONSTRAINT lnpt_ukp12_id_permohonan FOREIGN KEY (id_permohonan) REFERENCES public.permohonan_ukp12(id);
+    ADD CONSTRAINT lnpt_ukp12_fk FOREIGN KEY (id_pemohon) REFERENCES public.pemohon(id);
 
 
 --
@@ -2242,7 +2242,7 @@ ALTER TABLE ONLY public.tatatertib_ukp12
     ADD CONSTRAINT tatatertib_ukp12_fk FOREIGN KEY (id_pemohon) REFERENCES public.pemohon(id);
 
 
--- Completed on 2022-06-30 15:59:10
+-- Completed on 2022-06-30 16:33:06
 
 --
 -- PostgreSQL database dump complete
