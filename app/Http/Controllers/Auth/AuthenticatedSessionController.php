@@ -28,6 +28,10 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request)
     {
+        $nokp = $request->input('nokp');
+        $type = $request->input('type');
+        $password = $request->input('password');
+
         $request->authenticate();
 
         $request->session()->regenerate();

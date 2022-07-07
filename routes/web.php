@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Test\FunctionController;
+use App\Http\Controllers\Test\QueryController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,4 +23,12 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
+Route::get('/login-vendor', function () {
+    return view('auth.login-alt');
+});
+
 require __DIR__.'/auth.php';
+
+// test api
+Route::get('/api/test/query', [QueryController::class, 'testQuery']);
+Route::get('/api/func/test',[FunctionController::class, 'func']);

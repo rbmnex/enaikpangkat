@@ -29,7 +29,7 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => ['required', 'string', 'email'],
+            'nokp' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -43,13 +43,17 @@ class LoginRequest extends FormRequest
      */
     public function authenticate()
     {
-        $this->ensureIsNotRateLimited();
+        // custom authenticate with auto register for jkr staff
 
-        if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
+        // $this->ensureIsNotRateLimited();
+
+
+
+        if (! Auth::attempt($this->only('nokp', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
-                'email' => trans('auth.failed'),
+                'nokp' => trans('auth.failed'),
             ]);
         }
 
@@ -74,7 +78,7 @@ class LoginRequest extends FormRequest
         $seconds = RateLimiter::availableIn($this->throttleKey());
 
         throw ValidationException::withMessages([
-            'email' => trans('auth.throttle', [
+            'nokp' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
             ]),
@@ -88,6 +92,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey()
     {
-        return Str::lower($this->input('email')).'|'.$this->ip();
+        return Str::lower($this->input('nokp')).'|'.$this->ip();
     }
 }

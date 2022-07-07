@@ -25,13 +25,12 @@
 
             <!-- Password -->
             <div class="mt-4">
-                {{-- <x-label for="password" :value="'Katalaluan'" /> --}}
+                <x-label for="password" :value="'Katalaluan'" />
 
-                {{-- <x-input id="password" class="block mt-1 w-full"
+                <x-input id="password" class="block mt-1 w-full"
                                 type="password"
                                 name="password"
-                                required autocomplete="current-password" /> --}}
-                <input type="hidden" name="password" id="pasword" value="p@ssw0rd" />
+                                required autocomplete="current-password" />
             </div>
 
             <!-- Remember Me -->
@@ -53,7 +52,7 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
-            <input type="hidden" name="type" id="type" value="1"/>
+            <input type="hidden" name="type" id="type" value="0"/>
         </form>
     </x-auth-card>
 </x-guest-layout>
