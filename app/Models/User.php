@@ -51,12 +51,7 @@ class User extends Authenticatable
     public static function register($nokp,$password,$type) {
         if($type) {
             // user have mykj - register here
-            $user = User::where('nokp',$nokp)->first();
-            if($user) {
-
-            } else {
-
-                $mykjPeribadi = DB::connection('pgsqlmykj')->table('public.peribadi as p')
+            $mykjPeribadi = DB::connection('pgsqlmykj')->table('public.peribadi as p')
                 ->leftJoin('public.l_agama as la', 'p.kod_agama', 'la.kod_agama')
                 ->leftJoin('public.l_taraf_perkahwinan as ltp', 'p.kod_taraf_perkahwinan', 'ltp.kod_taraf_perkahwinan')
                 ->leftJoin('public.l_bangsa as lb', 'p.kod_bangsa', 'lb.kod_bangsa')
@@ -64,6 +59,13 @@ class User extends Authenticatable
                 ->select('p.*','la.agama','ltp.taraf_perkahwinan', 'lb.bangsa', 'ln2.negeri as negeri_lahir')
                 ->where('p.nokp',$nokp)->first();
 
+            $user = User::where('nokp',$nokp)->first();
+            if($user) {
+                $user->email = $mykjPeribadi->email;
+                $user->password = Hash::make($password);
+                $user->updated_by = 'MYKJ';
+                $user->save();
+            } else {
                 if($mykjPeribadi) {
                     $newuser = new User;
 
@@ -71,12 +73,20 @@ class User extends Authenticatable
                     $newuser->nokp = $mykjPeribadi->nokp;
                     $newuser->email = $mykjPeribadi->email;
                     $newuser->password = Hash::make($password);
-                    $newuser->create_by = 'MYKJ';
+                    $newuser->created_by = 'MYKJ';
                     $newuser->type = 1;
+                    $newuser->flag = 1;
+                    $newuser->delete_id = 0;
 
                     if($newuser->save()) {
                         // create user peribadi
                         Peribadi::create($newuser->id,$mykjPeribadi);
+                        DB::table('role_user')->insert([
+                            'role_id' => 2,
+                            'user_id' => $newuser->id,
+                            'user_type' => 'jkr',
+                        ]);
+
                     }
                 }
             }

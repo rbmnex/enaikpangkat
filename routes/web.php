@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\UserMgmtController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +29,15 @@ Route::get('/login-vendor', function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::prefix('/admin')->group(function() {
+    Route::prefix('/pengguna')->group(function() {
+        Route::get('/', function() {
+            return view('admin.user.usermgmt');
+        });
+        Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
+    });
+});
 
 // test api
 Route::get('/api/test/query', [QueryController::class, 'testQuery']);

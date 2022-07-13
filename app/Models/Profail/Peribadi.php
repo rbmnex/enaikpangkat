@@ -17,7 +17,7 @@ class Peribadi extends Model
 
         $model = new Peribadi;
         foreach ($array_keys as $array_key) {
-            if($array_key == 'masuk_oleh' || $array_key == 'kemaskini_oleh' || $array_key == 'flag' || $array_key == 'katalaluan' || $array_key == 'tkh_masuk' || $array_key = 'tkh_kemaskini') {
+            if($array_key == 'masuk_oleh' || $array_key == 'kemaskini_oleh' || $array_key == 'flag' || $array_key == 'katalaluan' || $array_key == 'tkh_masuk' || $array_key == 'tkh_kemaskini') {
                 // skip and continue
             } else {
                 $model->$array_key = $arr_info[$array_key];
@@ -28,6 +28,8 @@ class Peribadi extends Model
         $model->delete_id = 0;
         $model->created_by = 'MYKJ';
         $model->updated_by = 'MYKJ';
-        $model->save();
+        if($model->save()) {
+            Penempatan::create($model->id,$arr_info['nokp']);
+        }
     }
 }
