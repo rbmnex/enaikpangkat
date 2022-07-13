@@ -1,3 +1,5 @@
+@extends('layouts.main')
+
 @section('customCss')
 @include('web.datatable-css')
 @endsection

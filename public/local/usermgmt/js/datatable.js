@@ -1,7 +1,7 @@
 $('.table-user').DataTable({
     processing: true,
     serverSide: true,
-    ajax: getUrl() + '/admin/pengguna/senarai',
+    ajax: getUrl() + '/pengguna/senarai',
     lengthChange:true,
     columns: [
         {data: 'name'},

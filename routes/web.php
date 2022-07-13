@@ -32,9 +32,7 @@ require __DIR__.'/auth.php';
 
 Route::prefix('/admin')->group(function() {
     Route::prefix('/pengguna')->group(function() {
-        Route::get('/', function() {
-            return view('admin.user.usermgmt');
-        });
+        Route::get('/', [UserMgmtController::class,'index']);
         Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
     });
 });

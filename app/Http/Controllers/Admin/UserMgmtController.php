@@ -10,8 +10,12 @@ use Yajra\DataTables\DataTables;
 class UserMgmtController extends Controller
 {
     //
+    public function index(Request $request) {
+        return view('admin.user.usermgmt');
+    }
+
     public function senarai_pengguna(Request $request) {
-        $model = DB::conection('pgsql')->table('users as ur')
+        $model = DB::connection('pgsql')->table('users as ur')
             ->leftJoin('peribadi as pr','pr.users_id', 'ur.id')
             ->leftJoin('penempatan as pp', 'pp.id_peribadi', 'pr.id')
             ->select('ur.name','pp.jawatan','pp.unit','pp.bahagian','pp.cawangan','pp.pejabat', 'ur.email','ur.id as user_id', 'pr.id as peribadi_id', 'pp.id as penempatan_id', 'ur.flag')
@@ -31,7 +35,7 @@ class UserMgmtController extends Controller
                     }
                 ])
                 ->addColumn('lokasi', function($data) {
-                    return strtoupper($data->unit).", ".strtoupper($data->bahagian).", ".strtoupper($data->cawangan).", ".strtolower($data->pejabat);
+                    return strtoupper($data->unit).", ".strtoupper($data->bahagian).", ".strtoupper($data->cawangan).", ".strtoupper($data->pejabat);
                 })
                 ->rawColumns(['aktif','aksi'])
                 ->make(true);
