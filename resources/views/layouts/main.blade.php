@@ -65,7 +65,7 @@
     <script src="{{asset('asset/js/core/app-menu.js')}}"></script>
     <script src="{{asset('asset/js/core/app.js')}}"></script>
     <!-- END: Theme JS-->
-
+    <script src="{{asset('local/common/js/app.js')}}"></script>
 
     @yield('customJs')
 
@@ -78,19 +78,6 @@
                 });
             }
         })
-
-        function getUrl(){
-            let basePath = window.location.pathname.split("/");
-            if(basePath[1]) {
-                return window.location.origin+"/"+basePath[1];
-            } else {
-                return window.location.origin;
-            }
-        }
-
-        function getToken(){
-            return $('._token').val();
-        }
     </script>
     </body>
 </html>

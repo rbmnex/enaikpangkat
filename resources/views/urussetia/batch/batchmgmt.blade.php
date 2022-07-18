@@ -2,8 +2,6 @@
 
 @section('customCss')
 @include('web.datatable-css')
-
-<link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/select/select2.min.css')}}">
 @endsection
 
 @section('content')
@@ -16,9 +14,9 @@
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
                         </li>
-                        <li class="breadcrumb-item">Admin
+                        <li class="breadcrumb-item">BPSM
                         </li>
-                        <li class="breadcrumb-item active"><a href="#">Pengurusan Pengguna</a>
+                        <li class="breadcrumb-item active"><a href="#">Pengurusan\n Kumpulan</a>
                         </li>
                     </ol>
                 </div>
@@ -34,11 +32,7 @@
                 <table class="datatables table table-user">
                     <thead>
                         <tr>
-                            <th>no. kp</th>
                             <th>nama</th>
-                            <th>jawatan</th>
-                            <th>penempatan</th>
-                            <th>emel</th>
                             <th>aksi</th>
                         </tr>
                     </thead>
@@ -49,14 +43,9 @@
     </section>
 </div>
 <input type="hidden" id="_token" class="_token" name="_token" value="{{csrf_token()}}">
-@include('admin.user.modal')
 @endsection
 
 @section('customJs')
 @include('web.datatable-js')
-<script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
-<script src="{{asset('local/usermgmt/js/page_setting.js')}}"></script>
-<script src="{{asset('local/usermgmt/js/datatable.js')}}"></script>
-<script src="{{asset('local/usermgmt/js/index.js')}}"></script>
-<script src="{{asset('local/usermgmt/js/ajax.js')}}"></script>
+<script src="{{asset('local/batchmgmt/js/datatable.js')}}"></script>
 @endsection
