@@ -1,7 +1,7 @@
 function load_user(ic,open) {
     $.ajax({
         type:'GET',
-        url: getUrl() + '/pengguna/api?no_ic='+ic,
+        url: getUrl() + '/admin/pengguna/api?no_ic='+ic,
         dataType: "json",
         processData: false,
         contentType: false,

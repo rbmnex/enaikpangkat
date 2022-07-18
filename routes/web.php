@@ -4,6 +4,7 @@ use App\Http\Controllers\admin\UserMgmtController;
 use App\Http\Controllers\Main\CommonController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
+use App\Http\Controllers\Urussetia\BatchMgmtController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,6 +42,13 @@ Route::prefix('/admin')->group(function() {
         Route::get('/mockup2', [UserMgmtController::class,'mockup2']);
         Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
+    });
+});
+
+Route::prefix('/urussetia')->group(function() {
+    Route::prefix('/kumpulan')->group(function() {
+        Route::get('/', [BatchMgmtController::class,'index']);
+
     });
 });
 

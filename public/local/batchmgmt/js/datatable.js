@@ -1,18 +1,14 @@
 $('.table-user').DataTable({
     processing: true,
     serverSide: true,
-    ajax: getUrl() + '/admin/pengguna/senarai',
+    ajax: getUrl() + '',
     lengthChange:true,
     columns: [
-        {data: 'nokp'},
         {data: 'name'},
-        {data: 'jawatan'},
-        {data: 'lokasi'},
-        {data: 'email'},
         {data: 'aksi'},
     ],
     createdRow: function( row, data, dataIndex ) {
-        $(row).addClass('pengguna-row');
+        $(row).addClass('kumpulan-row');
     },
     columnDefs: [
         {
@@ -22,8 +18,9 @@ $('.table-user').DataTable({
             orderable: false,
             render: function (data, type, full, meta) {
                 return (
-                    '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light pengguna-info">'+ feather.icons['user'].toSvg() +' Kemaskini</button>' +
-                    '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light pengguna-delete">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>'
+                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-edit">'+ feather.icons['user'].toSvg() +' Kemaskini</button>' +
+                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-emai">'+ feather.icons['mail'].toSvg() +' Hantar</button>' +
+                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light batch-delete">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>'
                 );
             }
         }
@@ -33,8 +30,8 @@ $('.table-user').DataTable({
     lengthMenu: [10, 15, 25, 50, 75, 100],
     buttons: [,
         {
-            text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Pengguna',
-            className: 'create-new btn btn-primary add-pengguna',
+            text: feather.icons['plus'].toSvg({ class: 'mr-50 font-small-4' }) + 'Tambah Kumpulan',
+            className: 'create-new btn btn-primary add-kumpulan',
             attr: {
                 'data-toggle': 'modal',
                 'data-target': '#modals-slide-in'
