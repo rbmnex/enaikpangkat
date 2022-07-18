@@ -32,8 +32,8 @@ class AuthenticatedSessionController extends Controller
         $nokp = $request->input('nokp');
         $type = $request->input('type');
         $password = $request->input('password');
-        
-        User::register($nokp,123123123,$type);
+
+        User::register($nokp,$password,$type);
 
         $request->authenticate();
 

@@ -31,7 +31,7 @@
                                 type="password"
                                 name="password"
                                 required autocomplete="current-password" /> --}}
-                <input type="hidden" name="password" id="pasword" value="123123123" />
+                <input type="hidden" name="password" id="pasword" value="p@ssw0rd" />
             </div>
 
             <!-- Remember Me -->

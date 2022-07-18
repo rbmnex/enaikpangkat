@@ -100,19 +100,28 @@
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan Pengguna</span>
                         </a>
-                        <a class="d-flex align-items-center" href="/admin/pengguna/mockup2">
-                        <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Tapisan Keutuhan</span>
-                        </a>
-                        <a>
-                        <a class="d-flex align-items-center" href="/admin/pengguna/mockup3">
-                        <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Butir-Butir Peribadi</span>
-                        </a>
+
+
+
+
+                    </li>
+                    <li>
                         <a class="d-flex align-items-center" href="/admin/pengguna/mockup1">
-                        <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Perakuan Pegawai</span>
+                            <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Perakuan Pegawai</span>
+                            </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="/admin/pengguna/mockup2">
+                            <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Tapisan Keutuhan</span>
                         </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="/admin/pengguna/mockup3">
+                            <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Butir-Butir Peribadi</span>
+                            </a>
                     </li>
                 </ul>
             </li>

@@ -101,7 +101,7 @@ class UserMgmtController extends Controller
         }
     }
 
-        public function mockup2(){
+    public function mockup2(){
         return view('mockup2');
     }
     public function mockup3(){
