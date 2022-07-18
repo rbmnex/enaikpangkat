@@ -4,6 +4,7 @@ namespace App\Models\Profail;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Peribadi extends Model
 {
@@ -31,5 +32,29 @@ class Peribadi extends Model
         if($model->save()) {
             Penempatan::create($model->id,$arr_info['nokp']);
         }
+    }
+
+    public static function info_pengguna($nokp) {
+        $info = array();
+        $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai2 as p')->select('p.*')->where('nokp', $nokp)
+            ->first();
+
+        $info['nokp'] = $peribadi->nokp;
+        $info['nama'] = $peribadi->nama;
+        $info['jawatan'] = $peribadi->jawatan;
+        $info['emel'] = $peribadi->email;
+
+        $tempat = DB::connection('pgsqlmykj')->table('penempatanx as p')
+        ->select('p.kod_waran')->where('nokp',$nokp)->where('flag',1)->first();
+
+        $arr_waran = Penempatan::split_kod_waran($tempat->kod_waran);
+
+        $info['unit'] = Penempatan::waran_name($arr_waran['unit'])->waran_pej;
+        $info['bahagian'] = Penempatan::waran_name($arr_waran['bahagian'])->waran_pej;
+        $pejabat = Penempatan::waran_name($arr_waran['cawangan']);
+        $info['cawangan'] = $pejabat->waran_pej;
+        $info['pejabat'] = $pejabat->blok;
+
+        return $info;
     }
 }
