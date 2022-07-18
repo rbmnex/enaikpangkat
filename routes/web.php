@@ -48,7 +48,7 @@ Route::prefix('/admin')->group(function() {
 Route::prefix('/urussetia')->group(function() {
     Route::prefix('/kumpulan')->group(function() {
         Route::get('/', [BatchMgmtController::class,'index']);
-
+        Route::get('/senrai',[BatchMgmtController::class,]);
     });
 });
 
