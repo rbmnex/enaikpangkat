@@ -40,5 +40,13 @@ class UserMgmtController extends Controller
                 ->rawColumns(['aktif','aksi'])
                 ->make(true);
     }
-
+    public function mockup2(){
+        return view('mockup2');
+    }
+    public function mockup3(){
+        return view('mockup3');
+    }
+    public function mockup1(){
+        return view('mockup1');
+    }
 }

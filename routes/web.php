@@ -34,6 +34,9 @@ Route::prefix('/admin')->group(function() {
     Route::prefix('/pengguna')->group(function() {
         Route::get('/', [UserMgmtController::class,'index']);
         Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
+        Route::get('/mockup2', [UserMgmtController::class,'mockup2']);
+        Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
+        Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
     });
 });
 

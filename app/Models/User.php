@@ -49,6 +49,7 @@ class User extends Authenticatable
     ];
 
     public static function register($nokp,$password,$type) {
+
         if($type) {
             // user have mykj - register here
             $mykjPeribadi = DB::connection('pgsqlmykj')->table('public.peribadi as p')
@@ -61,10 +62,12 @@ class User extends Authenticatable
 
             $user = User::where('nokp',$nokp)->first();
             if($user) {
-                $user->email = $mykjPeribadi->email;
-                $user->password = Hash::make($password);
-                $user->updated_by = 'MYKJ';
-                $user->save();
+                if($mykjPeribadi) {
+                    $user->email = $mykjPeribadi->email;
+                    $user->password = Hash::make($password);
+                    $user->updated_by = 'MYKJ';
+                    $user->save();
+                }
             } else {
                 if($mykjPeribadi) {
                     $newuser = new User;
@@ -86,7 +89,6 @@ class User extends Authenticatable
                             'user_id' => $newuser->id,
                             'user_type' => 'jkr',
                         ]);
-
                     }
                 }
             }
