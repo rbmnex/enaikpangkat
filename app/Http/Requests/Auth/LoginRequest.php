@@ -46,9 +46,6 @@ class LoginRequest extends FormRequest
         // custom authenticate with auto register for jkr staff
 
         // $this->ensureIsNotRateLimited();
-
-
-
         if (! Auth::attempt($this->only('nokp', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 

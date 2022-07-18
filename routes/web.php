@@ -38,6 +38,10 @@ Route::prefix('/admin')->group(function() {
         Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
         Route::get('/carian', [UserMgmtController::class,'carian_pengguna']);
         Route::get('/api',[UserMgmtController::class,'maklumat_pengguna']);
+
+        Route::get('/mockup2', [UserMgmtController::class,'mockup2']);
+        Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
+        Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
     });
 });
 
