@@ -62,12 +62,10 @@ class User extends Authenticatable
 
             $user = User::where('nokp',$nokp)->first();
             if($user) {
-                if($mykjPeribadi) {
-                    $user->email = $mykjPeribadi->email;
-                    $user->password = Hash::make($password);
-                    $user->updated_by = 'MYKJ';
-                    $user->save();
-                }
+                $user->email = $mykjPeribadi->email;
+                $user->password = Hash::make($password);
+                $user->updated_by = 'MYKJ';
+                $user->save();
             } else {
                 if($mykjPeribadi) {
                     $newuser = new User;
