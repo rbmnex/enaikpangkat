@@ -1,9 +1,10 @@
 $('.table-user').DataTable({
     processing: true,
     serverSide: true,
-    ajax: getUrl() + '/pengguna/senarai',
+    ajax: getUrl() + '/admin/pengguna/senarai',
     lengthChange:true,
     columns: [
+        {data: 'nokp'},
         {data: 'name'},
         {data: 'jawatan'},
         {data: 'lokasi'},
