@@ -5,7 +5,7 @@
 -- Dumped from database version 14.1
 -- Dumped by pg_dump version 14.1
 
--- Started on 2022-06-30 16:33:03
+-- Started on 2022-07-22 16:32:36
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -27,7 +27,7 @@ CREATE SCHEMA public;
 
 
 --
--- TOC entry 3604 (class 0 OID 0)
+-- TOC entry 3637 (class 0 OID 0)
 -- Dependencies: 3
 -- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: -
 --
@@ -55,7 +55,9 @@ CREATE TABLE public.akademik (
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
     created_by character varying(100),
-    updated_by character varying(100)
+    updated_by character varying(100),
+    kod_sijil character varying(10),
+    jenis_sijil character varying(100)
 );
 
 
@@ -73,12 +75,52 @@ CREATE SEQUENCE public.akademik_id_seq
 
 
 --
--- TOC entry 3605 (class 0 OID 0)
+-- TOC entry 3638 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: akademik_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.akademik_id_seq OWNED BY public.akademik.id;
+
+
+--
+-- TOC entry 265 (class 1259 OID 54406)
+-- Name: calon; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.calon (
+    id bigint NOT NULL,
+    kumpulan_id integer,
+    nokp character varying,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    created_by character varying(100),
+    updated_by character varying(100),
+    flag integer,
+    delete_id integer
+);
+
+
+--
+-- TOC entry 264 (class 1259 OID 54405)
+-- Name: calon_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.calon_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3639 (class 0 OID 0)
+-- Dependencies: 264
+-- Name: calon_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.calon_id_seq OWNED BY public.calon.id;
 
 
 --
@@ -117,7 +159,7 @@ CREATE SEQUENCE public.cuti_id_seq
 
 
 --
--- TOC entry 3606 (class 0 OID 0)
+-- TOC entry 3640 (class 0 OID 0)
 -- Dependencies: 233
 -- Name: cuti_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -155,7 +197,7 @@ CREATE SEQUENCE public.failed_jobs_id_seq
 
 
 --
--- TOC entry 3607 (class 0 OID 0)
+-- TOC entry 3641 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: failed_jobs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -196,7 +238,7 @@ CREATE SEQUENCE public.harta_id_seq
 
 
 --
--- TOC entry 3608 (class 0 OID 0)
+-- TOC entry 3642 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: harta_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -218,6 +260,46 @@ CREATE TABLE public.jawapan_lnpk (
     created_by character varying(100),
     updated_by character varying(100)
 );
+
+
+--
+-- TOC entry 263 (class 1259 OID 54399)
+-- Name: kumpulan; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.kumpulan (
+    id bigint NOT NULL,
+    name character varying(100),
+    flag integer,
+    delete_id integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    created_by character varying(100),
+    updated_by character varying(100),
+    status character varying
+);
+
+
+--
+-- TOC entry 262 (class 1259 OID 54398)
+-- Name: kumpulan_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.kumpulan_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3643 (class 0 OID 0)
+-- Dependencies: 262
+-- Name: kumpulan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.kumpulan_id_seq OWNED BY public.kumpulan.id;
 
 
 --
@@ -286,7 +368,7 @@ CREATE SEQUENCE public.lnpt_ukp12_id_seq
 
 
 --
--- TOC entry 3609 (class 0 OID 0)
+-- TOC entry 3644 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: lnpt_ukp12_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -321,7 +403,7 @@ CREATE SEQUENCE public.migrations_id_seq
 
 
 --
--- TOC entry 3610 (class 0 OID 0)
+-- TOC entry 3645 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: migrations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -365,7 +447,7 @@ CREATE SEQUENCE public.pasangan_id_seq
 
 
 --
--- TOC entry 3611 (class 0 OID 0)
+-- TOC entry 3646 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: pasangan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -431,12 +513,59 @@ CREATE SEQUENCE public.pemohon_id_seq
 
 
 --
--- TOC entry 3612 (class 0 OID 0)
+-- TOC entry 3647 (class 0 OID 0)
 -- Dependencies: 253
 -- Name: pemohon_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
 ALTER SEQUENCE public.pemohon_id_seq OWNED BY public.pemohon.id;
+
+
+--
+-- TOC entry 260 (class 1259 OID 54343)
+-- Name: penempatan; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.penempatan (
+    id bigint NOT NULL,
+    jawatan character varying(100),
+    gred character varying(10),
+    penempatan character varying(200),
+    kod_jawatan character varying(10),
+    kod_gred character varying(10),
+    kod_waran character varying(20),
+    id_peribadi integer,
+    created_at timestamp without time zone,
+    updated_at timestamp without time zone,
+    created_by character varying,
+    updated_by character varying,
+    unit character varying(100),
+    bahagian character varying(100),
+    cawangan character varying(100),
+    pejabat character varying(100)
+);
+
+
+--
+-- TOC entry 259 (class 1259 OID 54342)
+-- Name: penempatan_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.penempatan_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- TOC entry 3648 (class 0 OID 0)
+-- Dependencies: 259
+-- Name: penempatan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.penempatan_id_seq OWNED BY public.penempatan.id;
 
 
 --
@@ -486,7 +615,7 @@ CREATE SEQUENCE public.penerimaan_ukp11_id_seq
 
 
 --
--- TOC entry 3613 (class 0 OID 0)
+-- TOC entry 3649 (class 0 OID 0)
 -- Dependencies: 257
 -- Name: penerimaan_ukp11_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -535,7 +664,7 @@ CREATE SEQUENCE public.perakuan_pemohon_id_seq
 
 
 --
--- TOC entry 3614 (class 0 OID 0)
+-- TOC entry 3650 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: perakuan_pemohon_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -544,17 +673,30 @@ ALTER SEQUENCE public.perakuan_pemohon_id_seq OWNED BY public.perakuan_pemohon.i
 
 
 --
+-- TOC entry 261 (class 1259 OID 54354)
+-- Name: peribadi_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.peribadi_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
 -- TOC entry 228 (class 1259 OID 54054)
 -- Name: peribadi; Type: TABLE; Schema: public; Owner: -
 --
 
 CREATE TABLE public.peribadi (
-    id integer NOT NULL,
+    id integer DEFAULT nextval('public.peribadi_id_seq'::regclass) NOT NULL,
     users_id integer,
     nokp character varying(12) NOT NULL,
     nokp_lama character varying(14),
-    nama character varying(255) NOT NULL,
-    jantina character varying(50) NOT NULL,
+    nama character varying(255),
+    jantina character varying(50),
     kod_bangsa character varying(5),
     kod_agama character varying(5),
     kod_taraf_perkahwinan character varying(5),
@@ -604,7 +746,11 @@ CREATE TABLE public.peribadi (
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
     created_by character varying(100),
-    updated_by character varying(100)
+    updated_by character varying(100),
+    bangsa character varying(100),
+    agama character varying(100),
+    taraf_perkahwinan character varying(100),
+    negeri_lahir character varying
 );
 
 
@@ -646,7 +792,7 @@ CREATE SEQUENCE public.perkhidmatan_id_seq
 
 
 --
--- TOC entry 3615 (class 0 OID 0)
+-- TOC entry 3651 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: perkhidmatan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -706,7 +852,7 @@ CREATE SEQUENCE public.permissions_id_seq
 
 
 --
--- TOC entry 3616 (class 0 OID 0)
+-- TOC entry 3652 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -722,11 +868,6 @@ ALTER SEQUENCE public.permissions_id_seq OWNED BY public.permissions.id;
 CREATE TABLE public.permohonan_ukp12 (
     id bigint NOT NULL,
     nokp_urusetia character varying(12),
-	jawatan character varying(100),
-    kod_jawatan character varying(50),
-    gred character varying(10),
-    kod_disiplin character varying(50),
-    disiplin character varying(100),
     is_bin integer,
     jenis character varying(10),
     flag integer,
@@ -734,7 +875,12 @@ CREATE TABLE public.permohonan_ukp12 (
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
     created_by character varying(100),
-    updated_by character varying(100)
+    updated_by character varying(100),
+    jawatan character varying(100),
+    kod_jawatan character varying(50),
+    gred character varying(10),
+    kod_disiplin character varying(50),
+    disiplin character varying(100)
 );
 
 
@@ -752,7 +898,7 @@ CREATE SEQUENCE public.permohonan_ukp12_id_seq
 
 
 --
--- TOC entry 3617 (class 0 OID 0)
+-- TOC entry 3653 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: permohonan_ukp12_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -792,7 +938,7 @@ CREATE SEQUENCE public.personal_access_tokens_id_seq
 
 
 --
--- TOC entry 3618 (class 0 OID 0)
+-- TOC entry 3654 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: personal_access_tokens_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -843,7 +989,7 @@ CREATE SEQUENCE public.pinjaman_pendidikan_id_seq
 
 
 --
--- TOC entry 3619 (class 0 OID 0)
+-- TOC entry 3655 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: pinjaman_pendidikan_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -868,7 +1014,9 @@ CREATE TABLE public.professional (
     created_by character varying(100),
     updated_by character varying(100),
     flag integer,
-    delete_id integer
+    delete_id integer,
+    kod_sijil character varying(10),
+    jenis_sijil character varying(100)
 );
 
 
@@ -886,7 +1034,7 @@ CREATE SEQUENCE public.professional_id_seq
 
 
 --
--- TOC entry 3620 (class 0 OID 0)
+-- TOC entry 3656 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: professional_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -935,7 +1083,7 @@ CREATE SEQUENCE public.roles_id_seq
 
 
 --
--- TOC entry 3621 (class 0 OID 0)
+-- TOC entry 3657 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: roles_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -958,7 +1106,9 @@ CREATE TABLE public.sijil_kompeten (
     created_at timestamp(0) without time zone,
     updated_at timestamp(0) without time zone,
     created_by character varying(100),
-    updated_by character varying(100)
+    updated_by character varying(100),
+    kod_sijil character varying(10),
+    jenis_sijil character varying(100)
 );
 
 
@@ -976,7 +1126,7 @@ CREATE SEQUENCE public.sijil_kompeten_id_seq
 
 
 --
--- TOC entry 3622 (class 0 OID 0)
+-- TOC entry 3658 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: sijil_kompeten_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1037,7 +1187,7 @@ CREATE SEQUENCE public.surat_pink_id_seq
 
 
 --
--- TOC entry 3623 (class 0 OID 0)
+-- TOC entry 3659 (class 0 OID 0)
 -- Dependencies: 255
 -- Name: surat_pink_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1079,7 +1229,7 @@ CREATE SEQUENCE public.tatatertib_ukp12_id_seq
 
 
 --
--- TOC entry 3624 (class 0 OID 0)
+-- TOC entry 3660 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: tatatertib_ukp12_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1101,7 +1251,12 @@ CREATE TABLE public.users (
     password character varying(255) NOT NULL,
     remember_token character varying(100),
     created_at timestamp(0) without time zone,
-    updated_at timestamp(0) without time zone
+    updated_at timestamp(0) without time zone,
+    type integer,
+    created_by character varying(100),
+    updated_by character varying(100),
+    flag integer,
+    delete_id integer
 );
 
 
@@ -1119,7 +1274,7 @@ CREATE SEQUENCE public.users_id_seq
 
 
 --
--- TOC entry 3625 (class 0 OID 0)
+-- TOC entry 3661 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
@@ -1128,7 +1283,7 @@ ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
 
 
 --
--- TOC entry 3309 (class 2604 OID 54149)
+-- TOC entry 3326 (class 2604 OID 54149)
 -- Name: akademik id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1136,7 +1291,15 @@ ALTER TABLE ONLY public.akademik ALTER COLUMN id SET DEFAULT nextval('public.aka
 
 
 --
--- TOC entry 3306 (class 2604 OID 54093)
+-- TOC entry 3338 (class 2604 OID 54409)
+-- Name: calon id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.calon ALTER COLUMN id SET DEFAULT nextval('public.calon_id_seq'::regclass);
+
+
+--
+-- TOC entry 3323 (class 2604 OID 54093)
 -- Name: cuti id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1144,7 +1307,7 @@ ALTER TABLE ONLY public.cuti ALTER COLUMN id SET DEFAULT nextval('public.cuti_id
 
 
 --
--- TOC entry 3298 (class 2604 OID 53950)
+-- TOC entry 3314 (class 2604 OID 53950)
 -- Name: failed_jobs id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1152,7 +1315,7 @@ ALTER TABLE ONLY public.failed_jobs ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3307 (class 2604 OID 54114)
+-- TOC entry 3324 (class 2604 OID 54114)
 -- Name: harta id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1160,7 +1323,15 @@ ALTER TABLE ONLY public.harta ALTER COLUMN id SET DEFAULT nextval('public.harta_
 
 
 --
--- TOC entry 3313 (class 2604 OID 54212)
+-- TOC entry 3337 (class 2604 OID 54402)
+-- Name: kumpulan id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kumpulan ALTER COLUMN id SET DEFAULT nextval('public.kumpulan_id_seq'::regclass);
+
+
+--
+-- TOC entry 3330 (class 2604 OID 54212)
 -- Name: lnpt_ukp12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1168,7 +1339,7 @@ ALTER TABLE ONLY public.lnpt_ukp12 ALTER COLUMN id SET DEFAULT nextval('public.l
 
 
 --
--- TOC entry 3296 (class 2604 OID 53924)
+-- TOC entry 3312 (class 2604 OID 53924)
 -- Name: migrations id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1176,7 +1347,7 @@ ALTER TABLE ONLY public.migrations ALTER COLUMN id SET DEFAULT nextval('public.m
 
 
 --
--- TOC entry 3315 (class 2604 OID 54239)
+-- TOC entry 3332 (class 2604 OID 54239)
 -- Name: pasangan id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1184,7 +1355,7 @@ ALTER TABLE ONLY public.pasangan ALTER COLUMN id SET DEFAULT nextval('public.pas
 
 
 --
--- TOC entry 3316 (class 2604 OID 54253)
+-- TOC entry 3333 (class 2604 OID 54253)
 -- Name: pemohon id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1192,7 +1363,15 @@ ALTER TABLE ONLY public.pemohon ALTER COLUMN id SET DEFAULT nextval('public.pemo
 
 
 --
--- TOC entry 3318 (class 2604 OID 54295)
+-- TOC entry 3336 (class 2604 OID 54346)
+-- Name: penempatan id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.penempatan ALTER COLUMN id SET DEFAULT nextval('public.penempatan_id_seq'::regclass);
+
+
+--
+-- TOC entry 3335 (class 2604 OID 54295)
 -- Name: penerimaan_ukp11 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1200,7 +1379,7 @@ ALTER TABLE ONLY public.penerimaan_ukp11 ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3305 (class 2604 OID 54081)
+-- TOC entry 3322 (class 2604 OID 54081)
 -- Name: perakuan_pemohon id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1208,7 +1387,7 @@ ALTER TABLE ONLY public.perakuan_pemohon ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3312 (class 2604 OID 54198)
+-- TOC entry 3329 (class 2604 OID 54198)
 -- Name: perkhidmatan id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1216,7 +1395,7 @@ ALTER TABLE ONLY public.perkhidmatan ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3302 (class 2604 OID 53985)
+-- TOC entry 3318 (class 2604 OID 53985)
 -- Name: permissions id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1224,7 +1403,7 @@ ALTER TABLE ONLY public.permissions ALTER COLUMN id SET DEFAULT nextval('public.
 
 
 --
--- TOC entry 3304 (class 2604 OID 54072)
+-- TOC entry 3321 (class 2604 OID 54072)
 -- Name: permohonan_ukp12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1232,7 +1411,7 @@ ALTER TABLE ONLY public.permohonan_ukp12 ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3300 (class 2604 OID 53962)
+-- TOC entry 3316 (class 2604 OID 53962)
 -- Name: personal_access_tokens id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1240,7 +1419,7 @@ ALTER TABLE ONLY public.personal_access_tokens ALTER COLUMN id SET DEFAULT nextv
 
 
 --
--- TOC entry 3308 (class 2604 OID 54126)
+-- TOC entry 3325 (class 2604 OID 54126)
 -- Name: pinjaman_pendidikan id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1248,7 +1427,7 @@ ALTER TABLE ONLY public.pinjaman_pendidikan ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 3310 (class 2604 OID 54163)
+-- TOC entry 3327 (class 2604 OID 54163)
 -- Name: professional id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1256,7 +1435,7 @@ ALTER TABLE ONLY public.professional ALTER COLUMN id SET DEFAULT nextval('public
 
 
 --
--- TOC entry 3301 (class 2604 OID 53974)
+-- TOC entry 3317 (class 2604 OID 53974)
 -- Name: roles id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1264,7 +1443,7 @@ ALTER TABLE ONLY public.roles ALTER COLUMN id SET DEFAULT nextval('public.roles_
 
 
 --
--- TOC entry 3311 (class 2604 OID 54177)
+-- TOC entry 3328 (class 2604 OID 54177)
 -- Name: sijil_kompeten id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1272,7 +1451,7 @@ ALTER TABLE ONLY public.sijil_kompeten ALTER COLUMN id SET DEFAULT nextval('publ
 
 
 --
--- TOC entry 3317 (class 2604 OID 54272)
+-- TOC entry 3334 (class 2604 OID 54272)
 -- Name: surat_pink id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1280,7 +1459,7 @@ ALTER TABLE ONLY public.surat_pink ALTER COLUMN id SET DEFAULT nextval('public.s
 
 
 --
--- TOC entry 3314 (class 2604 OID 54227)
+-- TOC entry 3331 (class 2604 OID 54227)
 -- Name: tatatertib_ukp12 id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1288,7 +1467,7 @@ ALTER TABLE ONLY public.tatatertib_ukp12 ALTER COLUMN id SET DEFAULT nextval('pu
 
 
 --
--- TOC entry 3297 (class 2604 OID 53931)
+-- TOC entry 3313 (class 2604 OID 53931)
 -- Name: users id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -1296,7 +1475,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3580 (class 0 OID 54146)
+-- TOC entry 3606 (class 0 OID 54146)
 -- Dependencies: 240
 -- Data for Name: akademik; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1304,7 +1483,15 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3574 (class 0 OID 54090)
+-- TOC entry 3631 (class 0 OID 54406)
+-- Dependencies: 265
+-- Data for Name: calon; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
+-- TOC entry 3600 (class 0 OID 54090)
 -- Dependencies: 234
 -- Data for Name: cuti; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1312,7 +1499,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3555 (class 0 OID 53947)
+-- TOC entry 3581 (class 0 OID 53947)
 -- Dependencies: 215
 -- Data for Name: failed_jobs; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1320,7 +1507,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3576 (class 0 OID 54111)
+-- TOC entry 3602 (class 0 OID 54111)
 -- Dependencies: 236
 -- Data for Name: harta; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1328,7 +1515,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3567 (class 0 OID 54041)
+-- TOC entry 3593 (class 0 OID 54041)
 -- Dependencies: 227
 -- Data for Name: jawapan_lnpk; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1336,7 +1523,15 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3566 (class 0 OID 54034)
+-- TOC entry 3629 (class 0 OID 54399)
+-- Dependencies: 263
+-- Data for Name: kumpulan; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+
+
+--
+-- TOC entry 3592 (class 0 OID 54034)
 -- Dependencies: 226
 -- Data for Name: lnpk; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1344,7 +1539,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3588 (class 0 OID 54209)
+-- TOC entry 3614 (class 0 OID 54209)
 -- Dependencies: 248
 -- Data for Name: lnpt_ukp12; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1352,7 +1547,7 @@ ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_
 
 
 --
--- TOC entry 3550 (class 0 OID 53921)
+-- TOC entry 3576 (class 0 OID 53921)
 -- Dependencies: 210
 -- Data for Name: migrations; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1365,7 +1560,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3592 (class 0 OID 54236)
+-- TOC entry 3618 (class 0 OID 54236)
 -- Dependencies: 252
 -- Data for Name: pasangan; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1373,7 +1568,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3553 (class 0 OID 53940)
+-- TOC entry 3579 (class 0 OID 53940)
 -- Dependencies: 213
 -- Data for Name: password_resets; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1381,7 +1576,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3594 (class 0 OID 54250)
+-- TOC entry 3620 (class 0 OID 54250)
 -- Dependencies: 254
 -- Data for Name: pemohon; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1389,7 +1584,16 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3598 (class 0 OID 54292)
+-- TOC entry 3626 (class 0 OID 54343)
+-- Dependencies: 260
+-- Data for Name: penempatan; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+INSERT INTO public.penempatan VALUES (1, 'PEN. PEGAWAI TEKNOLOGI MAKLUMAT', 'FA29', NULL, 'BF001', 'FA29', '020307080000', 3, '2022-07-13 04:05:28', '2022-07-13 04:05:28', 'MYKJ', 'MYKJ', 'Unit Sistem Aplikasi', 'Bahagian Teknologi Maklumat', 'Cawangan Dasar dan Pengurusan Korporat', 'Ibu Pejabat JKR Malaysia');
+
+
+--
+-- TOC entry 3624 (class 0 OID 54292)
 -- Dependencies: 258
 -- Data for Name: penerimaan_ukp11; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1397,7 +1601,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3572 (class 0 OID 54078)
+-- TOC entry 3598 (class 0 OID 54078)
 -- Dependencies: 232
 -- Data for Name: perakuan_pemohon; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1405,15 +1609,18 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3568 (class 0 OID 54054)
+-- TOC entry 3594 (class 0 OID 54054)
 -- Dependencies: 228
 -- Data for Name: peribadi; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.peribadi VALUES (3, 3, '860211335522', NULL, 'NORLINDA IRDAYU BINTI YAACOB', 'P', 'M', 'I', 'KA', 'Y', '06', 'B', 'B', '', '0173944945', 'norlindairdayu@jkr.gov.my', 'foto/860211335522.jpg', '', NULL, '', 'O', '', '', '0', '1986', NULL, '1', '55100', 'blok c-12-7 kkka jalan cochrane', 'Kuala Lumpur', '', 'K', '14', '1986-02-11 00:00:00', '1986 ', NULL, '0001-01-01 00:00:00', NULL, '0001-01-01 00:00:00', 1, 'BAHAGIAN TEKNOLOGI MAKLUMAT
+TINGKAT 14, BLOK F
+IBU PEJABAT JKR MALAYSIA', '0326108511', '', 'F', NULL, NULL, NULL, '0001-01-01 00:00:00', NULL, '@yahoo.com', 1, 0, '2022-07-13 04:05:28', '2022-07-13 04:05:28', 'MYKJ', 'MYKJ', 'MELAYU', 'ISLAM', 'KAHWIN', 'Pahang');
 
 
 --
--- TOC entry 3586 (class 0 OID 54195)
+-- TOC entry 3612 (class 0 OID 54195)
 -- Dependencies: 246
 -- Data for Name: perkhidmatan; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1421,7 +1628,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3564 (class 0 OID 54012)
+-- TOC entry 3590 (class 0 OID 54012)
 -- Dependencies: 224
 -- Data for Name: permission_role; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1429,7 +1636,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3563 (class 0 OID 54002)
+-- TOC entry 3589 (class 0 OID 54002)
 -- Dependencies: 223
 -- Data for Name: permission_user; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1437,7 +1644,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3561 (class 0 OID 53982)
+-- TOC entry 3587 (class 0 OID 53982)
 -- Dependencies: 221
 -- Data for Name: permissions; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1445,7 +1652,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3570 (class 0 OID 54069)
+-- TOC entry 3596 (class 0 OID 54069)
 -- Dependencies: 230
 -- Data for Name: permohonan_ukp12; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1453,7 +1660,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3557 (class 0 OID 53959)
+-- TOC entry 3583 (class 0 OID 53959)
 -- Dependencies: 217
 -- Data for Name: personal_access_tokens; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1461,7 +1668,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3578 (class 0 OID 54123)
+-- TOC entry 3604 (class 0 OID 54123)
 -- Dependencies: 238
 -- Data for Name: pinjaman_pendidikan; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1469,7 +1676,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3582 (class 0 OID 54160)
+-- TOC entry 3608 (class 0 OID 54160)
 -- Dependencies: 242
 -- Data for Name: professional; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1477,23 +1684,31 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3562 (class 0 OID 53992)
+-- TOC entry 3588 (class 0 OID 53992)
 -- Dependencies: 222
 -- Data for Name: role_user; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.role_user VALUES (1, 2, 'vendor');
 
 
 --
--- TOC entry 3559 (class 0 OID 53971)
+-- TOC entry 3585 (class 0 OID 53971)
 -- Dependencies: 219
 -- Data for Name: roles; Type: TABLE DATA; Schema: public; Owner: -
 --
 
+INSERT INTO public.roles VALUES (1, 'superadmin', 'Pentadbir Sistem', 'Super Administrator', NULL, NULL);
+INSERT INTO public.roles VALUES (3, 'secretariat', 'BPSM', 'Urus setia Proses', NULL, NULL);
+INSERT INTO public.roles VALUES (4, 'coordinator', 'BPSK', 'Penyelaras Lantikan', NULL, NULL);
+INSERT INTO public.roles VALUES (5, 'clerk', 'Kerani Perkhidmatan', 'Kerani Pengesahan Maklumat', NULL, NULL);
+INSERT INTO public.roles VALUES (6, 'hod', 'Ketua Bahagian / Jabatan', 'Ketua Memberi Perakuan', NULL, NULL);
+INSERT INTO public.roles VALUES (7, 'supervisor', 'Pegawai Penyelia', 'Pegawai Menyelia Pemohom', NULL, NULL);
+INSERT INTO public.roles VALUES (2, 'user', 'Pengguna', 'Pengguna Biasa (Normal User)', NULL, NULL);
 
 
 --
--- TOC entry 3584 (class 0 OID 54174)
+-- TOC entry 3610 (class 0 OID 54174)
 -- Dependencies: 244
 -- Data for Name: sijil_kompeten; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1501,7 +1716,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3565 (class 0 OID 54027)
+-- TOC entry 3591 (class 0 OID 54027)
 -- Dependencies: 225
 -- Data for Name: soalan_lnpk; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1509,7 +1724,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3596 (class 0 OID 54269)
+-- TOC entry 3622 (class 0 OID 54269)
 -- Dependencies: 256
 -- Data for Name: surat_pink; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1517,7 +1732,7 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3590 (class 0 OID 54224)
+-- TOC entry 3616 (class 0 OID 54224)
 -- Dependencies: 250
 -- Data for Name: tatatertib_ukp12; Type: TABLE DATA; Schema: public; Owner: -
 --
@@ -1525,16 +1740,17 @@ INSERT INTO public.migrations VALUES (5, '2022_06_24_014613_laratrust_setup_tabl
 
 
 --
--- TOC entry 3552 (class 0 OID 53928)
+-- TOC entry 3578 (class 0 OID 53928)
 -- Dependencies: 212
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-INSERT INTO public.users VALUES (2, 'superadmin', '900919099999', 'rubmin@gmail.com', NULL, '$2y$10$1wXnNa1sZGCdgg8/0qaov.PE3p2vXX/ecXLtOEWplB2rJ2tja7AEa', NULL, '2022-06-27 04:07:23', '2022-06-27 04:07:23');
+INSERT INTO public.users VALUES (2, 'superadmin', '900919099999', 'rubmin@gmail.com', NULL, '$2y$10$1wXnNa1sZGCdgg8/0qaov.PE3p2vXX/ecXLtOEWplB2rJ2tja7AEa', NULL, '2022-06-27 04:07:23', '2022-06-27 04:07:23', 0, NULL, NULL, NULL, NULL);
+INSERT INTO public.users VALUES (3, 'NORLINDA IRDAYU BINTI YAACOB', '860211335522', 'norlindairdayu@jkr.gov.my', NULL, '$2y$10$irxfM2VUfhnx3rSl2I2mUeBnL8IJi58Zs.6gTkzCeldqGX3cz3hJG', NULL, '2022-07-13 03:25:16', '2022-07-13 03:25:16', 1, 'MYKJ', NULL, 1, 0);
 
 
 --
--- TOC entry 3626 (class 0 OID 0)
+-- TOC entry 3662 (class 0 OID 0)
 -- Dependencies: 239
 -- Name: akademik_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1543,7 +1759,16 @@ SELECT pg_catalog.setval('public.akademik_id_seq', 1, false);
 
 
 --
--- TOC entry 3627 (class 0 OID 0)
+-- TOC entry 3663 (class 0 OID 0)
+-- Dependencies: 264
+-- Name: calon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.calon_id_seq', 1, false);
+
+
+--
+-- TOC entry 3664 (class 0 OID 0)
 -- Dependencies: 233
 -- Name: cuti_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1552,7 +1777,7 @@ SELECT pg_catalog.setval('public.cuti_id_seq', 1, false);
 
 
 --
--- TOC entry 3628 (class 0 OID 0)
+-- TOC entry 3665 (class 0 OID 0)
 -- Dependencies: 214
 -- Name: failed_jobs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1561,7 +1786,7 @@ SELECT pg_catalog.setval('public.failed_jobs_id_seq', 1, false);
 
 
 --
--- TOC entry 3629 (class 0 OID 0)
+-- TOC entry 3666 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: harta_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1570,7 +1795,16 @@ SELECT pg_catalog.setval('public.harta_id_seq', 1, false);
 
 
 --
--- TOC entry 3630 (class 0 OID 0)
+-- TOC entry 3667 (class 0 OID 0)
+-- Dependencies: 262
+-- Name: kumpulan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.kumpulan_id_seq', 1, false);
+
+
+--
+-- TOC entry 3668 (class 0 OID 0)
 -- Dependencies: 247
 -- Name: lnpt_ukp12_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1579,7 +1813,7 @@ SELECT pg_catalog.setval('public.lnpt_ukp12_id_seq', 1, false);
 
 
 --
--- TOC entry 3631 (class 0 OID 0)
+-- TOC entry 3669 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1588,7 +1822,7 @@ SELECT pg_catalog.setval('public.migrations_id_seq', 5, true);
 
 
 --
--- TOC entry 3632 (class 0 OID 0)
+-- TOC entry 3670 (class 0 OID 0)
 -- Dependencies: 251
 -- Name: pasangan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1597,7 +1831,7 @@ SELECT pg_catalog.setval('public.pasangan_id_seq', 1, false);
 
 
 --
--- TOC entry 3633 (class 0 OID 0)
+-- TOC entry 3671 (class 0 OID 0)
 -- Dependencies: 253
 -- Name: pemohon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1606,7 +1840,16 @@ SELECT pg_catalog.setval('public.pemohon_id_seq', 1, false);
 
 
 --
--- TOC entry 3634 (class 0 OID 0)
+-- TOC entry 3672 (class 0 OID 0)
+-- Dependencies: 259
+-- Name: penempatan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.penempatan_id_seq', 1, true);
+
+
+--
+-- TOC entry 3673 (class 0 OID 0)
 -- Dependencies: 257
 -- Name: penerimaan_ukp11_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1615,7 +1858,7 @@ SELECT pg_catalog.setval('public.penerimaan_ukp11_id_seq', 1, false);
 
 
 --
--- TOC entry 3635 (class 0 OID 0)
+-- TOC entry 3674 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: perakuan_pemohon_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1624,7 +1867,16 @@ SELECT pg_catalog.setval('public.perakuan_pemohon_id_seq', 1, false);
 
 
 --
--- TOC entry 3636 (class 0 OID 0)
+-- TOC entry 3675 (class 0 OID 0)
+-- Dependencies: 261
+-- Name: peribadi_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.peribadi_id_seq', 3, true);
+
+
+--
+-- TOC entry 3676 (class 0 OID 0)
 -- Dependencies: 245
 -- Name: perkhidmatan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1633,7 +1885,7 @@ SELECT pg_catalog.setval('public.perkhidmatan_id_seq', 1, false);
 
 
 --
--- TOC entry 3637 (class 0 OID 0)
+-- TOC entry 3677 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1642,7 +1894,7 @@ SELECT pg_catalog.setval('public.permissions_id_seq', 1, false);
 
 
 --
--- TOC entry 3638 (class 0 OID 0)
+-- TOC entry 3678 (class 0 OID 0)
 -- Dependencies: 229
 -- Name: permohonan_ukp12_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1651,7 +1903,7 @@ SELECT pg_catalog.setval('public.permohonan_ukp12_id_seq', 1, false);
 
 
 --
--- TOC entry 3639 (class 0 OID 0)
+-- TOC entry 3679 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: personal_access_tokens_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1660,7 +1912,7 @@ SELECT pg_catalog.setval('public.personal_access_tokens_id_seq', 1, false);
 
 
 --
--- TOC entry 3640 (class 0 OID 0)
+-- TOC entry 3680 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: pinjaman_pendidikan_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1669,7 +1921,7 @@ SELECT pg_catalog.setval('public.pinjaman_pendidikan_id_seq', 1, false);
 
 
 --
--- TOC entry 3641 (class 0 OID 0)
+-- TOC entry 3681 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: professional_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1678,16 +1930,16 @@ SELECT pg_catalog.setval('public.professional_id_seq', 1, false);
 
 
 --
--- TOC entry 3642 (class 0 OID 0)
+-- TOC entry 3682 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: roles_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.roles_id_seq', 1, false);
+SELECT pg_catalog.setval('public.roles_id_seq', 7, true);
 
 
 --
--- TOC entry 3643 (class 0 OID 0)
+-- TOC entry 3683 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: sijil_kompeten_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1696,7 +1948,7 @@ SELECT pg_catalog.setval('public.sijil_kompeten_id_seq', 1, false);
 
 
 --
--- TOC entry 3644 (class 0 OID 0)
+-- TOC entry 3684 (class 0 OID 0)
 -- Dependencies: 255
 -- Name: surat_pink_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1705,7 +1957,7 @@ SELECT pg_catalog.setval('public.surat_pink_id_seq', 1, false);
 
 
 --
--- TOC entry 3645 (class 0 OID 0)
+-- TOC entry 3685 (class 0 OID 0)
 -- Dependencies: 249
 -- Name: tatatertib_ukp12_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
@@ -1714,16 +1966,16 @@ SELECT pg_catalog.setval('public.tatatertib_ukp12_id_seq', 1, false);
 
 
 --
--- TOC entry 3646 (class 0 OID 0)
+-- TOC entry 3686 (class 0 OID 0)
 -- Dependencies: 211
 -- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.users_id_seq', 2, true);
+SELECT pg_catalog.setval('public.users_id_seq', 3, true);
 
 
 --
--- TOC entry 3368 (class 2606 OID 54153)
+-- TOC entry 3388 (class 2606 OID 54153)
 -- Name: akademik akademik_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1732,7 +1984,7 @@ ALTER TABLE ONLY public.akademik
 
 
 --
--- TOC entry 3362 (class 2606 OID 54097)
+-- TOC entry 3382 (class 2606 OID 54097)
 -- Name: cuti cuti_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1741,7 +1993,7 @@ ALTER TABLE ONLY public.cuti
 
 
 --
--- TOC entry 3329 (class 2606 OID 53955)
+-- TOC entry 3349 (class 2606 OID 53955)
 -- Name: failed_jobs failed_jobs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1750,7 +2002,7 @@ ALTER TABLE ONLY public.failed_jobs
 
 
 --
--- TOC entry 3331 (class 2606 OID 53957)
+-- TOC entry 3351 (class 2606 OID 53957)
 -- Name: failed_jobs failed_jobs_uuid_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1759,7 +2011,7 @@ ALTER TABLE ONLY public.failed_jobs
 
 
 --
--- TOC entry 3364 (class 2606 OID 54116)
+-- TOC entry 3384 (class 2606 OID 54116)
 -- Name: harta harta_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1768,7 +2020,16 @@ ALTER TABLE ONLY public.harta
 
 
 --
--- TOC entry 3354 (class 2606 OID 54040)
+-- TOC entry 3408 (class 2606 OID 54404)
+-- Name: kumpulan kumpulan_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.kumpulan
+    ADD CONSTRAINT kumpulan_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3374 (class 2606 OID 54040)
 -- Name: lnpk lnpk_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1777,7 +2038,7 @@ ALTER TABLE ONLY public.lnpk
 
 
 --
--- TOC entry 3376 (class 2606 OID 54216)
+-- TOC entry 3396 (class 2606 OID 54216)
 -- Name: lnpt_ukp12 lnpt_ukp12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1786,7 +2047,7 @@ ALTER TABLE ONLY public.lnpt_ukp12
 
 
 --
--- TOC entry 3320 (class 2606 OID 53926)
+-- TOC entry 3340 (class 2606 OID 53926)
 -- Name: migrations migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1795,7 +2056,16 @@ ALTER TABLE ONLY public.migrations
 
 
 --
--- TOC entry 3380 (class 2606 OID 54243)
+-- TOC entry 3410 (class 2606 OID 54413)
+-- Name: calon newtable_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.calon
+    ADD CONSTRAINT newtable_pk PRIMARY KEY (id);
+
+
+--
+-- TOC entry 3400 (class 2606 OID 54243)
 -- Name: pasangan pasangan_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1804,7 +2074,7 @@ ALTER TABLE ONLY public.pasangan
 
 
 --
--- TOC entry 3382 (class 2606 OID 54257)
+-- TOC entry 3402 (class 2606 OID 54257)
 -- Name: pemohon pemohon_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1813,7 +2083,7 @@ ALTER TABLE ONLY public.pemohon
 
 
 --
--- TOC entry 3386 (class 2606 OID 54299)
+-- TOC entry 3406 (class 2606 OID 54299)
 -- Name: penerimaan_ukp11 penerimaan_ukp_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1822,7 +2092,7 @@ ALTER TABLE ONLY public.penerimaan_ukp11
 
 
 --
--- TOC entry 3360 (class 2606 OID 54083)
+-- TOC entry 3380 (class 2606 OID 54083)
 -- Name: perakuan_pemohon perakuan_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1831,7 +2101,7 @@ ALTER TABLE ONLY public.perakuan_pemohon
 
 
 --
--- TOC entry 3356 (class 2606 OID 54061)
+-- TOC entry 3376 (class 2606 OID 54356)
 -- Name: peribadi peribadi_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1840,7 +2110,7 @@ ALTER TABLE ONLY public.peribadi
 
 
 --
--- TOC entry 3374 (class 2606 OID 54202)
+-- TOC entry 3394 (class 2606 OID 54202)
 -- Name: perkhidmatan perkhidmatan_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1849,7 +2119,7 @@ ALTER TABLE ONLY public.perkhidmatan
 
 
 --
--- TOC entry 3350 (class 2606 OID 54026)
+-- TOC entry 3370 (class 2606 OID 54026)
 -- Name: permission_role permission_role_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1858,7 +2128,7 @@ ALTER TABLE ONLY public.permission_role
 
 
 --
--- TOC entry 3348 (class 2606 OID 54011)
+-- TOC entry 3368 (class 2606 OID 54011)
 -- Name: permission_user permission_user_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1867,7 +2137,7 @@ ALTER TABLE ONLY public.permission_user
 
 
 --
--- TOC entry 3342 (class 2606 OID 53991)
+-- TOC entry 3362 (class 2606 OID 53991)
 -- Name: permissions permissions_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1876,7 +2146,7 @@ ALTER TABLE ONLY public.permissions
 
 
 --
--- TOC entry 3344 (class 2606 OID 53989)
+-- TOC entry 3364 (class 2606 OID 53989)
 -- Name: permissions permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1885,7 +2155,7 @@ ALTER TABLE ONLY public.permissions
 
 
 --
--- TOC entry 3358 (class 2606 OID 54076)
+-- TOC entry 3378 (class 2606 OID 54076)
 -- Name: permohonan_ukp12 permohonan_ukp12_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1894,7 +2164,7 @@ ALTER TABLE ONLY public.permohonan_ukp12
 
 
 --
--- TOC entry 3333 (class 2606 OID 53966)
+-- TOC entry 3353 (class 2606 OID 53966)
 -- Name: personal_access_tokens personal_access_tokens_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1903,7 +2173,7 @@ ALTER TABLE ONLY public.personal_access_tokens
 
 
 --
--- TOC entry 3335 (class 2606 OID 53969)
+-- TOC entry 3355 (class 2606 OID 53969)
 -- Name: personal_access_tokens personal_access_tokens_token_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1912,7 +2182,7 @@ ALTER TABLE ONLY public.personal_access_tokens
 
 
 --
--- TOC entry 3366 (class 2606 OID 54130)
+-- TOC entry 3386 (class 2606 OID 54130)
 -- Name: pinjaman_pendidikan pinjaman_pendidikan_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1921,7 +2191,7 @@ ALTER TABLE ONLY public.pinjaman_pendidikan
 
 
 --
--- TOC entry 3370 (class 2606 OID 54167)
+-- TOC entry 3390 (class 2606 OID 54167)
 -- Name: professional professional_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1930,7 +2200,7 @@ ALTER TABLE ONLY public.professional
 
 
 --
--- TOC entry 3346 (class 2606 OID 54001)
+-- TOC entry 3366 (class 2606 OID 54001)
 -- Name: role_user role_user_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1939,7 +2209,7 @@ ALTER TABLE ONLY public.role_user
 
 
 --
--- TOC entry 3338 (class 2606 OID 53980)
+-- TOC entry 3358 (class 2606 OID 53980)
 -- Name: roles roles_name_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1948,7 +2218,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- TOC entry 3340 (class 2606 OID 53978)
+-- TOC entry 3360 (class 2606 OID 53978)
 -- Name: roles roles_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1957,7 +2227,7 @@ ALTER TABLE ONLY public.roles
 
 
 --
--- TOC entry 3372 (class 2606 OID 54179)
+-- TOC entry 3392 (class 2606 OID 54179)
 -- Name: sijil_kompeten sijil_kompeten_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1966,7 +2236,7 @@ ALTER TABLE ONLY public.sijil_kompeten
 
 
 --
--- TOC entry 3352 (class 2606 OID 54033)
+-- TOC entry 3372 (class 2606 OID 54033)
 -- Name: soalan_lnpk soalan_lnpk_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1975,7 +2245,7 @@ ALTER TABLE ONLY public.soalan_lnpk
 
 
 --
--- TOC entry 3384 (class 2606 OID 54276)
+-- TOC entry 3404 (class 2606 OID 54276)
 -- Name: surat_pink surat_pink_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1984,7 +2254,7 @@ ALTER TABLE ONLY public.surat_pink
 
 
 --
--- TOC entry 3378 (class 2606 OID 54229)
+-- TOC entry 3398 (class 2606 OID 54229)
 -- Name: tatatertib_ukp12 tatatertib_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -1993,7 +2263,7 @@ ALTER TABLE ONLY public.tatatertib_ukp12
 
 
 --
--- TOC entry 3322 (class 2606 OID 53939)
+-- TOC entry 3342 (class 2606 OID 53939)
 -- Name: users users_email_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2002,7 +2272,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3324 (class 2606 OID 53937)
+-- TOC entry 3344 (class 2606 OID 53937)
 -- Name: users users_nokp_unique; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2011,7 +2281,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3326 (class 2606 OID 53935)
+-- TOC entry 3346 (class 2606 OID 53935)
 -- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2020,7 +2290,7 @@ ALTER TABLE ONLY public.users
 
 
 --
--- TOC entry 3327 (class 1259 OID 53945)
+-- TOC entry 3347 (class 1259 OID 53945)
 -- Name: password_resets_email_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2028,7 +2298,7 @@ CREATE INDEX password_resets_email_index ON public.password_resets USING btree (
 
 
 --
--- TOC entry 3336 (class 1259 OID 53967)
+-- TOC entry 3356 (class 1259 OID 53967)
 -- Name: personal_access_tokens_tokenable_type_tokenable_id_index; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -2036,7 +2306,7 @@ CREATE INDEX personal_access_tokens_tokenable_type_tokenable_id_index ON public.
 
 
 --
--- TOC entry 3398 (class 2606 OID 54154)
+-- TOC entry 3422 (class 2606 OID 54362)
 -- Name: akademik akademik_id_peribadi; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2045,7 +2315,16 @@ ALTER TABLE ONLY public.akademik
 
 
 --
--- TOC entry 3395 (class 2606 OID 54310)
+-- TOC entry 3435 (class 2606 OID 54414)
+-- Name: calon calon_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.calon
+    ADD CONSTRAINT calon_fk FOREIGN KEY (kumpulan_id) REFERENCES public.kumpulan(id);
+
+
+--
+-- TOC entry 3419 (class 2606 OID 54310)
 -- Name: cuti cuti_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2054,7 +2333,7 @@ ALTER TABLE ONLY public.cuti
 
 
 --
--- TOC entry 3396 (class 2606 OID 54117)
+-- TOC entry 3420 (class 2606 OID 54357)
 -- Name: harta harta_id_peribadi; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2063,7 +2342,7 @@ ALTER TABLE ONLY public.harta
 
 
 --
--- TOC entry 3391 (class 2606 OID 54044)
+-- TOC entry 3415 (class 2606 OID 54044)
 -- Name: jawapan_lnpk jawapan_lnpk_id_lnpk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2072,7 +2351,7 @@ ALTER TABLE ONLY public.jawapan_lnpk
 
 
 --
--- TOC entry 3392 (class 2606 OID 54049)
+-- TOC entry 3416 (class 2606 OID 54049)
 -- Name: jawapan_lnpk jawapan_lnpk_id_soalan; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2081,7 +2360,7 @@ ALTER TABLE ONLY public.jawapan_lnpk
 
 
 --
--- TOC entry 3402 (class 2606 OID 54330)
+-- TOC entry 3426 (class 2606 OID 54330)
 -- Name: lnpt_ukp12 lnpt_ukp12_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2090,7 +2369,7 @@ ALTER TABLE ONLY public.lnpt_ukp12
 
 
 --
--- TOC entry 3404 (class 2606 OID 54244)
+-- TOC entry 3428 (class 2606 OID 54382)
 -- Name: pasangan pasangan_id_peribadi; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2099,7 +2378,7 @@ ALTER TABLE ONLY public.pasangan
 
 
 --
--- TOC entry 3406 (class 2606 OID 54263)
+-- TOC entry 3430 (class 2606 OID 54387)
 -- Name: pemohon pemohon_id_peribadi; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2108,7 +2387,7 @@ ALTER TABLE ONLY public.pemohon
 
 
 --
--- TOC entry 3405 (class 2606 OID 54258)
+-- TOC entry 3429 (class 2606 OID 54258)
 -- Name: pemohon pemohon_id_permohonan; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2117,7 +2396,16 @@ ALTER TABLE ONLY public.pemohon
 
 
 --
--- TOC entry 3408 (class 2606 OID 54300)
+-- TOC entry 3434 (class 2606 OID 54392)
+-- Name: penempatan penempatan_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.penempatan
+    ADD CONSTRAINT penempatan_fk FOREIGN KEY (id_peribadi) REFERENCES public.peribadi(id);
+
+
+--
+-- TOC entry 3432 (class 2606 OID 54300)
 -- Name: penerimaan_ukp11 penerimaa_ukp_id_pemohon; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2126,7 +2414,7 @@ ALTER TABLE ONLY public.penerimaan_ukp11
 
 
 --
--- TOC entry 3409 (class 2606 OID 54305)
+-- TOC entry 3433 (class 2606 OID 54305)
 -- Name: penerimaan_ukp11 penerimaan_ukp_id_surat_pink; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2135,7 +2423,7 @@ ALTER TABLE ONLY public.penerimaan_ukp11
 
 
 --
--- TOC entry 3394 (class 2606 OID 54315)
+-- TOC entry 3418 (class 2606 OID 54315)
 -- Name: perakuan_pemohon perakuan_pemohon_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2144,7 +2432,7 @@ ALTER TABLE ONLY public.perakuan_pemohon
 
 
 --
--- TOC entry 3393 (class 2606 OID 54062)
+-- TOC entry 3417 (class 2606 OID 54062)
 -- Name: peribadi peribadi_users_id; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2153,7 +2441,7 @@ ALTER TABLE ONLY public.peribadi
 
 
 --
--- TOC entry 3401 (class 2606 OID 54203)
+-- TOC entry 3425 (class 2606 OID 54377)
 -- Name: perkhidmatan perkhidmatan_id_peribadi; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2162,7 +2450,7 @@ ALTER TABLE ONLY public.perkhidmatan
 
 
 --
--- TOC entry 3389 (class 2606 OID 54015)
+-- TOC entry 3413 (class 2606 OID 54015)
 -- Name: permission_role permission_role_permission_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2171,7 +2459,7 @@ ALTER TABLE ONLY public.permission_role
 
 
 --
--- TOC entry 3390 (class 2606 OID 54020)
+-- TOC entry 3414 (class 2606 OID 54020)
 -- Name: permission_role permission_role_role_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2180,7 +2468,7 @@ ALTER TABLE ONLY public.permission_role
 
 
 --
--- TOC entry 3388 (class 2606 OID 54005)
+-- TOC entry 3412 (class 2606 OID 54005)
 -- Name: permission_user permission_user_permission_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2189,7 +2477,7 @@ ALTER TABLE ONLY public.permission_user
 
 
 --
--- TOC entry 3397 (class 2606 OID 54320)
+-- TOC entry 3421 (class 2606 OID 54320)
 -- Name: pinjaman_pendidikan pinjaman_pendidikan_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2198,7 +2486,7 @@ ALTER TABLE ONLY public.pinjaman_pendidikan
 
 
 --
--- TOC entry 3399 (class 2606 OID 54168)
+-- TOC entry 3423 (class 2606 OID 54367)
 -- Name: professional professional_id_peribadi; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2207,7 +2495,7 @@ ALTER TABLE ONLY public.professional
 
 
 --
--- TOC entry 3387 (class 2606 OID 53995)
+-- TOC entry 3411 (class 2606 OID 53995)
 -- Name: role_user role_user_role_id_foreign; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2216,7 +2504,7 @@ ALTER TABLE ONLY public.role_user
 
 
 --
--- TOC entry 3400 (class 2606 OID 54180)
+-- TOC entry 3424 (class 2606 OID 54372)
 -- Name: sijil_kompeten sijil_kompeten_id_peribadi; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2225,7 +2513,7 @@ ALTER TABLE ONLY public.sijil_kompeten
 
 
 --
--- TOC entry 3407 (class 2606 OID 54277)
+-- TOC entry 3431 (class 2606 OID 54277)
 -- Name: surat_pink suratpink_id_permohonan; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2234,7 +2522,7 @@ ALTER TABLE ONLY public.surat_pink
 
 
 --
--- TOC entry 3403 (class 2606 OID 54325)
+-- TOC entry 3427 (class 2606 OID 54325)
 -- Name: tatatertib_ukp12 tatatertib_ukp12_fk; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -2242,7 +2530,7 @@ ALTER TABLE ONLY public.tatatertib_ukp12
     ADD CONSTRAINT tatatertib_ukp12_fk FOREIGN KEY (id_pemohon) REFERENCES public.pemohon(id);
 
 
--- Completed on 2022-06-30 16:33:06
+-- Completed on 2022-07-22 16:32:38
 
 --
 -- PostgreSQL database dump complete

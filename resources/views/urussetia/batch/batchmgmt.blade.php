@@ -1,7 +1,9 @@
 @extends('layouts.main')
 
 @section('customCss')
+@include('web.sweet-alert-css')
 @include('web.datatable-css')
+<link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/select/select2.min.css')}}">
 @endsection
 
 @section('content')
@@ -16,7 +18,7 @@
                         </li>
                         <li class="breadcrumb-item">BPSM
                         </li>
-                        <li class="breadcrumb-item active"><a href="#">Pengurusan\n Kumpulan</a>
+                        <li class="breadcrumb-item active"><a href="#">Pengurusan Kumpulan</a>
                         </li>
                     </ol>
                 </div>
@@ -29,7 +31,7 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <table class="datatables table table-user">
+                <table class="datatables table table-kumpulan">
                     <thead>
                         <tr>
                             <th>nama</th>
@@ -43,9 +45,14 @@
     </section>
 </div>
 <input type="hidden" id="_token" class="_token" name="_token" value="{{csrf_token()}}">
+@include('urussetia.batch.modal')
 @endsection
 
 @section('customJs')
 @include('web.datatable-js')
+@include('web.sweet-alert-js')
+<script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
+<script src="{{asset('local/batchmgmt/js/page_setting.js')}}"></script>
 <script src="{{asset('local/batchmgmt/js/datatable.js')}}"></script>
+<script src="{{asset('local/batchmgmt/js/index.js')}}"></script>
 @endsection

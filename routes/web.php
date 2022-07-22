@@ -48,7 +48,12 @@ Route::prefix('/admin')->group(function() {
 Route::prefix('/urussetia')->group(function() {
     Route::prefix('/kumpulan')->group(function() {
         Route::get('/', [BatchMgmtController::class,'index']);
-        Route::get('/senrai',[BatchMgmtController::class,]);
+        Route::get('/senarai',[BatchMgmtController::class,'senarai']);
+        Route::get('/staff',[BatchMgmtController::class,'senarai_pegawai']);
+        Route::get('/carian',[BatchMgmtController::class,'carian_pegawai']);
+        Route::post('/simpan',[BatchMgmtController::class,'save_batch']);
+        Route::post('/calon',[BatchMgmtController::class,'senarai_calon']);
+        Route::post('/papar',[BatchMgmtController::class,'load_kumpulan']);
     });
 });
 
@@ -60,3 +65,4 @@ Route::prefix('/common')->group(function () {
 // test api
 Route::get('/api/test/query', [QueryController::class, 'testQuery']);
 Route::get('/api/func/test',[FunctionController::class, 'func']);
+Route::get('/api/test/req',[FunctionController::class, 'req']);

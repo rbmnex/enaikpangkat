@@ -62,4 +62,11 @@ class FunctionController extends Controller
          return json_encode($model);
 
     }
+
+    public function req(Request $request) {
+        return response()->json([
+            'success' => 1,
+            'data' => []
+        ]);
+    }
 }
