@@ -1,0 +1,49 @@
+<div id="peribadi-vertical" class="content">
+    <div class="content-header">
+        <h5 class="mb-0">Butiran Peribadi</h5>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label class="form-label" for="vertical-username">Nama</label>
+            <input type="text" id="vertical-username" name="nama" class="form-control" placeholder="" />
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-label" for="vertical-email">No Kad Pengenalan (Lama)</label>
+            <input type="text" id="vertical-email" name="nokp_lama" class="form-control" placeholder=""  />
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-label" for="vertical-email">No Kad Pengenalan (Baru)</label>
+            <input type="number" id="vertical-email" nama="nokp" class="form-control" placeholder=""  />
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-label" for="vertical-email">Jawatan</label>
+            <input type="text" id="vertical-email" name="jawatan" class="form-control" placeholder=""  />
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-label" for="vertical-email">Gred</label>
+            <input type="text" id="vertical-email" name="gred" class="form-control" placeholder=""  />
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-label" for="vertical-email">Tarikh Lantikan Perkhidmatan</label>
+            <input type="date" id="vertical-email" name="tkh_lantikan" class="form-control" placeholder=""  />
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-label" for="vertical-email">Tarikh Disahkan Jawatan</label>
+            <input type="date" id="vertical-email" name="tkh_sah" class="form-control" placeholder=""  />
+        </div>
+        <div class="form-group col-md-6">
+            <label class="form-label" for="vertical-email">Umur Persaraan Wajib</label>
+            <input type="number" id="vertical-email" nama="pilihan_bersara_wajib" class="form-control" placeholder=""  />
+        </div>
+    </div>
+    <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-secondary btn-prev" disabled>
+            <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
+            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+        </button>
+        <button type="button" class="btn btn-primary btn-next">
+            <span class="align-middle d-sm-inline-block d-none">Next</span>
+            <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
+        </button>
+    </div>
+</div>
