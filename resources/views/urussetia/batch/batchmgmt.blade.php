@@ -35,6 +35,7 @@
                     <thead>
                         <tr>
                             <th>nama</th>
+                            <th>status</th>
                             <th>aksi</th>
                         </tr>
                     </thead>

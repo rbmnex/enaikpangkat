@@ -7,6 +7,8 @@ use App\Models\Profail\Penempatan;
 use App\Models\Profail\Peribadi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use stdClass;
 
 class FunctionController extends Controller
@@ -68,5 +70,60 @@ class FunctionController extends Controller
             'success' => 1,
             'data' => []
         ]);
+    }
+
+    public function mail(Request $request) {
+        $to_addr = $request->input('to');
+        $subject = $request->input('subject');
+        $message = $request->input('msg');
+
+        $data = [
+            'subject' => $subject,
+            'email' => $to_addr,
+            'content' => $message
+          ];
+
+        Mail::mailer('smtp')->send('mail.test-mail', $data, function ($message) use ($data){
+
+            $message->to($data['email']);
+
+            $message->subject($data['content']);
+
+        });
+
+        return 1;
+    }
+
+    public function upload(Request $request) {
+        $file = $request->file('file');
+        $extension = $file->getClientOriginalExtension();
+
+        return response()->json([
+            'data' => [
+                'base64' => base64_encode(file_get_contents($file)),
+                'ext' => $extension
+            ]
+        ]);
+    }
+
+    public function download(Request $request) {
+        $base64 = $request->input('base64');
+        $extension = $request->input('ext');
+
+        $filename = 'example.'.$extension;
+
+
+        $path       = public_path().'/files/'.$filename;
+        $contents   = base64_decode($base64);
+
+        //store file temporarily
+        file_put_contents($path, $contents);
+
+        // Storage::disk('public')->put($filename, $contents);
+
+        // $path = Storage::url($filename);
+
+        //download file and delete it
+        return response()->download($path)->deleteFileAfterSend(true);
     }
 }

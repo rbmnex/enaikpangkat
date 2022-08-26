@@ -12,9 +12,17 @@ class Peribadi extends Model
     protected $table = "peribadi";
     protected $connection = 'pgsql';
 
-    public static function create($userid,$info) {
+    public static function create($userid,$info,$renew = false) {
         $arr_info = get_object_vars($info);
         $array_keys = array_keys($arr_info);
+
+        if($renew) {
+            Peribadi::where('users_id',$userid)->update([
+                'flag' => 0,
+                'deleted' => 1,
+                'updated_by' => 'SYSTEM'
+            ]);
+        }
 
         $model = new Peribadi;
         foreach ($array_keys as $array_key) {

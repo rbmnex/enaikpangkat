@@ -8,6 +8,7 @@ use App\Models\Urussetia\Kumpulan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
 class BatchMgmtController extends Controller
@@ -93,6 +94,7 @@ class BatchMgmtController extends Controller
         if(empty($batch_id)) {
             $model = new Kumpulan;
             $new = true;
+            $model->created_by = Auth::user()->nokp;
         } else {
             $model = Kumpulan::find($batch_id);
             $new = false;
@@ -100,7 +102,7 @@ class BatchMgmtController extends Controller
         $model->name = $nama;
         $model->flag = 1;
         $model->delete_id = 0;
-        $model->created_by = Auth::user()->nokp;
+
         $model->updated_by = Auth::user()->nokp;
         $model->status = "NEW";
 
@@ -129,6 +131,32 @@ class BatchMgmtController extends Controller
 
             return response()->json([
                 'success' => 1,
+                'data' => [
+                    'flag' => $new
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => [
+                    'flag' => $new
+                ]
+            ]);
+        }
+
+    }
+
+    public function delete_batch(Request $request)
+    {
+        $batch_id = $request->input('batch_id');
+        $model = Kumpulan::find($batch_id);
+        $model->flag = 0;
+        $model->delete_id = 1;
+        $model->updated_by = Auth::user()->nokp;
+
+        if($model->save()) {
+            return response()->json([
+                'success' => 1,
                 'data' => []
             ]);
         } else {
@@ -137,15 +165,43 @@ class BatchMgmtController extends Controller
                 'data' => []
             ]);
         }
+    }
 
+    public function email_batch(Request $request) {
+        $batch_id = $request->input('batch_id');
+        $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
+
+        $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+            ->select('np.nokp','np.nama','np.email')
+            ->whereIn('np.nokp',$list_nokp)->get();
+
+        foreach($model as $calon) {
+            $content = [];
+            Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use($calon) {
+                $message->to($calon->email,$calon->nama);
+                $message->subject('URUSAN PEMANGKUAN DI JABATAN KERJA RAYA');
+
+            });
+
+        }
+
+        $model = Kumpulan::find($batch_id);
+        $model->updated_by = Auth::user()->nokp;
+        $model->status = "PROCESSED";
+        $model->save();
+
+        return response()->json([
+            'success' => 1,
+            'data' => []
+        ]);
     }
 
     public function load_kumpulan(Request $request) {
         $batch_id = $request->input('batch_id');
         $model = Kumpulan::find($batch_id);
 
-        return $request->json([
-            'success' => 0,
+        return response()->json([
+            'success' => 1,
             'data' => [
                 'id' => $model->id,
                 'name' => $model->name
@@ -156,7 +212,7 @@ class BatchMgmtController extends Controller
     public function senarai_calon(Request $request) {
         $batch_id = $request->input('batch_id');
 
-        $list_nokp = Calon::where('kumpulan_id', $batch_id)->pluck('nokp')->all();
+        $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
 
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
@@ -165,7 +221,8 @@ class BatchMgmtController extends Controller
 
             return DataTables::of($model)
             ->setRowAttr([
-                'data-calon-kp' => function($data) {
+                'data-calon-id' => function($data) {
+                    return $data->nokp;
                 },
                 'data-batch-id' => $batch_id,
             ])
@@ -177,5 +234,121 @@ class BatchMgmtController extends Controller
             })
             ->rawColumns(['aksi'])
             ->make(true);
+    }
+
+    public function hapus_calon(Request $request) {
+        $batch_id = $request->input('batch_id');
+        $nokp = $request->input('nokp');
+
+        $model = Calon::where('kumpulan_id',$batch_id)->where('nokp',$nokp)->first();
+
+        $model->flag = 0;
+        $model->delete_id = 1;
+        $model->updated_by = Auth::user()->nokp;
+
+        if($model->save()) {
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+
+    }
+
+    public function tambah_calon(Request $request) {
+        $batch_id = $request->input('batch_id');
+        $nokp = $request->input('nokp');
+
+        $model = Calon::where('kumpulan_id',$batch_id)->where('nokp',$nokp)->first();
+
+        if($model) {
+            $model->flag = 1;
+            $model->delete_id = 0;
+            $model->updated_by = Auth::user()->nokp;
+
+        } else {
+            $model = new Calon;
+            $model->kumpulan_id = $batch_id;
+                    $model->nokp = $nokp;
+                    $model->flag = 1;
+                    $model->delete_id = 0;
+                    $model->created_by = Auth::user()->nokp;
+                    $model->updated_by = Auth::user()->nokp;
+
+        }
+
+        if($model->save()) {
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+    }
+
+    public function carian_calon(Request $request){
+        $data = [];
+        $search_term = $request->input('q');
+        $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+        ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
+        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan')->where('np.nokp', 'ilike', '%'.$search_term.'%')
+            ->orWhereRaw("LOWER(np.nama) ilike '%".$search_term."%'")->limit(20)->get();
+
+        if(count($peribadi) != 0){
+            foreach($peribadi as $p){
+                $data[] = array(
+                    'id' => $p->nokp,
+                    'text' => $p->nama.' - '.$p->nokp.' - '.$p->jawatan.' - '.$p->kod_gred.' - '.$p->jurusan
+                );
+            }
+        }
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+    public function info_calon(Request $request) {
+        $nokp = $request->input('nokp');
+
+        $calon = $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+        ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
+        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan')
+        ->where('nokp', $nokp)->first();
+
+        if($calon) {
+            $unit = empty($calon->unit) ? '' : strtoupper($calon->unit).', ';
+                $bahagian = empty($calon->bah) ? '' : strtoupper($calon->bah).', ';
+                $cawagan = empty($calon->caw) ? '' : strtoupper($calon->caw);
+
+            return response()->json([
+                'success' => 1,
+                'data' => [
+                    'nama' => $calon->nama,
+                    'nokp' => $calon->nokp,
+                    'jawatan' => $calon->jawatan,
+                    'gred' => $calon->kod_gred,
+                    'tempat' => $unit.$bahagian.$cawagan,
+                    'tkh_sah' => $calon->tkh_sah_perkhidmatan,
+                    'jurusan' => $calon->jurusan
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => [
+
+                ]
+            ]);
+        }
     }
 }

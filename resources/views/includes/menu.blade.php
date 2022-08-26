@@ -11,6 +11,7 @@
     </div>
     <div class="shadow-bottom"></div>
     <div class="main-menu-content">
+        @if(!empty(Auth::user()))
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Menu - Menu</span><i data-feather="more-horizontal"></i>
@@ -63,7 +64,7 @@
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan <br/> Pengguna</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="d-flex align-items-center" href="/admin/pengguna/mockup1">
                             <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Perakuan Pegawai</span>
@@ -80,10 +81,11 @@
                             <i data-feather="circle"></i>
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Butir-Butir Peribadi</span>
                             </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
 
         </ul>
+        @endif
     </div>
 </div>

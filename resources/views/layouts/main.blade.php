@@ -29,8 +29,8 @@
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/core/menu/menu-types/vertical-menu.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('asset/css/pages/dashboard-ecommerce.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/charts/chart-apex.css')}}">
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('asset/css/pages/dashboard-ecommerce.css')}}"> --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/charts/chart-apex.css')}}"> --}}
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/extensions/ext-component-toastr.css')}}">
     <!-- END: Page CSS-->
 
@@ -57,7 +57,7 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="{{asset('asset/vendors/js/charts/apexcharts.min.js')}}"></script>
+    {{-- <script src="{{asset('asset/vendors/js/charts/apexcharts.min.js')}}"></script> --}}
     <script src="{{asset('asset/vendors/js/extensions/toastr.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 

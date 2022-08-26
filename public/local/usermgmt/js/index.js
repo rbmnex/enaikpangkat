@@ -20,8 +20,11 @@ $(document).on('click','.add-pengguna, .pengguna-info',function() {
             ['.pengguna-jawatan', 'text'],
             ['.pengguna-role', 'checkbox'],
         ]);
+        $('.post-add-pengguna').html('Tambah');
+        $('.hidden-ops').val(0);
         $('.pengguna-modal').modal('show');
     } else if(selectedClass.hasClass('pengguna-info')) {
+        let no_ic = selectedClass.closest('tr').attr('data-nokp');
         postEmptyFields([
             ['.pengguna-nama', 'text'],
             ['.pengguna-email', 'text'],
@@ -33,6 +36,19 @@ $(document).on('click','.add-pengguna, .pengguna-info',function() {
             ['.pengguna-jawatan', 'text'],
             ['.pengguna-role', 'checkbox'],
         ]);
-        load_user(no_ic,true);
+        load_user(no_ic);
+        $('.post-add-pengguna').html('Kemaskini');
+        $('.hidden-ops').val(1);
+        $('.pengguna-modal').modal('show');
+    }
+});
+
+$(document).on('click', '.post-add-pengguna', function() {
+    let operation =  $('.hidden-ops').val();
+
+    if(operation) {
+
+    } else {
+
     }
 });

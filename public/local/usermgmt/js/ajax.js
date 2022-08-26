@@ -1,4 +1,4 @@
-function load_user(ic,open) {
+function load_user(ic) {
     $.ajax({
         type:'GET',
         url: getUrl() + '/admin/pengguna/api?no_ic='+ic,
@@ -21,6 +21,8 @@ function load_user(ic,open) {
             if('user_id' in result) {
                 $('.hidden-user-id').val(result.user_id);
 
+                $('.post-add-pengguna').html('Kemaskini');
+
                 for (let index = 0; index < roles.length; index++) {
                     $('.pengguna-role').each(function(){
                         if($(this).attr('data-role-id') == roles[index]){
@@ -29,10 +31,6 @@ function load_user(ic,open) {
                     });
 
                 }
-            }
-
-            if(open) {
-                $('.pengguna-modal').modal('show');
             }
         }
     });

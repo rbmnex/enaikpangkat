@@ -8,6 +8,7 @@ $('.table-kumpulan').DataTable({
     lengthChange:true,
     columns: [
         {data: 'name'},
+        {data: 'status'},
         {data: 'aksi'},
     ],
     createdRow: function( row, data, dataIndex ) {
@@ -16,14 +17,38 @@ $('.table-kumpulan').DataTable({
     columnDefs: [
         {
             // Actions
+            targets: -2,
+            title: 'Status',
+            orderable: false,
+            render: function (data, type, full, meta) {
+                let row_flag = full.status;
+                if(row_flag = 'NEW') {
+                    return (
+                        '<div class="badge badge-success">Baru</div>'
+                    );
+                } else {
+                    return (
+                        '<div class="badge badge-warning">Sudah</div>'
+                    );
+                }
+
+            }
+        },
+        {
+            // Actions
             targets: -1,
             title: 'Aksi',
             orderable: false,
             render: function (data, type, full, meta) {
+                let row_status = full.status;
+                let btn = ''
+                if(row_status == 'NEW') {
+                    btn = '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-email">'+ feather.icons['mail'].toSvg() +' Hantar</button>'
+                }
                 return (
                      '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-edit">'+ feather.icons['user'].toSvg() +' Kemaskini</button>' +
-                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-email">'+ feather.icons['mail'].toSvg() +' Hantar</button>' +
-                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light batch-delete">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>'
+                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light batch-delete">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>' +
+                     btn
                 );
             }
         }
@@ -254,13 +279,12 @@ function search_staff(tahun,jurusan,gred) {
 }
 
 function display_staff(batch) {
-    staff2_table = $('.table-staff').DataTable({
+    staff2_table = $('.table-staff2').DataTable({
         processing: true,
         serverSide: true,
         ajax: getUrl() + '/urussetia/kumpulan/calon?batch_id='+batch,
         lengthChange:true,
         columns: [
-            {data: 'nokp'},
             {data: 'nokp'},
             {data: 'nama'},
             {data: 'jawatan'},
