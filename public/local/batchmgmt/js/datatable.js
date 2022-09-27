@@ -22,13 +22,13 @@ $('.table-kumpulan').DataTable({
             orderable: false,
             render: function (data, type, full, meta) {
                 let row_flag = full.status;
-                if(row_flag = 'NEW') {
+                if(row_flag == 'NEW') {
                     return (
                         '<div class="badge badge-success">Baru</div>'
                     );
                 } else {
                     return (
-                        '<div class="badge badge-warning">Sudah</div>'
+                        '<div class="badge badge-warning">Sudah Diproses</div>'
                     );
                 }
 

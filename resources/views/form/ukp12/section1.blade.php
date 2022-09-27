@@ -5,35 +5,38 @@
     <div class="row">
         <div class="form-group col-md-12">
             <label class="form-label" for="vertical-username">Nama</label>
-            <input type="text" id="vertical-username" name="nama" class="form-control" placeholder="" />
+            <input type="text" id="vertical-username" name="nama" class="form-control"  value="{{ $profile['nama'] }}" placeholder="" />
         </div>
         <div class="form-group col-md-6">
             <label class="form-label" for="vertical-email">No Kad Pengenalan (Lama)</label>
-            <input type="text" id="vertical-email" name="nokp_lama" class="form-control" placeholder=""  />
+            <input type="text" id="vertical-email" name="nokp_lama" class="form-control"
+            value="{{ $profile['nokp_lama'] }}" placeholder=""  />
         </div>
         <div class="form-group col-md-6">
             <label class="form-label" for="vertical-email">No Kad Pengenalan (Baru)</label>
-            <input type="number" id="vertical-email" nama="nokp" class="form-control" placeholder=""  />
+            <input type="number" id="vertical-email" nama="nokp" class="form-control"
+            value="{{ $profile['nokp_baru'] }}" placeholder=""  />
         </div>
         <div class="form-group col-md-6">
             <label class="form-label" for="vertical-email">Jawatan</label>
-            <input type="text" id="vertical-email" name="jawatan" class="form-control" placeholder=""  />
+            <input type="text" id="vertical-email" name="jawatan" class="form-control" value="{{ $profile['jawatan'] }}"
+            placeholder=""  />
         </div>
         <div class="form-group col-md-6">
             <label class="form-label" for="vertical-email">Gred</label>
-            <input type="text" id="vertical-email" name="gred" class="form-control" placeholder=""  />
+            <input type="text" id="vertical-email" name="gred" class="form-control" value="{{ $profile['gred'] }}" placeholder=""  />
         </div>
         <div class="form-group col-md-6">
             <label class="form-label" for="vertical-email">Tarikh Lantikan Perkhidmatan</label>
-            <input type="date" id="vertical-email" name="tkh_lantikan" class="form-control" placeholder=""  />
+            <input type="text" id="vertical-email" name="tkh_lantikan" class="form-control" value="{{ $profile['tkh_lantikan'] }}" placeholder=""  />
         </div>
         <div class="form-group col-md-6">
             <label class="form-label" for="vertical-email">Tarikh Disahkan Jawatan</label>
-            <input type="date" id="vertical-email" name="tkh_sah" class="form-control" placeholder=""  />
+            <input type="text" id="vertical-email" name="tkh_sah" class="form-control" value="{{ $profile['tkh_sah'] }}" placeholder=""  />
         </div>
         <div class="form-group col-md-6">
             <label class="form-label" for="vertical-email">Umur Persaraan Wajib</label>
-            <input type="number" id="vertical-email" nama="pilihan_bersara_wajib" class="form-control" placeholder=""  />
+            <input type="number" id="vertical-email" nama="pilihan_bersara_wajib" value="{{ $profile['umur_besara'] }} "class="form-control" placeholder=""  />
         </div>
     </div>
     <div class="d-flex justify-content-between">

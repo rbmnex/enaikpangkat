@@ -1,4 +1,4 @@
-$(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-email, .batch-delete',function() {
+$(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-email, .batch-delete, .post-send-email',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-kumpulan')) {
         postEmptyFields([
@@ -45,31 +45,11 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
         display_staff(batch_id);
     } else if(selectedClass.hasClass('batch-email')) {
         let batch_id = selectedClass.closest('tr').attr('data-batch-id');
-        var data = new FormData;
-        data.append('_token', getToken());
-        data.append('batch_id',batch_id);
-        swalAjax({
-            titleText : 'Adakah Anda Pasti?',
-            mainText : 'Emel akan dihantar kepada semua calon',
-            icon: 'info',
-            confirmButtonText: 'Hapus',
-            postData: {
-                url : '/urussetia/kumpulan/mel',
-                data: data,
-                postfunc: function(data) {
-                    let success = data.success;
-                    let parseData = data.data;
-                    if(success == 1) {
-                        //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
-                        toasting('Emel sudah berjaya dihantar', 'success');
-                    } else if(success == 0) {
-                        //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
-                        toasting('Ralat telah berlaku, Emel telah gagal dihantar', 'error');
-                    }
-                    $('.table-kumpulan').DataTable().ajax.reload(null, false);
-                },
-            }
-        });
+        $('.hidden-batch-id').val(batch_id);
+
+        $('.email-modal').modal('show');
+
+
     } else if(selectedClass.hasClass('batch-delete')) {
         let batch_id = selectedClass.closest('tr').attr('data-batch-id');
         var data = new FormData;
@@ -92,6 +72,39 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
                     } else if(success == 0) {
                         //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
                         toasting('Ralat telah berlaku, Data telah gagal dihapus', 'error');
+                    }
+
+                    $('.email-modal').modal('hide');
+                    $('.table-kumpulan').DataTable().ajax.reload(null, false);
+                },
+            }
+        });
+    } else if(selectedClass.hasClass('post-send-email')) {
+        batch_id = $('.hidden-batch-id').val();
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('batch_id',batch_id);
+        data.append('kod_jawatan',$('.dropdown-jawatan').val());
+        data.append('kod_gred',$('.dropdown-gred-2').val());
+        data.append('kod_jurusan',$('.dropdown-jurusan-2').val());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Emel akan dihantar kepada semua calon',
+            icon: 'info',
+            confirmButtonText: 'Hantar',
+            postData: {
+                url : '/urussetia/kumpulan/mel',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
+                        toasting('Emel sudah berjaya dihantar', 'success');
+                    } else if(success == 0) {
+                        //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
+                        toasting('Ralat telah berlaku, Emel telah gagal dihantar', 'error');
                     }
                     $('.table-kumpulan').DataTable().ajax.reload(null, false);
                 },

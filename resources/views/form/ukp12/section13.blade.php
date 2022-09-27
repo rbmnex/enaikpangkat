@@ -28,15 +28,51 @@
 
 
         </div>
+        <div class="form-group col-md-6">
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
+                <label class="form-check-label" for="customCheck1">Pernah</label>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
+                <label class="form-check-label" for="customCheck1">Tidak Pernah</label>
+            </div>
+        </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" for="">c) Lanjutan tempoh percubaan dengan denda</label>
 
 
         </div>
+        <div class="form-group col-md-6">
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
+                <label class="form-check-label" for="customCheck1">Pernah</label>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
+                <label class="form-check-label" for="customCheck1">Tidak Pernah</label>
+            </div>
+        </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" for="">d) Cuti Tanpa Gaji selain Cuti Belajar Tanpa Gaji</label>
 
 
+        </div>
+        <div class="form-group col-md-6">
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
+                <label class="form-check-label" for="customCheck1">Pernah</label>
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <div class="form-check form-check-inline">
+                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
+                <label class="form-check-label" for="customCheck1">Tidak Pernah</label>
+            </div>
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline">
@@ -45,16 +81,16 @@
             </div>
         </div>
         <div class="form-group col-md-12">
-            <label class="col-form-label" for="">Nama:</label>
+            <label class="col-form-label" for="">Nama: {{ $profile['nama'] }}</label>
         </div>
         <div class="form-group col-md-12">
-            <label class="col-form-label" for="">Jawatan:</label>
+            <label class="col-form-label" for="">Jawatan: {{ $profile['jawatan'] }}</label>
         </div>
         <div class="form-group col-md-12">
-            <label class="col-form-label" for="">Alamat Pejabat:</label>
+            <label class="col-form-label" for="">Alamat Pejabat: {{ $profile['alamat_pejabat'] }}</label>
         </div>
         <div class="form-group col-md-12">
-            <label class="col-form-label" for="">Tarikh:</label>
+            <label class="col-form-label" for="">Tarikh: {{ Date::now() }}</label>
         </div>
     </div>
     <div class="d-flex justify-content-between">

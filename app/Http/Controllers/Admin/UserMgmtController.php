@@ -1,10 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profail\Peribadi;
 use App\Models\Role;
+use App\Models\RoleUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -99,6 +101,38 @@ class UserMgmtController extends Controller
                 'data' => $info
             ]);
         }
+    }
+
+    public function save_pengguna(Request $request) {
+        $roleArr = json_decode($request->input('roles'));
+        $ops = $request->input('ops');
+        $nokp = $request->input('nokp');
+        $userid = $request->input('userid');
+
+        if($ops) {
+            // update
+            RoleUser::where('user_id', $userid)->delete();
+            $model = User::upsert($nokp,$userid);
+        } else {
+            // insert
+            $model = User::upsert($nokp);
+            $userid = $model->id;
+        }
+
+        foreach($roleArr as $r){
+            $newQuery = new RoleUser;
+            $newQuery->user_id = $userid;
+            $newQuery->role_id = $r;
+            $newQuery->user_type = 'Staff';
+            $newQuery->save();
+        }
+
+        return response()->json([
+            'success' => 1,
+            'data' => [
+                'ops' => $ops
+            ]
+        ]);
     }
 
     public function mockup2(){

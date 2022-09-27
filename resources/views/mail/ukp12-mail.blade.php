@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-header">Welcome!</div>
                   <div class="card-body">
-
+                        {{ $link }}
                   </div>
                </div>
            </div>

@@ -8,8 +8,7 @@ use App\Models\Profail\Peribadi;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Storage;
-use stdClass;
+use PDF;
 
 class FunctionController extends Controller
 {
@@ -125,5 +124,11 @@ class FunctionController extends Controller
 
         //download file and delete it
         return response()->download($path)->deleteFileAfterSend(true);
+    }
+
+    public function pdf(Request $request) {
+        $pdf = PDF::loadView('pdf.ukp12');
+        //return $pdf->download('test_pdf.pdf');
+        return $pdf->stream();
     }
 }

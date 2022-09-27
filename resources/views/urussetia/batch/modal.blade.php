@@ -187,4 +187,58 @@
     </div>
 </div>
 
+<div class="modal fade text-left modal-primary email-modal" id="primary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel160">Hantar Permohonan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                        <div class="form-group">
+                            <label for="basicInput">Jawatan</label>
+                            <select class="select2 form-control form-control-lg dropdown-jawatan">
+
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+
+                        <div class="form-group">
+                            <label for="basicInput">Gred</label>
+                            <select class="select2 form-control form-control-lg dropdown-gred-2">
+
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+
+                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                        <div class="form-group">
+                            <label for="basicInput">Displin</label>
+                            <select class="select2 form-control form-control-lg dropdown-jurusan-2">
+
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                <button type="button" class="btn btn-success post-send-email">Hantar</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <input type="hidden" class="hidden-batch-id" name="batch_id" id="batch_id" />

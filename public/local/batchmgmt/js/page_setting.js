@@ -14,6 +14,30 @@ dropdown_populate(
     []
 );
 
+dropdown_populate(
+    '.dropdown-gred-2',
+    '',
+    'dropdown',
+    'Gred',
+    []
+);
+
+dropdown_populate(
+    '.dropdown-jurusan-2',
+    '',
+    'dropdown',
+    'Jurusan',
+    []
+);
+
+dropdown_populate(
+    '.dropdown-jawatan',
+    '',
+    'dropdown',
+    'Jawatan',
+    []
+);
+
 $('.calon-carian').wrap('<div class="position-relative"></div>').select2({
     dropdownAutoWidth: true,
     dropdownParent: $('.calon-carian').parent(),

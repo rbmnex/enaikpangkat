@@ -19,9 +19,10 @@
                     </div>
                     <div class="col-xl-6 col-md-6 col-12 mb-1">
                         <label class="form-label" for="">Penempatan</label>
-                        <input type="number" id="modal-post" name="penempatan-tempat" class="form-control" placeholder=""  />
+                        <input type="text" id="modal-post" name="penempatan-tempat" class="form-control" placeholder=""  />
                     </div>
                 </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-success add-perkhidmatan">Tambah</button>
@@ -83,7 +84,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="row">
+
                     <div class="row">
                         <div class="col-xl-6 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Jawatan</label>
@@ -98,12 +99,14 @@
                             <input type="number" id="modal-post" name="pertubuhan-tempat" class="form-control" placeholder=""  />
                         </div>
                     </div>
-                </div>
+
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-success add-pertubuhan">Tambah</button>
             </div>
         </div>
+
     </div>
 </div>
 
@@ -133,6 +136,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-success add-akademik">Tambah</button>
@@ -176,6 +180,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-success add-profesional">Tambah</button>
@@ -210,6 +215,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-success add-kompeten">Tambah</button>

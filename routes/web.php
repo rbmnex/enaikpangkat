@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\admin\UserMgmtController;
+use App\Http\Controllers\Form\UkpController;
 use App\Http\Controllers\Main\CommonController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
+use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +40,7 @@ Route::prefix('/admin')->group(function() {
         Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
         Route::get('/carian', [UserMgmtController::class,'carian_pengguna']);
         Route::get('/api',[UserMgmtController::class,'maklumat_pengguna']);
+        Route::post('/api',[UserMgmtController::class,'save_pengguna']);
 
         Route::get('/mockup2', [UserMgmtController::class,'mockup2']);
         Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
@@ -63,6 +66,13 @@ Route::prefix('/urussetia')->group(function() {
     });
 });
 
+Route::prefix('/form')->group(function() {
+    Route::prefix('/ukp12')->group(function() {
+        Route::get('/display/{id}',[UkpController::class,'open']);
+
+    });
+});
+
 //Common Controller
 Route::prefix('/common')->group(function () {
     Route::post('/get-listing', [CommonController::class, 'listing']);
@@ -81,3 +91,14 @@ Route::get('/test/form',function() {
 Route::get('/test/file',function() {
     return view('test.file');
 });
+
+Route::get('/test/view_pdf',function() {
+    return view('pdf.ukp12');
+});
+
+Route::get('/test/pdf',function() {
+    Ukp12Pdf::print();
+    exit;
+});
+
+//Route::get('/test/pdf',[FunctionController::class,'pdf']);

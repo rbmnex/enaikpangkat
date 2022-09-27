@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Urussetia;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mykj\LGred;
+use App\Models\Mykj\LJawatan;
+use App\Models\Mykj\LJurusan;
+use App\Models\Permohonan\PermohonanUkp12;
 use App\Models\Urussetia\Calon;
 use App\Models\Urussetia\Kumpulan;
 use Illuminate\Http\Request;
@@ -168,27 +172,55 @@ class BatchMgmtController extends Controller
     }
 
     public function email_batch(Request $request) {
-        $batch_id = $request->input('batch_id');
-        $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
+        $kod_jawatan = $request->input('kod_jawatan');
+        $kod_gred = $request->input('kod_gred');
+        $kod_jurusan = $request->input('kod_jurusan');
 
-        $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+        $batch_id = $request->input('batch_id');
+        $batch = Kumpulan::find($batch_id);
+
+        $model = new PermohonanUkp12;
+        $jawatan = LJawatan::where('kod_jawatan',$kod_jawatan)->first();
+        $jurusan = LJurusan::where('kod_jurusan',$kod_jurusan)->first();
+
+        $model->nokp_urusetia = Auth::user()->nokp;
+        $model->jenis = 'UKP12';
+        //$model->jawatan = $jawatan->jawatan;
+        //$model->kod_jawatan = $kod_jawatan;
+        $model->gred = $kod_gred;
+        $model->kod_disiplin = $kod_jurusan;
+        $model->disiplin = $jurusan->jurusan;
+        $model->flag = 1;
+        $model->delete_id = 0;
+        $model->tajuk = $batch->name;
+
+        if($model->save()) {
+            $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
+
+            $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->select('np.nokp','np.nama','np.email')
             ->whereIn('np.nokp',$list_nokp)->get();
 
-        foreach($model as $calon) {
-            $content = [];
-            Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use($calon) {
-                $message->to($calon->email,$calon->nama);
-                $message->subject('URUSAN PEMANGKUAN DI JABATAN KERJA RAYA');
+            foreach($model as $calon) {
+                $content = [
+                    'link' => "http://mywebapp/form/ukp12/display/1/kp=".$calon->nokp
+                ];
+                Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon) {
+                    // testing purpose
+                    $message->to('rubmin@vn.net.my',$calon->nama);
 
-            });
+                    //$message->to($calon->email,$calon->nama);
+                    $message->subject('URUSAN PEMANGKUAN DI JABATAN KERJA RAYA');
 
+                });
+
+            }
+
+            $batch->updated_by = Auth::user()->nokp;
+            $batch->status = "PROCESSED";
+            $batch->permohonan_id = $model->id;
+            $batch->save();
         }
-
-        $model = Kumpulan::find($batch_id);
-        $model->updated_by = Auth::user()->nokp;
-        $model->status = "PROCESSED";
-        $model->save();
 
         return response()->json([
             'success' => 1,

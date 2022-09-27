@@ -67,8 +67,8 @@ class User extends Authenticatable
         $newuser->name = $mykjPeribadi->nama;
         $newuser->nokp = $mykjPeribadi->nokp;
         $newuser->email = $mykjPeribadi->email;
-    //  $newuser->password = Hash::make($password);
-        $newuser->created_by = Auth::user()->nokp;
+        $newuser->password = Hash::make('P@ssw0rD');
+        $newuser->created_by = '';
         $newuser->type = 1;
         $newuser->flag = 1;
         $newuser->delete_id = 0;
@@ -76,6 +76,8 @@ class User extends Authenticatable
         $newuser->save();
 
         Peribadi::create($newuser->id,$mykjPeribadi);
+
+        return $newuser;
     }
 
     public static function register($nokp,$password,$type) {

@@ -1,6 +1,6 @@
 <div id="kompeten-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Rekod Kelayakkan Profesional Dan Pendaftaran Dengan Badan Profesional</h5>
+        <h5 class="mb-0">Rekod Pensijilan Kekompetenan</h5>
     </div>
     <div class="row">
         <div class="form-group col-md-12">

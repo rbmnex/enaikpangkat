@@ -22,6 +22,7 @@ function load_user(ic) {
                 $('.hidden-user-id').val(result.user_id);
 
                 $('.post-add-pengguna').html('Kemaskini');
+                $('.hidden-ops').val(1);
 
                 for (let index = 0; index < roles.length; index++) {
                     $('.pengguna-role').each(function(){

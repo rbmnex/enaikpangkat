@@ -179,7 +179,10 @@
         </div>
     </div>
     </section>
+
+
 </div>
+@include('form.ukp12.modal')
 <input type="hidden" id="_token" class="_token" name="_token" value="{{csrf_token()}}">
 
 @endsection
@@ -191,6 +194,9 @@
 <script src="{{ asset('asset/vendors/js/forms/wizard/bs-stepper.min.js') }}"></script>
 <script src="{{ asset('asset/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
 <script src="{{ asset('local/ukp12/page_setting.js') }}"></script>
-{{-- <script src="{{asset('local/batchmgmt/js/datatable.js')}}"></script>
-<script src="{{asset('local/batchmgmt/js/index.js')}}"></script> --}}
+<script src="{{ asset('local/ukp12/index.js') }}"></script>
+<script type="text/javascript">
+
+    $("#gender_select").val('{{ $profile['jantina'] }}').trigger('change');
+</script>
 @endsection

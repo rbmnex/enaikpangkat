@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mykj\LGred;
+use App\Models\Mykj\LJawatan;
 use App\Models\Mykj\LJurusan;
 use App\Models\Role;
 use Illuminate\Http\Request;
@@ -40,6 +41,14 @@ class CommonController extends Controller
                 $data[] = array(
                     'label' => $list->kod_gred,
                     'value' => $list->kod_gred
+                );
+            }
+        } else if($model == 'Jawatan') {
+            $query = LJawatan::all();
+            foreach($query as $list){
+                $data[] = array(
+                    'label' => $list->jawatan,
+                    'value' => $list->kod_jawatan
                 );
             }
         }
