@@ -100,9 +100,9 @@ class UkpController extends Controller
         'CUTI BELAJAR SEPARUH GAJI'))->get();
         $pengalaman = Pengalaman::where('nokp',$nokp)->orderBy('tkh_mula', 'desc')->get();
 
-        $pengalaman->each(function ($item, $key) {
+        // $pengalaman->each(function ($item, $key) {
 
-        });
+        // });
 
         $maklumat = array();
                 $maklumat['nama'] = $profile->nama;
@@ -131,6 +131,7 @@ class UkpController extends Controller
                 $maklumat['alamat_pasangan'] = empty($waris) ? '' : $waris->tempat_kerja;
                 $maklumat['pekerjaan_pasangan'] = empty($waris) ? '' : $waris->pekerjaan;
                 $maklumat['cuti'] = $cuti;
+                $maklumat['pengalaman'] = $pengalaman;
 
         return view('form.ukp12',[
             "profile" => $maklumat,
