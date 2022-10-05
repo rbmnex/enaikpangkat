@@ -72,7 +72,7 @@
                                                     </div>
                                                     <div class="col-sm-9">
                                                     <select class="select2 form-control form-control-lg">
-                                                        <option value="">-- Sila Pilih --</option>
+                                                        <option value="" selected>Please select one</option>
                                                         <option value="lelaki">Lelaki</option>
                                                         <option value="perempuan">Perempuan</option>
                                                     </select>
@@ -82,11 +82,16 @@
                                             <div class="col-12">
                                                 <div class="mb-1 row">
                                                     <div class="col-sm-3">
-                                                        <label class="col-form-label" for="bangsa">Bangsa</label>
+                                                        <label class="col-form-label" for="agama">Agama</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                    <select class="select2 form-control">
-                                                        <option value="">-- Sila Pilih --</option>
+                                                    <select class="select2 form-control form-control-lg">
+                                                        <option value="" selected>Please select one</option>
+                                                        <option value="islam">Islam</option>
+                                                        <option value="kristian">Kristian</option>
+                                                        <option value="buddha">Buddha</option>
+                                                        <option value="hindu">Hindu</option>
+                                                        <option value="sikh">Sikh</option>
                                                     </select>
                                                     </div>
                                                 </div>
@@ -103,15 +108,15 @@
                                                 </div>
                                             </div>
                                     </form>
-                </div>
+                </div>                         
              </div>
         </div>
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
-
+                   
                                     <div class="card-body">
-                                        <form class="form form-horizontal">
+                                        <form class="form form-horizontal">    
                                             <div class="col-12">
                                                 <div class="mb-1 row">
                                                     <div class="col-sm-3">
@@ -162,11 +167,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </form>
+                                        </form>    
                                     </div>
                 </div>
             </div>
-        </div>
+        </div>               
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -174,39 +179,39 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="nama_suami_isteri">Nama Suami/Isteri</label>
                                 </div>
                                 <div class="col-sm-9">
                                     <input type="text" id="nama_suami_isteri" class="form-control" name="nama_suami_isteri" placeholder="Nama Suami/Isteri"/>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="jawatan_suami_isteri">Jawatan/Pekerjaan Suami/Isteri</label>
                                 </div>
                                 <div class="col-sm-9">
                                     <input type="text" id="jawatan_suami_isteri" class="form-control" name="jawatan_suami_isteri" placeholder="Jawatan/Pekerjaan Suami/Isteri"/>
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="add_pejabat_suami_isteri">Alamat Pejabat Suami/Isteri</label>
                                 </div>
                                 <div class="col-sm-9">
                                     <input type="text" id="add_pejabat_suami_isteri" class="form-control" name="add_pejabat_suami_isteri" placeholder="Alamat Pejabat Suami/Isteri"/>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                     </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </div>            
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -217,7 +222,7 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="nama_suami_isteri">Gelaran Jawatan</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -229,10 +234,10 @@
                                                     </select>
                                                     </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="jawatan_suami_isteri">Penempatan</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -243,11 +248,11 @@
                                                         <option value="#">Option 3</option>
                                                     </select>
                                                     </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="add_pejabat_suami_isteri">Tahun Berkhidmat</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -259,7 +264,7 @@
                                                     </select>
                                                     </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-sm-9 offset-sm-3">
                         <button type="#" class="btn btn-info me-1">Tambah</button>
                         </div>
@@ -267,7 +272,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
         <div class="row" id="table-responsive">
                     <div class="col-12">
                         <div class="card">
@@ -300,10 +305,10 @@
                                 </table>
                             </div>
                             </form>
-                            </div>
+                            </div>                          
                         </div>
                     </div>
-        </div>
+        </div>          
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -314,7 +319,7 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="jawatan_pertubuhan">Jawatan</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -326,10 +331,10 @@
                                                     </select>
                                                     </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="nama_pertubuhan">Nama Pertubuhan</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -340,11 +345,11 @@
                                                         <option value="#">Option 3</option>
                                                     </select>
                                                     </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="tahun">Tahun</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -356,7 +361,7 @@
                                                     </select>
                                                     </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-sm-9 offset-sm-3">
                         <button type="#" class="btn btn-info me-1">Tambah</button>
                         </div>
@@ -364,7 +369,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
         <div class="row" id="table-responsive">
                     <div class="col-12">
                         <div class="card">
@@ -397,10 +402,10 @@
                                 </table>
                             </div>
                             </form>
-                            </div>
+                            </div>                          
                         </div>
                     </div>
-        </div>
+        </div>          
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -411,27 +416,27 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="kelulusan">KELULUSAN (cth: B.Eng(Hons) Civil Eng.)</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="kelulusan" class="form-control" name="kelulusan" placeholder="Kelulusan"/>
+                                    <input type="text" id="kelulusan" class="form-control" name="kelulusan" placeholder="Kelulusan"/>               
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="pusat_pengajian_tinggi">INSTITUT PUSAT PENGAJIAN TINGGI</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="pusat_pengajian_tinggi" class="form-control" name="pusat_pengajian_tinggi" placeholder="Institut Pusat Pengajian Tinggi"/>
+                                    <input type="text" id="pusat_pengajian_tinggi" class="form-control" name="pusat_pengajian_tinggi" placeholder="Institut Pusat Pengajian Tinggi"/>               
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="tahun">Tahun</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -443,7 +448,7 @@
                                                     </select>
                                                     </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-sm-9 offset-sm-3">
                         <button type="#" class="btn btn-info me-1">Tambah</button>
                         </div>
@@ -451,7 +456,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
         <div class="row" id="table-responsive">
                     <div class="col-12">
                         <div class="card">
@@ -484,10 +489,10 @@
                                 </table>
                             </div>
                             </form>
-                            </div>
+                            </div>                          
                         </div>
                     </div>
-        </div>
+        </div>       
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -499,37 +504,37 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="kelayakan">KELAYAKAN PROFESIONAL</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="kelayakan" class="form-control" name="kelayakan" placeholder="Kelayakan Profesional"/>
+                                    <input type="text" id="kelayakan" class="form-control" name="kelayakan" placeholder="Kelayakan Profesional"/>               
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="badan_profesional">BADAN PROFESIONAL</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="badan_profesional" class="form-control" name="badan_profesional" placeholder="Badan Profesional"/>
+                                    <input type="text" id="badan_profesional" class="form-control" name="badan_profesional" placeholder="Badan Profesional"/>               
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="no_daftar">No Pendaftaran</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="no_daftar" class="form-control" name="no_daftar" placeholder="No Pendaftaran"/>
+                                    <input type="text" id="no_daftar" class="form-control" name="no_daftar" placeholder="No Pendaftaran"/>               
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="tahun">Tahun</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -541,16 +546,16 @@
                                                     </select>
                                                     </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="formFileMultiple">Muat Naik Sijil</label>
                                 </div>
                                 <div class="col-sm-9">
-                                <input class="form-control" type="file" id="formFileMultiple" multiple />
+                                <input class="form-control" type="file" id="formFileMultiple" multiple />              
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-sm-9 offset-sm-3">
                         <button type="#" class="btn btn-info me-1">Tambah Kelayakan</button>
@@ -559,7 +564,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>  
         <div class="row" id="table-responsive">
                     <div class="col-12">
                         <div class="card">
@@ -590,10 +595,10 @@
                                 </table>
                             </div>
                             </form>
-                            </div>
+                            </div>                          
                         </div>
                     </div>
-        </div>
+        </div>   
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -605,33 +610,33 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="pensijilan_kompeten">PENSIJILAN KEKOMPETENAN ( Cth: Kejuruteraan Struktur Bangunan, Kerja Sivil, Senibina Lestari dll.)</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="pensijilan_kompeten" class="form-control" name="pensijilan_kompeten" placeholder="PENSIJILAN KEKOMPETENAN"/>
+                                    <input type="text" id="pensijilan_kompeten" class="form-control" name="pensijilan_kompeten" placeholder="PENSIJILAN KEKOMPETENAN"/>               
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="tahap">Tahap</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="tahap" class="form-control" name="tahap" placeholder="Tahap"/>
+                                    <input type="text" id="tahap" class="form-control" name="tahap" placeholder="Tahap"/>               
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="formFileMultiple">Muat Naik Sijil</label>
                                 </div>
                                 <div class="col-sm-9">
-                                <input class="form-control" type="file" id="formFileMultiple" multiple />
+                                <input class="form-control" type="file" id="formFileMultiple" multiple />              
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-sm-9 offset-sm-3">
                         <button type="#" class="btn btn-info me-1">Tambah</button>
@@ -640,7 +645,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>    
         <div class="row" id="table-responsive">
                     <div class="col-12">
                         <div class="card">
@@ -667,10 +672,10 @@
                                 </table>
                             </div>
                             </form>
-                            </div>
+                            </div>                          
                         </div>
                     </div>
-        </div>
+        </div> 
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -681,23 +686,23 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="pengiktirafan">PENGIKTIRAFAN ( Cth: APC/PPC/Pingat atau Anugerah Umum)</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="pengiktirafan" class="form-control" name="pengiktirafan" placeholder="Pengiktirafan"/>
+                                    <input type="text" id="pengiktirafan" class="form-control" name="pengiktirafan" placeholder="Pengiktirafan"/>               
                                 </div>
                             </div>
-                        </div>
+                        </div> 
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">
+                                <div class="col-sm-3">    
                                     <label class="col-form-label" for="tahun">Tahun</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="tahun" class="form-control" name="tahun" placeholder="Tahun"/>
+                                    <input type="text" id="tahun" class="form-control" name="tahun" placeholder="Tahun"/>               
                                 </div>
-                            </div>
+                            </div>    
                         </div>
                         <div class="col-sm-9 offset-sm-3">
                         <button type="#" class="btn btn-info me-1">Tambah</button>
@@ -706,7 +711,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>                              
         <div class="row" id="table-responsive">
                     <div class="col-12">
                         <div class="card">
@@ -731,17 +736,17 @@
                                 </table>
                             </div>
                             </form>
-                            </div>
+                            </div>                          
                         </div>
                     </div>
-        </div>
+        </div>  
         <div>
             <center>
             <button type="#" class="btn btn-primary me-1">KemasKini</button>
             <button type="#" class="btn btn-primary me-1">Delete</button>
             </center>
-        </div>
-    </div>
+        </div>   
+    </div>    
     </div class="col-sm-12">
     <a href="/admin/pengguna/mockup1">
     <button type="#" class="btn btn-success me-1">Seterusnya</button>

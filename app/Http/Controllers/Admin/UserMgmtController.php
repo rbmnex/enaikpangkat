@@ -1,19 +1,29 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Profail\Peribadi;
 use App\Models\Role;
-use App\Models\RoleUser;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
+use App\Models\Mykj\ListPegawai2;
+use Codedge\Fpdf\Fpdf\Fpdf;
+//use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Storage; 
+
 
 class UserMgmtController extends Controller
 {
-    //
+   
+
+    protected $fpdf;
+    public function __construct()
+    {
+        $this->fpdf = new Fpdf;
+    }
     public function index(Request $request) {
         $model = Role::all();
         return view('admin.user.usermgmt')->with('roles',$model);
@@ -103,38 +113,6 @@ class UserMgmtController extends Controller
         }
     }
 
-    public function save_pengguna(Request $request) {
-        $roleArr = json_decode($request->input('roles'));
-        $ops = $request->input('ops');
-        $nokp = $request->input('nokp');
-        $userid = $request->input('userid');
-
-        if($ops) {
-            // update
-            RoleUser::where('user_id', $userid)->delete();
-            $model = User::upsert($nokp,$userid);
-        } else {
-            // insert
-            $model = User::upsert($nokp);
-            $userid = $model->id;
-        }
-
-        foreach($roleArr as $r){
-            $newQuery = new RoleUser;
-            $newQuery->user_id = $userid;
-            $newQuery->role_id = $r;
-            $newQuery->user_type = 'Staff';
-            $newQuery->save();
-        }
-
-        return response()->json([
-            'success' => 1,
-            'data' => [
-                'ops' => $ops
-            ]
-        ]);
-    }
-
     public function mockup2(){
         return view('mockup2');
     }
@@ -143,5 +121,35 @@ class UserMgmtController extends Controller
     }
     public function mockup1(){
         return view('mockup1');
+    }
+    public function mockup4(Request $request
+    ){
+        $model= [];
+
+        if($request->input('nokp')){
+            $model=ListPegawai2::getMaklumatPegawai($request->input('nokp'));
+            // echo '<pre>';
+            // print_r($model);
+            // echo '</pre>';
+            // die();
+        }
+        
+        
+        return view('mockup4', [
+            'user' => $model
+        ]);
+    }
+
+   
+
+    public function document() 
+    {
+        $this->fpdf->SetFont('Arial', 'B', 15);
+        $this->fpdf->AddPage("L", ['100', '100']);
+        $this->fpdf->Text(10, 10, "Resume");       
+
+        $this->fpdf->Output();
+
+        exit;
     }
 }
