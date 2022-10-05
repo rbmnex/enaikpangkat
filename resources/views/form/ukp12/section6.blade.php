@@ -16,7 +16,13 @@
                     <th>Tahun Berkhidmat</th>
                 </thead>
                 <tbody id="tbody-khidmat">
-
+                    @foreach ($profile['pengalaman'] as $pengalaman)
+                    <tr>
+                        <td></td>
+                        <td>{{ $pengalaman->tempat }}</td>
+                        <td>{{ $pengalamn->tkh_mula }}</td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
