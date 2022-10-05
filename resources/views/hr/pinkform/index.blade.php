@@ -3,6 +3,7 @@
 @section('customCss')
 @include('web.sweet-alert-css')
 @include('web.datatable-css')
+@include('web.datepicker-css')
 <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/select/select2.min.css')}}">
 @endsection
 
@@ -31,15 +32,30 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-
+                <table class="datatables table table-pink">
+                    <thead>
+                        <tr>
+                            <th>nokp</th>
+                            <th>nama</th>
+                            <th>jawatan</th>
+                            <th>jenis</th>
+                            <th>status</th>
+                            <th>aksi</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </div>
     </section>
 </div>
+@include('hr.pinkform.modal')
 @endsection
 
 @section('customJs')
 @include('web.datatable-js')
 @include('web.sweet-alert-js')
+@include('web.datepicker-js')
+<script src="{{asset('local/pinkform/js/page_setting.js')}}"></script>
+<script src="{{asset('local/pinkform/js/datatable.js')}}"></script>
 @endsection

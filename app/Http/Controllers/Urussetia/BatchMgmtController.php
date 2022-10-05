@@ -172,7 +172,7 @@ class BatchMgmtController extends Controller
     }
 
     public function email_batch(Request $request) {
-        $kod_jawatan = $request->input('kod_jawatan');
+        //$kod_jawatan = $request->input('kod_jawatan');
         $kod_gred = $request->input('kod_gred');
         $kod_jurusan = $request->input('kod_jurusan');
 
@@ -180,7 +180,7 @@ class BatchMgmtController extends Controller
         $batch = Kumpulan::find($batch_id);
 
         $model = new PermohonanUkp12;
-        $jawatan = LJawatan::where('kod_jawatan',$kod_jawatan)->first();
+        //$jawatan = LJawatan::where('kod_jawatan',$kod_jawatan)->first();
         $jurusan = LJurusan::where('kod_jurusan',$kod_jurusan)->first();
 
         $model->nokp_urusetia = Auth::user()->nokp;

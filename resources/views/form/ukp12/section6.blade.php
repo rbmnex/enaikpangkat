@@ -1,20 +1,19 @@
 <div id="perkhidmatan-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Jawatan/penempatan Sepanjang Perkhidmatan</h5>
+        <h5 class="mb-0">Bahgaian 6 - Jawatan/Penempatan Sepanjang Perkhidmatan</h5>
     </div>
 
     <div class="row">
-        <div class="form-group col-md-12">
+        {{-- <div class="form-group col-md-12">
             <br/>
             <button type="button" class="btn btn-success tambah-calon" data-toggle="modal" data-target="#modal-penempatan"><i data-feather='plus'></i>Tambah</button>
-        </div>
+        </div> --}}
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
                     <th>Gelaran Jawatan</th>
                     <th>Penempatan</th>
                     <th>Tahun Berkhidmat</th>
-                    <th>Aksi</th>
                 </thead>
                 <tbody id="tbody-khidmat">
 

@@ -84,7 +84,7 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
         var data = new FormData;
         data.append('_token', getToken());
         data.append('batch_id',batch_id);
-        data.append('kod_jawatan',$('.dropdown-jawatan').val());
+        //data.append('kod_jawatan',$('.dropdown-jawatan').val());
         data.append('kod_gred',$('.dropdown-gred-2').val());
         data.append('kod_jurusan',$('.dropdown-jurusan-2').val());
 

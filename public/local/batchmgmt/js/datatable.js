@@ -37,17 +37,18 @@ $('.table-kumpulan').DataTable({
         {
             // Actions
             targets: -1,
-            title: 'Aksi',
+            title: 'Tindakan',
             orderable: false,
             render: function (data, type, full, meta) {
                 let row_status = full.status;
-                let btn = ''
+                let btn = '';
                 if(row_status == 'NEW') {
-                    btn = '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-email">'+ feather.icons['mail'].toSvg() +' Hantar</button>'
+                    btn = '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-email">'+ feather.icons['mail'].toSvg() +' Hantar</button>' +
+                    '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-edit">'+ feather.icons['user'].toSvg() +' Kemaskini</button>' +
+                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light batch-delete">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>' +
+                     btn;
                 }
                 return (
-                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-edit">'+ feather.icons['user'].toSvg() +' Kemaskini</button>' +
-                     '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light batch-delete">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>' +
                      btn
                 );
             }
@@ -196,7 +197,7 @@ function search_staff(tahun,jurusan,gred) {
     staff_table = $('.table-staff').DataTable({
         processing: true,
         serverSide: true,
-        ajax: getUrl() + '/urussetia/kumpulan/carian?tahun'+tahun+'&jurusan='+jurusan+'&gred='+gred,
+        ajax: getUrl() + '/urussetia/kumpulan/carian?tahun='+tahun+'&jurusan='+jurusan+'&gred='+gred,
         // type: "GET",
 		// data: {
 		// 	jurusan: jurusan,
@@ -307,7 +308,7 @@ function display_staff(batch) {
              {
                 // Actions
                 targets: -1,
-                title: 'Aksi',
+                title: 'Tindakan',
                 orderable: false,
                 render: function (data, type, full, meta) {
                     return (

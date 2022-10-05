@@ -1,21 +1,25 @@
 <div id="cuti-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Maklumat Cuti</h5>
+        <h5 class="mb-0">Bahagian 2 - Maklumat Cuti</h5>
+        <span class="text-muted"></span>
     </div>
     <div class="row">
         <div class="form-group col-md-12">
-            <label class="form-label" for="country">Pengesahan Cuti Tanpa Gaji / Cuti Separuh Gaji / Cuti Belajar Sepanjang Perkhidmatan</label>
+            <label class="col-form-label" for="country">Pengesahan Cuti Tanpa Gaji / Cuti Separuh Gaji / Cuti Belajar Sepanjang Perkhidmatan</label>
             <select class="select2 form-control" name="cuti_status" id="status_cuti">
                 <option>-- Sila Pilih --</option>
-                <option value="ada">ADA</option>
-                <option value="tiada">TIADA</option>
+                <option value="ada" @if(!empty($profile['cuti'])){{ 'selected' }} @endif>ADA</option>
+                <option value="tiada" @if(empty($profile['cuti'])){{ 'selected' }} @endif>TIADA</option>
             </select>
         </div>
 
-        <div class="form-group col-md-12">
+
+        {{-- <div class="form-group col-md-12">
             <br/>
             <button type="button" class="btn btn-success tambah-cuti" data-toggle="modal" data-target="#modal-cuti"><i data-feather='plus'></i>Tambah</button>
-        </div>
+        </div> --}}
+        <span style="font-style: italic;">* Surat Kelulusan Cuti yang disahkan perlu disertakan bersama.</span>
+        <br/>
         <div class="table-responsive col-md-12">
             <table class="datatables table cuti-table">
                 <thead>
@@ -23,10 +27,20 @@
                     <th>Tarikh Mula</th>
                     <th>Tarikh Akhir</th>
                     <th>Dokumen</th>
-                    <th>Aksi</th>
+                    {{-- <th>Ti</th> --}}
                 </thead>
                 <tbody id="tbody-cuti">
-
+                    @foreach ($profile['cuti'] as $cuti)
+                    <tr data-cuti-id="{{ $cuti->id_cuti }}">
+                        <td>{{ $cuti->jenis_cuti }}</td>
+                        <td>{{ \Carbon\Carbon::parse($cuti->tkh_mula)->format('d-m-Y')  }}</td>
+                        <td>{{ \Carbon\Carbon::parse($cuti->tkh_tamat)->format('d-m-Y')  }}</td>
+                        <td><input class="form-control cuti-upload" type="file" id="cuti_{{ $cuti->id_cuti }}" name="cuti_{{ $cuti->id_cuti }}" /></td>
+                    </tr>
+                    @endforeach
+                    @if(empty($profile['cuti']))
+                    {{ 'selected' }}
+                    @endif
                 </tbody>
             </table>
         </div>

@@ -1,3 +1,7 @@
+(function (window, document, $) {
+
+}) (window, document, jQuery);
+
 var bsStepper = document.querySelectorAll('.bs-stepper'),
 verticalWizard = document.querySelector('.vertical-wizard-example'),
 select = $('.select2');
