@@ -1,11 +1,11 @@
 <div id="harta-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Pengisytiharan Harta</h5>
+        <h5 class="mb-0">Bahagian 4 -Pengisytiharan Harta</h5>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
             <label class="form-label" for="tarikhAkhir_harta">Tarikh Akhir Pengisytiharan Harta Terkini:</label>
-            <input type="date" class="form-control" id="tarikhAkhir_harta" name="harta_tkh_akhir_pengisytiharan">
+            <input type="text" readonly class="form-control" value="{{ $profile['tkh_istihar'] }}" id="tarikhAkhir_harta" name="harta_tkh_akhir_pengisytiharan">
         </div>
         <div class="form-group col-md-6">
             <label class="form-label" for="lampiran_E">Muat Naik Lampiran E</label>

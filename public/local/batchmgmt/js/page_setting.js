@@ -30,13 +30,13 @@ dropdown_populate(
     []
 );
 
-dropdown_populate(
-    '.dropdown-jawatan',
-    '',
-    'dropdown',
-    'Jawatan',
-    []
-);
+// dropdown_populate(
+//     '.dropdown-jawatan',
+//     '',
+//     'dropdown',
+//     'Jawatan',
+//     []
+// );
 
 $('.calon-carian').wrap('<div class="position-relative"></div>').select2({
     dropdownAutoWidth: true,

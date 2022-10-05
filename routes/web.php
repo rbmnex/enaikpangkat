@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\UserMgmtController;
 use App\Http\Controllers\Form\UkpController;
+use App\Http\Controllers\HR\PinkFormController;
 use App\Http\Controllers\Main\CommonController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
@@ -63,6 +64,13 @@ Route::prefix('/urussetia')->group(function() {
         Route::post('/tambah',[BatchMgmtController::class,'tambah_calon'])->middleware(['auth']);
         Route::post('/padam',[BatchMgmtController::class,'delete_batch'])->middleware(['auth']);
         Route::post('/mel',[BatchMgmtController::class,'email_batch'])->middleware(['auth']);
+    });
+});
+
+Route::prefix('/hr')->group(function() {
+    Route::prefix('/pinkform')->group(function() {
+        Route::get('/',[PinkFormController::class,'index']);
+        Route::get('/load',[PinkFormController::class,'load']);
     });
 });
 

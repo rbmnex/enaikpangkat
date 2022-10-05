@@ -35,6 +35,9 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                <div class="card-body">
+                <h4 class="card-title">Borang Pemangkuan JKR UKP 12</h4>
+                <h6 class="card-subtitle" style="font-style: italic; color:red !important;">* Jika berlaku kesilapan maklumat, sila kemas kini maklumat pada portal MyKJ</h6>
                 <section class="vertical-wizard">
                     <div class="bs-stepper vertical vertical-wizard-example">
                         <div class="bs-stepper-header">
@@ -155,6 +158,15 @@
                                     </span>
                                 </button>
                             </div>
+                            <div class="step" data-target="#carian-pegawai">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">14</span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Bahagian 14</span>
+                                        <span class="bs-stepper-subtitle">Ketua Jabatan/Bahagian</span>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                         <div class="bs-stepper-content">
                             {{-- <form id="ukp12_form"> --}}
@@ -171,10 +183,12 @@
                                 @include('form.ukp12.section11')
                                 @include('form.ukp12.section12')
                                 @include('form.ukp12.section13')
+                                @include('form.ukp12.section14')
                             {{-- </form> --}}
                         </div>
                     </div>
                 </section>
+                </div>
             </div>
         </div>
     </div>
@@ -197,6 +211,6 @@
 <script src="{{ asset('local/ukp12/index.js') }}"></script>
 <script type="text/javascript">
 
-    $("#gender_select").val('{{ $profile['jantina'] }}').trigger('change');
+   // $("#gender_select").val('{{ $profile['jantina'] }}').trigger('change');
 </script>
 @endsection

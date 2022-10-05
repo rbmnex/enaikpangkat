@@ -199,7 +199,7 @@
             <div class="modal-body">
                 <div class="row">
 
-                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                    {{-- <div class="col-xl-4 col-md-6 col-12 mb-1">
                         <div class="form-group">
                             <label for="basicInput">Jawatan</label>
                             <select class="select2 form-control form-control-lg dropdown-jawatan">
@@ -207,9 +207,9 @@
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
-                    </div>
+                    </div> --}}
 
-                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                    <div class="col-xl-6 col-md-6 col-12 mb-1">
 
                         <div class="form-group">
                             <label for="basicInput">Gred</label>
@@ -220,7 +220,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xl-4 col-md-6 col-12 mb-1">
+                    <div class="col-xl-6 col-md-6 col-12 mb-1">
                         <div class="form-group">
                             <label for="basicInput">Displin</label>
                             <select class="select2 form-control form-control-lg dropdown-jurusan-2">
