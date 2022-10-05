@@ -4,10 +4,11 @@ namespace App\Models\Mykj;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Pengalaman extends Model 
+class LKumpulan extends Model 
 {
     
     protected $connection = 'pgsqlmykj';
-    protected $table = 'pengalaman';
+    protected $table = 'l_kumpulan';
 //    public $timestamps = false;
 }
+

@@ -18,8 +18,6 @@ class QueryController extends Controller
                 ->leftJoin('public.l_negeri as ln2', 'p.kod_negeri_lahir', 'ln2.kod_negeri')
                 ->select('p.*', 'ln2.negeri','la.agama','ltp.taraf_perkahwinan', 'lb.bangsa' )
                 ->where('p.nokp',$nokp);
-        $query = DB::connection('pgsqlmykj')->select('select distinct extract(year from lpn.tkh_sah_perkhidmatan) as years
-        from list_pegawai_naikpangkat lpn order by years asc')->get();
-        return print_r($query);
+        return print_r($mykjPeribadi->first());
     }
 }

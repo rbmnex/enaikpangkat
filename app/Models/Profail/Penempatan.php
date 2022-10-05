@@ -4,7 +4,6 @@ namespace App\Models\Profail;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class Penempatan extends Model
@@ -14,61 +13,35 @@ class Penempatan extends Model
     protected $connection = 'pgsql';
 
     public static function create($id_peribadi,$nokp) {
-        $proceed =  true;
-
+        $model = new Penempatan;
         $khidmat = DB::connection('pgsqlmykj')->table('perkhidmatan as p')
         ->join('l_jawatan as j', 'j.kod_jawatan', 'p.kod_jawatan')
         ->select('p.kod_gred','p.kod_jawatan','j.jawatan')
         ->where('nokp',$nokp)->where('flag',1)->first();
 
+        $model->gred = $khidmat->kod_gred;
+        $model->kod_gred = $khidmat->kod_gred;
+        $model->jawatan = $khidmat->jawatan;
+        $model->kod_jawatan = $khidmat->kod_jawatan;
+
         $tempat = DB::connection('pgsqlmykj')->table('penempatanx as p')
         ->select('p.kod_waran')->where('nokp',$nokp)->where('flag',1)->first();
 
-        //$record = Penempatan::where('flag',1)->where('delete_id',0)->where('id_peribadi',$id_peribadi)->get();
+        $model->kod_waran = $tempat->kod_waran;
 
-        // if($record) {
-        //     if(($record->gred == $khidmat->kod_gred) && ($record->kod_waran == $tempat->kod_waran)) {
-        //         $proceed =  false;
-        //     } else {
-        //         Penempatan::where('id_peribadi',$id_peribadi)->update([
-        //             'flag' => 0,
-        //             'deleted' => 1,
-        //             'updated_by' => 'SYSTEM',
-        //             'updated_at' => Date::now()
-        //         ]);
-        //         $proceed =  true;
-        //     }
-        // } else {
-        //     $proceed =  true;
-        // }
+        $arr_waran = Penempatan::split_kod_waran($tempat->kod_waran);
 
-        //if($proceed) {
-            $model = new Penempatan;
+        $model->unit = Penempatan::waran_name($arr_waran['unit'])->waran_pej;
+        $model->bahagian = Penempatan::waran_name($arr_waran['bahagian'])->waran_pej;
+        $pejabat = Penempatan::waran_name($arr_waran['cawangan']);
+        $model->cawangan = $pejabat->waran_pej;
+        $model->pejabat = $pejabat->blok;
 
-            $model->gred = $khidmat->kod_gred;
-            $model->kod_gred = $khidmat->kod_gred;
-            $model->jawatan = $khidmat->jawatan;
-            $model->kod_jawatan = $khidmat->kod_jawatan;
+        $model->id_peribadi = $id_peribadi;
+        $model->created_by = 'MYKJ';
+        $model->updated_by = 'MYKJ';
 
-            $model->kod_waran = $tempat->kod_waran;
-
-            $arr_waran = Penempatan::split_kod_waran($tempat->kod_waran);
-
-            $model->unit = Penempatan::waran_name($arr_waran['unit'])->waran_pej;
-            $model->bahagian = Penempatan::waran_name($arr_waran['bahagian'])->waran_pej;
-            $pejabat = Penempatan::waran_name($arr_waran['cawangan']);
-            $model->cawangan = $pejabat->waran_pej;
-            $model->pejabat = $pejabat->blok;
-
-            $model->id_peribadi = $id_peribadi;
-            $model->created_by = 'MYKJ';
-            $model->updated_by = 'MYKJ';
-
-            $model->flag = 1;
-            $model->delete_id =0;
-
-            $model->save();
-       // }
+        $model->save();
     }
 
     public static function split_kod_waran($kod_waran){

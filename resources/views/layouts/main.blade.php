@@ -29,8 +29,8 @@
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/core/menu/menu-types/vertical-menu.css')}}">
-    {{-- <link rel="stylesheet" type="text/css" href="{{asset('asset/css/pages/dashboard-ecommerce.css')}}"> --}}
-    {{-- <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/charts/chart-apex.css')}}"> --}}
+    <link rel="stylesheet" type="text/css" href="{{asset('asset/css/pages/dashboard-ecommerce.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/charts/chart-apex.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/extensions/ext-component-toastr.css')}}">
     <!-- END: Page CSS-->
 
@@ -42,11 +42,11 @@
         @include('includes.menu')
         <div class="app-content content ">
             <div class="content-overlay"></div>
-                <div class="header-navbar-shadow"></div>
-                    <div class="content-wrapper container-xxl p-0">
-                        @yield('content')
-                    </div>
-                </div>
+            <div class="header-navbar-shadow"></div>
+            <div class="content-wrapper container-xxl p-0">
+                @yield('content')
+            </div>
+            </div>
             </div>
         </div>
          <div class="sidenav-overlay"></div>
@@ -57,7 +57,7 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    {{-- <script src="{{asset('asset/vendors/js/charts/apexcharts.min.js')}}"></script> --}}
+    <script src="{{asset('asset/vendors/js/charts/apexcharts.min.js')}}"></script>
     <script src="{{asset('asset/vendors/js/extensions/toastr.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
 

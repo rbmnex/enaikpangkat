@@ -7,7 +7,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
@@ -48,37 +47,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public static function upsert($nokp,$id = NULL) {
-        $mykjPeribadi = DB::connection('pgsqlmykj')->table('public.peribadi as p')
-                ->leftJoin('public.l_agama as la', 'p.kod_agama', 'la.kod_agama')
-                ->leftJoin('public.l_taraf_perkahwinan as ltp', 'p.kod_taraf_perkahwinan', 'ltp.kod_taraf_perkahwinan')
-                ->leftJoin('public.l_bangsa as lb', 'p.kod_bangsa', 'lb.kod_bangsa')
-                ->leftJoin('public.l_negeri as ln2', 'p.kod_negeri_lahir', 'ln2.kod_negeri')
-                ->select('p.*','la.agama','ltp.taraf_perkahwinan', 'lb.bangsa', 'ln2.negeri as negeri_lahir')
-                ->where('p.nokp',$nokp)->first();
-
-        $newuser = new User;
-
-        if($id) {
-            $newuser = User::find($id);
-        }
-
-        $newuser->name = $mykjPeribadi->nama;
-        $newuser->nokp = $mykjPeribadi->nokp;
-        $newuser->email = $mykjPeribadi->email;
-        $newuser->password = Hash::make('P@ssw0rD');
-        $newuser->created_by = '';
-        $newuser->type = 1;
-        $newuser->flag = 1;
-        $newuser->delete_id = 0;
-
-        $newuser->save();
-
-        Peribadi::create($newuser->id,$mykjPeribadi);
-
-        return $newuser;
-    }
 
     public static function register($nokp,$password,$type) {
 
