@@ -50,6 +50,12 @@
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan <br/> Kumpulan</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="/urussetia/resume/">
+                            <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Resume</span>
+                            </a>
+                    </li>
                 </ul>
             </li>
             <li class=" nav-item">
@@ -96,12 +102,7 @@
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Butir-Butir Peribadi</span>
                             </a>
                     </li> --}}
-                    <li>
-                        <a class="d-flex align-items-center" href="/admin/pengguna/mockup4">
-                            <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Resume</span>
-                            </a>
-                    </li>
+
                 </ul>
             </li>
 

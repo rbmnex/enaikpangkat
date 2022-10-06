@@ -7,6 +7,7 @@ use App\Http\Controllers\Main\CommonController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
+use App\Http\Controllers\Urussetia\ResumeController;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
 
@@ -47,8 +48,6 @@ Route::prefix('/admin')->group(function() {
         Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
         Route::get('/mockup4', [UserMgmtController::class,'mockup4']);
-        Route::post('/mockup4', [UserMgmtController::class,'mockup4']);
-        Route::get('/resume', [UserMgmtController::class, 'document']);
     });
 });
 
@@ -67,6 +66,14 @@ Route::prefix('/urussetia')->group(function() {
         Route::post('/tambah',[BatchMgmtController::class,'tambah_calon'])->middleware(['auth']);
         Route::post('/padam',[BatchMgmtController::class,'delete_batch'])->middleware(['auth']);
         Route::post('/mel',[BatchMgmtController::class,'email_batch'])->middleware(['auth']);
+
+
+    });
+
+    Route::prefix('/resume')->group(function() {
+        Route::get('/', function() { return view('mockup4'); });
+        Route::post('/mockup4', [ResumeController::class,'mockup4']);
+        Route::get('/resume', [ResumeController::class, 'document']);
     });
 });
 
