@@ -49,6 +49,6 @@
 @endsection
 @section('customJs')
  <!-- BEGIN: Page JS-->
- <script src="{{asset('asset/js/scripts/pages/dashboard-ecommerce.js')}}"></script>
+ {{-- <script src="{{asset('asset/js/scripts/pages/dashboard-ecommerce.js')}}"></script> --}}
  <!-- END: Page JS-->
 @endsection

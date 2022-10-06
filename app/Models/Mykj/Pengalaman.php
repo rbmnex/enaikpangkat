@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Models\Mykj;
+namespace App\Models\MyKj;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pengalaman extends Model 
+class Pengalaman extends Model
 {
-    
+    use HasFactory;
     protected $connection = 'pgsqlmykj';
-    protected $table = 'pengalaman';
-//    public $timestamps = false;
+    protected $table = "pengalaman";
 }

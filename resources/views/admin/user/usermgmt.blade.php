@@ -2,6 +2,7 @@
 
 @section('customCss')
 @include('web.datatable-css')
+@include('web.sweet-alert-css')
 
 <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/select/select2.min.css')}}">
 @endsection
@@ -54,6 +55,7 @@
 
 @section('customJs')
 @include('web.datatable-js')
+@include('web.sweet-alert-js')
 <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{asset('local/usermgmt/js/page_setting.js')}}"></script>
 <script src="{{asset('local/usermgmt/js/datatable.js')}}"></script>

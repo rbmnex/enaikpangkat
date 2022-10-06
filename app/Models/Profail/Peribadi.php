@@ -4,6 +4,7 @@ namespace App\Models\Profail;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class Peribadi extends Model
@@ -16,12 +17,44 @@ class Peribadi extends Model
         $arr_info = get_object_vars($info);
         $array_keys = array_keys($arr_info);
 
+        $renew = true;
+
+        // Peribadi::where('users_id',$userid)->update([
+        //     'flag' => 0,
+        //     'deleted' => 1,
+        //     'updated_by' => 'SYSTEM'
+        // ]);
+
+        //$container = Peribadi::where('users_id',$userid)->where('flag',1)->where('delete_id',0)->get();
+
         $model = new Peribadi;
+
         foreach ($array_keys as $array_key) {
             if($array_key == 'masuk_oleh' || $array_key == 'kemaskini_oleh' || $array_key == 'flag' || $array_key == 'katalaluan' || $array_key == 'tkh_masuk' || $array_key == 'tkh_kemaskini') {
                 // skip and continue
             } else {
-                $model->$array_key = $arr_info[$array_key];
+                $value = $arr_info[$array_key];
+
+                // check any changes on information and add flag to create new
+                // if($container) {
+                //     if($renew) {
+                //         if(!($container->$array_key == $value)) {
+                //             $renew = false;
+
+                //             Peribadi::where('users_id',$userid)->update([
+                //                 'flag' => 0,
+                //                 'deleted' => 1,
+                //                 'updated_by' => 'SYSTEM',
+                //                 'updated_at' => Date::now()
+                //             ]);
+                //         }
+                //     }
+
+                // } else {
+                //     $renew = false;
+                // }
+
+                $model->$array_key = $value;
             }
         }
         $model->users_id = $userid;
@@ -29,9 +62,16 @@ class Peribadi extends Model
         $model->delete_id = 0;
         $model->created_by = 'MYKJ';
         $model->updated_by = 'MYKJ';
-        if($model->save()) {
-            Penempatan::create($model->id,$arr_info['nokp']);
-        }
+        $model->save();
+
+        Penempatan::create($model->id,$arr_info['nokp']);
+        // if(!$renew) {
+        //     if() {
+        //     }
+        // } else {
+        //     Penempatan::create($container->id,$arr_info['nokp']);
+        // }
+
     }
 
     public static function info_pengguna($nokp) {

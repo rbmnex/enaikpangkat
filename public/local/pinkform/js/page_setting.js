@@ -1,0 +1,4 @@
+$('.flatpickr-basic').flatpickr();
+
+
+
