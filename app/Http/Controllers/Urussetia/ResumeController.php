@@ -7,6 +7,8 @@ use App\Models\Mykj\ListPegawai2;
 use Illuminate\Http\Request;
 use Codedge\Fpdf\Fpdf\Fpdf;
 
+use Pdf;
+
 class ResumeController extends Controller
 {
     protected $fpdf;
@@ -15,7 +17,7 @@ class ResumeController extends Controller
         $this->fpdf = new Fpdf;
     }
 
-    public function mockup4(Request $request
+   public function mockup4(Request $request
     ){
         $model= [];
 
@@ -26,8 +28,8 @@ class ResumeController extends Controller
             // echo '</pre>';
             // die();
         }
-
-
+        
+        
         return view('mockup4', [
             'user' => $model
         ]);
@@ -35,14 +37,30 @@ class ResumeController extends Controller
 
 
 
-    public function document()
+    // public function document()
+    // {
+    //     $this->fpdf->SetFont('Arial', 'B', 15);
+    //     $this->fpdf->AddPage("L", ['100', '100']);
+    //     $this->fpdf->Text(10, 10, "Resume");
+
+    //     $this->fpdf->Output();
+
+    //     exit;
+    // }
+
+    public function document($ic) 
     {
-        $this->fpdf->SetFont('Arial', 'B', 15);
-        $this->fpdf->AddPage("L", ['100', '100']);
-        $this->fpdf->Text(10, 10, "Resume");
+        $model= [];
 
-        $this->fpdf->Output();
+        $model=ListPegawai2::getMaklumatPegawai($ic);
 
-        exit;
+        // echo '<pre>';
+        // print_r($model);
+        // echo '</pre>';
+        // die();
+
+        $pdf = Pdf::loadView('admin.user.resume.index', compact('model'));
+        return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
+        exit(0);
     }
 }

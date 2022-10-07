@@ -41,7 +41,7 @@
                                     <h4 class="card-title"> Carian Pegawai</h4>
                                 </div>
                                  <div class="card-body">
-                                    <form class="form form-horizontal" method="POST" action="{{Request::root()}}/admin/pengguna/mockup4">
+                                    <form class="form form-horizontal" method="POST" action="{{Request::root()}}/urussetia/resume/mockup4">
                                         @csrf
                                         <div class="row">
                                             <div class="col-12">
@@ -58,7 +58,7 @@
                                                        
                                                     </div>  
                                                     <div class="col-sm-2"> 
-                                                        <a href="{{Request::root()}}/admin/pengguna/resume" type="submit" class="btn btn-info me-1 setIClink" target="_blank">Cetak</a>
+                                                        <a href="{{Request::root()}}/urussetia/resume/resume/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-info me-1 setIClink" target="_blank">Cetak</a>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -451,7 +451,7 @@
 <script>
     $(document).on('keyup', '#setIC', function(){
         let ic = $('#setICtext').val($(this).val());
-        $('.setIClink').attr('href', window.location.origin +'/admin/pengguna/resume/' + ic);  
+        $('.setIClink').attr('href', window.location.origin +'/urussetia/resume/resume/' + ic);  
     });
 
     $(document).on('click', '.setIClink', function(){
@@ -459,7 +459,7 @@
             alert('Sila Isi IC');
             return false;
         }else{
-            $('.setIClink').attr('href', window.location.origin +'/admin/pengguna/resume/' + $('#setICtext').val());
+            $('.setIClink').attr('href', window.location.origin +'/urussetia/resume/resume/' + $('#setICtext').val());
         }      
     });
 </script>
