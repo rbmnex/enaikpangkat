@@ -106,6 +106,7 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
                         //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
                         toasting('Ralat telah berlaku, Emel telah gagal dihantar', 'error');
                     }
+                    $('.email-modal').modal('hide');
                     $('.table-kumpulan').DataTable().ajax.reload(null, false);
                 },
             }

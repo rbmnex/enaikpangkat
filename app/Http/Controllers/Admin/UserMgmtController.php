@@ -10,8 +10,6 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
-use App\Models\Mykj\ListPegawai2;
-use Codedge\Fpdf\Fpdf\Fpdf;
 
 class UserMgmtController extends Controller
 {

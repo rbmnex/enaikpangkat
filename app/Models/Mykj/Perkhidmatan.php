@@ -6,12 +6,12 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Mykj\LTarafPerkhidmatan;
 use App\Models\Mykj\LKumpulan;
 
-class Perkhidmatan extends Model 
+class Perkhidmatan extends Model
 {
-    
+
     protected $connection = 'pgsqlmykj';
     protected $table = 'perkhidmatan';
-//    public $timestamps = false;
+//  public $timestamps = false;
 
     public function PerkhidmatanTaraf()
     {

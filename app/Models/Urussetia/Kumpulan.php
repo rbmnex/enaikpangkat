@@ -10,4 +10,8 @@ class Kumpulan extends Model
     use HasFactory;
     protected $table = "kumpulan";
     protected $connection = 'pgsql';
+
+    public function calons() {
+        return $this->hasMany(Calon::class,'kumpulan_id','id');
+    }
 }

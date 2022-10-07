@@ -57,6 +57,7 @@
 @include('web.sweet-alert-js')
 @include('web.datepicker-js')
 <script src="{{asset('local/pinkform/js/page_setting.js')}}"></script>
+<script src="{{asset('local/pinkform/js/index.js')}}"></script>
 <script src="{{asset('local/pinkform/js/datatable.js')}}"></script>
 <script>
 $(document).on('click', '.update-pink', function() {

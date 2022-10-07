@@ -3,14 +3,13 @@
 namespace App\Http\Controllers\Urussetia;
 
 use App\Http\Controllers\Controller;
-use App\Models\Mykj\LGred;
-use App\Models\Mykj\LJawatan;
 use App\Models\Mykj\LJurusan;
 use App\Models\Permohonan\PermohonanUkp12;
 use App\Models\Urussetia\Calon;
 use App\Models\Urussetia\Kumpulan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
@@ -39,7 +38,9 @@ class BatchMgmtController extends Controller
     public function senarai_pegawai(Request $request) {
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','kod_kanan')->limit(100)->get();
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan')
+            ->orderBy('np.kod_kanan','asc')
+            ->limit(100)->get();
 
         return DataTables::of($model)
             ->setRowAttr([
@@ -62,7 +63,7 @@ class BatchMgmtController extends Controller
 
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','kod_kanan');
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan');
 
         if(!empty($tahun)) {
             $model = $model->where(DB::raw('extract(year from np.tkh_sah_perkhidmatan)'),$tahun);
@@ -73,7 +74,7 @@ class BatchMgmtController extends Controller
         if(!empty($gred)) {
             $model = $model->where('np.kod_gred',$gred);
         }
-        $model->get();
+        $model->orderBy('np.kod_kanan','asc')->get();
 
         return DataTables::of($model)
             ->setRowAttr([
@@ -202,15 +203,18 @@ class BatchMgmtController extends Controller
             ->whereIn('np.nokp',$list_nokp)->get();
 
             foreach($pegawais as $calon) {
+                $secure_link = Crypt::encryptString($model->id.'?kp='.$calon->nokp);
+
                 $content = [
-                    'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
+                    //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
+                    'link' => "http://mywebapp/form/ukp12/apply/".$secure_link
                 ];
-                Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon) {
+                Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
                     // testing purpose
                     $message->to('rubmin@vn.net.my',$calon->nama);
 
                     //$message->to($calon->email,$calon->nama);
-                    $message->subject('URUSAN PEMANGKUAN DI JABATAN KERJA RAYA');
+                    $message->subject('URUSAN PEMANGKUAN DI JABATAN KERJA RAYA UNTUK GRED'.$kod_gred);
 
                 });
 
@@ -248,8 +252,10 @@ class BatchMgmtController extends Controller
 
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','kod_kanan')
-            ->whereIn('np.nokp',$list_nokp)->get();
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan')
+            ->whereIn('np.nokp',$list_nokp)
+            ->orderBy('np.kod_kanan','asc')
+            ->get();
 
             return DataTables::of($model)
             ->setRowAttr([
@@ -354,7 +360,7 @@ class BatchMgmtController extends Controller
 
         $calon = $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
         ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan')
+        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','no_kanan')
         ->where('nokp', $nokp)->first();
 
         if($calon) {

@@ -65,7 +65,7 @@ $('.table-pink').DataTable({
                 let row_status = full.status;
                 let btn = '';
                 if(row_status == 'LL') {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light data-toggle="modal" data-target="#pink_modal" update-pink">'+ feather.icons['send'].toSvg() +' Hantar</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pink" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Hantar</button>';
                 }
                 return btn;
             }

@@ -54,10 +54,11 @@
                         </div>
                     </div>
                     <div class="col-xl-12 col-md-6 col-12 mb-1">
-                        <button type="button" class="btn btn-success get-carian-staff"><i data-feather='search'></i>Carian</button>
+                        <button type="button" class="btn btn-success get-carian-staff"><i data-feather='search'></i> Carian</button>
                     </div>
                 </div>
                 <div class="row table-list">
+                    <div class="col-12">
                     <table class="datatables table table-staff">
                         <thead>
                             <tr>
@@ -65,13 +66,15 @@
                                 <th>no. kp</th>
                                 <th>nama</th>
                                 <th>jawatan</th>
-                                <th>gred</th>
+                                {{-- <th>gred</th>
                                 <th>jurusan</th>
-                                <th>penempatan</th>
+                                <th>penempatan</th> --}}
                                 <th>tarikh lantikan</th>
+                                <th>kekananan<th>
                             </tr>
                         </thead>
                     </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -163,20 +166,23 @@
                     </div>
                 </div>
                 <div class="row table-list">
+                    <div class="col-12">
                     <table class="datatables table table-staff2">
                         <thead>
                             <tr>
                                 <th>no. kp</th>
                                 <th>nama</th>
                                 <th>jawatan</th>
-                                <th>gred</th>
+                                {{-- <th>gred</th>
                                 <th>jurusan</th>
-                                <th>penempatan</th>
+                                <th>penempatan</th> --}}
                                 <th>tarikh lantikan</th>
+                                <th>kekananan</th>
                                 <th>aksi</th>
                             </tr>
                         </thead>
                     </table>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">

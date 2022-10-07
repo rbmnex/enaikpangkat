@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\MyKj;
+namespace App\Models\Mykj;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
