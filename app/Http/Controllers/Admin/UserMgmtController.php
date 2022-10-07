@@ -145,4 +145,39 @@ class UserMgmtController extends Controller
     public function mockup1(){
         return view('mockup1');
     }
+    public function mockup4(Request $request
+    ){
+        $model= [];
+
+        if($request->input('nokp')){
+            $model=ListPegawai2::getMaklumatPegawai($request->input('nokp'));
+            // echo '<pre>';
+            // print_r($model);
+            // echo '</pre>';
+            // die();
+        }
+        
+        
+        return view('mockup4', [
+            'user' => $model
+        ]);
+    }
+
+   
+
+    public function document($ic) 
+    {
+        $model= [];
+
+        $model=ListPegawai2::getMaklumatPegawai($ic);
+
+        // echo '<pre>';
+        // print_r($model);
+        // echo '</pre>';
+        // die();
+
+        $pdf = Pdf::loadView('admin.user.resume.index', compact('model'));
+        return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
+        exit(0);
+    }
 }

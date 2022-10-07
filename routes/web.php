@@ -48,6 +48,8 @@ Route::prefix('/admin')->group(function() {
         Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
         Route::get('/mockup4', [UserMgmtController::class,'mockup4']);
+        Route::post('/mockup4', [UserMgmtController::class,'mockup4']);
+        Route::get('/resume/{ic}', [UserMgmtController::class, 'document']);
     });
 });
 

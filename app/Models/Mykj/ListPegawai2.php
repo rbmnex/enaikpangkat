@@ -84,7 +84,7 @@ class ListPegawai2 extends Model
     public static function kelayakan($ic){
         $data= [];
 
-        $model = Kelayakan::where('nokp', $ic)->get();
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '!=','8,9,10,20')->get();
 
         if($model){
             foreach($model as $m){
