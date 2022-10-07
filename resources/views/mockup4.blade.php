@@ -41,7 +41,7 @@
                                     <h4 class="card-title"> Carian Pegawai</h4>
                                 </div>
                                  <div class="card-body">
-                                    <form class="form form-horizontal" method="POST" action="{{Request::root()}}/admin/pengguna/mockup4">
+                                    <form class="form form-horizontal" method="POST" action="{{Request::root()}}/urussetia/resume/mockup4">
                                         @csrf
                                         <div class="row">
                                             <div class="col-12">
@@ -50,15 +50,16 @@
                                                         <label class="col-form-label" for="nama">Carian NOKP</label>
                                                     </div>
                                                     <div class="col-sm-5">
-                                                        <input type="text" id="nama" class="form-control" name="nokp" placeholder="Nama" />
+                                                        <input type="hidden" id="setICtext" class="form-control"/>
+                                                        <input type="text" id="setIC" class="form-control" name="nokp" placeholder="Nama" />
                                                     </div>
-                                                     <div class="col-sm-2">
+                                                     <div class="col-sm-2"> 
                                                         <input type="submit" class="btn btn-success me-1" value="cari">
-
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <a href="{{Request::root()}}/admin/pengguna/resume" type="submit" class="btn btn-info me-1" target="_blank">Cetak</a>
-                                                    </div>
+                                                       
+                                                    </div>  
+                                                    <div class="col-sm-2"> 
+                                                        <a href="{{Request::root()}}/urussetia/resume/resume/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-info me-1 setIClink" target="_blank">Cetak</a>
+                                                    </div> 
                                                 </div>
                                             </div>
                                         </div>
@@ -89,13 +90,13 @@
                                                         <label class="col-form-label" for="nama">Nama</label>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                         <input type="text" class="form-control nama" id="basicInput" placeholder="" readonly value="{{$user['name'] ?? ''}}" />
+                                                         <input type="text" class="form-control nama" id="basicInput" placeholder="" readonly value="{{$user['name'] ?? ''}}" /> 
                                                     </div>
                                                    <div class="col-sm-3">
                                                         <div class="card" style="width: 18rem;">
                                                           <img src="{{$user['peribadi']['gambar']??''}}" class="card-img" alt="">
-
-                                                        </div>
+                                                         
+                                                        </div>  
                                                     </div>
 
                                                 </div>
@@ -110,8 +111,8 @@
                                                         <label class="col-form-label" for="jawatan">Jawatan </label>
                                                     </div>
                                                     <div class="col-sm-6">
-
-                                                        <input type="text" class="form-control jawatan" id="basicInput" placeholder="" readonly value="{{$user['jawatan'] ?? ''}}" />
+                                                       
+                                                        <input type="text" class="form-control jawatan" id="basicInput" placeholder="" readonly value="{{$user['jawatan'] ?? ''}}" /> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -121,7 +122,7 @@
                                                         <label class="col-form-label" for="nokp_lama">No Kad Pengenalan</label>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <input type="text" class="form-control nokp" id="basicInput" placeholder="" readonly value="{{$user['nokp'] ?? ''}}" />
+                                                        <input type="text" class="form-control nokp" id="basicInput" placeholder="" readonly value="{{$user['nokp'] ?? ''}}" /> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -131,7 +132,7 @@
                                                         <label class="col-form-label" for="tkh_lahir">Tarikh Lahir</label>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                         <input type="text" class="form-control jawatan" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tkh_lahir'] ?? ''}}" />
+                                                         <input type="text" class="form-control jawatan" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tkh_lahir'] ?? ''}}" /> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -141,7 +142,7 @@
                                                         <label class="col-form-label" for="tempat_lahir">Tempat Lahir</label>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                         <input type="text" class="form-control tempat_lahir" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tempat_lahir'] ?? ''}}" />
+                                                         <input type="text" class="form-control tempat_lahir" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tempat_lahir'] ?? ''}}" /> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -151,18 +152,18 @@
                                                         <label class="col-form-label" for="alamat_pej">Alamat Pejabat</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                         <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['alamat_pejabat'] ?? ''}}" />
+                                                         <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['alamat_pejabat'] ?? ''}}" /> 
                                                     </div>
                                                 </div>
                                             </div>
-
+                                            
                                             <div class="col-12">
                                                 <div class="mb-1 row">
                                                     <div class="col-sm-3">
                                                         <label class="col-form-label" for="alamat_rumah">Alamat Rumah</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control alamat_rumah" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['alamat_rumah'] ?? ''}}" />
+                                                        <input type="text" class="form-control alamat_rumah" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['alamat_rumah'] ?? ''}}" /> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -172,7 +173,7 @@
                                                         <label class="col-form-label" for="taraf_perkahwinan">Taraf Perkahwinan</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                         <input type="text" class="form-control taraf_perkahwinan" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['taraf_perkahwinan'] ?? ''}}" />
+                                                         <input type="text" class="form-control taraf_perkahwinan" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['taraf_perkahwinan'] ?? ''}}" /> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -183,13 +184,13 @@
                                                         <label class="col-form-label" for="no_telefon">No. Telefon(Pejabat)</label>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                       <input type="text" class="form-control no_tel_pejabat" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tel_pejabat'] ?? ''}}" />
+                                                       <input type="text" class="form-control no_tel_pejabat" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tel_pejabat'] ?? ''}}" /> 
                                                     </div>
                                                        <div class="col-sm-3">
                                                         <label class="col-form-label" for="no_telefon">No. Telefon(HP)</label>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                       <input type="text" class="form-control no_tel_pejabat" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tel_bimbit'] ?? ''}}" />
+                                                       <input type="text" class="form-control no_tel_pejabat" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tel_bimbit'] ?? ''}}" /> 
                                                     </div>
                                                 </div>
                                             </div>
@@ -224,9 +225,9 @@
                                                 </div>
                                             </div>
                                             </div>
-
-
-                </div>
+                                            
+                    
+                </div>                         
              </div>
         </div>
         <div class="col-12">
@@ -239,43 +240,43 @@
                     <div class="mb-1 row">
                         <div class="col-md-4 border-bottom">Tahun</div>
                         <div class="col-md-4 border-bottom">Purata</div></div>
-                            @if(isset($user['markah']))
-                                @foreach($user['markah'] as $markah)
+                            @if(isset($user['markah'])) 
+                                @foreach($user['markah'] as $markah) 
                                     <div class="mb-1 row">
                                         <div class="col-md-4"> {{ $markah['tahun'] }} </div>
                                         <div class="col-md-4"> {{ $markah['purata'] }} </div></div>
                                 @endforeach
-                            @endif
+                            @endif     
                 </div>
-            </tbody>
+            </tbody>   
             </div>
         </div>
-
+        
                     <div class="col-12">
                         <div class="card">
                         <div class="card-header">
                         <h4 class="card-title">C. KEPAKARAN DAN PENGALAMAN</h4>
-                        </div>
-
+                        </div> 
+                           
                                 <div class="mb-1 row">
                                             <div class="col-md-4 border-bottom">Nama Kursus</div>
                                             <div class="col-md-4 border-bottom">Tarikh Mula</div>
                                             <div class="col-md-4 border-bottom">Tarikh Tamat</div></div>
-                            @if(isset($user['pengalaman']))
-                                @foreach($user['pengalaman'] as $pengalaman)
-
+                            @if(isset($user['pengalaman'])) 
+                                @foreach($user['pengalaman'] as $pengalaman) 
+                                    
                                         <div class="mb-1 row">
                                             <div class="col-md-4"> {{ $pengalaman['tempat'] }} </div>
                                             <div class="col-md-4"> {{ $pengalaman['mula'] }} </div>
                                             <div class="col-md-4"> {{ $pengalaman['tamat'] }} </div></div>
                                 @endforeach
-                            @endif
-
-                        </div>
+                            @endif     
+                        
+                        </div>                          
                     </div>
-
-
-
+    
+                    
+   
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -288,7 +289,7 @@
                                 <label class="col-form-label" for="alamat_pej">Majikan</label>
                             </div>
                             <div class="col-sm-9">
-                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="Jabatan Kerja Raya Malaysia" />
+                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="Jabatan Kerja Raya Malaysia" /> 
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -296,7 +297,7 @@
                                 <label class="col-form-label" for="alamat_pej">Skim Perkhidmatan</label>
                             </div>
                             <div class="col-sm-9">
-                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['perkhidmatan']['skim'] ?? ''}}" />
+                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['perkhidmatan']['skim'] ?? ''}}" /> 
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -304,7 +305,7 @@
                                 <label class="col-form-label" for="alamat_pej">Tarikh Mula Perkhidmatan</label>
                             </div>
                             <div class="col-sm-9">
-                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['perkhidmatan']['tkh_mula_gred_hakiki'] ?? ''}}" />
+                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['perkhidmatan']['tkh_mula_gred_hakiki'] ?? ''}}" /> 
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -312,7 +313,7 @@
                                 <label class="col-form-label" for="alamat_pej">Tarikh Bersara Wajib</label>
                             </div>
                             <div class="col-sm-9">
-                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tkh_wajib_bersara']?? ''}}" />
+                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['peribadi']['tkh_wajib_bersara']?? ''}}" /> 
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -320,7 +321,7 @@
                                 <label class="col-form-label" for="alamat_pej">Gred Hakiki</label>
                             </div>
                             <div class="col-sm-9">
-                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['perkhidmatan']['gred_hakiki'] ?? ''}}" />
+                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['perkhidmatan']['kod_jawatan'] ?? ''}}" /> 
                             </div>
                         </div>
                         <div class="mb-1 row">
@@ -328,7 +329,7 @@
                                 <label class="col-form-label" for="alamat_pej">Tarikh Mula Gred Hakiki</label>
                             </div>
                             <div class="col-sm-9">
-                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['perkhidmatan']['tkh_mula_gred_hakiki'] ?? ''}}" />
+                                 <input type="textarea" class="form-control alamat_pej" id="basicInput" placeholder="" readonly value="{{$user['perkhidmatan']['tkh_mula_gred_hakiki'] ?? ''}}" /> 
                             </div>
                         </div>
 
@@ -344,25 +345,47 @@
                 </div>
                      <tbody>
                             <div class="col-12">
+                                 <div class="card-header">
+                                    <h1 class="card-title">KELAYAKAN AKADEMIK</h1>
+                                 </div>
                                 <div class="mb-1 row">
                                             <div class="col-md-4 border-bottom">Nama Kelulusan</div>
                                             <div class="col-md-4 border-bottom">Institusi Pengajian</div>
                                             <div class="col-md-4 border-bottom">Tahun Kelulusan</div>
                                 </div>
-                            @if(isset($user['kelayakan']))
-                                @foreach($user['kelayakan'] as $kelayakan)
-
+                            @if(isset($user['kelayakan'])) 
+                                @foreach($user['kelayakan'] as $kelayakan) 
+                                    
                                         <div class="mb-1 row">
                                             <div class="col-md-4"> {{ $kelayakan['nama_kelulusan'] }} </div>
                                             <div class="col-md-4"> {{ $kelayakan['institusi'] }} </div>
                                             <div class="col-md-4"> {{ $kelayakan['tkh_kelulusan'] }} </div></div>
                                 @endforeach
-                            @endif
+                            @endif     
                          </div>
-                        </tbody>
+                          <div class="col-12">
+                             <div class="card-header">
+                                    <h1 class="card-title">KELAYAKAN PROFESIONAL</h1>
+                                 </div>
+                                <div class="mb-1 row">
+                                            <div class="col-md-4 border-bottom">Nama Kelulusan</div>
+                                            <div class="col-md-4 border-bottom">Institusi Pengajian</div>
+                                            <div class="col-md-4 border-bottom">Tahun Kelulusan</div>
+                                </div>
+                            @if(isset($user['kelayakan'])) 
+                                @foreach($user['kelayakan'] as $kelayakan) 
+                                    
+                                        <div class="mb-1 row">
+                                            <div class="col-md-4"> {{ $kelayakan['nama_kelulusan'] }} </div>
+                                            <div class="col-md-4"> {{ $kelayakan['institusi'] }} </div>
+                                            <div class="col-md-4"> {{ $kelayakan['tkh_kelulusan'] }} </div></div>
+                                @endforeach
+                            @endif     
+                         </div>
+                        </tbody>   
                 </div>
             </div>
-        </div>
+        </div> 
 
         <div class="col-12">
             <div class="card">
@@ -372,12 +395,12 @@
                 </div>
                     <div class="card-body">
                         <form class="form form-horizontal">
-
+                     
                     </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -386,13 +409,13 @@
                 </div>
                     <div class="card-body">
                         <form class="form form-horizontal">
-
+                      
 
                     </form>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
         <div class="col-12">
             <div class="card">
                 <div class="basic-select2">
@@ -401,21 +424,21 @@
                 </div>
                     <div class="card-body">
                         <form class="form form-horizontal">
-
-
-
+                       
+                      
+                       
 
                     </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+        </div>                                  
+    </div>    
     </div class="col-sm-12">
-     <!--
+     <!--   
 
-        <div class="col-sm-4">
-         <a href="/admin/pengguna/mockup2">
+        <div class="col-sm-4"> 
+         <a href="/admin/pengguna/mockup2">      
         <button type="#" class="btn btn-success me-1">Seterusnya</button>
         </a>
         </div> -->
@@ -425,5 +448,19 @@
 @endsection
 
 @section('customJs')
+<script>
+    $(document).on('keyup', '#setIC', function(){
+        let ic = $('#setICtext').val($(this).val());
+        $('.setIClink').attr('href', window.location.origin +'/urussetia/resume/resume/' + ic);  
+    });
 
+    $(document).on('click', '.setIClink', function(){
+        if($('#setICtext').val() == '' || typeof $('#setICtext').val() == 'undefined'){
+            alert('Sila Isi IC');
+            return false;
+        }else{
+            $('.setIClink').attr('href', window.location.origin +'/urussetia/resume/resume/' + $('#setICtext').val());
+        }      
+    });
+</script>
 @endsection
