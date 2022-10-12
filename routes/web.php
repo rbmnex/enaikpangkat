@@ -87,7 +87,7 @@ Route::prefix('/hr')->group(function() {
 Route::prefix('/form')->group(function() {
     Route::prefix('/ukp12')->group(function() {
         Route::get('/display/{id}',[UkpController::class,'open']);
-
+        Route::get('/apply/{encryted}',[UkpController::class,'apply']);
     });
 });
 

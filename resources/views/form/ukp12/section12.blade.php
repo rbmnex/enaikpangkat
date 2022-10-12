@@ -1,6 +1,6 @@
 <div id="pinjam-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Surat Akuan Pinjaman Pendidikan Institusi / Tabung Pendidikan</h5>
+        <h5 class="mb-0">Bahagian 12 - Surat Akuan Pinjaman Pendidikan Institusi / Tabung Pendidikan</h5>
     </div>
     <div class="row">
         <div class="form-group col-md-12">

@@ -1,7 +1,7 @@
 <div id="akuan-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 13</h5>
-        <small class="text-muted">Akaun Pegawai</small>
+        <h5 class="mb-0">Bahagian 13 - Akaun Pegawai</h5>
+        <small class="text-muted"></small>
     </div>
     <div class="row">
         <div class="form-group col-md-12">

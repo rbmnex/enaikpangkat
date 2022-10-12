@@ -7,6 +7,7 @@ use App\Models\Mykj\LJurusan;
 use App\Models\Permohonan\PermohonanUkp12;
 use App\Models\Urussetia\Calon;
 use App\Models\Urussetia\Kumpulan;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
@@ -207,14 +208,16 @@ class BatchMgmtController extends Controller
 
                 $content = [
                     //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
-                    'link' => "http://mywebapp/form/ukp12/apply/".$secure_link
+                    'link' => "http://mywebapp/form/ukp12/apply/".$secure_link,
+                    'gred' => $kod_gred,
+                    'end_date' => Carbon::now()->addDays(14)->format('d M Y')
                 ];
                 Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
                     // testing purpose
                     $message->to('rubmin@vn.net.my',$calon->nama);
 
                     //$message->to($calon->email,$calon->nama);
-                    $message->subject('URUSAN PEMANGKUAN DI JABATAN KERJA RAYA UNTUK GRED'.$kod_gred);
+                    $message->subject('URUSAN PEMANGKUAN KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                 });
 

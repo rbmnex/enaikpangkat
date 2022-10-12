@@ -1,7 +1,7 @@
 <div id="carian-pegawai" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 14</h5>
-        <small class="text-muted">Ketua Jabatan/Bahagian</small>
+        <h5 class="mb-0">Bahagian 14 - Ketua Jabatan/Bahagian</h5>
+        <small class="text-muted"></small>
     </div>
         <div class="row">
             <div class="col-xl-12 col-md-6 col-12 mb-1 search-section">

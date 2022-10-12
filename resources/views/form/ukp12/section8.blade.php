@@ -1,22 +1,28 @@
 <div id="akademik-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Rekod Akademik</h5>
+        <h5 class="mb-0">Bahagian 8 - Rekod Akademik</h5>
     </div>
     <div class="row">
-        <div class="form-group col-md-12">
+        {{-- <div class="form-group col-md-12">
             <br/>
             <button type="button" class="btn btn-success tambah-calon" data-toggle="modal" data-target="#modal-akademik"><i data-feather='plus'></i>Tambah</button>
-        </div>
+        </div> --}}
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
                     <th>Kelulusan</th>
                     <th>Institut Pusat Pengajian Tinggi</th>
                     <th>Tahun</th>
-                    <th>Aksi</th>
+                    {{-- <th>Aksi</th> --}}
                 </thead>
                 <tbody id="tbody-universiti">
-
+                @foreach ($profile['akademik'] as $a)
+                    <tr>
+                        <td>{{ $a->nama_kelulusan }}</td>
+                        <td>{{ $a->institusi }}</td>
+                        <td>{{ empty($a->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($a->tkh_kelulusan)->format('Y') }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
