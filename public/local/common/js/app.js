@@ -103,7 +103,7 @@ function ajax_common(methods,url, data, postfunc, selectorClass, inputClass, lis
     });
 }
 
-function swalAjax({titleText, mainText, icon, confirmButtonText, postData}){
+function swalAjax({titleText, mainText, icon, confirmButtonText, postData, method = 'POST'}){
     Swal.fire({
         title: titleText,
         text: mainText,
@@ -117,20 +117,19 @@ function swalAjax({titleText, mainText, icon, confirmButtonText, postData}){
         buttonsStyling: false
     }).then(function (result) {
         if (result.value) {
-
-            swalAjaxFire(postData);
+            swalAjaxFire(method,postData);
         }
     });
 }
 
-function swalAjaxFire(postData){
+function swalAjaxFire(method,postData){
     let url = postData.url;
     let data = postData.data;
     let postfunc = postData.postfunc;
 
     $.blockUI();
     $.ajax({
-        type:'POST',
+        type: method,
         url: getUrl() + url,
         data:data,
         dataType: "json",

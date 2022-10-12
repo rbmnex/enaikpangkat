@@ -5,7 +5,7 @@ $(document).on('click','.tambah-cuti',function() {
     }
 });
 
-$(document).on('click','.add-cuti, .add-perkhidmatan',function() {
+$(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-cuti')) {
         let row = [];
@@ -27,13 +27,80 @@ $(document).on('click','.add-cuti, .add-perkhidmatan',function() {
         row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
         add_row('#tbody-khidmat',row,'data-cuti-id=1');
         $('#modal-penempatan').modal('hide');
+    } else if(selectedClass.hasClass('add-pertubuhan')){
+        let tempat = $('input[name="pertubuhan-tempat"]').val();
+        let jawatan = $('input[name="pertubuhan-jawatan"]').val();
+        let tahun = $('input[name="pertubuhan-tahun"]').val();
+
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('nama',tempat);
+        data.append('jawatan',jawatan);
+        data.append('tahun',tahun);
+        data.append('pemohonId',$('._formid').val());
+        data.append('nokp',$('input[name="nokp_utuh"]').val());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan disimpan',
+            icon: 'info',
+            confirmButtonText: 'Hantar',
+            postData: {
+                url : '/form/api/org',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        let row = [];
+                        row.push(parseData.jawatan);
+                        row.push(parseData.tempat);
+                        row.push(parseData.tahun);
+                        row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
+                        add_row('#tbody-badan',row,'data-pertubuhan-id='+parseData.id);
+                        $('#modal-pertubuhan').modal('hide');
+                        toasting('Jawatan Dalam Pertubuhan Ditambah', 'success');
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                    }
+                },
+            }
+        });
     }
 });
 
-$(document).on('click','.delete-row',function() {
+$(document).on('click','.delete-row, .delete-org',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('delete-row')) {
         remove_row(selectedClass);
+    } else if(selectedClass.hasClass('delete-org')) {
+        let org_id = selectedClass.closest('tr').attr('data-pertubuhan-id');
+
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('id',org_id);
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan dipadam',
+            icon: 'waring',
+            confirmButtonText: 'Padam',
+            postData: {
+                url : '/form/api/org',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        remove_row(selectedClass);
+                        toasting('Jawatan Dalam Pertubuhan Dipadam', 'success');
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Data telah gagal dipadam', 'error');
+                    }
+                },
+            },
+            method: 'DELETE'
+        });
     }
 });
 

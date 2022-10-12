@@ -89,6 +89,10 @@ Route::prefix('/form')->group(function() {
         Route::get('/display/{id}',[UkpController::class,'open']);
         Route::get('/apply/{encryted}',[UkpController::class,'apply']);
     });
+    Route::prefix('/api')->group(function() {
+        Route::post('/org',[UkpController::class,'save_organization']);
+        Route::delete('/org',[UkpController::class,'delete_organization']);
+    });
 });
 
 //Common Controller

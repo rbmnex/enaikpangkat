@@ -13,7 +13,7 @@
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="contact-info">No Kad Pengenalan (Baru)</label>
-            <input type="text" id="nokp" readonly class="form-control" name="nokp" value="{{ $profile['nokp_baru'] }}" placeholder="" />
+            <input type="text" id="nokp" readonly class="form-control" name="nokp_utuh" value="{{ $profile['nokp_baru'] }}" placeholder="" />
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="contact-info">No Kad Pengenalan (Lama)</label>

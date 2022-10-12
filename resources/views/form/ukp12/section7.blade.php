@@ -1,6 +1,6 @@
 <div id="pertubuhan-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Jawatan Yang Dipegang Dalam Pertubuhan/Lain-Lain </h5>
+        <h5 class="mb-0">Bahagian 7 - Jawatan Yang Dipegang Dalam Pertubuhan/Lain-Lain </h5>
     </div>
     <div class="row">
         <div class="form-group col-md-12">
@@ -13,9 +13,17 @@
                     <th>Jawatan</th>
                     <th>Nama Pertubuhan</th>
                     <th>Tahun</th>
-                    <th>Aksi</th>
+                    <th>Tindakan</th>
                 </thead>
                 <tbody id="tbody-badan">
+                @foreach ($profile['pertubuhan'] as $org)
+                    <tr data-pertubuhan-id="{{ $org->id }}">
+                        <td>{{ $org->jawatan }}</td>
+                        <td>{{ $org->nama }}</td>
+                        <td>{{ $org->tahun }}</td>
+                        <td><button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-org"><i data-feather='trash-2'></i> Hapus</button></td>
+                    </tr>
+                @endforeach
 
                 </tbody>
             </table>

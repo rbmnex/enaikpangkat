@@ -18,7 +18,7 @@
                 <tbody id="tbody-khidmat">
                     @foreach ($profile['pengalaman'] as $pengalaman)
                     <tr>
-                        <td></td>
+                        <td>{{ $pengalaman->gelaran_jawatan->gelaran_jawatan }}</td>
                         <td>{{ $pengalaman->tempat }}</td>
                         <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula )->format('d-m-Y') }}</td>
                     </tr>

@@ -7,18 +7,15 @@ use App\Models\MyKj\Cuti;
 use App\Models\Mykj\Gaji;
 use App\Models\MyKj\Harta;
 use App\Models\Mykj\Kelayakan;
-use App\Models\Mykj\LAgama;
-use App\Models\Mykj\LBangsa;
 use App\Models\MyKj\Pengalaman;
 use App\Models\Mykj\Peristiwa;
 use App\Models\MyKj\Waris;
 use App\Models\Permohonan\Pemohon;
-use App\Models\Profail\Penempatan;
+use App\Models\Permohonan\Pertubuhan;
 use App\Models\Profail\Peribadi;
 use App\Models\Urussetia\Calon;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
@@ -135,7 +132,7 @@ class UkpController extends Controller
             }
         }
 
-        $maklumat = $this->load_info($profile,$nokp);
+        $maklumat = $this->load_info($profile,$nokp,$pemohon->id);
 
         return view('form.ukp12',[
             "profile" => $maklumat,
@@ -148,9 +145,6 @@ class UkpController extends Controller
         $values = explode('?',$content);
         $formId =  $values[0];
         $nokp = substr($values[1],3);
-
-        // check pemohon can apply ukp12
-        //Calon::where('nokp',$nokp)->first();
 
         $access = $this->verify_applicant($nokp,$formId);
 
@@ -205,12 +199,65 @@ class UkpController extends Controller
             }
         }
 
-        $maklumat = $this->load_info($profile,$nokp);
+        $maklumat = $this->load_info($profile,$nokp,$pemohon->id);
 
         return view('form.ukp12',[
             "profile" => $maklumat,
             "pemohon_id" =>$pemohon->id
         ]);
+    }
+
+    public function save_organization(Request $request) {
+        $nama = $request->input('nama');
+        $jawatan = $request->input('jawatan');
+        $tahun = $request->input('tahun');
+        $id = $request->input('pemohonId');
+        $nokp = $request->input('nokp');
+
+        $model = new Pertubuhan;
+        $model->flag = 1;
+        $model->delete_id = 0;
+        $model->nama = $nama;
+        $model->jawatan = $jawatan;
+        $model->tahun = $tahun;
+        $model->pemohon_id = $id;
+        $model->created_by = $nokp;
+        $model->updated_by = $nokp;
+
+        if($model->save()) {
+            return response()->json([
+                'success' => 1,
+                'data' => [
+                    'jawatan' => $model->jawatan,
+                    'tempat' => $model->nama,
+                    'tahun' => $model->tahun,
+                    'id' => $model->id
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+    }
+
+    public function delete_organization(Request $request) {
+        $pertubuhanId =  $request->input('id');
+
+        $model = Pertubuhan::find($pertubuhanId);
+
+        if($model->delete()) {
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
     }
 
     private function verify_applicant($nokp,$formId) {
@@ -231,7 +278,7 @@ class UkpController extends Controller
 
     }
 
-    private function load_info($profile,$nokp) {
+    private function load_info($profile,$nokp,$pemohonid) {
         $khidmat = DB::connection('pgsqlmykj')->table('perkhidmatan as p')
         ->join('l_jawatan as j', 'j.kod_jawatan','p.kod_jawatan')
         ->select('p.kod_gred','p.kod_jawatan','j.jawatan', 'p.tkh_lantik', 'p.tkh_sah_perkhidmatan')
@@ -258,6 +305,8 @@ class UkpController extends Controller
         $kompeten = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[9,10])->get();
 
         $iktiraf = Peristiwa::where('nokp',$nokp)->wherein('kod_peristiwa',['P8','A1','P10','A4'])->get();
+
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohonid)->get();
 
         $maklumat = array();
                 $maklumat['nama'] = $profile->nama;
@@ -291,18 +340,12 @@ class UkpController extends Controller
                 $maklumat['profesional'] = $profesional;
                 $maklumat['kompeten'] = $kompeten;
                 $maklumat['pengiktirafan'] = $iktiraf;
+                $maklumat['pertubuhan'] = $pertubuhan;
 
         return $maklumat;
     }
 
     private function search_jawatan($nokp,$year) {
-        /*
-            select lgj.gelaran_jawatan, p.tkh_lantik  from perkhidmatan p
-left join l_gelaran_jawatan lgj on p.kod_gelaran_jawatan = lgj.kod_gelaran_jawatan
-where p.tkh_lantik <= '1992-11-29' and p.nokp = '591208086200'
-order by p.tkh_lantik asc;
-
-         */
         $result = DB::connection('pgsqlmykj')->table('perkhidmatan as p')
                     ->leftJoin('l_gelaran_jawatan as g','p.kod_gelaran_jawatan','g.kod_gelaran_jawatan')
                     ->select('p.gelaran_jawatan')
