@@ -5,7 +5,14 @@
 var bsStepper = document.querySelectorAll('.bs-stepper'),
 verticalWizard = document.querySelector('.vertical-wizard-example'),
 select = $('.select2');
-
+select.each(function () {
+    var $this = $(this);
+    $this.wrap('<div class="position-relative"></div>');
+    $this.select2({
+      placeholder: '-- Sila Pilih --',
+      dropdownParent: $this.parent()
+    });
+  });
   // Adds crossed class
 //   if (typeof bsStepper !== undefined && bsStepper !== null) {
 //     for (var el = 0; el < bsStepper.length; ++el) {
@@ -37,14 +44,7 @@ select = $('.select2');
 //   }
 
     // select2
-    select.each(function () {
-        var $this = $(this);
-        $this.wrap('<div class="position-relative"></div>');
-        $this.select2({
-          placeholder: '-- Sila Pilih --',
-          dropdownParent: $this.parent()
-        });
-      });
+
 
       //if (typeof verticalWizard !== undefined && verticalWizard !== null) {
         var verticalStepper = new Stepper(verticalWizard, {
