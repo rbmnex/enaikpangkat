@@ -36,7 +36,7 @@ class CommonController extends Controller
                 );
             }
         } else if($model == 'Gred') {
-            $query = LGred::all();
+            $query = LGred::where('kod_gred','like','J%')->get();
             foreach($query as $list){
                 $data[] = array(
                     'label' => $list->kod_gred,

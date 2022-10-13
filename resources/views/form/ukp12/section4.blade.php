@@ -4,12 +4,18 @@
     </div>
     <div class="row">
         <div class="form-group col-md-6">
-            <label class="form-label" for="tarikhAkhir_harta">Tarikh Akhir Pengisytiharan Harta Terkini:</label>
+            <label class="col-form-label" for="tarikhAkhir_harta">Tarikh Akhir Pengisytiharan Harta Terkini:</label>
             <input type="text" readonly class="form-control" value="{{ $profile['tkh_istihar'] }}" id="tarikhAkhir_harta" name="harta_tkh_akhir_pengisytiharan">
         </div>
         <div class="form-group col-md-6">
-            <label class="form-label" for="lampiran_E">Muat Naik Lampiran E</label>
+            <label class="col-form-label" for="lampiran_E">Muat Naik Lampiran E</label>
             <input class="form-control" type="file" id="lampiran_E" name="harta_surat_kelulusan" />
+        </div>
+        <div class="form-group col-md-12">
+            <label class="col-form-label" style="font-style: italic" for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</b></label>
+        </div>
+        <div class="form-group col-md-12">
+            <label class="col-form-label" style="font-style: italic" for=""><b>* Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir</b></label>
         </div>
     </div>
     <div class="d-flex justify-content-between">

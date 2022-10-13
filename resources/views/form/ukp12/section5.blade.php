@@ -71,17 +71,17 @@
             <input type="text" id="vertical-email" readonly name="gred" class="form-control" value="{{ $profile['gred'] }}" placeholder=""  />
         </div>
         <div class="col-form-group col-md-6">
-            <label class="form-label" for="vertical-email">Gaji Hakiki</label>
+            <label class="col-form-label" for="vertical-email">Gaji Hakiki</label>
             <input type="number" id="vertical-email" readonly name="gaji_hakiki" value="{{ $profile['gaji'] }}" class="form-control" placeholder=""  />
         </div>
         <div class="form-group col-md-6"></div>
         <div class="form-group col-md-12">
-            <label class="form-label" for="alamat_bertugas">Alamat Pejabat</label>
-            <input type="text" id="alamat_bertugas" readonly class="form-control" name="alamat_pejabat" value="{{ $profile['alamat_pejabat'] }}" placeholder=""/>
+            <label class="col-form-label" for="alamat_bertugas">Alamat Pejabat</label>
+            <textarea row=3 type="text" id="alamat_bertugas" readonly class="form-control" name="alamat_pejabat"  placeholder="">{{ $profile['alamat_pejabat'] }}</textarea>
         </div>
         <div class="form-group col-md-12">
-            <label class="form-label" for="alamat_bertugas">Alamat Rumah</label>
-            <input type="text" id="alamat_rumah" readonly class="form-control" value="{{ $profile['alamat_rumah'] }}" name="alamat_rumah" placeholder=""/>
+            <label class="col-form-label" for="alamat_bertugas">Alamat Rumah</label>
+            <textarea row=3 type="text" id="alamat_rumah" readonly class="form-control" name="alamat_rumah" placeholder="">{{  $profile['alamat_rumah']  }}</textarea>
         </div>
         <div class="form-group col-md-6">
            <label class="col-form-label" for="email-id">Nama Pasangan</label>

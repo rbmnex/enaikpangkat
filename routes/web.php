@@ -91,7 +91,7 @@ Route::prefix('/form')->group(function() {
     });
     Route::prefix('/api')->group(function() {
         Route::post('/org',[UkpController::class,'save_organization']);
-        Route::delete('/org',[UkpController::class,'delete_organization']);
+        Route::post('/org/del',[UkpController::class,'delete_organization']);
     });
 });
 

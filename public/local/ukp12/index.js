@@ -86,7 +86,7 @@ $(document).on('click','.delete-row, .delete-org',function() {
             icon: 'waring',
             confirmButtonText: 'Padam',
             postData: {
-                url : '/form/api/org',
+                url : '/form/api/org/del',
                 data: data,
                 postfunc: function(data) {
                     let success = data.success;
@@ -98,8 +98,7 @@ $(document).on('click','.delete-row, .delete-org',function() {
                         toasting('Ralat telah berlaku, Data telah gagal dipadam', 'error');
                     }
                 },
-            },
-            method: 'DELETE'
+            }
         });
     }
 });

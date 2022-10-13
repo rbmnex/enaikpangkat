@@ -55,11 +55,11 @@
                                     <span class="bs-stepper-box">2</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 2</span>
-                                        <span class="bs-stepper-subtitle">Maklumat Cuti</span>
+                                        <span class="bs-stepper-subtitle">Maklumat Cuti Dan Pengesahan</span>
                                     </span>
                                 </button>
                             </div>
-                            <div class="step" data-target="#penempatan-vertical">
+                            {{-- <div class="step" data-target="#penempatan-vertical">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">3</span>
                                     <span class="bs-stepper-label">
@@ -67,102 +67,102 @@
                                         <span class="bs-stepper-subtitle">Pengesahan Tempat Bertugas</span>
                                     </span>
                                 </button>
-                            </div>
+                            </div> --}}
                             <div class="step" data-target="#harta-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">4</span>
+                                    <span class="bs-stepper-box">3</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 4</span>
+                                        <span class="bs-stepper-title">Bahagian 3</span>
                                         <span class="bs-stepper-subtitle">Pengisytiharan Harta</span>
                                     </span>
                                 </button>
                             </div>
                              <div class="step" data-target="#utuh-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">5</span>
+                                    <span class="bs-stepper-box">4</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 5</span>
+                                        <span class="bs-stepper-title">Bahagian 4</span>
                                         <span class="bs-stepper-subtitle">Butiran Calon</span>
                                     </span>
                                 </button>
                             </div>
                            <div class="step" data-target="#perkhidmatan-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">6</span>
+                                    <span class="bs-stepper-box">5</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 6</span>
+                                        <span class="bs-stepper-title">Bahagian 5</span>
                                         <span class="bs-stepper-subtitle">Sejarah Perkhidmatan</span>
                                     </span>
                                 </button>
                             </div>
                             <div class="step" data-target="#pertubuhan-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">7</span>
+                                    <span class="bs-stepper-box">6</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 7</span>
+                                        <span class="bs-stepper-title">Bahagian 6</span>
                                         <span class="bs-stepper-subtitle">Pertubuhan</span>
                                     </span>
                                 </button>
                             </div>
                             <div class="step" data-target="#akademik-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">8</span>
+                                    <span class="bs-stepper-box">7</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 8</span>
+                                        <span class="bs-stepper-title">Bahagian 7</span>
                                         <span class="bs-stepper-subtitle">Akademik</span>
                                     </span>
                                 </button>
                             </div>
                              <div class="step" data-target="#profesional-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">9</span>
+                                    <span class="bs-stepper-box">8</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 9</span>
+                                        <span class="bs-stepper-title">Bahagian 8</span>
                                         <span class="bs-stepper-subtitle">Profesional</span>
                                     </span>
                                 </button>
                             </div>
                              <div class="step" data-target="#kompeten-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">10</span>
+                                    <span class="bs-stepper-box">9</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 10</span>
+                                        <span class="bs-stepper-title">Bahagian 9</span>
                                         <span class="bs-stepper-subtitle">Kekompetenan</span>
                                     </span>
                                 </button>
                             </div>
                            <div class="step" data-target="#iktiraf-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">11</span>
+                                    <span class="bs-stepper-box">10</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 11</span>
+                                        <span class="bs-stepper-title">Bahagian 10</span>
                                         <span class="bs-stepper-subtitle">Pengiktirafan</span>
                                     </span>
                                 </button>
                             </div>
                            <div class="step" data-target="#pinjam-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">12</span>
+                                    <span class="bs-stepper-box">11</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 12</span>
+                                        <span class="bs-stepper-title">Bahagian 11</span>
                                         <span class="bs-stepper-subtitle">Akaun Pinjaman</span>
                                     </span>
                                 </button>
                             </div>
                             <div class="step" data-target="#akuan-vertical">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">13</span>
+                                    <span class="bs-stepper-box">12</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 13</span>
+                                        <span class="bs-stepper-title">Bahagian 12</span>
                                         <span class="bs-stepper-subtitle">Akaun Pegawai</span>
                                     </span>
                                 </button>
                             </div>
                             <div class="step" data-target="#carian-pegawai">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">14</span>
+                                    <span class="bs-stepper-box">13</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 14</span>
+                                        <span class="bs-stepper-title">Bahagian 13</span>
                                         <span class="bs-stepper-subtitle">Ketua Jabatan/Bahagian</span>
                                     </span>
                                 </button>
@@ -172,7 +172,7 @@
                             {{-- <form id="ukp12_form"> --}}
                                 @include('form.ukp12.section1')
                                 @include('form.ukp12.section2')
-                                @include('form.ukp12.section3')
+                                {{-- @include('form.ukp12.section3') --}}
                                 @include('form.ukp12.section4')
                                 @include('form.ukp12.section5')
                                 @include('form.ukp12.section6')
@@ -197,7 +197,7 @@
 
 </div>
 @include('form.ukp12.modal')
-{{-- <input type="hidden" id="_token" class="_token" name="_token" value="{{csrf_token()}}"> --}}
+<input type="hidden" id="_token_alt" class="_token_alt" name="_token_alt" value="{{csrf_token()}}">
 <input type="hidden" id="_formid" class="_formid" name="_formid" value="{{ $pemohon_id }}">
 
 @endsection

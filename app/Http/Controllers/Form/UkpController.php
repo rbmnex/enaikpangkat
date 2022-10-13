@@ -85,21 +85,18 @@ class UkpController extends Controller
             return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
         }
 
-        $status = 'exist';
+
         $profile = NULL;
         $pemohon = NULL;
 
         $user = User::where('nokp',$nokp)->first();
 
         if(empty($user)) {
-            $status = 'new';
             User::upsert($nokp);
             $user = User::where('nokp',$nokp)->first();
-        }
 
-        $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
+            $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
 
-        if($status == 'new') {
             $pemohon = new Pemohon;
             $pemohon->flag = 1;
             $pemohon->delete_id = 0;
@@ -108,10 +105,14 @@ class UkpController extends Controller
             $pemohon->created_by = $nokp;
             $pemohon->updated_by = $nokp;
             $pemohon->status = Pemohon::NOT_SUBMITTED;
+            $pemohon->user_id = $user->id;
             $pemohon->save();
         } else {
-            $pemohon = Pemohon::where('id_peribadi',$profile->id)->where('id_permohonan', $id)->first();
+            $pemohon = Pemohon::where('id_permohonan', $id)->where('user_id',$user->id)->first();
+
             if($pemohon) {
+                $profile = Peribadi::find($pemohon->id_peribadi);
+
                 if($pemohon->status == Pemohon::NOT_SUBMITTED) {
                     $profile = Peribadi::update_peribadi($profile,$nokp);
                 } else {
@@ -120,6 +121,7 @@ class UkpController extends Controller
 
             } else {
                 $profile = Peribadi::recreate($user->id,$nokp);
+
                 $pemohon = new Pemohon;
                 $pemohon->flag = 1;
                 $pemohon->delete_id = 0;
@@ -128,6 +130,7 @@ class UkpController extends Controller
                 $pemohon->created_by = $nokp;
                 $pemohon->updated_by = $nokp;
                 $pemohon->status = Pemohon::NOT_SUBMITTED;
+                $pemohon->user_id = $user->id;
                 $pemohon->save();
             }
         }
@@ -152,21 +155,17 @@ class UkpController extends Controller
             return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
         }
 
-        $status = 'exist';
         $profile = NULL;
         $pemohon = NULL;
 
         $user = User::where('nokp',$nokp)->first();
 
         if(empty($user)) {
-            $status = 'new';
             User::upsert($nokp);
             $user = User::where('nokp',$nokp)->first();
-        }
 
-        $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
+            $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
 
-        if($status == 'new') {
             $pemohon = new Pemohon;
             $pemohon->flag = 1;
             $pemohon->delete_id = 0;
@@ -175,10 +174,14 @@ class UkpController extends Controller
             $pemohon->created_by = $nokp;
             $pemohon->updated_by = $nokp;
             $pemohon->status = Pemohon::NOT_SUBMITTED;
+            $pemohon->user_id = $user->id;
             $pemohon->save();
         } else {
-            $pemohon = Pemohon::where('id_peribadi',$profile->id)->where('id_permohonan', $formId)->first();
+            $pemohon = Pemohon::where('id_permohonan', $formId)->where('user_id',$user->id)->first();
+
             if($pemohon) {
+                $profile = Peribadi::find($pemohon->id_peribadi);
+
                 if($pemohon->status == Pemohon::NOT_SUBMITTED) {
                     $profile = Peribadi::update_peribadi($profile,$nokp);
                 } else {
@@ -187,6 +190,7 @@ class UkpController extends Controller
 
             } else {
                 $profile = Peribadi::recreate($user->id,$nokp);
+
                 $pemohon = new Pemohon;
                 $pemohon->flag = 1;
                 $pemohon->delete_id = 0;
@@ -195,6 +199,7 @@ class UkpController extends Controller
                 $pemohon->created_by = $nokp;
                 $pemohon->updated_by = $nokp;
                 $pemohon->status = Pemohon::NOT_SUBMITTED;
+                $pemohon->user_id = $user->id;
                 $pemohon->save();
             }
         }
@@ -263,15 +268,20 @@ class UkpController extends Controller
     private function verify_applicant($nokp,$formId) {
         // check applicant is eligible
         $eligible = false;
+        /*
+        select c.nokp, k."name", k.permohonan_id  from calon c
+join kumpulan k on c.kumpulan_id = k.id
+where c.nokp = '830801025623' and k.permohonan_id = 8;
+        */
 
-        $calon = Calon::where('nokp',$nokp)->get();
+        $calon = DB::connection('pgsql')->table('calon as c')
+            ->join('kumpulan as k','c.kumpulan_id','k.id')
+            ->select('c.nokp', 'k.name', 'k.permohonan_id')
+            ->where('c.nokp', $nokp)->where('k.permohonan_id',8)
+            ->first();
 
-        if(!empty($calon)) {
-            $eligible = $calon->every(function ($item, $key) use ($formId) {
-                if (!empty($item->kumpulan->permohonan_id) && ($item->kumpulan->permohonan_id == $formId)) {
-                    return true;
-                }
-            });
+        if($calon) {
+            $eligible = true;
         }
 
         return $eligible;
