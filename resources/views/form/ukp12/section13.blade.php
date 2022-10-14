@@ -15,13 +15,13 @@
         <div class="form-group col-md-6">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="form-check-label" for="customCheck1">Pernah</label>
+                <label class="col-form-label" for="customCheck1">Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-6">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="form-check-label" for="customCheck1">Tidak Pernah</label>
+                <label class="col-form-label" for="customCheck1">Tidak Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-12">
@@ -32,13 +32,13 @@
         <div class="form-group col-md-6">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="form-check-label" for="customCheck1">Pernah</label>
+                <label class="col-form-label" for="customCheck1">Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-6">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="form-check-label" for="customCheck1">Tidak Pernah</label>
+                <label class="col-form-label" for="customCheck1">Tidak Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-12">
@@ -49,13 +49,13 @@
         <div class="form-group col-md-6">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="form-check-label" for="customCheck1">Pernah</label>
+                <label class="col-form-label" for="customCheck1">Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-6">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="form-check-label" for="customCheck1">Tidak Pernah</label>
+                <label class="col-form-label" for="customCheck1">Tidak Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-12">
@@ -66,19 +66,19 @@
         <div class="form-group col-md-6">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="form-check-label" for="customCheck1">Pernah</label>
+                <label class="col-form-label" for="customCheck1">Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-6">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="form-check-label" for="customCheck1">Tidak Pernah</label>
+                <label class="col-form-label" for="customCheck1">Tidak Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline">
                 <input type="checkbox" class="form-check-input" name="akuan" id="customCheck10" />
-                <label class="form-check-label" for="customCheck1">Saya mengaku bahawa butiran yang dinyatakan di dalam Borang JKR/UKP/12 ini adalah benar. Sekiranya tidak benar, saya boleh dikenakan tindakan tatatertib di bawah Peraturan 4 (f) dan Peraturan 4 (g), Peraturan-Peraturan Pegawai Awam ( Kelakuan dan Tatatertib ) 1993.</label>
+                <label class="col-form-label" for="customCheck1">Saya mengaku bahawa butiran yang dinyatakan di dalam Borang JKR/UKP/12 ini adalah benar. Sekiranya tidak benar, saya boleh dikenakan tindakan tatatertib di bawah Peraturan 4 (f) dan Peraturan 4 (g), Peraturan-Peraturan Pegawai Awam ( Kelakuan dan Tatatertib ) 1993.</label>
             </div>
         </div>
         <div class="form-group col-md-12">

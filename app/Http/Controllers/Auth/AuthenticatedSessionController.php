@@ -34,6 +34,11 @@ class AuthenticatedSessionController extends Controller
         $password = $request->input('password');
 
         User::register($nokp,$password,$type);
+        // $user = User::where('nokp',$nokp)->first();
+
+        // foreach($user->user_roles as $role) {
+        //     $user->attachRole($role);
+        // }
 
         $request->authenticate();
 

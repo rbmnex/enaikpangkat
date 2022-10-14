@@ -38,6 +38,7 @@
                     </li>
                 </ul>
             </li>
+            @role(['secretariat','superadmin'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
@@ -58,6 +59,8 @@
                     </li>
                 </ul>
             </li>
+            @endrole
+            @role(['coordinator','superadmin'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
@@ -72,6 +75,8 @@
                     </li>
                 </ul>
             </li>
+            @endrole
+            @role('superadmin')
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
@@ -105,6 +110,7 @@
 
                 </ul>
             </li>
+            @endrole
 
         </ul>
         @endif

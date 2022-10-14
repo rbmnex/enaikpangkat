@@ -8,6 +8,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/plugins/forms/form-wizard.css') }}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/tables/datatable/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('asset//vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/forms/pickers/form-flat-pickr.css')}}">
 @endsection
 
 @section('content')
@@ -205,6 +207,7 @@
 @section('customJs')
 
 @include('web.sweet-alert-js')
+<script src="{{ asset('asset/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
 <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('asset/vendors/js/forms/wizard/bs-stepper.min.js') }}"></script>
 <script src="{{ asset('asset/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>

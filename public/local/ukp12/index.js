@@ -124,7 +124,33 @@ $(document).on('change', '.pengguna-carian', function(){
             $('.pengguna-bahagian').val(result.bahagian);
             $('.pengguna-unit').val(result.unit);
             $('.pengguna-pejabat').val(result.pejabat);
-            $('.pengguna-jawatan').val(result.jawatan);
+            $('.pengguna-jawatan').val(result.jawatan+' '+result.gred);
+        }
+    });
+});
+
+$(document).on('change', '.pegawai-carian', function(){
+    let no_ic = $(this).val();
+    let data = new FormData;
+    data.append('no_ic', no_ic);
+    //data.append('_token', getToken());
+    $.ajax({
+        type:'GET',
+        url: getUrl() + '/admin/pengguna/api?no_ic='+no_ic,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        context: this,
+        success: function(data) {
+            let result = data.data;
+            $('.pegawai-nama').val(result.nama);
+            $('.pegawai-email').val(result.emel);
+            $('.pegawai-nokp').val(result.nokp);
+            $('.pegawai-cawangan').val(result.cawangan);
+            $('.pegawai-bahagian').val(result.bahagian);
+            $('.pegawai-unit').val(result.unit);
+            $('.pegawai-pejabat').val(result.pejabat);
+            $('.pegawai-jawatan').val(result.jawatan+' '+result.gred);
         }
     });
 });

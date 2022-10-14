@@ -4,7 +4,7 @@
     </div>
     <div class="row">
         <div class="form-group col-md-12">
-            <label class="form-label" for="jantina">Saya dengan ini mengesahkan bahawa saya:</label>
+            <label class="col-form-label" for="jantina">Saya dengan ini mengesahkan bahawa saya:</label>
             <select class="select2 form-control">
                 <option value="" selected>-- Sila Pilih --</option>
                 <option value="0">Saya tidak ada mengambil pinjaman pendidikan daripada mana-mana institusi/ tabung pendidikan</option>
@@ -14,29 +14,29 @@
             </select>
         </div>
         <div class="form-group col-md-12">
-            <label class="form-label" for="tabung_pendidikan">Nama Institusi/ Tabung Pendidikan</label>
+            <label class="col-form-label" for="tabung_pendidikan">Nama Institusi/ Tabung Pendidikan</label>
             <input type="text" id="tabung_pendidikan" class="form-control" name="tabung_pendidikan" placeholder="" />
         </div>
         <div class="form-group col-md-12">
-            <label class="form-label" for="jumlah_pinjaman">Jumlah Pinjaman</label>
+            <label class="col-form-label" for="jumlah_pinjaman">Jumlah Pinjaman</label>
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon3">RM</span>
             <input type="text" class="form-control" id="basic-url3" aria-describedby="basic-addon3" name="jumlah_pinjaman"/>
             </div>
         </div>
         <div class="form-group col-md-12">
-            <label class="form-label" for="bayaran_mulai">Bayaran Mulai (Tahun)</label>
-            <input type="date" class="form-control" id="bayaran_mulai" name="bayaran_mulai"
+            <label class="col-form-label" for="bayaran_mulai">Bayaran Mulai (Tahun)</label>
+            <input type="text" class="form-control flatpickr-basic" id="bayaran_mulai" name="bayaran_mulai"
                                                         value="" />
 
         </div>
         <div class="form-group col-md-12">
-            <label class="form-label" for="selesai_bayar">Selesai Pembayaran (Tahun)</label>
-            <input type="date" class="form-control" id="selesai_bayar" name="selesai_bayar"
+            <label class="col-form-label" for="selesai_bayar">Selesai Pembayaran (Tahun)</label>
+            <input type="text" class="form-control flatpickr-basic" id="selesai_bayar" name="selesai_bayar"
                                                         value="" />
         </div>
         <div class="form-group col-md-12">
-            <label class="form-label" for="formFileMultiple">MUATNAIK PENYATA BAYARAN PINJAMAN TERKINI /  SURAT PENGESAHAN</label>
+            <label class="col-form-label" for="formFileMultiple">MUATNAIK PENYATA BAYARAN PINJAMAN TERKINI /  SURAT PENGESAHAN</label>
             <input class="form-control" type="file" id="formFileMultiple" name="penyata_bayaran"/>
         </div>
     </div>

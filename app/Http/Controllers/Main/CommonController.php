@@ -58,4 +58,8 @@ class CommonController extends Controller
             'data' => $data,
         ]);
     }
+
+    public function load_pegawai_info(Request $request) {
+
+    }
 }

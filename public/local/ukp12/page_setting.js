@@ -5,6 +5,7 @@
 var bsStepper = document.querySelectorAll('.bs-stepper'),
 verticalWizard = document.querySelector('.vertical-wizard-example'),
 select = $('.select2');
+var basicPickr = $('.flatpickr-basic');
 select.each(function () {
     var $this = $(this);
     $this.wrap('<div class="position-relative"></div>');
@@ -13,6 +14,10 @@ select.each(function () {
       dropdownParent: $this.parent()
     });
   });
+
+  if (basicPickr.length) {
+    basicPickr.flatpickr();
+  }
   // Adds crossed class
 //   if (typeof bsStepper !== undefined && bsStepper !== null) {
 //     for (var el = 0; el < bsStepper.length; ++el) {
@@ -85,6 +90,43 @@ function remove_row(selector) {
 $('.pengguna-carian').wrap('<div class="position-relative"></div>').select2({
     dropdownAutoWidth: true,
     dropdownParent: $('.pengguna-carian').parent(),
+    width: '100%',
+    language: {
+        inputTooShort: function(){
+            return 'Sekurang-kurangnya mengisi satu huruf...';
+        },
+        searching: function(){
+            return 'Sedang Mencari Pengguna...';
+        }
+    },
+    ajax: {
+        url: getUrl() + '/admin/pengguna/carian',
+        dataType: 'json',
+        delay: 250,
+        data: function (params) {
+            return {
+                q: params.term, // search term
+                page: params.page
+            };
+        },
+        processResults: function (data, params) {
+            let parseData = data.data;
+            return {
+                results: parseData,
+                pagination: {
+                    more: params.page * 30 < parseData.length
+                }
+            };
+        },
+        cache: true
+    },
+    placeholder: 'Sila Isi Nama Pengguna',
+    minimumInputLength: 1,
+});
+
+$('.pegawai-carian').wrap('<div class="position-relative"></div>').select2({
+    dropdownAutoWidth: true,
+    dropdownParent: $('.pegawai-carian').parent(),
     width: '100%',
     language: {
         inputTooShort: function(){

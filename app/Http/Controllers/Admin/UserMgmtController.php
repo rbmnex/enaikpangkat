@@ -23,9 +23,9 @@ class UserMgmtController extends Controller
     public function senarai_pengguna(Request $request) {
         $model = DB::connection('pgsql')->table('users as ur')
             ->leftJoin('peribadi as pr','pr.users_id', 'ur.id')
-            ->leftJoin('penempatan as pp', 'pp.id_peribadi', 'pr.id')
+            ->leftJoin('penempatan as pp', 'pp.user_id', 'ur.id')
             ->select('ur.name','ur.nokp','pp.jawatan','pp.unit','pp.bahagian','pp.cawangan','pp.pejabat', 'ur.email','ur.id as user_id', 'pr.id as peribadi_id', 'pp.id as penempatan_id', 'ur.flag')
-            ->where('ur.type', 1)
+            ->where('ur.type', 1)->where('pr.flag',1)
             ->get();
 
             return DataTables::of($model)
@@ -72,7 +72,7 @@ class UserMgmtController extends Controller
         $user = DB::connection('pgsql')->table('users as ur')
         ->leftJoin('peribadi as pr','pr.users_id', 'ur.id')
         ->leftJoin('penempatan as pp', 'pp.id_peribadi', 'pr.id')
-        ->select('ur.name','ur.nokp','pp.jawatan','pp.unit','pp.bahagian','pp.cawangan','pp.pejabat', 'ur.email','ur.id as user_id', 'pr.id as peribadi_id', 'pp.id as penempatan_id', 'ur.flag')
+        ->select('ur.name','ur.nokp','pp.jawatan','pp.unit','pp.bahagian','pp.cawangan','pp.pejabat', 'ur.email','ur.id as user_id', 'pr.id as peribadi_id', 'pp.id as penempatan_id', 'ur.flag', 'pp.gred')
         ->where('ur.nokp', $nokp)
         ->first();
 
@@ -85,7 +85,7 @@ class UserMgmtController extends Controller
             $info['emel'] = $user->email;
             $info['unit'] = $user->unit;
             $info['bahagian'] = $user->bahagian;
-
+            $info['gred'] = $user->gred;
             $info['cawangan'] = $user->cawangan;
             $info['pejabat'] = $user->pejabat;
 
@@ -110,28 +110,30 @@ class UserMgmtController extends Controller
         $nokp = $request->input('nokp');
         $userid = $request->input('userid');
 
-        if($ops) {
-            // update
-            RoleUser::where('user_id', $userid)->delete();
-            $model = User::upsert($nokp,$userid);
-        } else {
-            // insert
-            $model = User::upsert($nokp);
-            $userid = $model->id;
-        }
+        $model = User::upsert($nokp,$userid);
+        // if($ops) {
+        //     // update
+        //     RoleUser::where('user_id', $userid)->delete();
+        //     $model = User::upsert($nokp,$userid);
+        // } else {
+        //     // insert
+        //     $model = User::upsert($nokp);
+        //     $userid = $model->id;
+        // }
 
-        foreach($roleArr as $r){
-            $newQuery = new RoleUser;
-            $newQuery->user_id = $userid;
-            $newQuery->role_id = $r;
-            $newQuery->user_type = 'Staff';
-            $newQuery->save();
-        }
+        // foreach($roleArr as $r){
+        //     $newQuery = new RoleUser;
+        //     $newQuery->user_id = $userid;
+        //     $newQuery->role_id = $r;
+        //     $newQuery->user_type = 'App\Models\User';
+        //     $newQuery->save();
+        // }
 
         return response()->json([
             'success' => 1,
             'data' => [
-                'ops' => $ops
+                'ops' => $ops,
+                'data' => $model
             ]
         ]);
     }
@@ -156,16 +158,16 @@ class UserMgmtController extends Controller
             // echo '</pre>';
             // die();
         }
-        
-        
+
+
         return view('mockup4', [
             'user' => $model
         ]);
     }
 
-   
 
-    public function document($ic) 
+
+    public function document($ic)
     {
         $model= [];
 

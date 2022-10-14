@@ -16,6 +16,7 @@ use App\Models\Profail\Peribadi;
 use App\Models\Urussetia\Calon;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 
@@ -148,6 +149,12 @@ class UkpController extends Controller
         $values = explode('?',$content);
         $formId =  $values[0];
         $nokp = substr($values[1],3);
+
+        $userKp = Auth::user()->nokp;
+
+        if($userKp != $nokp) {
+            return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
+        }
 
         $access = $this->verify_applicant($nokp,$formId);
 

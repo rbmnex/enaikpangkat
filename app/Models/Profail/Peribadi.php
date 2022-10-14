@@ -35,7 +35,7 @@ class Peribadi extends Model
         $model->updated_by = 'MYKJ';
         $model->save();
 
-        Penempatan::create($model->id,$arr_info['nokp']);
+        //Penempatan::create($model->id,$arr_info['nokp']);
 
         return $model;
     }
@@ -113,6 +113,7 @@ class Peribadi extends Model
         $info['nama'] = $peribadi->nama;
         $info['jawatan'] = $peribadi->jawatan;
         $info['emel'] = $peribadi->email;
+        $info['gred'] = $peribadi->kod_gred;
 
         $tempat = DB::connection('pgsqlmykj')->table('penempatanx as p')
         ->select('p.kod_waran')->where('nokp',$nokp)->where('flag',1)->first();

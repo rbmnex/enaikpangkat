@@ -36,7 +36,15 @@ Route::get('/login-vendor', function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('/admin')->group(function() {
+
+/* example
+    Route::group(['prefix' => 'admin', 'middleware' => ['role:admin']], function() {
+    Route::get('/', 'AdminController@welcome');
+    Route::get('/manage', ['middleware' => ['permission:manage-admins'], 'uses' => 'AdminController@manageAdmins']);
+});
+*/
+
+Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin']], function() {
     Route::prefix('/pengguna')->group(function() {
         Route::get('/', [UserMgmtController::class,'index']);
         Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
@@ -49,6 +57,20 @@ Route::prefix('/admin')->group(function() {
         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
     });
 });
+
+// Route::prefix('/admin')->group(function() {
+//     Route::prefix('/pengguna')->group(function() {
+//         Route::get('/', [UserMgmtController::class,'index']);
+//         Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
+//         Route::get('/carian', [UserMgmtController::class,'carian_pengguna']);
+//         Route::get('/api',[UserMgmtController::class,'maklumat_pengguna']);
+//         Route::post('/api',[UserMgmtController::class,'save_pengguna']);
+
+//         Route::get('/mockup2', [UserMgmtController::class,'mockup2']);
+//         Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
+//         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
+//     });
+// });
 
 Route::prefix('/urussetia')->group(function() {
     Route::prefix('/kumpulan')->group(function() {
@@ -87,7 +109,7 @@ Route::prefix('/hr')->group(function() {
 Route::prefix('/form')->group(function() {
     Route::prefix('/ukp12')->group(function() {
         Route::get('/display/{id}',[UkpController::class,'open']);
-        Route::get('/apply/{encryted}',[UkpController::class,'apply']);
+        Route::get('/apply/{encryted}',[UkpController::class,'apply'])->middleware('auth');
     });
     Route::prefix('/api')->group(function() {
         Route::post('/org',[UkpController::class,'save_organization']);
