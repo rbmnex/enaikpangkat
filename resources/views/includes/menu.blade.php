@@ -1,4 +1,4 @@
-<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+  <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
             <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/rtl/vertical-menu-template-bordered/index.html"><span class="brand-logo">
@@ -107,11 +107,22 @@
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Butir-Butir Peribadi</span>
                             </a>
                     </li> --}}
-
                 </ul>
             </li>
-            @endrole
-
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pemangku</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="/pemangku/tawaran/">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
         @endif
     </div>

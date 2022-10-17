@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/extensions/ext-component-toastr.css')}}">
     <!-- END: Page CSS-->
 
-
+    @yield('CSS')
     @yield('customCss')
     </head>
     <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
@@ -55,7 +55,7 @@
         <!-- BEGIN: Vendor JS-->
     <script src="{{asset('asset/vendors/js/vendors.min.js')}}"></script>
     <!-- BEGIN Vendor JS-->
-
+    @yield('JS')
     <!-- BEGIN: Page Vendor JS-->
     {{-- <script src="{{asset('asset/vendors/js/charts/apexcharts.min.js')}}"></script> --}}
     <script src="{{asset('asset/vendors/js/extensions/toastr.min.js')}}"></script>

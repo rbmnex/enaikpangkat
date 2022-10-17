@@ -26,6 +26,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+//test aku untuk vnat, nanti aku delete
+Route::get('/test-map', function () {
+    return view('map');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
@@ -145,4 +150,5 @@ Route::get('/test/pdf',function() {
     exit;
 });
 
+require __DIR__.'/hr.php';
 //Route::get('/test/pdf',[FunctionController::class,'pdf']);
