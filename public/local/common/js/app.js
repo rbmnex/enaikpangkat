@@ -167,3 +167,11 @@ toastr[toastType](messsage, {
      rtl: isRtl
 });
 }
+
+function addInvalid(className, message){
+    $(className).addClass('is-invalid').closest('.form-group').find('.invalid-feedback').html(message).attr('style', 'display:block');
+}
+
+function clearInvalid(className){
+    $(className).removeClass('is-invalid').closest('.form-group').find('.invalid-feedback').attr('style', 'display:none').html('');
+}

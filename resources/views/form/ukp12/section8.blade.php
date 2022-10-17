@@ -1,6 +1,7 @@
 <div id="akademik-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 8 - Rekod Akademik</h5>
+        <h5 class="mb-0">Bahagian 7 - Rekod Akademik</h5>
+        <small class="text-notice">Sila kemas kini di bahagian KELULUSAN/KOMPETENSI/SUMBANGAN di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         {{-- <div class="form-group col-md-12">

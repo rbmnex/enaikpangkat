@@ -2,10 +2,19 @@
 
 }) (window, document, jQuery);
 
+$('.div-loan-1').hide();
+$('.div-loan-2').hide();
+$('.div-loan-3').hide();
+$('.div-loan-4').hide();
+$('.div-loan-5').hide();
+$('.div-loan-6').hide();
+$('.div-loan-7').hide();
+
 var bsStepper = document.querySelectorAll('.bs-stepper'),
 verticalWizard = document.querySelector('.vertical-wizard-example'),
 select = $('.select2');
 var basicPickr = $('.flatpickr-basic');
+var loanPickr = $('.flatpickr-loan');
 select.each(function () {
     var $this = $(this);
     $this.wrap('<div class="position-relative"></div>');
@@ -17,6 +26,22 @@ select.each(function () {
 
   if (basicPickr.length) {
     basicPickr.flatpickr();
+  }
+
+  if (loanPickr.length) {
+    loanPickr.flatpickr(
+        {
+            // plugins: [
+            //     new monthSelectPlugin({
+            //       shorthand: true, //defaults to false
+            //       dateFormat: "m.y", //defaults to "F Y"
+            //       altFormat: "F Y", //defaults to "F Y"
+            //       theme: "light" // defaults to "light"
+            //     })
+            // ]
+            dateFormat: 'd-m-Y'
+        }
+    );
   }
   // Adds crossed class
 //   if (typeof bsStepper !== undefined && bsStepper !== null) {
@@ -160,4 +185,23 @@ $('.pegawai-carian').wrap('<div class="position-relative"></div>').select2({
     placeholder: 'Sila Isi Nama Pengguna',
     minimumInputLength: 1,
 });
+
+function validate_form() {
+    let valid = true;
+
+    var tarikh_harta = $('#tarikhAkhir_harta').val();
+    var status_pinjam = $('#status_pinjam').val();
+
+    if( tarikh_harta == 0 || tarikhAkhir_harta == '' || tarikhAkhir_harta == undefined) {
+        valid = false;
+        addInvalid('#tarikhAkhir_harta', 'Tiada Tarikh Pengisytiharan Harta Terkini!');
+    }
+
+    if( status_pinjam == "") {
+        valid = false;
+        addInvalid('#status_pinjam', 'Sila pilih pengakuan pinjaman pendidikan');
+    }
+
+    return valid;
+}
 

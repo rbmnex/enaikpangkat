@@ -1,6 +1,6 @@
 <div id="carian-pegawai" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 14 - Ketua Jabatan/Bahagian</h5>
+        <h5 class="mb-0">Bahagian 13 - Ketua Jabatan/Bahagian</h5>
         <small class="text-muted"></small>
     </div>
         <div class="row">
@@ -140,7 +140,7 @@
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
             <span class="align-middle d-sm-inline-block d-none">Previous</span>
         </button>
-        <button type="button" disabled class="btn btn-outline-secondary btn-next">
+        <button type="button" class="btn btn-primary btn-next">
             <span class="align-middle d-sm-inline-block d-none">Next</span>
             <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
         </button>

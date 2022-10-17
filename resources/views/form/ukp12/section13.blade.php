@@ -1,6 +1,6 @@
 <div id="akuan-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 13 - Akaun Pegawai</h5>
+        <h5 class="mb-0">Bahagian 12 - Akaun Pegawai</h5>
         <small class="text-muted"></small>
     </div>
     <div class="row">
@@ -9,53 +9,47 @@
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" for="">a) Tindakan tatatertib:</label>
-
-
         </div>
         <div class="form-group col-md-6">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="col-form-label" for="customCheck1">Pernah</label>
+            <div class="form-check form-check-inline ">
+                <input type="radio" value="1" class="form-check-input" name="tatatertib" id="radio1" />
+                <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-6">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="col-form-label" for="customCheck1">Tidak Pernah</label>
+            <div class="form-check form-check-inline ">
+                <input type="radio" value="0" class="form-check-input" name="tatatertib" id="radio1" />
+                <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" for="">b) Telah mengisytiharkan harta mengikut peraturan yang ditetapkan</label>
-
-
         </div>
         <div class="form-group col-md-6">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="col-form-label" for="customCheck1">Pernah</label>
+            <div class="form-check form-check-inline ">
+                <input type="radio" value="1" class="form-check-input" name="harta" id="radio1" />
+                <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-6">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="col-form-label" for="customCheck1">Tidak Pernah</label>
+            <div class="form-check form-check-inline ">
+                <input type="radio" value="0" class="form-check-input" name="harta" id="radio1" />
+                <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" for="">c) Lanjutan tempoh percubaan dengan denda</label>
-
-
         </div>
         <div class="form-group col-md-6">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="col-form-label" for="customCheck1">Pernah</label>
+            <div class="form-check form-check-inline ">
+                <input type="radio" value="1" class="form-check-input" name="denda" id="radio1" />
+                <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-6">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="col-form-label" for="customCheck1">Tidak Pernah</label>
+            <div class="form-check form-check-inline ">
+                <input type="radio" value="0" class="form-check-input" name="denda" id="radio1" />
+                <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-12">
@@ -64,15 +58,15 @@
 
         </div>
         <div class="form-group col-md-6">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="col-form-label" for="customCheck1">Pernah</label>
+            <div class="form-check form-check-inline ">
+                <input type="radio" value="1" class="form-check-input" name="cuti_check" id="radio1" />
+                <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-6">
-            <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input" name="tatatertib" id="customCheck1" />
-                <label class="col-form-label" for="customCheck1">Tidak Pernah</label>
+            <div class="form-check form-check-inline ">
+                <input type="radio" value="0" class="form-check-input" name="cuti_check" id="radio1" />
+                <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
             </div>
         </div>
         <div class="form-group col-md-12">
@@ -91,7 +85,7 @@
             <label class="col-form-label" for="">Alamat Pejabat: {{ $profile['alamat_pejabat'] }}</label>
         </div>
         <div class="form-group col-md-12">
-            <label class="col-form-label" for="">Tarikh: {{ Date::now() }}</label>
+            <label class="col-form-label" for="">Tarikh: {{ \Carbon\Carbon::parse(Date::now())->format('d-m-Y') }}</label>
         </div>
     </div>
     <div class="d-flex justify-content-between">

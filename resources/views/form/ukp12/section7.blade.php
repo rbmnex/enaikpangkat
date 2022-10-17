@@ -1,6 +1,6 @@
 <div id="pertubuhan-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 7 - Jawatan Yang Dipegang Dalam Pertubuhan/Lain-Lain </h5>
+        <h5 class="mb-0">Bahagian 6 - Jawatan Yang Dipegang Dalam Pertubuhan/Lain-Lain </h5>
     </div>
     <div class="row">
         <div class="form-group col-md-12">

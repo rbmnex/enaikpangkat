@@ -1,7 +1,7 @@
 <div id="cuti-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 2 - Maklumat Cuti Dan Pengesahan</h5>
-        <span class="text-muted"></span>
+        <small class="text-notice">Sila kemas kini di bahagian CUTI di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         <div class="form-group col-md-12">

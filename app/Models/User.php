@@ -66,28 +66,26 @@ class User extends Authenticatable
 
         $newuser = new User;
 
-        // if($id) {
-        //     $newuser = User::find($id);
-        // }
+        if($id) {
+            $newuser = User::find($id);
+        }
 
-        // $newuser->name = $mykjPeribadi->nama;
-        // $newuser->nokp = $mykjPeribadi->nokp;
-        // $newuser->email = $mykjPeribadi->email;
-        // $newuser->password = Hash::make('P@ssw0rD');
-        // $newuser->created_by = '';
-        // $newuser->type = 1;
-        // $newuser->flag = 1;
-        // $newuser->delete_id = 0;
+        $newuser->name = $mykjPeribadi->nama;
+        $newuser->nokp = $mykjPeribadi->nokp;
+        $newuser->email = $mykjPeribadi->email;
+        $newuser->password = Hash::make('P@ssw0rD');
+        $newuser->created_by = '';
+        $newuser->type = 1;
+        $newuser->flag = 1;
+        $newuser->delete_id = 0;
 
-        // $newuser->save();
+        $newuser->save();
 
-        // if(empty($newuser->id)) {
-        //     Peribadi::create($newuser->id,$mykjPeribadi);
-        // }
+        if(empty($newuser->id)) {
+            Peribadi::create($newuser->id,$mykjPeribadi);
+        }
 
-        // return $newuser;
-
-        return $mykjPeribadi;
+        return $newuser;
     }
 
     public static function register($nokp,$password,$type) {

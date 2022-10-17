@@ -1,7 +1,11 @@
-$(document).on('click','.tambah-cuti',function() {
+$(document).on('click','.btn-submit',function() {
     let selectedClass = $(this);
-    if(selectedClass.hasClass('tambah-cuti')) {
-        $('#modal-cuti').modal('show');
+    if(selectedClass.hasClass('btn-submit')) {
+        //$('#modal-cuti').modal('show');
+        let process = validate_form();
+        if(process) {
+            // submit proccess
+        }
     }
 });
 
@@ -101,6 +105,61 @@ $(document).on('click','.delete-row, .delete-org',function() {
             }
         });
     }
+});
+
+$(document).on('change', '.pinjam-status, .upload-harta', function() {
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('pinjam-status')) {
+        var value = selectedClass.val();
+        if(value == 0) {
+            $('.div-loan-1').hide();
+            $('.div-loan-2').hide();
+            $('.div-loan-3').hide();
+            $('.div-loan-4').hide();
+            $('.div-loan-5').hide();
+            $('.div-loan-6').hide();
+            $('.div-loan-7').hide();
+        } else if(value == 1) {
+            $('.div-loan-1').show();
+            $('.div-loan-2').show();
+            $('.div-loan-3').show();
+            $('.div-loan-4').show();
+            $('.div-loan-7').show();
+        } else if(value == 2) {
+            $('.div-loan-1').show();
+            $('.div-loan-2').show();
+            $('.div-loan-3').show();
+            $('.div-loan-4').show();
+            $('.div-loan-5').show();
+            $('.div-loan-7').show();
+        } else if(value == 3) {
+            $('.div-loan-1').show();
+            $('.div-loan-2').show();
+            $('.div-loan-3').show();
+            $('.div-loan-4').show();
+            $('.div-loan-6').show();
+            $('.div-loan-7').show();
+        }
+    } else if(selectedClass.hasClass('upload-harta')) {
+        var form = $('#upload-harta')[0];
+        let data = new FormData(form);
+        data.append('_token', getToken());
+        data.append('tkh_istihar',$('input[name="harta_tkh_akhir_pengisytiharan"]').val());
+        $.ajax({
+            type:'POST',
+            url: '/api/test/upload',
+            data:data,
+            processData: false,
+            contentType: false,
+            context: this,
+            success: function(resp) {
+                let d = resp.data;
+                $('#base64').val(d.base64);
+                $('#ext').val(d.ext);
+            }
+        });
+    }
+
 });
 
 $(document).on('change', '.pengguna-carian', function(){

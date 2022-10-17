@@ -5,25 +5,25 @@
     </head>
     <body>
         <div class="row">
-            <form id="upload_form" width="100%">
-            <div class="form-group col-md-6">
+            <div class="form-group col-6">
+                <form id="upload_form" width="100%">
                 <label class="form-label" for="">File Upload</label>
                 <input class="form-control" type="file" id="file_1" name="file" />
+                @csrf
+                </form>
             </div>
-            @csrf
-            </form>
-            <div class="form-group col-md-6">
+            <div class="form-group col-6">
                 <button type="button" id="upload_btn" class="btn btn-success">Upload</button>
             </div>
         </div>
-        <div class="row">
+        <div class="row" width="100%">
             <form id="ok" method="POST" action="/api/test/download" width="100%">
             @csrf
-            <div class="form-group col-md-6">
+            <div class="form-group col-6">
                 <label class="form-label" for="">Base 64</label>
                 <textarea class="form-control" id="base64" name="base64"></textarea>
             </div>
-            <div class="form-group col-md-6">
+            <div class="form-group col-6">
                 <label class="form-label" for="">extension</label>
                 <input class="form-control" type="text" id="ext" name="ext"/>
             </div>

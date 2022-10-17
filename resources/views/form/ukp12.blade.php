@@ -12,6 +12,22 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/forms/pickers/form-flat-pickr.css')}}">
 @endsection
 
+<style>
+    .text-notice {
+        color: red !important;
+        font-style: italic;
+    }
+
+    .select2-selection--single {
+        height: 60% !important;
+    }
+    .select2-selection__rendered{
+        word-wrap: break-word !important;
+        text-overflow: inherit !important;
+        white-space: normal !important;
+    }
+</style>
+
 @section('content')
 {{-- <div class="content-header row">
     <div class="content-header-left col-md-9 col-12 mb-2">
@@ -169,6 +185,15 @@
                                     </span>
                                 </button>
                             </div>
+                            <div class="step" data-target="#terima-tawaran">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">14</span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Bahagian 14</span>
+                                        <span class="bs-stepper-subtitle">Penerimaan Tawaran</span>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
                         <div class="bs-stepper-content">
                             {{-- <form id="ukp12_form"> --}}
@@ -186,6 +211,7 @@
                                 @include('form.ukp12.section12')
                                 @include('form.ukp12.section13')
                                 @include('form.ukp12.section14')
+                                @include('form.ukp12.section15')
                             {{-- </form> --}}
                         </div>
                     </div>
@@ -201,6 +227,7 @@
 @include('form.ukp12.modal')
 <input type="hidden" id="_token_alt" class="_token_alt" name="_token_alt" value="{{csrf_token()}}">
 <input type="hidden" id="_formid" class="_formid" name="_formid" value="{{ $pemohon_id }}">
+<input type="hidden" id="_formdata" class="_formdata" name="_formdata" value="{{ json_encode($profile) }}">
 
 @endsection
 
