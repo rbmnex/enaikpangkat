@@ -60,12 +60,12 @@
                     No telefon/emel<br>
                 </td>
                 <td colspan="5" style="font-size:10px">
-                    : <span style="text-decoration: underline">Meor Nazrin</span><br>
-                    : <span style="text-decoration: underline">Jurutera Information</span><br>
-                    : <span style="text-decoration: underline">J48</span><br>
-                    : <span style="text-decoration: underline">Pasukan projek khas bekalan elektrik sabah</span><br>
-                    : <span style="text-decoration: underline">Kementerian tenaga dan sumber asli wisma perkasa 88000 kota kinabalu</span><br>
-                    : <span style="text-decoration: underline">0176269475 / meor@vn.net.my</span>
+                    : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nama }}</span><br>
+                    : <span style="text-decoration: underline">{{ $data->jawatan }}</span><br>
+                    : <span style="text-decoration: underline">{{ $data->pemohonPermohonan->gred }}</span><br>
+                    : <span style="text-decoration: underline">{{ $data->alamat_pejabat }}</span><br>
+                    : <span style="text-decoration: underline">{{ $data->pemohonPink->alamat }}</span><br>
+                    : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->tel_bimbit }} / {{ $data->pemohonPeribadi->email }}</span>
                 </td>
             </tr>
         <tr>
@@ -99,7 +99,13 @@
                     Tuan,
                     <br>
                     <br>
-                    Merujuk kepada surat Pemberituahuan Pertukaran _______________ Bil. ______________ ruj (__)JKR/KPKR/_______________________. Adalah saya No. Kad Pengenalan _____________________. * Bersetuju/ Tidak Bersetuju ditawarkan pemangkuan ke Gred _____ disiplin _______.
+                    Merujuk kepada surat Pemberituahuan Pertukaran {{ $data->pemohonPeribadi->nama }} {{ $data->pemohonPink->no_surat }}. Adalah saya No. Kad Pengenalan {{ $data->pemohonPeribadi->nokp }}. *
+                    @if($data->status == 'TL')
+                        Bersetuju / <span style="text-decoration: line-through;font-weight:bold">Tidak Bersetuju</span>
+                    @else
+                        <span style="text-decoration: line-through;font-weight:bold">Setuju</span> / Tidak Bersetuju
+                    @endif
+                    ditawarkan pemangkuan ke Gred <span style="font-weight:bold">{{$data->pemohonPermohonan->gred}}</span> disiplin <span style="font-weight:bold">{{$data->pemohonPermohonan->disiplin}}</span>.
 
                     <br>
                     <br>
@@ -123,10 +129,10 @@
                     <br>
                 </td>
                 <td style="font-size:10px">
-                    : <span style="text-decoration: underline">Meor Nazrin</span><br>
-                    : <span style="text-decoration: underline">940120016809</span><br>
+                    : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nama }}</span><br>
+                    : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nokp }}</span><br>
                     <br>
-                    : <span style="text-decoration: underline">Hari Ini</span><br>
+                    : <span style="text-decoration: underline">{{ date('Y-m-d') }}</span><br>
                     <br>
                     <br>
                 </td>
@@ -153,26 +159,26 @@
         </tr>
         <tr style="font-size:9">
             <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br>(berdasarkan 'pink form')<br><br></td>
-            <td>: 22-03-2022<br><br></td>
+            <td>: {{ $data->pemohonUkp11->tkh_kuatkuasa_pemangkuan_pinkform }}<br><br></td>
         </tr>
         <tr style="font-size:9">
             <td colspan="2">Tarikh Melaporkan Diri<br><br></td>
-            <td>: 22-03-2022<br><br></td>
+            <td>: {{ $data->pemohonUkp11->tkh_lapor_diri }}<br><br></td>
         </tr>
         <tr style="font-size:9">
             <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br><br></td>
-            <td>: 22-03-2022<br><br></td>
+            <td>: {{ $data->pemohonPink->tkh_lapor_diri }}<br><br></td>
         </tr>
         <tr style="font-size:9">
             <td colspan="5">(Tuan/puan diminta untuk melaporkan diri pada tarikh yang telah ditetapkan. Sekiranya penangguhan/pelepasan tuan/puan melebihi 14 hari (termasuk cuti mingguan dan kelepasan am), tarikh kuat kuasa pemangkuan tuan/puan adalah mulai tarikh tuan/puan kembali melaporkan diri dan melaksanakan tugas sepenuh masa di jawatan yang dipangku. Elaun pemangkuan hanya layak dibayar mulai tarikh tuan/puan menjalankan tugas yang dipangku secara sepenuh masa. Semua  penangguhan/pelepasan hendaklah dipersetujui Ketua Jabatan (yang baru) dan salinan kelulusan penangguhan disertakan bersama)<br><br></td>
         </tr>
         <tr style="font-size:9">
             <td colspan="2">Ketua Bahagian Perkhidmatan / Kerani Perkhidmatan<br><br></td>
-            <td>: Rubmin<br><br></td>
+            <td>: {{ $data->pemohonUkp11->nokp_kerani }}<br><br></td>
         </tr>
         <tr style="font-size:9">
             <td colspan="2">Pejabat Baru<br><br></td>
-            <td>: Siapa<br><br></td>
+            <td>: {{ $data->pemohonPink->alamat }}<br><br></td>
         </tr>
     </table>
 </body>

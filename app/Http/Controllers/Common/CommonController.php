@@ -115,7 +115,7 @@ class CommonController extends Controller
             foreach($peribadi as $p){
                 $data[] = array(
                     'id' => $p->nokp,
-                    'text' => html_entity_decode($p->nama, ENT_QUOTES | ENT_HTML5).' - '.$p->nokp
+                    'text' => html_entity_decode($p->nama, ENT_QUOTES | ENT_HTML5).' - '.$p->jawatan
                 );
             }
         }
