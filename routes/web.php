@@ -119,6 +119,8 @@ Route::prefix('/form')->group(function() {
     Route::prefix('/api')->group(function() {
         Route::post('/org',[UkpController::class,'save_organization']);
         Route::post('/org/del',[UkpController::class,'delete_organization']);
+        Route::post('/property/save',[UkpController::class,'save_harta']);
+        Route::post('/loan/save',[UkpController::class,'save_loan']);
     });
 });
 

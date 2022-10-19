@@ -10,10 +10,10 @@
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
-            <form id="upload_harta" width="100%">
+            {{-- <form id="upload_harta" width="100%"> --}}
             <label class="col-form-label" for="lampiran_E">Muat Naik Lampiran E</label>
             <input class="form-control upload-harta" type="file" id="lampiran_E" name="harta_surat_kelulusan" />
-            </form>
+            {{-- </form> --}}
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" style="font-style: italic" for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</b></label>
