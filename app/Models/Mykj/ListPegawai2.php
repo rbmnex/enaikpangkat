@@ -12,10 +12,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ListPegawai2 extends Model
 {
-    
+
     protected $connection = 'pgsqlmykj';
     protected $table = 'list_pegawai2';
 //    public $timestamps = false;
+
+    public function getPerkhidmatan(){
+        return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->where('flag', 1)->orderBy('id_perkhidmatan', 'desc');
+    }
 
     public static function getMaklumatPegawai(Int $no_ic) : array{
         $data = [];
@@ -39,7 +43,6 @@ class ListPegawai2 extends Model
             $data['perkhidmatan'] = ListPegawai2::perkhidmatan($no_ic);
             $data['peribadi'] = ListPegawai2::peribadi($no_ic);
             $data['markah'] = ListPegawai2::markah($no_ic);
-
         }
 
         return $data;
@@ -48,7 +51,7 @@ class ListPegawai2 extends Model
     public static function markah($ic){
         $data= [];
 
-        
+
         $model = Markah::where('nokp', $ic)->whereBetween('tahun', [2017, 2019])->get();
 
         if($model){
@@ -110,7 +113,7 @@ class ListPegawai2 extends Model
                     'kod_gred' => $m->kod_gred,
                     'kod_jawatan' => $m->kod_jawatan,
                     'taraf'=> $m->PerkhidmatanTaraf->perkhidmatan,
-                    'skim' => $m->LKumpulan->kumpulan,
+                    'skim' => $m->LKumpulan ? $m->LKumpulan->kumpulan : '',
                     'gred_hakiki' =>$m->kod_gred,
                     'tkh_mula_gred_hakiki' =>$m->tkh_lantik
                 ];
@@ -128,9 +131,9 @@ class ListPegawai2 extends Model
          if($model){
             $data = [
                 'tkh_lahir' => $model->tkh_lahir,
-                'tempat_lahir' => $model->Lnegeri->negeri,
+                'tempat_lahir' => $model->Lnegeri ? $model->Lnegeri->negeri : '',
                 'alamat_rumah'=> $model->alamat,
-                'taraf_perkahwinan' => $model->LTarafPerkahwinan->taraf_perkahwinan,
+                'taraf_perkahwinan' => $model->LTarafPerkahwinan ? $model->LTarafPerkahwinan->taraf_perkahwinan : '',
                 'no_fax' => $model->fax_pejabat,
                 'tel_bimbit' => $model->tel_bimbit,
                 'gambar' => $model->gambar,

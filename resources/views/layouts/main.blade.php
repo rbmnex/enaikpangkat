@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/charts/apexcharts.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/extensions/toastr.min.css')}}">
     <!-- END: Vendor CSS-->
-
+    @yield('CSS')
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/bootstrap.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/bootstrap-extended.css')}}">
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/extensions/ext-component-toastr.css')}}">
     <!-- END: Page CSS-->
 
-    @yield('CSS')
+
     @yield('customCss')
     </head>
     <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">

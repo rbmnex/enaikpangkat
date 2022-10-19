@@ -15,11 +15,9 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">Tetapan Biasa</h2>
+                    <h2 class="content-header-title float-start mb-0">Senarai Tawaran Pemangku</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html">Fasiliti</a>
-                            </li>
                         </ol>
                     </div>
                 </div>
@@ -69,7 +67,7 @@
 
 @section('customJs')
     @include('segment.layouts.custom_view_links.customjavascript.index')
-    <script src="{{ asset('app_js_helper/segment/hr/pinkform/settings.js') }}"></script>
-    <script src="{{ asset('app_js_helper/segment/hr/pinkform/controller.js') }}"></script>
-    <script src="{{ asset('app_js_helper/segment/hr/pinkform/main.js') }}"></script>
+    <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/settings.js') }}"></script>
+    <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/controller.js') }}"></script>
+    <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/main.js') }}"></script>
 @endsection

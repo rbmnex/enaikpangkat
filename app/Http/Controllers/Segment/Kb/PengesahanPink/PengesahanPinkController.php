@@ -1,5 +1,5 @@
 <?php
-namespace App\Http\Controllers\Segment\Pemangku\Tawaran;
+namespace App\Http\Controllers\Segment\Kb\PengesahanPink;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Common\CommonController;
@@ -7,28 +7,20 @@ use App\Models\Mykj\ListPegawai2;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PenerimaanUkp11;
 use App\Models\Pink\SuratPink;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use PHP_CodeSniffer\Util\Common;
 use Yajra\DataTables\DataTables;
 use App\Models\File;
 use Pdf;
-use App\Models\User;
 
-class PemangkuTawaranController extends Controller{
+class PengesahanPinkController extends Controller{
     public function index(){
-        return view('segment.pemangku.tawaran.index');
+        return view('segment.kb.pengesahanpink.index');
     }
 
     public function getPinkFormList(){
-        $model = DB::connection('pgsql')->table('pemohon as p')
-        ->join('peribadi as b','p.id_peribadi','b.id')
-        ->join('permohonan_ukp12 as u','p.id_permohonan','u.id')
-        ->select('p.id','b.nokp','b.nama','u.jawatan','u.gred','u.jenis','p.status')
-        ->whereIn('p.status', array(Pemohon::SUCCESSED, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED))
-        ->where('p.flag',1)
-        ->where('p.delete_id',0)
-        ->get();
+        $model = PenerimaanUkp11::where('nokp_kerani', 1);
 
         return DataTables::of($model)
             ->setRowAttr([

@@ -2,6 +2,8 @@
 
 namespace App\Models\Permohonan;
 
+use App\Models\Pink\SuratPink;
+use App\Models\Profail\Peribadi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,4 +32,19 @@ class Pemohon extends Model
     // Terima Lantikan
     public const ACCEPTED = "TL";
 
+    public function  pemohonPeribadi(){
+        return $this->hasOne(Peribadi::class, 'id', 'id_peribadi');
+    }
+
+    public function  pemohonPink(){
+        return $this->hasOne(SuratPink::class, 'id_pemohon', 'id');
+    }
+
+    public function  pemohonPermohonan(){
+        return $this->hasOne(PermohonanUkp12::class, 'id', 'id_permohonan');
+    }
+
+    public function  pemohonUkp11(){
+        return $this->hasOne(PenerimaanUkp11::class, 'id_pemohon', 'id');
+    }
 }
