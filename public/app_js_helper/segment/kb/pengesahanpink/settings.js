@@ -64,11 +64,8 @@ DatatableUI.init({
             render: function (data, type, full, meta) {
                 let row_status = full.status;
                 let btn = '';
-                if(row_status == 'MJ') {
-                    btn += '<a href="'+ window.location.origin +'/pemangku/tawaran/update/'+ full.id +'" type="button" style="color:#00cfe8" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light">'+ feather.icons['send'].toSvg() +' Semak</a>';
-                }
-                if(row_status == 'TL') {
-                    btn += '<a target="_blank" href="'+ window.location.origin +'/pemangku/tawaran/preview-pdf/'+ full.id +'" type="button" style="color:#00cfe8" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light">'+ feather.icons['send'].toSvg() +' PDF</a>';
+                if(row_status == 'LL') {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pinkform" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Hantar</button>';
                 }
                 return btn;
             }

@@ -65,7 +65,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/hr/pinkform/">
+                        <a class="d-flex align-items-center" href="/hr2/pinkform/">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Surat Pink</span>
                         </a>
@@ -112,6 +112,20 @@
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="/pemangku/tawaran/">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Ketua Bahagian</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="/kb/pengesahan-pink/">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran</span>
                         </a>
