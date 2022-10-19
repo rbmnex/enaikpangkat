@@ -25,10 +25,51 @@
         .page-break {
             page-break-after: always;
         }
+
+        .centerCell {
+            text-align: center;
+            vertical-align: middle !important;
+            font-weight: bold !important;
+        }
+        .center {
+            text-align: center;
+            vertical-align: middle !important;
+            font-weight: solid;
+        }
+
+        div.a {
+            text-align: center;
+        }
+        table, th, td {
+            table-layout: fixed ;
+            width: 100% ;
+            /*border: 1px solid black;*/
+        }
+
+        i {
+            content: "\2713";
+        }
     </style>
   </head>
   <body>
-    <div class="row float-right">
+    <table>
+        <tbody>
+            <tr style="text-align:right">
+                <td></td>
+                <td></td>
+                <td style="text-align: center">
+                    <img src="{{ asset('images/jkr_logo.png') }}" width="70" height="50">
+                </td>
+
+                <td></td>
+                <td style="">
+                    <span style="font-weight:bold; font-size: 14px;">JKR/UKP/12</span><br>
+                    <span style="font-style:italic; font-weight:bold; font-size: 7px;">Pindaan 1/2021</span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {{-- <div class="row float-right">
         <div class="col-12">
             <span style="font-weight: bold; font-size: 16px">JKR/UKP/12</span>
         </div>
@@ -58,7 +99,7 @@
             <br/>
             <span class="normal-size"> Tuan / Puan</span>
 
-        </div>
+        </div> --}}
     </div>
   </body>
 </html>

@@ -107,7 +107,7 @@ $(document).on('click','.delete-row, .delete-org',function() {
     }
 });
 
-$(document).on('change', '.pinjam-status, .upload-harta', function() {
+$(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran', function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('pinjam-status')) {
         var value = selectedClass.val();
@@ -141,21 +141,53 @@ $(document).on('change', '.pinjam-status, .upload-harta', function() {
             $('.div-loan-7').show();
         }
     } else if(selectedClass.hasClass('upload-harta')) {
-        var form = $('#upload-harta')[0];
-        let data = new FormData(form);
+        //var form = $('#upload-harta')[0];
+        let data = new FormData();
         data.append('_token', getToken());
-        data.append('tkh_istihar',$('input[name="harta_tkh_akhir_pengisytiharan"]').val());
+        data.append('formdata',$('input[name="_formdata"]').val());
+        data.append('lampiran_e',$('#lampiran_E')[0].files[0]);
         $.ajax({
             type:'POST',
-            url: '/api/test/upload',
+            url: '/form/api/property/save',
             data:data,
             processData: false,
             contentType: false,
             context: this,
             success: function(resp) {
-                let d = resp.data;
-                $('#base64').val(d.base64);
-                $('#ext').val(d.ext);
+                let d = resp.success;
+                if(d == 1) {
+                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                } else {
+                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                }
+            }
+        });
+    } else if(selectedClass.hasClass('penyata_bayaran')) {
+        let data = new FormData();
+        data.append('_token', getToken());
+        data.append('status',$('.pinjam-status').val());
+        data.append('nama',$('.nama_tabung').val());
+        data.append('jumlah',$('.jumlah_pinjaman').val());
+        data.append('mula',$('.mula_pinjam').val());
+        data.append('akhir',$('.akhir_pinjam').val());
+        data.append('bayar',$('.bayar_mula').val());
+        data.append('selesai',$('.selesai_bayar').val());
+        data.append('penyata_bayaran',$('.penyata_bayaran')[0].files[0]);
+        data.append('formdata',$('input[name="_formdata"]').val());
+        $.ajax({
+            type:'POST',
+            url: '/form/api/loan/save',
+            data:data,
+            processData: false,
+            contentType: false,
+            context: this,
+            success: function(resp) {
+                let d = resp.success;
+                if(d == 1) {
+                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                } else {
+                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                }
             }
         });
     }

@@ -38,8 +38,11 @@
                         {{-- <td><input class="form-control cuti-upload" type="file" id="cuti_{{ $cuti->id_cuti }}" name="cuti_{{ $cuti->id_cuti }}" /></td> --}}
                     </tr>
                     @endforeach
-                    @if(empty($profile['cuti']))
-                    {{ 'selected' }}
+                    @if($profile['cuti']->count() == 0)
+                    <tr data-cuti-id=""> <td colspan="3">{{ 'Tiada Data' }}</td>
+                    </tr>
+
+
                     @endif
                 </tbody>
             </table>

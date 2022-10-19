@@ -109,6 +109,7 @@
                     </li> --}}
                 </ul>
             </li>
+            @endrole
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
