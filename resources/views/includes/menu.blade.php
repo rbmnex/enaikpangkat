@@ -139,7 +139,21 @@
                     <li>
                         <a class="d-flex align-items-center" href="/kb/pengesahan-pink/">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Ketua Jabatan</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="/kj/pengesahan-pink/">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan</span>
                         </a>
                     </li>
                 </ul>

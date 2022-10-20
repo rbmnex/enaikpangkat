@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use App\Models\File;
 use Pdf;
+use Illuminate\Support\Facades\Auth;
 
 class PengesahanPinkController extends Controller{
     public function index(){
@@ -20,64 +21,35 @@ class PengesahanPinkController extends Controller{
     }
 
     public function getPinkFormList(){
-        $model = PenerimaanUkp11::where('nokp_kerani', 1);
-
-        return DataTables::of($model)
+        $data = PenerimaanUkp11::where('nokp_kerani', Auth::user()->nokp)->get();
+//        {data: 'nokp'},
+//        {data: 'nama'},
+//        {data: 'jawatan'},
+//        {data: 'jenis'},
+//        {data: 'status'},
+//        {data: 'aksi'},
+        return DataTables::of($data)
             ->setRowAttr([
-                'data-pemohon-id' => function($data) {
+                'data-ukp11-id' => function($data) {
                     return $data->id;
                 },
-                'data-person-nokp' => function($data) {
-                    return $data->nokp;
-                }
             ])
             ->addColumn('nokp', function($data){
-                return $data->nokp;
+                return $data->ukp11Pemohon->pemohonPeribadi->nokp;
             })
-            ->addColumn('action', function($data){
+            ->addColumn('nama', function($data){
+                return $data->ukp11Pemohon->pemohonPeribadi->nama;
             })
-            ->rawColumns(['action'])
+            ->addColumn('jawatan', function($data){
+                return $data->ukp11Pemohon->jawatan;
+            })
+            ->addColumn('status', function($data){
+                return $data->ukp11Pemohon->status;
+            })
+            ->addColumn('aksi', function($data){
+            })
+            ->rawColumns(['aksi'])
             ->make(true);
-    }
-
-    public function hantar(Request $request){
-        $pink = CommonController::getModel(SuratPink::class, 0);
-        $pink->id_pemohon = $request->input('pemohon_id');
-        $pink->no_surat = $request->input('pinkform_name');
-        $pink->tkh_lapor_diri = $request->input('pinkform_tkh');
-        $pink->save();
-
-        if($request->file('pinkform_borang')){
-            $upload = CommonController::base64_upload($request->file('pinkform_borang'));
-            $file = new File;
-            $file->content_bytes = $upload['base64'];
-            $file->ext = $upload['ext'];
-            $file->filename = $pink->id.'.'.$upload['ext'];
-            $file->save();
-        }
-        $pink->fail_id = $file->id;
-        $pink->save();
-
-        $ukp11 = CommonController::getModel(PenerimaanUkp11::class, 0);
-        $ukp11->id_pemohon = $pink->id_pemohon;
-        $ukp11->save();
-
-        $pemohon = CommonController::getModel(Pemohon::class, 1, $pink->id_pemohon);
-        $pemohon->status = Pemohon::WAITING_REPLY;
-        $pemohon->save();
-
-        return response()->json([
-            'success' => 1,
-        ]);
-    }
-
-    public function preview_pdf($id){
-        $data = Pemohon::find($id);
-
-        $pdf = Pdf::loadView('segment.pemangku.tawaran.preview', compact('data'));
-//        $pdf->setPaper('A4', 'landscape');
-        return $pdf->stream("preview_tawaran.pdf");
-        exit(0);
     }
 
     public function updateTawaran($id){
@@ -156,4 +128,30 @@ class PengesahanPinkController extends Controller{
             'success' => 1,
         ]);
     }
+
+    public function semakPinkForm($pemohon_id){
+        return view('segment.kb.pengesahanpink.semak', [
+            'pemohon_id' => $pemohon_id
+        ]);
+    }
+
+    public function preview_pdf($id){
+        $data = Pemohon::find($id);
+
+        $pdf = Pdf::loadView('segment.pemangku.tawaran.preview', compact('data'));
+//        $pdf->setPaper('A4', 'landscape');
+        return $pdf->stream("preview_tawaran.pdf");
+        exit(0);
+    }
+
+    public function setuju($setuju, $pemohon_id){
+        $data = PenerimaanUkp11::where('id_pemohon', $pemohon_id)->first();
+        $data->kerani_tkh = $setuju == 1 ? date('Y-m-d') : date('Y-m-d');
+        $data->save();
+
+        return redirect()->action(
+            [PengesahanPinkController::class, 'index']
+        );
+    }
+
 }
