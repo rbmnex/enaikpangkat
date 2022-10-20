@@ -9,7 +9,7 @@ DatatableUI.init({
         {data: 'status'},
         {data: 'aksi'},
     ],
-    url: '/kb/pengesahan-pink/get-pengesahan-pink-form-list',
+    url: '/kj/pengesahan-pink/get-pengesahan-pink-form-list',
     buttons: [
 
     ],
@@ -61,13 +61,13 @@ DatatableUI.init({
             title: 'Tindakan',
             orderable: false,
             render: function (data, type, full, meta) {
-                let row_status = full.kerani_tkh;
+                let row_status = full.ketua_jabatan_tkh;
 
                 let btn = '';
                 if(row_status == '' || row_status == null) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light semak-pengesahan" data-pemohon="'+ full.id_pemohon +'" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Semak</button>';
                 }else{
-                    btn += 'Dihantar Kepada Ketua Jabatan';
+                    btn += 'Diluluskan';
                 }
                 return btn;
             }
