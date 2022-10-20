@@ -13,8 +13,15 @@ class Pengalaman extends Model
     protected $table = "pengalaman";
 
 
+    public function gelaran_jawatan() {
+        return $this->belongsTo(LGelaranJawatan::class,'kod_gelaran_jawatan','kod_gelaran_jawatan');
+    }
+}
+
+
  public function LAktiviti()
     {
         return $this->hasOne(LAktiviti::class, 'kod_aktiviti','kod_aktiviti');
     }
 }
+

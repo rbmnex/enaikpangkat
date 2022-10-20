@@ -1,22 +1,26 @@
 <div id="kompeten-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Rekod Pensijilan Kekompetenan</h5>
+        <h5 class="mb-0">Bahagian 9 - Rekod Pensijilan Kekompetenan</h5>
+        <small class="text-notice">Sila kemas kini di bahagian KELULUSAN/KOMPETENSI/SUMBANGAN di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
-        <div class="form-group col-md-12">
+        {{-- <div class="form-group col-md-12">
             <br/>
             <button type="button" class="btn btn-success tambah-profesional" data-toggle="modal" data-target="#modal-kompeten"><i data-feather='plus'></i>Tambah</button>
-        </div>
+        </div> --}}
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
                     <th>Pensijilan Kekompetenan</th>
                     <th>Tahap</th>
-                    <th>Fail</th>
-                    <th>Aksi</th>
+                    {{-- <th>Fail</th>
+                    <th>Aksi</th> --}}
                 </thead>
                 <tbody id="tbody-kompeten">
-
+                @foreach ($profile['kompeten'] as $k)
+                <td>{{ $k->nama_kelulusan }}</td>
+                <td>{{ $k->tahap }}</td>
+                @endforeach
                 </tbody>
             </table>
         </div>

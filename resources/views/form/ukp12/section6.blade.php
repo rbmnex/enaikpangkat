@@ -1,6 +1,7 @@
 <div id="perkhidmatan-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahgaian 6 - Jawatan/Penempatan Sepanjang Perkhidmatan</h5>
+        <h5 class="mb-0">Bahgaian 5 - Jawatan/Penempatan Sepanjang Perkhidmatan</h5>
+        <small class="text-notice">Sila kemas kini di bahagian PENGALAMAN di portal MyKj jika ada perubahan </small>
     </div>
 
     <div class="row">
@@ -18,7 +19,7 @@
                 <tbody id="tbody-khidmat">
                     @foreach ($profile['pengalaman'] as $pengalaman)
                     <tr>
-                        <td></td>
+                        <td>{{ $pengalaman->gelaran_jawatan->gelaran_jawatan ?? '' }}</td>
                         <td>{{ $pengalaman->tempat }}</td>
                         <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula )->format('d-m-Y') }}</td>
                     </tr>

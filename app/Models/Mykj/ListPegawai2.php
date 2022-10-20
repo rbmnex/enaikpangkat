@@ -14,10 +14,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class ListPegawai2 extends Model
 {
-    
+
     protected $connection = 'pgsqlmykj';
     protected $table = 'list_pegawai2';
 //    public $timestamps = false;
+
+    public function getPerkhidmatan(){
+        return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->where('flag', 1)->orderBy('id_perkhidmatan', 'desc');
+    }
 
     public static function getMaklumatPegawai(Int $no_ic) : array{
         $data = [];
@@ -300,10 +304,18 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
+<<<<<<< HEAD
+                    'kod_gred' => $m->kod_gred,
+                    'kod_jawatan' => $m->kod_jawatan,
+                    'taraf'=> $m->PerkhidmatanTaraf->perkhidmatan,
+                    'skim' => $m->LKumpulan ? $m->LKumpulan->kumpulan : '',
+                    'gred_hakiki' =>$m->kod_gred,
+                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
                      'no_daftar' => $m->no_pendaftaran,
                     'tkh_kelulusan' => $m->tkh_kelulusan
+>>>>>>> yana
                 ];
             }
         }
@@ -339,9 +351,9 @@ class ListPegawai2 extends Model
          if($model){
             $data = [
                 'tkh_lahir' => $model->tkh_lahir,
-                'tempat_lahir' => $model->Lnegeri->negeri,
+                'tempat_lahir' => $model->Lnegeri ? $model->Lnegeri->negeri : '',
                 'alamat_rumah'=> $model->alamat,
-                'taraf_perkahwinan' => $model->LTarafPerkahwinan->taraf_perkahwinan,
+                'taraf_perkahwinan' => $model->LTarafPerkahwinan ? $model->LTarafPerkahwinan->taraf_perkahwinan : '',
                 'no_fax' => $model->fax_pejabat,
                 'tel_bimbit' => $model->tel_bimbit,
                 'gambar' => $model->gambar,

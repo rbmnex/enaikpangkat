@@ -38,6 +38,16 @@ dropdown_populate(
 //     []
 // );
 
+select = $('.select2');
+select.each(function () {
+    var $this = $(this);
+    $this.wrap('<div class="position-relative"></div>');
+    $this.select2({
+      placeholder: '-- Sila Pilih --',
+      dropdownParent: $this.parent()
+    });
+  });
+
 $('.calon-carian').wrap('<div class="position-relative"></div>').select2({
     dropdownAutoWidth: true,
     dropdownParent: $('.calon-carian').parent(),

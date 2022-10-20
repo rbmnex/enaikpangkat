@@ -4,7 +4,6 @@ namespace App\Models\Profail;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class Peribadi extends Model
@@ -17,15 +16,6 @@ class Peribadi extends Model
         $arr_info = get_object_vars($info);
         $array_keys = array_keys($arr_info);
 
-        $renew = true;
-
-        // Peribadi::where('users_id',$userid)->update([
-        //     'flag' => 0,
-        //     'deleted' => 1,
-        //     'updated_by' => 'SYSTEM'
-        // ]);
-
-        //$container = Peribadi::where('users_id',$userid)->where('flag',1)->where('delete_id',0)->get();
 
         $model = new Peribadi;
 
@@ -34,25 +24,6 @@ class Peribadi extends Model
                 // skip and continue
             } else {
                 $value = $arr_info[$array_key];
-
-                // check any changes on information and add flag to create new
-                // if($container) {
-                //     if($renew) {
-                //         if(!($container->$array_key == $value)) {
-                //             $renew = false;
-
-                //             Peribadi::where('users_id',$userid)->update([
-                //                 'flag' => 0,
-                //                 'deleted' => 1,
-                //                 'updated_by' => 'SYSTEM',
-                //                 'updated_at' => Date::now()
-                //             ]);
-                //         }
-                //     }
-
-                // } else {
-                //     $renew = false;
-                // }
 
                 $model->$array_key = $value;
             }
@@ -64,14 +35,44 @@ class Peribadi extends Model
         $model->updated_by = 'MYKJ';
         $model->save();
 
-        Penempatan::create($model->id,$arr_info['nokp']);
-        // if(!$renew) {
-        //     if() {
-        //     }
-        // } else {
-        //     Penempatan::create($container->id,$arr_info['nokp']);
-        // }
+        //Penempatan::create($model->id,$arr_info['nokp']);
 
+        return $model;
+    }
+
+    public static function recreate($userId,$nokp) {
+        DB::connection('pgsql')->table('peribadi')->where('users_id',$userId)
+            ->update(['flag' => 0, 'delete_id' =>1]);
+        $model = new Peribadi;
+        $info = DB::connection('pgsqlmykj')->table('public.peribadi as p')
+                ->leftJoin('public.l_agama as la', 'p.kod_agama', 'la.kod_agama')
+                ->leftJoin('public.l_taraf_perkahwinan as ltp', 'p.kod_taraf_perkahwinan', 'ltp.kod_taraf_perkahwinan')
+                ->leftJoin('public.l_bangsa as lb', 'p.kod_bangsa', 'lb.kod_bangsa')
+                ->leftJoin('public.l_negeri as ln2', 'p.kod_negeri_lahir', 'ln2.kod_negeri')
+                ->select('p.*','la.agama','ltp.taraf_perkahwinan', 'lb.bangsa', 'ln2.negeri as negeri_lahir')
+                ->where('p.nokp',$nokp)->first();
+
+        $arr_info = get_object_vars($info);
+        $array_keys = array_keys($arr_info);
+
+        foreach ($array_keys as $array_key) {
+            if($array_key == 'masuk_oleh' || $array_key == 'kemaskini_oleh' || $array_key == 'flag' || $array_key == 'katalaluan' || $array_key == 'tkh_masuk' || $array_key == 'tkh_kemaskini') {
+                // skip and continue
+            } else {
+                $value = $arr_info[$array_key];
+
+                $model->$array_key = $value;
+            }
+        }
+
+        $model->users_id = $userId;
+        $model->flag = 1;
+        $model->delete_id = 0;
+        $model->created_by = 'MYKJ';
+        $model->updated_by = 'MYKJ';
+        $model->save();
+
+        return $model;
     }
 
     public static function update_peribadi($model,$nokp) {
@@ -100,6 +101,7 @@ class Peribadi extends Model
         $model->updated_by = 'MYKJ';
         $model->save();
 
+        return $model;
     }
 
     public static function info_pengguna($nokp) {
@@ -111,6 +113,7 @@ class Peribadi extends Model
         $info['nama'] = $peribadi->nama;
         $info['jawatan'] = $peribadi->jawatan;
         $info['emel'] = $peribadi->email;
+        $info['gred'] = $peribadi->kod_gred;
 
         $tempat = DB::connection('pgsqlmykj')->table('penempatanx as p')
         ->select('p.kod_waran')->where('nokp',$nokp)->where('flag',1)->first();

@@ -17,7 +17,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/charts/apexcharts.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/extensions/toastr.min.css')}}">
     <!-- END: Vendor CSS-->
-
+    @yield('CSS')
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/bootstrap.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/bootstrap-extended.css')}}">
@@ -55,7 +55,7 @@
         <!-- BEGIN: Vendor JS-->
     <script src="{{asset('asset/vendors/js/vendors.min.js')}}"></script>
     <!-- BEGIN Vendor JS-->
-
+    @yield('JS')
     <!-- BEGIN: Page Vendor JS-->
     {{-- <script src="{{asset('asset/vendors/js/charts/apexcharts.min.js')}}"></script> --}}
     <script src="{{asset('asset/vendors/js/extensions/toastr.min.js')}}"></script>

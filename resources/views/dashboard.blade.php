@@ -31,6 +31,7 @@
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Papan Muka</a>
+                        @php print_r(Auth::user()->hasRole('superadmin') ? 'Yes' : 'No'); @endphp
                         </li>
                     </ol>
                 </div>

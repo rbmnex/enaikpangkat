@@ -36,7 +36,7 @@ class CommonController extends Controller
                 );
             }
         } else if($model == 'Gred') {
-            $query = LGred::all();
+            $query = LGred::where('kod_gred','like','J%')->get();
             foreach($query as $list){
                 $data[] = array(
                     'label' => $list->kod_gred,
@@ -57,5 +57,9 @@ class CommonController extends Controller
             'success' => 1,
             'data' => $data,
         ]);
+    }
+
+    public function load_pegawai_info(Request $request) {
+
     }
 }

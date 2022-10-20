@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Profail\Penempatan;
 use App\Models\Profail\Peribadi;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -17,6 +18,7 @@ class User extends Authenticatable
 {
     use LaratrustUserTrait;
     use HasApiTokens, HasFactory, Notifiable;
+    protected $connection = 'pgsql';
 
     /**
      * The attributes that are mass assignable.
@@ -49,6 +51,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function user_roles() {
+        return $this->belongsToMany(Role::class,'role_user','user_id','role_id');
+    }
+
     public static function upsert($nokp,$id = NULL) {
         $mykjPeribadi = DB::connection('pgsqlmykj')->table('public.peribadi as p')
                 ->leftJoin('public.l_agama as la', 'p.kod_agama', 'la.kod_agama')
@@ -75,12 +81,15 @@ class User extends Authenticatable
 
         $newuser->save();
 
-        Peribadi::create($newuser->id,$mykjPeribadi);
+        if(empty($newuser->id)) {
+            Peribadi::create($newuser->id,$mykjPeribadi);
+        }
 
         return $newuser;
     }
 
     public static function register($nokp,$password,$type) {
+        $user = NULL;
 
         if($type) {
             // user have mykj - register here
@@ -98,30 +107,41 @@ class User extends Authenticatable
                 $user->password = Hash::make($password);
                 $user->updated_by = 'MYKJ';
                 $user->save();
+                if(empty($user->user_roles)){
+                    DB::table('role_user')->insert([
+                        'role_id' => 2,
+                        'user_id' => $user->id,
+                        'user_type' => 'App\Models\User',
+                    ]);
+                }
+                Penempatan::recreate($user->id,$user->nokp);
             } else {
                 if($mykjPeribadi) {
-                    $newuser = new User;
+                    $user = new User;
 
-                    $newuser->name = $mykjPeribadi->nama;
-                    $newuser->nokp = $mykjPeribadi->nokp;
-                    $newuser->email = $mykjPeribadi->email;
-                    $newuser->password = Hash::make($password);
-                    $newuser->created_by = 'MYKJ';
-                    $newuser->type = 1;
-                    $newuser->flag = 1;
-                    $newuser->delete_id = 0;
+                    $user->name = $mykjPeribadi->nama;
+                    $user->nokp = $mykjPeribadi->nokp;
+                    $user->email = $mykjPeribadi->email;
+                    $user->password = Hash::make($password);
+                    $user->created_by = 'MYKJ';
+                    $user->type = 1;
+                    $user->flag = 1;
+                    $user->delete_id = 0;
 
-                    if($newuser->save()) {
+                    if($user->save()) {
                         // create user peribadi
-                        Peribadi::create($newuser->id,$mykjPeribadi);
+                        Peribadi::create($user->id,$mykjPeribadi);
+                        Penempatan::recreate($user->id,$user->nokp);
                         DB::table('role_user')->insert([
                             'role_id' => 2,
-                            'user_id' => $newuser->id,
-                            'user_type' => 'jkr',
+                            'user_id' => $user->id,
+                            'user_type' => 'App\Models\User',
                         ]);
                     }
                 }
             }
         }
+
+        return $user;
     }
 }

@@ -66,6 +66,7 @@
                         <input class="form-control" type="file" id="formFileMultiple" name="cuti_surat_kelulusan"/>
                     </div>
                 </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-success add-cuti">Tambah</button>
@@ -75,7 +76,7 @@
 </div>
 
 <div class="modal fade text-left modal-primary batch-modal" id="modal-pertubuhan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="myModalLabel160">Tambah Pertubuhan</h5>
@@ -86,25 +87,27 @@
             <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-xl-6 col-md-6 col-12 mb-1">
+                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                            <label class="form-label" for="">Nama Pertubuhan</label>
+                            <input type="text" id="modal-post" name="pertubuhan-tempat" class="form-control" placeholder=""  />
+                        </div>
+                        <div class="col-xl-4 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Jawatan</label>
                             <input type="text" id="modal-title" name="pertubuhan-jawatan" class="form-control" placeholder=""  />
                         </div>
-                        <div class="col-xl-6 col-md-6 col-12 mb-1">
+                        <div class="col-xl-4 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Tahun</label>
                             <input type="number" id="modal-year" name="pertubuhan-tahun" class="form-control" placeholder=""  />
                         </div>
-                        <div class="col-xl-6 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="">Nama Pertubuhan</label>
-                            <input type="number" id="modal-post" name="pertubuhan-tempat" class="form-control" placeholder=""  />
-                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-success add-pertubuhan">Tambah</button>
                     </div>
 
             </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                <button type="button" class="btn btn-success add-pertubuhan">Tambah</button>
-            </div>
+
         </div>
 
     </div>
@@ -247,6 +250,7 @@
 
                     </div>
                 </div>
+            </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-success add-iktiraf">Tambah</button>

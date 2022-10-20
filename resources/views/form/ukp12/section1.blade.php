@@ -1,7 +1,7 @@
 <div id="peribadi-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 1 - Butiran Peribadi</h5>
-        <small class="text-muted"></small>
+        <small class="text-notice">Sila kemas kini di bahagian PERIBADI di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         <div class="form-group col-md-12">
@@ -37,7 +37,7 @@
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">Umur Persaraan Wajib</label>
-            <input type="number" id="vertical-email" readonly nama="pilihan_bersara_wajib" value="{{ $profile['umur_besara'] }} "class="form-control" placeholder=""  />
+            <input type="number" id="vertical-email" readonly nama="pilihan_bersara_wajib" value="{{ $profile['umur_besara'] }}" class="form-control" placeholder=""  />
         </div>
     </div>
     <div class="d-flex justify-content-between">

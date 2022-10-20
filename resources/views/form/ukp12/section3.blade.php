@@ -1,14 +1,15 @@
 <div id="penempatan-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 3 - Pengesahan Butiran Perkhidmatan</h5>
+        <small class="text-notice">Sila kemas kini di bahagian di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         <div class="col-form-group col-md-12">
-            <label class="form-label" for="alamat_bertugas">Alamat Tempat Bertugas</label>
+            <label class="col-form-label" for="alamat_bertugas">Alamat Tempat Bertugas</label>
             <textarea row=6 readonly id="alamat_bertugas" class="form-control" name="alamat_bertugas" value="" placeholder="">{{ $profile['alamat_pejabat'] }}</textarea>
         </div>
         <div class="col-form-group col-md-6">
-            <label class="form-label" for="no_tel_pejabat">No Telefon Pejabat</label>
+            <label class="col-form-label" for="no_tel_pejabat">No Telefon Pejabat</label>
             <input type="text" readonly id="no_tel_pejabat" class="form-control" name="no_tel_pejabat" value="{{ $profile['tel_pejabat'] }}" placeholder=""/>
         </div>
         <div class="form-group col-md-6">
