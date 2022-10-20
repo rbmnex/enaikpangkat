@@ -49,7 +49,7 @@
                                                     <div class="col-sm-3">
                                                         <label class="col-form-label" for="nama">Carian NOKP</label>
                                                     </div>
-                                                    <div class="col-sm-5">
+                                                    <div class="col-sm-7">
                                                         <input type="hidden" id="setICtext" class="form-control"/>
                                                         <input type="text" id="setIC" class="form-control" name="nokp" placeholder="Nama" />
                                                     </div>
@@ -57,10 +57,20 @@
                                                         <input type="submit" class="btn btn-success me-1" value="cari">
                                                        
                                                     </div>  
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="mb-1 row">
                                                     <div class="col-sm-2"> 
+                                                        <a href="{{Request::root()}}/urussetia/resume/resume/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-danger me-1 setIClink" target="_blank">Hantar Email</a>
+                                                    </div> 
+                                                     <div class="col-sm-2"> 
                                                         <a href="{{Request::root()}}/urussetia/resume/resume/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-info me-1 setIClink" target="_blank">Cetak</a>
                                                     </div> 
-                                                </div>
+                                                     </div>
                                             </div>
                                         </div>
                                     </form>
@@ -372,13 +382,13 @@
                                             <div class="col-md-4 border-bottom">Institusi Pengajian</div>
                                             <div class="col-md-4 border-bottom">Tahun Kelulusan</div>
                                 </div>
-                            @if(isset($user['kelayakan'])) 
-                                @foreach($user['kelayakan'] as $kelayakan) 
+                            @if(isset($user['professional'])) 
+                                @foreach($user['professional'] as $professional) 
                                     
                                         <div class="mb-1 row">
-                                            <div class="col-md-4"> {{ $kelayakan['nama_kelulusan'] }} </div>
-                                            <div class="col-md-4"> {{ $kelayakan['institusi'] }} </div>
-                                            <div class="col-md-4"> {{ $kelayakan['tkh_kelulusan'] }} </div></div>
+                                            <div class="col-md-4"> {{ $professional['nama_kelulusan'] }} </div>
+                                            <div class="col-md-4"> {{ $professional['institusi'] }} </div>
+                                            <div class="col-md-4"> {{ $professional['tkh_kelulusan'] }} </div></div>
                                 @endforeach
                             @endif     
                          </div>

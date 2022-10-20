@@ -53,7 +53,13 @@
                     <li>
                         <a class="d-flex align-items-center" href="/urussetia/resume/">
                             <i data-feather="circle"></i>
-                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Mockup Resume</span>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Resume</span>
+                            </a>
+                    </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="/urussetia/resume/lampiran/">
+                            <i data-feather="circle"></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Lampiran</span>
                             </a>
                     </li>
                 </ul>

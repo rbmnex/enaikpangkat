@@ -7,6 +7,8 @@ use App\Models\Mykj\Kelayakan;
 use App\Models\Mykj\Perkhidmatan;
 use App\Models\Mykj\Peribadi;
 use App\Models\Mykj\Markah;
+use App\Models\Mykj\Peristiwa;
+use DateTime;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,17 +41,169 @@ class ListPegawai2 extends Model
             $data['perkhidmatan'] = ListPegawai2::perkhidmatan($no_ic);
             $data['peribadi'] = ListPegawai2::peribadi($no_ic);
             $data['markah'] = ListPegawai2::markah($no_ic);
-
+            $data['professional'] = ListPegawai2::professional($no_ic);
+            $data['jurnal'] = ListPegawai2::jurnal($no_ic);
+            $data['jawatanKuasateknikal'] = ListPegawai2::jawatanKuasateknikal($no_ic);
+            $data['dalamTugasrasmi'] = ListPegawai2::dalamTugasrasmi($no_ic);
+            $data['luarTugasrasmi'] = ListPegawai2::luarTugasrasmi($no_ic);
+            $data['aPC'] = ListPegawai2::aPC($no_ic);
+            $data['pingat'] = ListPegawai2::pingat($no_ic);
+            $data['anugerahUmum'] = ListPegawai2::anugerahUmum($no_ic);
+            $data['isytiharHarta'] = ListPegawai2::isytiharHarta($no_ic);
+            $data['pengalamanPengkhususan'] = ListPegawai2::pengalamanPengkhususan($no_ic);
         }
 
         return $data;
     }
 
+   public static function isytiharHarta($ic){
+        $data= [];
+
+        
+
+        $model = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','=','L8')->orderBy('tkh_mula_peristiwa', 'desc')->first();
+
+
+         if($model){
+            $data = [
+                'kod_peristiwa' => $model->LPeristiwa->peristiwa,
+                'tkh_mula_peristiwa' => $model->tkh_mula_peristiwa
+            ];
+        }
+
+        return $data;
+    } 
+
+    public static function aPC($ic){
+        $data= [];
+
+        $model = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','=','A1')->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'kod_peristiwa' => $m->LPeristiwa->peristiwa,
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public static function pingat($ic){
+        $data= [];
+
+        $model = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','=','P8')->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'kod_peristiwa' => $m->LAktiviti->peristiwa,
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public static function anugerahUmum($ic){
+        $data= [];
+
+        $model = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','=','A4')->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                   'kod_peristiwa' => $m->LAktiviti->peristiwa,
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+     public static function luarTugasrasmi($ic){
+        $data= [];
+
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan','=','23')->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                    'tkh_kelulusan' => $m->tkh_kelulusan
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public static function dalamTugasrasmi($ic){
+        $data= [];
+
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan','=','22')->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                    'tkh_kelulusan' => $m->tkh_kelulusan
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public static function jawatanKuasateknikal($ic){
+        $data= [];
+
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan','=','21')->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                    'tkh_kelulusan' => $m->tkh_kelulusan
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+    public static function jurnal($ic){
+        $data= [];
+
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan','=','20')->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                    'tkh_kelulusan' => $m->tkh_kelulusan
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+
+
     public static function markah($ic){
         $data= [];
 
         
-        $model = Markah::where('nokp', $ic)->whereBetween('tahun', [2017, 2019])->get();
+        $model = Markah::where('nokp', $ic)->whereBetween('tahun', [2017, 2019])->orderBy('tahun', 'asc')->get();
 
         if($model){
             foreach($model as $m){
@@ -65,15 +219,27 @@ class ListPegawai2 extends Model
 
     public static function pengalaman($ic){
         $data= [];
+        //$days='';
 
         $model = Pengalaman::where('nokp', $ic)->get();
 
         if($model){
             foreach($model as $m){
+              
+                
                 $data[] = [
+//                     $datetime1 = new DateTime($m->tkh_mula);
+// $datetime2 = new DateTime($m->tkh_tamat);
+// $interval = $datetime1->diff($datetime2);
+// $days = $interval->format('%a');
                     'tempat' => $m->tempat,
                     'mula' => $m->tkh_mula,
-                    'tamat' => $m->tkh_tamat
+                    'tamat' => $m->tkh_tamat,
+                    'aktiviti' => $m->LAktiviti->aktiviti,
+                    'kod_aktiviti' => $m->kod_aktiviti,
+                    'kod_gred_sebenar' => $m->kod_gred_sebenar,
+                    'kod_gelaran_jawatan' => $m->kod_gelaran_jawatan
+
                 ];
             }
         }
@@ -81,10 +247,37 @@ class ListPegawai2 extends Model
         return $data;
     }
 
+    public static function pengalamanPengkhususan($ic){
+        $data= [];
+
+        $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
+
+        if($model){
+            foreach($model as $m){
+                // $diff=date_diff($m->tkh_mula,$m->tkh_tamat);
+                
+                $data[] = [
+                    'tempat' => $m->tempat,
+                    'mula' => $m->tkh_mula,
+                    'tamat' => $m->tkh_tamat,
+                    // 'diff' => $diff->format("%R%a days"),
+                    'aktiviti' => $m->LAktiviti->aktiviti,
+                    'kod_gred_sebenar' => $m->kod_gred_sebenar,
+                    'kod_gelaran_jawatan' => $m->kod_gelaran_jawatan,
+                    'kod_aktiviti' => $m->kod_aktiviti
+
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+
     public static function kelayakan($ic){
         $data= [];
 
-        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '!=','8,9,10,20')->get();
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '!=',[8,9,10,20])->get();
 
         if($model){
             foreach($model as $m){
@@ -99,23 +292,41 @@ class ListPegawai2 extends Model
         return $data;
     }
 
-    public static function perkhidmatan($ic){
+    public static function professional($ic){
         $data= [];
 
-        $model = Perkhidmatan::where('nokp', $ic)->where('flag',1)->get();
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '=',[8])->get();
 
         if($model){
             foreach($model as $m){
                 $data[] = [
-                    'kod_gred' => $m->kod_gred,
-                    'kod_jawatan' => $m->kod_jawatan,
-                    'taraf'=> $m->PerkhidmatanTaraf->perkhidmatan,
-                    'skim' => $m->LKumpulan->kumpulan,
-                    'gred_hakiki' =>$m->kod_gred,
-                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                     'no_daftar' => $m->no_pendaftaran,
+                    'tkh_kelulusan' => $m->tkh_kelulusan
                 ];
             }
         }
+
+        return $data;
+    }
+
+    public static function perkhidmatan($ic){
+        $data= [];
+
+        $model = Perkhidmatan::where('nokp', $ic)->where('flag',1)->first();
+
+        if($model){
+                $data = [
+                    'kod_gred' => $model->kod_gred,
+                    'kod_jawatan' => $model->kod_jawatan,
+                    'taraf'=> $model->PerkhidmatanTaraf->perkhidmatan,
+                    'skim' => $model->LKumpulan->kumpulan,
+                    'gred_hakiki' =>$model->kod_gred,
+                    'tkh_mula_gred_hakiki' =>$model->tkh_lantik
+                ];
+            }
+        
 
         return $data;
     }
