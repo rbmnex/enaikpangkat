@@ -15,7 +15,11 @@ $(document).on('click','.btn-submit, .btn-download',function() {
             data.append('tatatertib',$('.tatatertib').filter(':checked').val());
             data.append('denda',$('.denda').filter(':checked').val());
             data.append('cuti',$('.cuti_check').filter(':checked').val());
-            data.append('akuan',$('.akuan').filter(':checked').val());
+            if($('.akuan_peribadi').is(':checked')) {
+                data.append('akuan',1);
+            } else {
+                data.append('akuan',0);
+            }
 
             data.append('status_pinjam',$('.pinjam-status').val());
             data.append('nama_pinjam',$('.nama_tabung').val());

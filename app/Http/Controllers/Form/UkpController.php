@@ -536,21 +536,25 @@ class UkpController extends Controller
         $pemohon->alamat_pejabat = $formdata->alamat_pejabat;
         $pemohon->save();
 
-        //cuti
-        foreach($formdata->cuti as $cuti) {
-            $rekoc_cuti =  new PermohonanCuti();
-            $rekoc_cuti->jenis = $cuti->jenis_cuti;
-            $rekoc_cuti->tkh_mula = $cuti->tkh_mula;
-            $rekoc_cuti->tkh_akhir = $cuti->tkh_akhir;
-            //$rekoc_cuti->surat_kelulusan
-            $rekoc_cuti->id_pemohon = $formdata->pemohon_id;
-            $rekoc_cuti->flag = 1;
-            $rekoc_cuti->delete_id = 0;
-            $rekoc_cuti->created_by = Auth::user()->nokp;
-            $rekoc_cuti->updated_by = Auth::user()->nokp;
+        $cuti_records = PermohonanCuti::where('id_pemohon',$formdata->pemohon_id)->get();
+        if($cuti_records->count() == 0) {
+            //cuti
+            foreach($formdata->cuti as $cuti) {
+                $rekoc_cuti =  new PermohonanCuti;
+                $rekoc_cuti->jenis = $cuti->jenis_cuti;
+                $rekoc_cuti->tkh_mula = $cuti->tkh_mula;
+                $rekoc_cuti->tkh_akhir = $cuti->tkh_akhir;
+                //$rekoc_cuti->surat_kelulusan
+                $rekoc_cuti->id_pemohon = $formdata->pemohon_id;
+                $rekoc_cuti->flag = 1;
+                $rekoc_cuti->delete_id = 0;
+                $rekoc_cuti->created_by = Auth::user()->nokp;
+                $rekoc_cuti->updated_by = Auth::user()->nokp;
 
-            $rekoc_cuti->save();
+                $rekoc_cuti->save();
+            }
         }
+
 
         // pengistiharan harta
         $harta = PermohonanHarta::where('id_pemohon',$formdata->pemohon_id)->first();
@@ -560,8 +564,11 @@ class UkpController extends Controller
             $harta->save();
         }
 
+        $rekod_pasangan = Pasangan::where('id_pemohon',$formdata->pemohon_id)->first();
+        if(empty($rekod_pasangan)) {
+            $rekod_pasangan = new Pasangan;
+        }
         // pasangan
-        $rekod_pasangan = new Pasangan;
         $rekod_pasangan->id_pemohon = $formdata->pemohon_id;
         $rekod_pasangan->hubungan = strtoupper($formdata->jantina) == 'L' ? 'ISTERI' : 'SUAMI';
         $rekod_pasangan->nama = $formdata->pasangan;
@@ -577,8 +584,8 @@ class UkpController extends Controller
         foreach($formdata->pengalaman as $pengalaman) {
             $rekod_khidmat = new Perkhidmatan;
             $rekod_khidmat->jawatan = $pengalaman->gelaran_jawatan ? $pengalaman->gelaran_jawatan->gelaran_jawatan : '';
-            $rekod_khidmat->kod_gred_sebenar = $pengalaman->kod_gelaran_jawatan;
-            $rekod_khidmat->gred = $pengalaman->kod_gred_sebenar;
+            $rekod_khidmat->gred = $pengalaman->kod_gelaran_jawatan;
+            $rekod_khidmat->penempatan = $pengalaman->tempat;
             $rekod_khidmat->tkh_mula_berkhidmat = $pengalaman->tkh_mula;
             $rekod_khidmat->tkh_akhir_berkhidmat = $pengalaman->tkh_tamat;
             $rekod_khidmat->flag = 1;
@@ -587,6 +594,7 @@ class UkpController extends Controller
             $rekod_khidmat->updated_by = Auth::user()->nokp;
             $rekod_khidmat->id_premohon = $formdata->pemohon_id;
             $rekod_khidmat->save();
+
         }
 
         //Akademik
@@ -644,6 +652,25 @@ class UkpController extends Controller
             $rekod_iktiraf->updated_by = Auth::user()->nokp;
             $rekod_iktiraf->save();
         }
+
+        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->first();
+        if(empty($loan)) {
+            $loan = new PinjamanPendidikan;
+            $loan->created_by = Auth::user()->nokp;
+        }
+        $loan->flag = 1;
+                $loan->delete_id = 0;
+                $loan->status = $alldata['status_pinjam'];
+                $loan->nama_institusi = $alldata['nama_pinjam'];
+                $loan->tkh_mula_pinjaman = empty($alldata['mula_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['mula_pinjam'])->format('Y-m-d');
+                $loan->tkh_akhir_pinjaman = empty($alldata['akhir_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['akhir_pinjam'])->format('Y-m-d');
+                $loan->tkh_mula_bayaran = empty($alldata['bayar_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['bayar_pinjam'])->format('Y-m-d');
+                $loan->tkh_selesai_bayaran = empty($alldata['selesai_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['selesai_pinjam'])->format('Y-m-d');
+                $loan->jumlah_pinjaman = $alldata['jumlah_pinjam'];
+
+                $loan->updated_by = Auth::user()->nokp;
+                $loan->id_pemohon = $formdata->pemohon_id;
+        $loan->save();
 
         $pengakuan = new PengakuanPemohon;
         $pengakuan->tatatertib = $alldata['tatatertib'];
