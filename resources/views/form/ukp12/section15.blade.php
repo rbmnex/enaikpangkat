@@ -9,17 +9,19 @@
                 Saya {{ $profile['nama'] }}
             </span>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-12">
             <div class="form-check form-check-inline ">
-                <input type="radio" value="1" class="form-check-input" name="terima_tawaran" id="radio1" />
+                <input type="radio" value="1" class="form-check-input radio-accept" name="terima_tawaran" id="radio1-1" />
                 <label class="col-form-label" for="tatatertib"> Terima</label>
             </div>
-        </div>
-        <div class="form-group col-md-6">
             <div class="form-check form-check-inline ">
-                <input type="radio" value="0" class="form-check-input" name="terima_tawaran" id="radio1" />
+                <input type="radio" value="0" class="form-check-input radio-accept" name="terima_tawaran" id="radio2-1" />
                 <label class="col-form-label" for="tatatertib"> Tidak Terima</label>
             </div>
+        </div>
+        <div class="form-group col-md-12">
+            <label class="col-form-label" id="label-radio-accept"></label>
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12">
             <span class="col-form-label">tawaran pemangkuan ini.</span>
@@ -27,7 +29,8 @@
     </div>
     <div class="row">
         <div class="form-group col-12">
-            <textarea row=3 type="text" width="100%" id="alasan_tolak" class="form-control" name="alasan_tolak"  placeholder="Sila Berikan Sebab Jika Tolak Tawaran Pemangkuan Ini"></textarea>
+            <textarea row=3 type="text" width="100%" id="alasan_tolak" class="form-control alasan_tolak" name="alasan_tolak"  placeholder="Sila Berikan Sebab Jika Tolak Tawaran Pemangkuan Ini"></textarea>
+            <div class="invalid-feedback"></div>
         </div>
     </div>
     <div class="d-flex justify-content-between">

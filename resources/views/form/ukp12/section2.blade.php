@@ -39,7 +39,8 @@
                     </tr>
                     @endforeach
                     @if($profile['cuti']->count() == 0)
-                    <tr data-cuti-id=""> <td colspan="3">{{ 'Tiada Data' }}</td>
+                    <tr data-cuti-id="">
+                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                     </tr>
 
 
@@ -73,7 +74,15 @@
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" for="email-id">Muat Naik Borang Pengesahan (Disahkan oleh Kerani Perkhidmatan)</label>
-            <input class="form-control cuti-upload" type="file" id="cuti_sah" name="cuti_sah" />
+
+        </div>
+        <div class="form-group col-md-12">
+            <div class="file btn btn-primary">
+                <i data-feather='upload'></i> Muat Naik
+                <input class="form-control file-input cuti-upload" type="file" id="cuti_sah" name="cuti_sah"/>
+
+            </div>
+            <span class="col-form-label cuti-file">{{ $profile['file_cuti'] }}</span>
         </div>
     </div>
     {{-- <br/>

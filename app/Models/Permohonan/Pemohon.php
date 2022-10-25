@@ -2,6 +2,7 @@
 
 namespace App\Models\Permohonan;
 
+use App\Models\File;
 use App\Models\Pink\SuratPink;
 use App\Models\Profail\Peribadi;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -46,5 +47,9 @@ class Pemohon extends Model
 
     public function  pemohonUkp11(){
         return $this->hasOne(PenerimaanUkp11::class, 'id_pemohon', 'id');
+    }
+
+    public function file() {
+        return $this->hasOne(File::class, 'id', 'pengesahan_cuti');
     }
 }

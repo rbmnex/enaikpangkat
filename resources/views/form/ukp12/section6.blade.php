@@ -24,6 +24,13 @@
                         <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula )->format('d-m-Y') }}</td>
                     </tr>
                     @endforeach
+                    @if($profile['pengalaman']->count() == 0)
+                    <tr data-pengalaman-id="">
+                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                    </tr>
+
+
+                    @endif
                 </tbody>
             </table>
         </div>

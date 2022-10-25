@@ -121,6 +121,8 @@ Route::prefix('/form')->group(function() {
         Route::post('/org/del',[UkpController::class,'delete_organization']);
         Route::post('/property/save',[UkpController::class,'save_harta']);
         Route::post('/loan/save',[UkpController::class,'save_loan']);
+        Route::post('/submit',[UkpController::class,'submit_application']);
+        Route::post('/cuti/upload',[UkpController::class,'upload_pengesahan']);
     });
 });
 
