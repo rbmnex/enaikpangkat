@@ -26,6 +26,19 @@
         text-overflow: inherit !important;
         white-space: normal !important;
     }
+
+    .file {
+        position: relative;
+        overflow: hidden;
+    }
+
+    .file-input {
+    position: absolute;
+    font-size: 50px;
+    opacity: 0;
+    right: 0;
+    top: 0;
+    }
 </style>
 
 @section('content')
@@ -243,5 +256,15 @@
 <script type="text/javascript">
 
    // $("#gender_select").val('{{ $profile['jantina'] }}').trigger('change');
+    @if($profile['loan'])
+    $(".pinjam-status").val('{{ $profile['loan']->status }}').trigger('change');
+    $(".nama_tabung").val('{{ $profile['loan']->nama_institusi }}');
+    $('.jumlah_pinjaman').val('{{ $profile['loan']->jumlah_pinjaman }}');
+    $('.mula_pinjam').val('{{ $profile['loan']->tkh_mula_pinjaman ? \Carbon\Carbon::parse($profile['loan']->tkh_mula_pinjaman)->format('d-m-Y') : '' }}');
+    $('.akhir_pinjam').val('{{ $profile['loan']->tkh_akhir_pinjaman ? \Carbon\Carbon::parse($profile['loan']->tkh_akhir_pinjaman)->format('d-m-Y') : '' }}');
+    $('.bayar_mula').val('{{ $profile['loan']->tkh_mula_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_mula_bayaran)->format('d-m-Y') : '' }}');
+    $('.selesai_bayar').val('{{ $profile['loan']->tkh_selesai_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_selesai_bayaran)->format('d-m-Y') : '' }}');
+    $('.loan-file').html('{{ $profile['loan']->file ? $profile['loan']->file->filename : '' }}')
+    @endif
 </script>
 @endsection

@@ -17,42 +17,50 @@
         <div class="form-group col-md-12 div-loan-1">
             <label class="col-form-label" for="tabung_pendidikan">Nama Institusi/ Tabung Pendidikan</label>
             <input type="text" id="tabung_pendidikan" class="form-control nama_tabung" name="tabung_pendidikan" placeholder="" />
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-2">
             <label class="col-form-label" for="jumlah_pinjaman">Jumlah Pinjaman</label>
             <div class="input-group-prepend">
                 <span class="input-group-text" id="basic-addon3">RM</span>
             <input type="number" class="form-control jumlah_pinjaman" id="basic-url3" aria-describedby="basic-addon3" name="jumlah_pinjaman"/>
+            <div class="invalid-feedback"></div>
             </div>
         </div>
         <div class="form-group col-md-12 div-loan-3">
             <label class="col-form-label" for="bayaran_mulai">Mula Pinjaman</label>
             <input type="text" class="form-control flatpickr-loan mula_pinjam" id="mula_pinjaman" name="mula_pinjaman"
                                                         value="" />
-
+                                                        <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-4">
             <label class="col-form-label" for="bayaran_mulai">Akhir Pinjaman</label>
             <input type="text" class="form-control flatpickr-loan akhir_pinjam" id="akhir_pinjaman" name="akhir_pinjaman"
                                                         value="" />
-
+                                                        <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-5">
-            <label class="col-form-label" for="bayaran_mulai">Bayaran Mulai (Tahun)</label>
+            <label class="col-form-label" for="bayaran_mulai">Bayaran Mulai</label>
             <input type="text" class="form-control flatpickr-loan bayar_mula" id="bayaran_mulai" name="bayaran_mulai"
                                                         value="" />
-
+                                                        <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-6">
-            <label class="col-form-label" for="selesai_bayar">Selesai Pembayaran (Tahun)</label>
+            <label class="col-form-label" for="selesai_bayar">Selesai Pembayaran</label>
             <input type="text" class="form-control flatpickr-loan selesai_bayar" id="selesai_bayar" name="selesai_bayar"
                                                         value="" />
+                                                        <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-7">
-            <form id="upload_loan" width="100%">
             <label class="col-form-label" for="formFileMultiple">MUATNAIK PENYATA BAYARAN PINJAMAN TERKINI /  SURAT PENGESAHAN</label>
-            <input class="form-control penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran"/>
-            </form>
+        </div>
+        <div class="form-group col-md-12 div-loan-7">
+            <div class="file btn btn-primary">
+                <i data-feather='upload'></i> Muat Naik
+                <input class="form-control file-input penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran"/>
+            </div>
+            <span class="col-form-label loan-file"></span>
+            <div class="invalid-feedback"></div>
         </div>
     </div>
 

@@ -2,17 +2,12 @@
 
 namespace App\Models\Permohonan;
 
-use App\Models\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Harta extends Model
+class Professional extends Model
 {
     use HasFactory;
-    protected $table = "harta";
+    protected $table = "professional";
     protected $connection = 'pgsql';
-
-    public function file() {
-        return $this->hasOne(File::class,'id','surat_kelulusan_id');
-    }
 }

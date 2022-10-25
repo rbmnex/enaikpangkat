@@ -12,10 +12,18 @@ use App\Models\Mykj\Kelayakan;
 use App\Models\MyKj\Pengalaman;
 use App\Models\Mykj\Peristiwa;
 use App\Models\MyKj\Waris;
+use App\Models\Permohonan\Akademik;
+use App\Models\Permohonan\Cuti as PermohonanCuti;
 use App\Models\Permohonan\Harta as PermohonanHarta;
+use App\Models\Permohonan\Kompetensi;
+use App\Models\Permohonan\Pasangan;
 use App\Models\Permohonan\Pemohon;
+use App\Models\Permohonan\PengakuanPemohon;
+use App\Models\Permohonan\Pengiktirafan;
+use App\Models\Permohonan\Perkhidmatan;
 use App\Models\Permohonan\Pertubuhan;
 use App\Models\Permohonan\PinjamanPendidikan;
+use App\Models\Permohonan\Professional;
 use App\Models\Profail\Peribadi;
 use App\Models\Urussetia\Calon;
 use App\Models\User;
@@ -23,6 +31,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 
 class UkpController extends Controller
@@ -367,6 +376,7 @@ class UkpController extends Controller
                 $loan->tkh_selesai_bayaran = empty($tkh_selesai_bayaran) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_selesai_bayaran)->format('Y-m-d');
                 $loan->jumlah_pinjaman = $jumlah_pinjaman;
                 $loan->updated_by = Auth::user()->nokp;
+                $loan->id_pemohon = $formdata->pemohon_id;
 
                 $loan->save();
 
@@ -399,6 +409,7 @@ class UkpController extends Controller
                 $loan->surat_perakuan = $uploadedFile->id;
                 $loan->created_by = Auth::user()->nokp;
                 $loan->updated_by = Auth::user()->nokp;
+                $loan->id_pemohon = $formdata->pemohon_id;
 
                 $loan->save();
 
@@ -415,8 +426,241 @@ class UkpController extends Controller
         }
     }
 
-    public function submit_application(Request $request) {
+    public function upload_pengesahan(Request $request) {
+        $file = $request->file('borang_pengesahan');
+        $file_info = CommonController::base64_upload($file);
+        $pemohon_id = $request->input('pemohon_id');
 
+        $pemohon = Pemohon::find($pemohon_id);
+
+        if(empty($pemohon->pengesahan_cuti)) {
+            $uploadedFile = new File;
+        } else {
+            $uploadedFile = File::find($pemohon->pengesahan_cuti);
+        }
+
+        $uploadedFile->content_bytes = $file_info['base64'];
+        $uploadedFile->ext = $file_info['ext'];
+        $uploadedFile->filename = $file->getClientOriginalName();
+
+        if($uploadedFile->save()) {
+            $pemohon->pengesahan_cuti = $uploadedFile->id;
+            $pemohon->save();
+
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+    }
+
+    public function submit_application(Request $request) {
+        $alldata = $request->all();
+        $formdata = json_decode($alldata['pemohon']);
+        /*
+        $maklumat['nama'] = $profile->nama;
+                $maklumat['nokp_baru'] = $profile->nokp;
+                $maklumat['nokp_lama'] = $profile->nokp_lama;
+                $maklumat['jawatan'] = $khidmat->jawatan;
+                $maklumat['kod_jawatan'] = $khidmat->kod_jawatan;
+                $maklumat['gred'] = $khidmat->kod_gred;
+                $maklumat['tkh_lantikan'] = $khidmat->tkh_lantik;
+                $maklumat['tkh_sah'] = $khidmat->tkh_sah_perkhidmatan;
+                $maklumat['umur_besara'] = $profile->pilihan_bersara_wajib;
+                $maklumat['alamat_pejabat'] = $profile->alamat_pejabat;
+                $maklumat['tel_pejabat'] = $profile->tel_pejabat;
+                $maklumat['no_faks'] = $profile->fax_pejabat;
+                $maklumat['no_hp'] = $profile->tel_bimbit;
+                $maklumat['email'] = $profile->email;
+                $maklumat['jantina'] = $profile->jantina;
+                $maklumat['bangsa'] = $profile->bangsa;
+                $maklumat['agama'] = $profile->agama;
+                $maklumat['tkh_lahir'] = $profile->tkh_lahir;
+                $maklumat['tmpt_lahir'] = $profile->negeri_lahir;
+                $maklumat['gaji'] = empty($gaji) ? 0 : $gaji->gaji_pokok;
+                $maklumat['alamat_rumah'] = $profile->alamat;
+                $maklumat['gelaran'] =  $profile->gelaran;
+                $maklumat['tkh_istihar'] = empty($tkh_istihar) ? 0 : $tkh_istihar;
+                $maklumat['pasangan'] = empty($waris) ? '' : $waris->nama;
+                $maklumat['alamat_pasangan'] = empty($waris) ? '' : $waris->tempat_kerja;
+                $maklumat['pekerjaan_pasangan'] = empty($waris) ? '' : $waris->pekerjaan;
+                $maklumat['cuti'] = $cuti;
+                $maklumat['pengalaman'] = $pengalaman;
+                $maklumat['akademik'] = $akademik;
+                $maklumat['profesional'] = $profesional;
+                $maklumat['kompeten'] = $kompeten;
+                $maklumat['pengiktirafan'] = $iktiraf;
+                $maklumat['pertubuhan'] = $pertubuhan;
+                $maklumat['pemohon_id'] = $pemohon->id;
+                $maklumat['peribadi_id'] = $profile->id;
+                $maklumat['file_cuti'] = $pemohon->file ? $pemohon->file->filename : '';
+                if($harta) {
+                    $maklumat['file_harta'] = $harta->file ? $harta->file->filename : '';
+                } else {
+                    $maklumat['file_harta'] = '';
+                }
+                $maklumat['loan'] = $loan;
+        */
+        //pemohon
+        $pemohon = Pemohon::find($formdata->pemohon_id);
+        $pemohon->gaji_hakiki = $formdata->gaji;
+        $pemohon->nokp_ketua_jabatan = $alldata['ketua_nokp'];
+        // $pemohon->perakuan_ketua_jabatan
+        // $pemohon->perakuan_ketua_jabatan_ulasan
+        // $pemohon->perakuan_ketua_jabatan_jawatan
+        // $pemohon->perakuan_ketua_jabatan_tkh
+        // $pemohon->perakuan_ketua_jabatan_alamat_pejabat
+        // $pemohon->pengesahan_perkhidmatan
+        $pemohon->pengesahan_perkhidmatan_nokp = $alldata['kerani_nokp'];
+        // $pemohon->pengesahan_perkhidmatan_jawatan
+        // $pemohon->pengesahan_perkhidmatan_cawangan
+        // $pemohon->pengesahan_perkhidmatan_tkh
+        if($alldata['accept']) {
+            $pemohon->status = Pemohon::WAITING_VERIFICATION;
+        } else {
+            $pemohon->status = Pemohon::REJECTED_APPLICATION;
+        }
+        $pemohon->alasan = $alldata['alasan_tolak'];
+        $pemohon->updated_by = Auth::user()->nokp;
+        $pemohon->jawatan = $formdata->jawatan;
+        $pemohon->kod_jawatan = $formdata->kod_jawatan;
+        $pemohon->gred = $formdata->gred;
+        $pemohon->tkh_lantikan = $formdata->tkh_lantikan;
+        $pemohon->tkh_sah_perkhidmatan = $formdata->tkh_sah;
+        $pemohon->alamat_pejabat = $formdata->alamat_pejabat;
+        $pemohon->save();
+
+        //cuti
+        foreach($formdata->cuti as $cuti) {
+            $rekoc_cuti =  new PermohonanCuti();
+            $rekoc_cuti->jenis = $cuti->jenis_cuti;
+            $rekoc_cuti->tkh_mula = $cuti->tkh_mula;
+            $rekoc_cuti->tkh_akhir = $cuti->tkh_akhir;
+            //$rekoc_cuti->surat_kelulusan
+            $rekoc_cuti->id_pemohon = $formdata->pemohon_id;
+            $rekoc_cuti->flag = 1;
+            $rekoc_cuti->delete_id = 0;
+            $rekoc_cuti->created_by = Auth::user()->nokp;
+            $rekoc_cuti->updated_by = Auth::user()->nokp;
+
+            $rekoc_cuti->save();
+        }
+
+        // pengistiharan harta
+        $harta = PermohonanHarta::where('id_pemohon',$formdata->pemohon_id)->first();
+        if($harta) {
+            $harta->tkh_akhir_pengisytiharan = $formdata->tkh_istihar;
+            $harta->updated_by = Auth::user()->nokp;
+            $harta->save();
+        }
+
+        // pasangan
+        $rekod_pasangan = new Pasangan;
+        $rekod_pasangan->id_pemohon = $formdata->pemohon_id;
+        $rekod_pasangan->hubungan = strtoupper($formdata->jantina) == 'L' ? 'ISTERI' : 'SUAMI';
+        $rekod_pasangan->nama = $formdata->pasangan;
+        $rekod_pasangan->pekerjaan = $formdata->pekerjaan_pasangan;
+        $rekod_pasangan->alamat_pejabat = $formdata->alamat_pasangan;
+        $rekod_pasangan->flag = 1;
+        $rekod_pasangan->delete_id = 0;
+        $rekod_pasangan->created_by = Auth::user()->nokp;
+        $rekod_pasangan->updated_by = Auth::user()->nokp;
+        $rekod_pasangan->save();
+
+        // Perkhidmatan
+        foreach($formdata->pengalaman as $pengalaman) {
+            $rekod_khidmat = new Perkhidmatan;
+            $rekod_khidmat->jawatan = $pengalaman->gelaran_jawatan ? $pengalaman->gelaran_jawatan->gelaran_jawatan : '';
+            $rekod_khidmat->kod_gred_sebenar = $pengalaman->kod_gelaran_jawatan;
+            $rekod_khidmat->gred = $pengalaman->kod_gred_sebenar;
+            $rekod_khidmat->tkh_mula_berkhidmat = $pengalaman->tkh_mula;
+            $rekod_khidmat->tkh_akhir_berkhidmat = $pengalaman->tkh_tamat;
+            $rekod_khidmat->flag = 1;
+            $rekod_khidmat->delete_id = 0;
+            $rekod_khidmat->created_by = Auth::user()->nokp;
+            $rekod_khidmat->updated_by = Auth::user()->nokp;
+            $rekod_khidmat->id_premohon = $formdata->pemohon_id;
+            $rekod_khidmat->save();
+        }
+
+        //Akademik
+        foreach($formdata->akademik as $academic) {
+            $rekod_akademik = new Akademik;
+            $rekod_akademik->nama_sijil = $academic->nama_kelulusan;
+            $rekod_akademik->nama_insititusi = $academic->institusi;
+            $rekod_akademik->id_pemohon = $formdata->pemohon_id;
+            $rekod_akademik->flag = 1;
+            $rekod_akademik->delete_id = 0;
+            $rekod_akademik->created_by = Auth::user()->nokp;
+            $rekod_akademik->updated_by = Auth::user()->nokp;
+            $rekod_akademik->tkh_kelulusan = $academic->tkh_kelulusan;
+            $rekod_akademik->save();
+        }
+
+        //Profesional
+        foreach($formdata->profesional as $pro) {
+            $rekod_professional = new Professional;
+            $rekod_professional->nama_sijil = $pro->nama_kelulusan;
+            $rekod_professional->badan_professional = $pro->institusi;
+            $rekod_professional->no_pendaftaran = $pro->no_pendaftaran;
+            $rekod_professional->id_pemohon = $formdata->pemohon_id;
+            $rekod_professional->created_by = Auth::user()->nokp;
+            $rekod_professional->updated_by = Auth::user()->nokp;
+            $rekod_professional->flag = 1;
+            $rekod_professional->delete_id = 0;
+            $rekod_professional->tkh_kelulusan = $pro->tkh_kelulusan;
+            $rekod_professional->save();
+        }
+
+        //Kompetensi
+        foreach($formdata->kompeten as $komp) {
+            $rekod_kompeten = new Kompetensi;
+            $rekod_kompeten->nama_sijil = $komp->nama_kelulusan;
+            $rekod_kompeten->tahap = $komp->tahap;
+            $rekod_kompeten->id_pemohon = $formdata->pemohon_id;
+            $rekod_kompeten->flag = 1;
+            $rekod_kompeten->delete_id = 0;
+            $rekod_kompeten->created_by = Auth::user()->nokp;
+            $rekod_kompeten->updated_by = Auth::user()->nokp;
+            $rekod_kompeten->save();
+        }
+
+        //pengiktirafan
+        foreach($formdata->pengiktirafan as $iktiraf) {
+            $rekod_iktiraf = new Pengiktirafan;
+            $rekod_iktiraf->jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
+            $rekod_iktiraf->tkh_mula = $iktiraf->tkh_mula_peristiwa;
+            $rekod_iktiraf->tkh_tamat =  $iktiraf->tkh_tamat_peristiwa;
+            $rekod_iktiraf->flag = 1;
+            $rekod_iktiraf->delete_id = 0;
+            $rekod_iktiraf->id_pemohon = $formdata->pemohon_id;
+            $rekod_iktiraf->created_by = Auth::user()->nokp;
+            $rekod_iktiraf->updated_by = Auth::user()->nokp;
+            $rekod_iktiraf->save();
+        }
+
+        $pengakuan = new PengakuanPemohon;
+        $pengakuan->tatatertib = $alldata['tatatertib'];
+        $pengakuan->isytihar_harta = 1;
+        $pengakuan->cuti_tanpa_gaji = $alldata['cuti'];
+        $pengakuan->perakuan = $alldata['akuan'];
+        $pengakuan->tempoh_percubaan_denda = $alldata['denda'];
+        $pengakuan->perakuan_tkh = Date::now();
+        $pengakuan->id_pemohon = $formdata->pemohon_id;
+        $pengakuan->flag = 0;
+        $pengakuan->delete_id = 0;
+        $pengakuan->created_by = Auth::user()->nokp;
+        $pengakuan->updated_by = Auth::user()->nokp;
+        $pengakuan->save();
+
+        //send email
+
+        return view('form.message',['message' => 'Anda Telah Berjaya Menghantar Pemohonan Ini!']);
     }
 
     private function verify_applicant($nokp,$formId) {
@@ -452,7 +696,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $gaji = Gaji::where('nokp',$nokp)->where('flag',1)->first();
         //$agama = LAgama::all();
         //$bangsa = LBangsa::all();
-        $harta = Harta::where('nokp',$nokp)->max('tkh_istihar');
+        $tkh_istihar = Harta::where('nokp',$nokp)->max('tkh_istihar');
         $waris = Waris::where('nokp',$nokp)->where('kod_perhubungan', strtoupper($profile->jantina) == 'L' ? 4 : 3)->first();
         $cuti = Cuti::where('nokp',$nokp)->whereIn('jenis_cuti', array('CUTI TANPA GAJI',
         'CUTI SEPARUH GAJI',
@@ -471,6 +715,8 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $iktiraf = Peristiwa::where('nokp',$nokp)->wherein('kod_peristiwa',['P8','A1','P10','A4'])->get();
 
         $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
+        $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
+        $loan = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
 
         $maklumat = array();
                 $maklumat['nama'] = $profile->nama;
@@ -495,7 +741,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
                 $maklumat['gaji'] = empty($gaji) ? 0 : $gaji->gaji_pokok;
                 $maklumat['alamat_rumah'] = $profile->alamat;
                 $maklumat['gelaran'] =  $profile->gelaran;
-                $maklumat['tkh_istihar'] = empty($harta) ? 0 : $harta;
+                $maklumat['tkh_istihar'] = empty($tkh_istihar) ? 0 : $tkh_istihar;
                 $maklumat['pasangan'] = empty($waris) ? '' : $waris->nama;
                 $maklumat['alamat_pasangan'] = empty($waris) ? '' : $waris->tempat_kerja;
                 $maklumat['pekerjaan_pasangan'] = empty($waris) ? '' : $waris->pekerjaan;
@@ -507,6 +753,16 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
                 $maklumat['pengiktirafan'] = $iktiraf;
                 $maklumat['pertubuhan'] = $pertubuhan;
                 $maklumat['pemohon_id'] = $pemohon->id;
+                $maklumat['peribadi_id'] = $profile->id;
+                $maklumat['file_cuti'] = $pemohon->file ? $pemohon->file->filename : '';
+                if($harta) {
+                    $maklumat['file_harta'] = $harta->file ? $harta->file->filename : '';
+                } else {
+                    $maklumat['file_harta'] = '';
+                }
+                $maklumat['loan'] = $loan;
+
+
 
         $pemohon->jawatan =$maklumat['jawatan'] ;
         $pemohon->kod_jawatan = $maklumat['kod_jawatan'];
