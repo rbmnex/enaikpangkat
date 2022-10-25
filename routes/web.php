@@ -53,8 +53,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin']], functio
     Route::prefix('/pengguna')->group(function() {
         Route::get('/', [UserMgmtController::class,'index']);
         Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
-        Route::get('/carian', [UserMgmtController::class,'carian_pengguna']);
-        Route::get('/api',[UserMgmtController::class,'maklumat_pengguna']);
+        //Route::get('/carian', [UserMgmtController::class,'carian_pengguna']);
+        //Route::get('/api',[UserMgmtController::class,'maklumat_pengguna']);
         Route::post('/api',[UserMgmtController::class,'save_pengguna']);
 
         Route::get('/mockup2', [UserMgmtController::class,'mockup2']);
@@ -62,7 +62,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin']], functio
         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
     });
 });
-
+Route::get('/admin/pengguna/carian',[UserMgmtController::class,'carian_pengguna']);
+Route::get('/admin/pengguna/api',[UserMgmtController::class,'maklumat_pengguna']);
 // Route::prefix('/admin')->group(function() {
 //     Route::prefix('/pengguna')->group(function() {
 //         Route::get('/', [UserMgmtController::class,'index']);
@@ -118,6 +119,10 @@ Route::prefix('/form')->group(function() {
     Route::prefix('/ukp12')->group(function() {
         Route::get('/display/{id}',[UkpController::class,'open']);
         Route::get('/apply/{encryted}',[UkpController::class,'apply'])->middleware('auth');
+        Route::get('/download/part',[UkpController::class,'download_form_part']);
+        Route::get('/final',function() {
+            return view('form.message',['message' => 'Anda Telah Berjaya Menghantar Pemohonan Ini!']);
+        });
     });
     Route::prefix('/api')->group(function() {
         Route::post('/org',[UkpController::class,'save_organization']);
@@ -126,6 +131,7 @@ Route::prefix('/form')->group(function() {
         Route::post('/loan/save',[UkpController::class,'save_loan']);
         Route::post('/submit',[UkpController::class,'submit_application']);
         Route::post('/cuti/upload',[UkpController::class,'upload_pengesahan']);
+
     });
 });
 
@@ -153,8 +159,8 @@ Route::get('/test/view_pdf',function() {
 });
 
 Route::get('/test/pdf',function() {
-    Ukp12Pdf::print();
-    exit;
+    return Ukp12Pdf::print(NULL);
+    //exit;
 });
 
 require __DIR__.'/hr.php';

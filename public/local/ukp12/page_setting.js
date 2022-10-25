@@ -193,106 +193,337 @@ function validate_form() {
     var status_pinjam = $('#status_pinjam').val();
     var tatatertib = $('.tatatertib');
 
-    if( tarikh_harta == 0 || tarikhAkhir_harta == '' || tarikhAkhir_harta == undefined) {
-        valid = false;
-        addInvalid('#tarikhAkhir_harta', 'Tiada Tarikh Pengisytiharan Harta Terkini!');
-        verticalStepper.to(3);
-    } else if($('.harta-file').is(':empty')) {
-        valid = false;
-        addInvalid('#harta-file', 'Sila Muat Naik Lampiran E dari yang dijana dari HRMIS!');
-        verticalStepper.to(3);
-    } else if( status_pinjam == "") {
-        valid = false;
-        addInvalid('#status_pinjam', 'Sila pilih pengakuan pinjaman pendidikan');
-        verticalStepper.to(11);
-    } else if(status_pinjam != '0' || status_pinjam != 0) {
-        var nama_tabung = $('.nama_tabung').val();
-        var jumlah_pinjaman = $('.jumlah_pinjaman').val();
-        var mula_pinjam = $('.mula_pinjam').val();
-        var akhir_pinjam = $('.akhir_pinjam').val();
-        var bayar_mula = $('.bayar_mula').val();
-        var selesai_bayar = $('.selesai_bayar').val();
-        if(nama_tabung == '' || nama_tabung == undefined) {
+    //section 1
+    if(valid) {
+        var name = $('#sect-1-nama').val();
+        var nokp = $('#sect-1-nokp').val();
+        var jawatan = $('#sect-1-jawatan').val();
+        var tkh_lantik = $('#sect-1-tkh_lantik').val();
+        var bersara = $('#sect-1-bersara').val();
+        var gred = $('#sect-1-gred').val();
+        var tkh_sah = $('#sect-1-tkh_sah').val();
+
+        console.log('sect-1 is '+valid);
+
+        if( name == 0 || name == '' || name == undefined) {
             valid = false;
-            addInvalid('.nama_tabung', 'Sila isikan Nama Institusi/ Tabung Pendidikan');
-        }
-        if(jumlah_pinjaman == '' || jumlah_pinjaman == undefined) {
-            valid = false;
-            addInvalid('.jumlah_pinjaman', 'Sila isikan Jumlah Pinjaman');
-        }
-        if(mula_pinjam == '' || mula_pinjam == undefined) {
-            valid = false;
-            addInvalid('.mula_pinjam', 'Sila isikan Tarikh Mula Pinjaman');
-        }
-        if(akhir_pinjam == '' || akhir_pinjam == undefined) {
-            valid = false;
-            addInvalid('.akhir_pinjam', 'Sila isikan Tarikh Akhir Pinjaman');
+            addInvalid('#sect-1-nama', 'Tiada Nama');
         }
 
-        if(status_pinjam == '2' || status_pinjam == 2) {
-            if(bayar_mula == '' || bayar_mula == undefined) {
+        console.log('nama is '+valid);
+
+        if( nokp == 0 || nokp == '' || nokp == undefined) {
+            valid = false;
+            addInvalid('#sect-1-nokp', 'Tiada No Kad Pengenalan (Baru)');
+        }
+
+        console.log('nokp is '+valid);
+
+        if( jawatan == 0 || jawatan == '' || jawatan == undefined) {
+            valid = false;
+            addInvalid('#sect-1-jawatan', 'Tiada Jawatan');
+        }
+
+        console.log('jawatan is '+valid);
+
+        if( tkh_lantik == 0 || tkh_lantik == '' || tkh_lantik == undefined) {
+            valid = false;
+            addInvalid('#sect-1-tkh_lantik', 'Tiada Tarikh Lantikan Perkhidmatan');
+        }
+
+        console.log('tkh_lantik is '+valid);
+
+        if( bersara == 0 || bersara == '' || bersara == undefined) {
+            valid = false;
+            addInvalid('#sect-1-bersara', 'Tiada Umur Persaraan Wajib');
+        }
+
+        console.log('bersara is '+valid);
+
+        if( gred == 0 || gred == '' || gred == undefined) {
+            valid = false;
+            addInvalid('#sect-1-gred', 'Tiada Gred');
+        }
+
+        console.log('gred is '+valid);
+
+        if( tkh_sah == 0 || tkh_sah == '' || tkh_sah == undefined) {
+            valid = false;
+            addInvalid('#sect-1-tkh_sah', 'Tiada Tarikh Disahkan Jawatan');
+        }
+        console.log('tkh_sah is '+valid);
+
+        console.log('sect-1 is '+valid);
+
+        if(!valid) {
+            verticalStepper.to(1);
+            return valid;
+        }
+    }
+
+    //section 2
+    if(valid) {
+        var alamat_pej = $('#sect-2-alamat_pej').val();
+        var tel_pejabat = $('#sect-2-tel_pejabat').val();
+        var no_tel = $('#sect-2-no_tel').val();
+        var emel = $('#sect-2-emel').val();
+
+        if( alamat_pej == 0 || alamat_pej == '' || alamat_pej == undefined) {
+            valid = false;
+            addInvalid('#sect-2-alamat_pej', 'Tiada Alamat Tempat Bertugas');
+        }
+
+        if( tel_pejabat == 0 || tel_pejabat == '' || tel_pejabat == undefined) {
+            valid = false;
+            addInvalid('#sect-2-tel_pejabat', 'Tiada No Telefon Pejabat');
+        }
+
+        if( no_tel == 0 || no_tel == '' || no_tel == undefined) {
+            valid = false;
+            addInvalid('#sect-2-no_tel', 'Tiada No Telefon Bimbit');
+        }
+
+        if( emel == 0 || emel == '' || emel == undefined) {
+            valid = false;
+            addInvalid('#sect-2-no_tel', 'Tiada Emel');
+        }
+
+        if($('.cuti-file').is(':empty')) {
+            valid = false;
+            addInvalid('.cuti-error', 'Sila Muat Naik Borang Pengesahan (Disahkan oleh Kerani Perkhidmatan)');
+        }
+
+        if(!valid) {
+            verticalStepper.to(2);
+            return valid;
+        }
+    }
+
+    //section 3
+    if(valid) {
+        if( tarikh_harta == 0 || tarikhAkhir_harta == '' || tarikhAkhir_harta == undefined) {
+            valid = false;
+            addInvalid('#tarikhAkhir_harta', 'Tiada Tarikh Pengisytiharan Harta Terkini!');
+        }
+
+        if($('.harta-file').is(':empty')) {
+            valid = false;
+            addInvalid('.harta-file', 'Sila Muat Naik Lampiran E dari yang dijana dari HRMIS!');
+        }
+
+        if(!valid) {
+            verticalStepper.to(3);
+            return valid;
+        }
+    }
+
+    //section 4
+    if(valid) {
+        var nama =$('#sect-4-nama ').val();
+        var nokp =$('#sect-4-nokp').val();
+        var jantina =$('#sect-4-jantina').val();
+        var bangsa =$('#sect-4-bangsa').val();
+        var agama =$('#sect-4-agama').val();
+        var tkh_lahir =$('#sect-4-tkh_lahir').val();
+        var tmpt_lahir =$('#sect-4-tmpt_lahir').val();
+        var jawatan =$('#sect-4-jawatan').val();
+        var gred =$('#sect-4-gred').val();
+        var gaji=$('#sect-4-gaji').val();
+        var taraf=$('#sect-4-taraf').val();
+        var alamat_bertugas =$('#sect-4-alamat_bertugas').val();
+        var alamat_rumah =$('#sect-4-alamat_rumah').val();
+        var nama_pasangan =$('#sect-4-nama_pasangan').val();
+        //var jawatan_pasangan =$('#sect-4-jawatan_pasangan').val();
+        //var alamat_pejabat_pasangan =$('#sect-4-alamat_pejabat_pasangan').val();
+
+        if( nama == 0 || nama == '' || nama == undefined) {
+            valid = false;
+            addInvalid('#sect-4-nama', 'Tiada Nama');
+        }
+
+        if( nokp == 0 || nokp == '' || nokp == undefined) {
+            valid = false;
+            addInvalid('#sect-4-nokp', 'Tiada No Kad Pengenalan (Baru)');
+        }
+
+        if( jantina == 0 || jantina == '' || jantina == undefined) {
+            valid = false;
+            addInvalid('#sect-4-jantina', 'Tiada Jantina');
+        }
+
+        if( bangsa == 0 || bangsa == '' || bangsa == undefined) {
+            valid = false;
+            addInvalid('#sect-4-bangsa', 'Tiada Bangsa');
+        }
+
+        if( agama == 0 || agama == '' || agama == undefined) {
+            valid = false;
+            addInvalid('#sect-4-agama', 'Tiada Agama');
+        }
+
+        if( tkh_lahir == 0 || tkh_lahir == '' || tkh_lahir == undefined) {
+            valid = false;
+            addInvalid('#sect-4-tkh_lahir', 'Tiada Tarikh Lahir');
+        }
+
+        if( tmpt_lahir == 0 || tmpt_lahir == '' || tmpt_lahir == undefined) {
+            valid = false;
+            addInvalid('#sect-4-tmpt_lahir', 'Tiada Tempat Lahir');
+        }
+
+        if( jawatan == 0 || jawatan == '' || jawatan == undefined) {
+            valid = false;
+            addInvalid('#sect-4-tmpt_lahir', 'Tiada Jawatan');
+        }
+
+        if( gred == 0 || gred == '' || gred == undefined) {
+            valid = false;
+            addInvalid('#sect-4-gred', 'Tiada Gred');
+        }
+
+        if( gaji == 0 || gaji == '' || gaji == undefined) {
+            valid = false;
+            addInvalid('#sect-4-gaji', 'Tiada Gaji Hakiki');
+        }
+
+        if( alamat_bertugas == 0 || alamat_bertugas == '' || alamat_bertugas == undefined) {
+            valid = false;
+            addInvalid('#sect-4-alamat_bertugas', 'Tiada Alamat Pejabat');
+        }
+
+        if( alamat_rumah == 0 || alamat_rumah == '' || alamat_rumah == undefined) {
+            valid = false;
+            addInvalid('#sect-4-alamat_rumah', 'Tiada Alamat Rumah');
+        }
+
+        if(taraf == 'KAHWiN') {
+            if( nama_pasangan == 0 || nama_pasangan == '' || nama_pasangan == undefined) {
                 valid = false;
-                addInvalid('.bayar_mula', 'Sila isikan Tarikh Bayaran Mulai');
+                addInvalid('#sect-4-nama_pasangan', 'Tiada Nama Pasangan');
             }
         }
 
-        if(status_pinjam == '3' || status_pinjam == 3) {
-            if(selesai_bayar == '' || selesai_bayar == undefined) {
-                valid = false;
-                addInvalid('.selesai_bayar', 'Sila isikan Tarikh Selesai Pembayaran');
-            }
+        if(!valid) {
+            verticalStepper.to(4);
+            return valid;
         }
-        if($('.loan-file').is(':empty')) {
+    }
+
+    if(valid) {
+        if( status_pinjam == "") {
             valid = false;
-            addInvalid('.selesai_bayar', 'Sila Muat Naik Penyata Pembayaran Pinjaman Terkini atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan');
+            addInvalid('#status_pinjam', 'Sila pilih pengakuan pinjaman pendidikan');
+
+        } else if(status_pinjam != '0' || status_pinjam != 0) {
+            var nama_tabung = $('.nama_tabung').val();
+            var jumlah_pinjaman = $('.jumlah_pinjaman').val();
+            var mula_pinjam = $('.mula_pinjam').val();
+            var akhir_pinjam = $('.akhir_pinjam').val();
+            var bayar_mula = $('.bayar_mula').val();
+            var selesai_bayar = $('.selesai_bayar').val();
+            if(nama_tabung == '' || nama_tabung == undefined) {
+                valid = false;
+                addInvalid('.nama_tabung', 'Sila isikan Nama Institusi/ Tabung Pendidikan');
+            }
+            if(jumlah_pinjaman == '' || jumlah_pinjaman == undefined) {
+                valid = false;
+                addInvalid('.jumlah_pinjaman', 'Sila isikan Jumlah Pinjaman');
+            }
+            if(mula_pinjam == '' || mula_pinjam == undefined) {
+                valid = false;
+                addInvalid('.mula_pinjam', 'Sila isikan Tarikh Mula Pinjaman');
+            }
+            if(akhir_pinjam == '' || akhir_pinjam == undefined) {
+                valid = false;
+                addInvalid('.akhir_pinjam', 'Sila isikan Tarikh Akhir Pinjaman');
+            }
+
+            if(status_pinjam == '2' || status_pinjam == 2) {
+                if(bayar_mula == '' || bayar_mula == undefined) {
+                    valid = false;
+                    addInvalid('.bayar_mula', 'Sila isikan Tarikh Bayaran Mulai');
+                }
+            }
+
+            if(status_pinjam == '3' || status_pinjam == 3) {
+                if(selesai_bayar == '' || selesai_bayar == undefined) {
+                    valid = false;
+                    addInvalid('.selesai_bayar', 'Sila isikan Tarikh Selesai Pembayaran');
+                }
+            }
+            if($('.loan-file').is(':empty')) {
+                valid = false;
+                addInvalid('.selesai_bayar', 'Sila Muat Naik Penyata Pembayaran Pinjaman Terkini atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan');
+            }
         }
         if(!valid) {
             verticalStepper.to(11);
-        } else {
-            if(!tatatertib.is(':checked')) {
-                valid = false;
-                addInvalid('#label-tatatertib', 'Sila Pilih Akuan Ini');
-                verticalStepper.to(12);
-            } else if(!$('.denda').is(':checked')) {
-                valid = false;
-                addInvalid('#label-denda', 'Sila Pilih Akuan Ini');
-                verticalStepper.to(12);
-            } else if(!$('.cuti_check').is(':checked')) {
-                valid = false;
-                addInvalid('#label-cuti_check', 'Sila Pilih Akuan Ini');
-                verticalStepper.to(12);
-            } else if(!$('.akuan_peribadi').is(':checked')) {
-                valid = false;
-                addInvalid('.akuan_peribadi', 'Sila Tandakan Akuan');
-                verticalStepper.to(12);
-            } else if($('.pengguna-nokp').val() == '' || $('.pengguna-nokp').val() == undefined) {
-                valid = false;
-                addInvalid('.pengguna-nokp', 'Sila Pilih Ketua Bahagian Perkhidmatan / Kerani');
-                verticalStepper.to(13);
-            } else if($('.pegawai-nokp').val() == '' || $('.pengguna-nokp').val() == undefined) {
-                valid = false;
-                addInvalid('.pegawai-nokp', 'Sila Pilih Ketua Jabatan');
-                verticalStepper.to(13);
-            } else if(!$('.radio-accept').is(':checked')) {
-                valid = false;
-                addInvalid('#label-radio-accept', 'Sila Berikan Jawapan Anda');
-                verticalStepper.to(14);
-            } else if($('input[name="terima_tawaran"]:checked').val() == 1 || $('input[name="terima_tawaran"]:checked').val() == '1') {
-                if($('.alasan_tolak').val() == '' || $('.palasan_tolak').val() == undefined) {
-                    valid = false;
-                    addInvalid('.alasan_tolak', 'Sila Berikan Alasan Anda');
-                    verticalStepper.to(14);
-                }
-            } else {
-                valid = true;
-            }
+            return valid;
         }
-    } else {
-        valid = true;
     }
 
+    if(valid) {
+        if(!tatatertib.is(':checked')) {
+            valid = false;
+            addInvalid('#label-tatatertib', 'Sila Pilih Pengakuan Ini');
+        }
 
+        if(!$('.denda').is(':checked')) {
+            valid = false;
+            addInvalid('#label-denda', 'Sila Pilih Pengakuan Ini');
+        }
 
+        if(!$('.cuti_check').is(':checked')) {
+            valid = false;
+            addInvalid('#label-cuti_check', 'Sila Pilih Pengakuan Ini');
+        }
+
+        if(!$('.akuan_peribadi').is(':checked')) {
+            valid = false;
+            addInvalid('.akuan_peribadi', 'Sila Tandakan Pengakuan Ini');
+        }
+
+        if(!valid) {
+            verticalStepper.to(12);
+            return valid;
+        }
+    }
+
+    if(valid) {
+        if($('.pengguna-nokp').val() == '' || $('.pengguna-nokp').val() == undefined) {
+            valid = false;
+            addInvalid('.pengguna-nokp', 'Sila Pilih Ketua Bahagian Perkhidmatan / Kerani');
+        }
+
+        if($('.pegawai-nokp').val() == '' || $('.pengguna-nokp').val() == undefined) {
+            valid = false;
+            addInvalid('.pegawai-nokp', 'Sila Pilih Ketua Jabatan');
+        }
+
+        if(!valid) {
+            verticalStepper.to(13);
+            return valid;
+        }
+
+        if(!$('.radio-accept').is(':checked')) {
+            valid = false;
+            addInvalid('#label-radio-accept', 'Sila Pilih Keputusan Anda');
+        }
+
+        console.log('radio terima/tidak = '+$('input[name="terima_tawaran"]:checked').val());
+
+        if($('input[name="terima_tawaran"]:checked').val() == 0 || $('input[name="terima_tawaran"]:checked').val() == '0') {
+            if($('.alasan_tolak').val() == '' || $('.alasan_tolak').val() == undefined) {
+                valid = false;
+                addInvalid('.alasan_tolak', 'Sila Berikan Alasan Anda');
+            }
+        }
+
+        if(!valid) {
+            verticalStepper.to(14);
+            return valid;
+        }
+    }
 
     return valid;
 }

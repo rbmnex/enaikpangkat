@@ -1,4 +1,4 @@
-$(document).on('click','.btn-submit',function() {
+$(document).on('click','.btn-submit, .btn-download',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('btn-submit')) {
         //$('#modal-cuti').modal('show');
@@ -41,6 +41,7 @@ $(document).on('click','.btn-submit',function() {
                         if(success == 1) {
                             // redirect to success page
                             //toasting('Jawatan Dalam Pertubuhan Ditambah', 'success');
+                            window.open(getUrl()+'/form/ukp12/final','_self');
                         } else if(success == 0) {
                             //toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                         }
@@ -48,6 +49,35 @@ $(document).on('click','.btn-submit',function() {
                 }
             });
         }
+    } else if(selectedClass.hasClass('btn-download')) {
+        var data = new FormData;
+        var dataform = $('input[name="_formdata"]').val();
+        data.append('_token', getToken());
+        data.append('dataform',$('input[name="_formdata"]').val());
+        window.open(getUrl() + '/form/ukp12/download/part?dataform='+dataform,'_blank');
+        // $.ajax({
+        //     type: 'POST',
+        //     url: getUrl() + '/form/ukp12/download/part',
+        //     data:data,
+        //     processData: false,
+        //     contentType: false,
+        //     context: this,
+        //     success: function(data) {
+        //         console.log(data);
+        //         // window.open(data, '_blank ');
+        //         // var a = document.createElement('a');
+        //         // a.href= "data:application/octet-stream;base64,"+data;
+        //         // a.target = '_blank';
+        //         // a.download = 'Pemohonan_UKP12.pdf';
+        //         // a.click();
+        //         var blob=new Blob([data]);
+        //         var link=document.createElement('a');
+        //         //link.href=window.URL.createObjectURL(blob);
+        //         link.href="data:application/octet-stream;base64,"+data;
+        //         link.download="Pemohonan_UKP12.pdf";
+        //         link.click();
+        //     }
+        // });
     }
 });
 

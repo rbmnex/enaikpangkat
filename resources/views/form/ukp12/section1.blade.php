@@ -6,38 +6,46 @@
     <div class="row">
         <div class="form-group col-md-12">
             <label class="col-form-label" for="vertical-username">Nama</label>
-            <input type="text" id="vertical-username" readonly name="nama" class="form-control"  value="{{ $profile['nama'] }}" placeholder="" />
+            <input type="text" id="sect-1-nama" readonly name="nama" class="form-control"  value="{{ $profile['nama'] }}" placeholder="" />
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">No Kad Pengenalan (Lama)</label>
             <input type="text" id="vertical-email" readonly name="nokp_lama" class="form-control"
             value="{{ $profile['nokp_lama'] }}" placeholder=""  />
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">No Kad Pengenalan (Baru)</label>
-            <input type="number" id="vertical-email" readonly nama="nokp" class="form-control"
+            <input type="number" id="sect-1-nokp" readonly nama="nokp" class="form-control"
             value="{{ $profile['nokp_baru'] }}" placeholder=""  />
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">Jawatan</label>
-            <input type="text" id="vertical-email" readonly name="jawatan" class="form-control" value="{{ $profile['jawatan'] }}"
+            <input type="text" id="sect-1-jawatan" readonly name="jawatan" class="form-control" value="{{ $profile['jawatan'] }}"
             placeholder=""  />
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">Gred</label>
-            <input type="text" id="vertical-email" readonly name="gred" class="form-control" value="{{ $profile['gred'] }}" placeholder=""  />
+            <input type="text" id="sect-1-gred" readonly name="gred" class="form-control" value="{{ $profile['gred'] }}" placeholder=""  />
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">Tarikh Lantikan Perkhidmatan</label>
-            <input type="text" id="vertical-email" readonly name="tkh_lantikan" class="form-control" value="{{ \Carbon\Carbon::parse($profile['tkh_lantikan'])->format('d-m-Y')  }}" placeholder=""  />
+            <input type="text" id="sect-1-tkh_lantik" readonly name="tkh_lantikan" class="form-control" value="{{ \Carbon\Carbon::parse($profile['tkh_lantikan'])->format('d-m-Y')  }}" placeholder=""  />
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">Tarikh Disahkan Jawatan</label>
-            <input type="text" id="vertical-email" readonly name="tkh_sah" class="form-control" value="{{ \Carbon\Carbon::parse($profile['tkh_sah'])->format('d-m-Y') }}" placeholder=""  />
+            <input type="text" id="sect-1-tkh_sah" readonly name="tkh_sah" class="form-control" value="{{ \Carbon\Carbon::parse($profile['tkh_sah'])->format('d-m-Y') }}" placeholder=""  />
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">Umur Persaraan Wajib</label>
-            <input type="number" id="vertical-email" readonly nama="pilihan_bersara_wajib" value="{{ $profile['umur_besara'] }}" class="form-control" placeholder=""  />
+            <input type="number" id="sect-1-bersara" readonly nama="pilihan_bersara_wajib" value="{{ $profile['umur_besara'] }}" class="form-control" placeholder=""  />
+            <div class="invalid-feedback"></div>
         </div>
     </div>
     <div class="d-flex justify-content-between">
