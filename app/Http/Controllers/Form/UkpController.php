@@ -27,6 +27,7 @@ use App\Models\Permohonan\Professional;
 use App\Models\Profail\Peribadi;
 use App\Models\Urussetia\Calon;
 use App\Models\User;
+use App\Pdf\Ukp12Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -525,7 +526,7 @@ class UkpController extends Controller
         } else {
             $pemohon->status = Pemohon::REJECTED_APPLICATION;
         }
-        $pemohon->alasan = $alldata['alasan_tolak'];
+        $pemohon->alasan = $alldata['alasan'];
         $pemohon->updated_by = Auth::user()->nokp;
         $pemohon->jawatan = $formdata->jawatan;
         $pemohon->kod_jawatan = $formdata->kod_jawatan;
@@ -660,7 +661,16 @@ class UkpController extends Controller
 
         //send email
 
-        return view('form.message',['message' => 'Anda Telah Berjaya Menghantar Pemohonan Ini!']);
+        return response()->json([
+            'success' => 1,
+            'data' => []
+        ]);
+
+    }
+
+    public function download_form_part(Request $request) {
+        $formdata = json_decode($request->input('dataform'));
+        return Ukp12Pdf::print($formdata);
     }
 
     private function verify_applicant($nokp,$formId) {
@@ -701,7 +711,8 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $cuti = Cuti::where('nokp',$nokp)->whereIn('jenis_cuti', array('CUTI TANPA GAJI',
         'CUTI SEPARUH GAJI',
         'CUTI BELAJAR BERGAJI',
-        'CUTI BELAJAR SEPARUH GAJI'))->get();
+        'CUTI BELAJAR SEPARUH GAJI',
+        'CUTI BELAJAR TANPA GAJI'))->get();
         $pengalaman = Pengalaman::where('nokp',$nokp)->orderBy('tkh_mula', 'desc')->get();
 
         // $pengalaman->each(function ($item, $key) {
@@ -738,6 +749,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
                 $maklumat['agama'] = $profile->agama;
                 $maklumat['tkh_lahir'] = $profile->tkh_lahir;
                 $maklumat['tmpt_lahir'] = $profile->negeri_lahir;
+                $maklumat['taraf_perkahwinan'] = $profile->taraf_perkahwinan;
                 $maklumat['gaji'] = empty($gaji) ? 0 : $gaji->gaji_pokok;
                 $maklumat['alamat_rumah'] = $profile->alamat;
                 $maklumat['gelaran'] =  $profile->gelaran;
@@ -761,6 +773,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
                     $maklumat['file_harta'] = '';
                 }
                 $maklumat['loan'] = $loan;
+                $maklumat['gred_memangku'] = $pemohon->pemohonPermohonan ? $pemohon->pemohonPermohonan->gred : '';
 
 
 
