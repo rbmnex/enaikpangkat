@@ -172,6 +172,7 @@ class UserMgmtController extends Controller
         $model= [];
 
         $model=ListPegawai2::getMaklumatPegawai($ic);
+        
 
         // echo '<pre>';
         // print_r($model);

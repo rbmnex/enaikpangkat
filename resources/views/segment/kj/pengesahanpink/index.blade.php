@@ -64,7 +64,7 @@
 
 @section('customJs')
     @include('segment.layouts.custom_view_links.customjavascript.index')
-    <script src="{{ asset('app_js_helper/segment/kb/pengesahanpink/settings.js') }}"></script>
-    <script src="{{ asset('app_js_helper/segment/kb/pengesahanpink/controller.js') }}"></script>
-    <script src="{{ asset('app_js_helper/segment/kb/pengesahanpink/main.js') }}"></script>
+    <script src="{{ asset('app_js_helper/segment/kj/pengesahanpink/settings.js') }}"></script>
+    <script src="{{ asset('app_js_helper/segment/kj/pengesahanpink/controller.js') }}"></script>
+    <script src="{{ asset('app_js_helper/segment/kj/pengesahanpink/main.js') }}"></script>
 @endsection

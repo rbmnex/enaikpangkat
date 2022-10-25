@@ -98,9 +98,12 @@ Route::prefix('/urussetia')->group(function() {
 
     Route::prefix('/resume')->group(function() {
         Route::get('/', function() { return view('mockup4'); });
+        Route::get('/lampiran', function() { return view('lampiran'); });
         Route::post('/mockup4', [ResumeController::class,'mockup4']);
+        Route::post('/lampiran', [ResumeController::class,'lampiran']);
     //    Route::get('/resume', [ResumeController::class, 'document']);
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
+         Route::get('/email/{ic}', [ResumeController::class, 'email']);
     });
 });
 
