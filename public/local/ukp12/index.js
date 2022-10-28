@@ -29,8 +29,6 @@ $(document).on('click','.btn-submit, .btn-download',function() {
             data.append('bayar_pinjam',$('.bayar_mula').val());
             data.append('selesai_pinjam',$('.selesai_bayar').val());
 
-
-
             swalAjax({
                 titleText : 'Adakah Anda Pasti?',
                 mainText : 'Data ini akan disimpan',
@@ -43,11 +41,9 @@ $(document).on('click','.btn-submit, .btn-download',function() {
                         let success = data.success;
                         let parseData = data.data;
                         if(success == 1) {
-                            // redirect to success page
-                            //toasting('Jawatan Dalam Pertubuhan Ditambah', 'success');
                             window.open(getUrl()+'/form/ukp12/final','_self');
                         } else if(success == 0) {
-                            //toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                            toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                         }
                     },
                 }

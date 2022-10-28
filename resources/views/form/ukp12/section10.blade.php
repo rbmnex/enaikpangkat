@@ -23,7 +23,7 @@
                 @endforeach
                 @if($profile['kompeten']->count() == 0)
                 <tr data-kompeten-id="">
-                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                    <td colspan="2" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 
 

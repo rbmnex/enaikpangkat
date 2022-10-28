@@ -13,7 +13,9 @@ use Yajra\DataTables\DataTables;
 
 class UserMgmtController extends Controller
 {
-
+    public function __construct() {
+        $this->middleware('auth');
+    }
 
     public function index(Request $request) {
         $model = Role::all();
@@ -172,7 +174,7 @@ class UserMgmtController extends Controller
         $model= [];
 
         $model=ListPegawai2::getMaklumatPegawai($ic);
-        
+
 
         // echo '<pre>';
         // print_r($model);

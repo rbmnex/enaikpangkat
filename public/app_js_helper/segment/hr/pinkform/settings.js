@@ -3,12 +3,12 @@ Flatpickrinit.initAll('#pinkform-tkh-lapor-diri');
 DatatableUI.init({
     selector: '.pinkform-table',
     columnList: [
-        {data: 'nokp'},
-        {data: 'nama'},
-        {data: 'jawatan'},
-        {data: 'jenis'},
-        {data: 'status'},
-        {data: 'aksi'},
+        {data: 'nokp', searchable: false},
+        {data: 'nama', searchable: false},
+        {data: 'jawatan', searchable: false},
+        {data: 'jenis', searchable: false},
+        {data: 'status', searchable: false},
+        {data: 'aksi', searchable: false},
     ],
     url: '/hr2/pinkform/get-pink-form-list',
     buttons: [

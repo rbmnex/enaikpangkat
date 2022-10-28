@@ -12,11 +12,11 @@
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline ">
-                <input type="radio" value="1" class="form-check-input tatatertib" name="tatatertib" id="radio1" />
+                <input type="radio" value="1" class="form-check-input medium tatatertib" name="tatatertib" id="radio1" />
                 <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
             <div class="form-check form-check-inline ">
-                <input type="radio" value="0" class="form-check-input tatatertib" name="tatatertib" id="radio2" />
+                <input type="radio" value="0" class="form-check-input medium tatatertib" name="tatatertib" id="radio2" />
                 <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
                 <div class="invalid-feedback"></div>
             </div>
@@ -45,11 +45,11 @@
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline ">
-                <input type="radio" value="1" class="form-check-input denda" name="denda" id="radio1" />
+                <input type="radio" value="1" class="form-check-input medium denda" name="denda" id="radio1" />
                 <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
             <div class="form-check form-check-inline ">
-                <input type="radio" value="0" class="form-check-input denda" name="denda" id="radio1" />
+                <input type="radio" value="0" class="form-check-input medium denda" name="denda" id="radio1" />
                 <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
             </div>
         </div>
@@ -63,11 +63,11 @@
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline ">
-                <input type="radio" value="1" class="form-check-input cuti_check" name="cuti_check" id="radio1" />
+                <input type="radio" value="1" class="form-check-input medium cuti_check" name="cuti_check" id="radio1" />
                 <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
             <div class="form-check form-check-inline ">
-                <input type="radio" value="0" class="form-check-input cuti_check" name="cuti_check" id="radio1" />
+                <input type="radio" value="0" class="form-check-input medium cuti_check" name="cuti_check" id="radio1" />
                 <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
             </div>
         </div>
@@ -77,7 +77,7 @@
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline">
-                <input type="checkbox" class="form-check-input akuan_peribadi" value="1" name="akuan" id="checkbox_akuan" />
+                <input type="checkbox" class="form-check-input medium akuan_peribadi" value="1" name="akuan" id="checkbox_akuan" />
                 <label class="col-form-label" for="customCheck1">Saya mengaku bahawa butiran yang dinyatakan di dalam Borang JKR/UKP/12 ini adalah benar. Sekiranya tidak benar, saya boleh dikenakan tindakan tatatertib di bawah Peraturan 4 (f) dan Peraturan 4 (g), Peraturan-Peraturan Pegawai Awam ( Kelakuan dan Tatatertib ) 1993.</label>
             </div>
             <div class="invalid-feedback"></div>

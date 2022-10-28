@@ -11,11 +11,11 @@
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline ">
-                <input type="radio" value="1" class="form-check-input radio-accept" name="terima_tawaran" id="radio1-1" />
+                <input type="radio" value="1" class="form-check-input medium radio-accept" name="terima_tawaran" id="radio1-1" />
                 <label class="col-form-label" for="tatatertib"> Terima</label>
             </div>
             <div class="form-check form-check-inline ">
-                <input type="radio" value="0" class="form-check-input radio-accept" name="terima_tawaran" id="radio2-1" />
+                <input type="radio" value="0" class="form-check-input medium radio-accept" name="terima_tawaran" id="radio2-1" />
                 <label class="col-form-label" for="tatatertib"> Tidak Terima</label>
             </div>
         </div>

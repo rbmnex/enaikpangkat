@@ -17,7 +17,7 @@
             <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Menu - Menu</span><i data-feather="more-horizontal"></i>
             </li>
 
-            <li class=" nav-item">
+            {{-- <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Menu Besar</span>
@@ -37,7 +37,7 @@
                         </ul>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             @role(['secretariat','superadmin'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
@@ -47,19 +47,25 @@
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="/urussetia/kumpulan/">
-                            <i data-feather="circle"></i>
+                            <i data-feather='users'></i>
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan <br/> Kumpulan</span>
                         </a>
                     </li>
                     <li>
+                        <a class="d-flex align-items-center" href="/urussetia/appl/main/">
+                            <i data-feather="inbox"></i>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan <br/> Permohonan</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="d-flex align-items-center" href="/urussetia/resume/">
-                            <i data-feather="circle"></i>
+                            <i data-feather='file-text'></i>
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Resume</span>
                             </a>
                     </li>
                     <li>
                         <a class="d-flex align-items-center" href="/urussetia/resume/lampiran/">
-                            <i data-feather="circle"></i>
+                            <i data-feather='link-2'></i>
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Lampiran</span>
                             </a>
                     </li>
@@ -116,6 +122,7 @@
                 </ul>
             </li>
             @endrole
+            @role(['user','superadmin'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
@@ -130,6 +137,8 @@
                     </li>
                 </ul>
             </li>
+            @endrole
+            @role(['clerk','superadmin'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
@@ -144,6 +153,8 @@
                     </li>
                 </ul>
             </li>
+            @endrole
+            @role(['hod','superadmin'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
@@ -158,6 +169,7 @@
                     </li>
                 </ul>
             </li>
+            @endrole
         </ul>
         @endif
     </div>

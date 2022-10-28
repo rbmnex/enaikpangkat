@@ -700,6 +700,38 @@ class UkpController extends Controller
         return Ukp12Pdf::print($formdata);
     }
 
+    public function load_view(Request $request,$id) {
+        $pemohon = Pemohon::find($id);
+        $peribadi = Peribadi::find($pemohon->id_peribadi);
+        $cuti = PermohonanCuti::where('id_pemohon',$pemohon->id)->get();
+        $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
+        $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
+        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get();
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
+        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get();
+        $profesional = Professional::where('id_pemohon',$pemohon->id)->get();
+        $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->get();
+        $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();
+        $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
+        $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
+
+        return view('form.view.view_ukp12',[
+            'pemohon' => $pemohon,
+            'peribadi' => $peribadi,
+            'cutis' => $cuti,
+            'harta' => $harta,
+            'pasangan' => $pasangan,
+            'perkhidmatans' => $perkhidmatan,
+            'pertubuhans' => $pertubuhan,
+            'akademiks' => $akademik,
+            'profesionals' => $profesional,
+            'kompetenans' => $kompetenan,
+            'pengiktirafans' => $pengiktirafan,
+            'akuan_pinjaman' => $akuan_pinjaman,
+            'akuan_pegawai' => $akuan_pegawai
+        ]);
+    }
+
     private function verify_applicant($nokp,$formId) {
         // check applicant is eligible
         $eligible = false;

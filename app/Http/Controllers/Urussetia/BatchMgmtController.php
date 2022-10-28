@@ -17,7 +17,10 @@ use Yajra\DataTables\DataTables;
 
 class BatchMgmtController extends Controller
 {
-    //
+    public function __construct() {
+        $this->middleware('auth');
+    }
+
     public function index(Request $request){
         $query = DB::connection('pgsqlmykj')->select('select distinct extract(year from lpn.tkh_sah_perkhidmatan) as years
         from list_pegawai_naikpangkat lpn order by years asc');

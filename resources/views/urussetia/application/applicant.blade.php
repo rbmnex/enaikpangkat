@@ -18,7 +18,7 @@
                         </li>
                         <li class="breadcrumb-item">BPSM
                         </li>
-                        <li class="breadcrumb-item active"><a href="#">Pengurusan Kumpulan</a>
+                        <li class="breadcrumb-item active"><a href="#">Pengurusan Permohonan</a>
                         </li>
                     </ol>
                 </div>
@@ -31,29 +31,32 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <table class="datatables table table-kumpulan">
+                <table class="datatables table table-pemohon">
                     <thead>
                         <tr>
+                            <th>no kad pengenalan</th>
                             <th>nama</th>
+                            <th>jawatan</th>
+                            <th>gred</th>
                             <th>status</th>
-                            <th>aksi</th>
+                            <th>tindakan</th>
                         </tr>
                     </thead>
                 </table>
+                <input type="hidden" id="hdn_id_application" value="{{ $permohonan_id }}"/>
             </div>
         </div>
     </div>
     </section>
 </div>
-<input type="hidden" id="_token" class="_token" name="_token" value="{{csrf_token()}}">
-@include('urussetia.batch.modal')
 @endsection
 
 @section('customJs')
 @include('web.datatable-js')
 @include('web.sweet-alert-js')
 <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
-<script src="{{asset('local/batchmgmt/js/page_setting.js')}}"></script>
-<script src="{{asset('local/batchmgmt/js/datatable.js')}}"></script>
-<script src="{{asset('local/batchmgmt/js/index.js')}}"></script>
+<script src="{{ asset('app_js_helper/main/common.js') }}"></script>
+<script src="{{ asset('app_js_helper/inits/datatable/index.js') }}"></script>
+<script src="{{asset('local/applicant/js/page_setting.js')}}"></script>
+<script src="{{asset('local/applicant/js/index.js')}}"></script>
 @endsection

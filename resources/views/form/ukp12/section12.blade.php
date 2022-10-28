@@ -59,7 +59,7 @@
                 <i data-feather='upload'></i> Muat Naik
                 <input class="form-control file-input penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran"/>
             </div>
-            <span class="col-form-label loan-file"></span>
+            <span class="col-form-label loan-file">{{ $profile['loan'] ? ($profile['loan']->file ? $profile['loan']->file->filename : '' ) : '' }}</span>
             <div class="invalid-feedback"></div>
         </div>
     </div>
