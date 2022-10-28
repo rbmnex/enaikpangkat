@@ -6,6 +6,7 @@ use App\Http\Controllers\HR\PinkFormController;
 use App\Http\Controllers\Main\CommonController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
+use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Pdf\Ukp12Pdf;
@@ -106,6 +107,14 @@ Route::prefix('/urussetia')->group(function() {
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
          Route::get('/email/{ic}', [ResumeController::class, 'email']);
     });
+
+    Route::prefix('/appl')->group(function() {
+        Route::prefix('/main')->group(function() {
+            Route::get('/',[ApplicationController::class,'main_page']);
+            Route::get('/list',[ApplicationController::class,'main_list']);
+            Route::post('/delete',[ApplicationController::class,'delete_application']);
+        });
+    });
 });
 
 Route::prefix('/hr')->group(function() {
@@ -123,7 +132,9 @@ Route::prefix('/form')->group(function() {
         Route::get('/final',function() {
             return view('form.message',['message' => 'Anda Telah Berjaya Menghantar Pemohonan Ini!']);
         });
+        Route::get('/view/{id}',[UkpController::class,'load_view']);
     });
+
     Route::prefix('/api')->group(function() {
         Route::post('/org',[UkpController::class,'save_organization']);
         Route::post('/org/del',[UkpController::class,'delete_organization']);
@@ -138,6 +149,7 @@ Route::prefix('/form')->group(function() {
 //Common Controller
 Route::prefix('/common')->group(function () {
     Route::post('/get-listing', [CommonController::class, 'listing']);
+    Route::get('/id-download', [CommonController::class, 'download_by_id']);
 });
 
 // test api

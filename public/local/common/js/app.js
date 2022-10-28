@@ -141,6 +141,12 @@ function swalAjaxFire(method,postData){
             postfunc(data);
 
             $.unblockUI();
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(textStatus);
+            console.log(errorThrown);
+            toasting('Ralat telah berlaku, Sila periksa log', 'error');
+            $.unblockUI();
         }
     });
 }

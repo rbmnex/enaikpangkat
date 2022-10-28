@@ -15,7 +15,11 @@ $(document).on('click','.btn-submit, .btn-download',function() {
             data.append('tatatertib',$('.tatatertib').filter(':checked').val());
             data.append('denda',$('.denda').filter(':checked').val());
             data.append('cuti',$('.cuti_check').filter(':checked').val());
-            data.append('akuan',$('.akuan').filter(':checked').val());
+            if($('.akuan_peribadi').is(':checked')) {
+                data.append('akuan',1);
+            } else {
+                data.append('akuan',0);
+            }
 
             data.append('status_pinjam',$('.pinjam-status').val());
             data.append('nama_pinjam',$('.nama_tabung').val());
@@ -24,8 +28,6 @@ $(document).on('click','.btn-submit, .btn-download',function() {
             data.append('akhir_pinjam',$('.akhir_pinjam').val());
             data.append('bayar_pinjam',$('.bayar_mula').val());
             data.append('selesai_pinjam',$('.selesai_bayar').val());
-
-
 
             swalAjax({
                 titleText : 'Adakah Anda Pasti?',
@@ -39,11 +41,9 @@ $(document).on('click','.btn-submit, .btn-download',function() {
                         let success = data.success;
                         let parseData = data.data;
                         if(success == 1) {
-                            // redirect to success page
-                            //toasting('Jawatan Dalam Pertubuhan Ditambah', 'success');
                             window.open(getUrl()+'/form/ukp12/final','_self');
                         } else if(success == 0) {
-                            //toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                            toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                         }
                     },
                 }

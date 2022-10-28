@@ -10,36 +10,48 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset//vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+    <style>
+        .text-notice {
+            color: red !important;
+            font-style: italic;
+        }
+
+        .select2-selection--single {
+            height: 60% !important;
+        }
+        .select2-selection__rendered{
+            word-wrap: break-word !important;
+            text-overflow: inherit !important;
+            white-space: normal !important;
+        }
+
+        .file {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-input {
+        position: absolute;
+        font-size: 50px;
+        opacity: 0;
+        right: 0;
+        top: 0;
+        }
+
+        input.larger {
+          width: 50px;
+          height: 50px;
+        }
+        input.medium {
+          width: 25px;
+          height: 25px;
+        }
+        input.small {
+          width: 10px;
+          height: 10px;
+        }
+    </style>
 @endsection
-
-<style>
-    .text-notice {
-        color: red !important;
-        font-style: italic;
-    }
-
-    .select2-selection--single {
-        height: 60% !important;
-    }
-    .select2-selection__rendered{
-        word-wrap: break-word !important;
-        text-overflow: inherit !important;
-        white-space: normal !important;
-    }
-
-    .file {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .file-input {
-    position: absolute;
-    font-size: 50px;
-    opacity: 0;
-    right: 0;
-    top: 0;
-    }
-</style>
 
 @section('content')
 {{-- <div class="content-header row">
