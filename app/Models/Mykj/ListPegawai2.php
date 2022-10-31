@@ -63,7 +63,7 @@ class ListPegawai2 extends Model
    public static function isytiharHarta($ic){
         $data= [];
 
-        
+
 
         $model = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','=','L8')->orderBy('tkh_mula_peristiwa', 'desc')->first();
 
@@ -76,7 +76,7 @@ class ListPegawai2 extends Model
         }
 
         return $data;
-    } 
+    }
 
     public static function aPC($ic){
         $data= [];
@@ -206,7 +206,7 @@ class ListPegawai2 extends Model
     public static function markah($ic){
         $data= [];
 
-        
+
         $model = Markah::where('nokp', $ic)->whereBetween('tahun', [2017, 2019])->orderBy('tahun', 'asc')->get();
 
         if($model){
@@ -229,8 +229,8 @@ class ListPegawai2 extends Model
 
         if($model){
             foreach($model as $m){
-              
-                
+
+
                 $data[] = [
 //                     $datetime1 = new DateTime($m->tkh_mula);
 // $datetime2 = new DateTime($m->tkh_tamat);
@@ -259,7 +259,7 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 // $diff=date_diff($m->tkh_mula,$m->tkh_tamat);
-                
+
                 $data[] = [
                     'tempat' => $m->tempat,
                     'mula' => $m->tkh_mula,
@@ -304,18 +304,18 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
-<<<<<<< HEAD
+
                     'kod_gred' => $m->kod_gred,
                     'kod_jawatan' => $m->kod_jawatan,
                     'taraf'=> $m->PerkhidmatanTaraf->perkhidmatan,
                     'skim' => $m->LKumpulan ? $m->LKumpulan->kumpulan : '',
                     'gred_hakiki' =>$m->kod_gred,
-                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik
+                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik,
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
                      'no_daftar' => $m->no_pendaftaran,
                     'tkh_kelulusan' => $m->tkh_kelulusan
->>>>>>> yana
+
                 ];
             }
         }
@@ -338,7 +338,7 @@ class ListPegawai2 extends Model
                     'tkh_mula_gred_hakiki' =>$model->tkh_lantik
                 ];
             }
-        
+
 
         return $data;
     }

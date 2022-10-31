@@ -36,13 +36,13 @@
                         <p><strong>“WAWASAN KEMAKMURAN BERSAMA 2030”</strong></p>
                         <p><strong>“BERKHIDMAT UNTUK NEGARA”</strong></p>  
                         <p>Saya yang menjalankan amanah,</p>
-                        <span><strong>SETIA KENAIKAN PANGKAT</strong></span></br>
-                        <span>BAHAGIAN PENGURUSAN SUMBER MANUSIA</span></br>
-                        <span>CAWANGAN DASAR & PENGURUSAN KORPORAT</span></br>
-                        <span>IBU PEJABAT JKR MALAYSIA</span></br>
-                        <span>TINGKAT 29, MENARA KERJA RAYA (BLOK G)</span></br>
-                        <span>JALAN SULTAN SALAHUDDIN</span></br>
-                        <span>50480 KUALA LUMPUR</span></br>
+                        <span><strong>URUS SETIA KENAIKAN PANGKAT</strong></span><br/>
+                        <span>BAHAGIAN PENGURUSAN SUMBER MANUSIA</span><br/>
+                        <span>CAWANGAN DASAR & PENGURUSAN KORPORAT</span><br/>
+                        <span>IBU PEJABAT JKR MALAYSIA</span><br/>
+                        <span>TINGKAT 29, MENARA KERJA RAYA (BLOK G)</span><br/>
+                        <span>JALAN SULTAN SALAHUDDIN</span><br/>
+                        <span>50480 KUALA LUMPUR</span><br/>
                   </div>
                </div>
            </div>

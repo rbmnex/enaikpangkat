@@ -8,9 +8,18 @@ DatatableUI.init({
         {data: 'status'},
         {data: 'aksi'},
     ],
-    url: '/urussetia/appl/calon/list?id='+$('#hdn_id_application').val(),
+    url: '/urussetia/appl/calon/load/list?id='+$('#hdn_id_application').val(),
     buttons: [
-
+        {
+            text: feather.icons['arrow-left'].toSvg({ class: 'mr-50 font-small-4' }) + 'Kembali',
+            className: 'create-new btn btn-success back-main',
+            attr: {
+                'data-appl-id': $('#hdn_id_application').val(),
+            },
+            init: function (api, node, config) {
+                $(node).removeClass('btn-secondary');
+            }
+        }
     ],
     columnDef: [
         {
@@ -21,8 +30,11 @@ DatatableUI.init({
             searchable: false,
             render: function (data, type, full, meta) {
                 var btn = '';
+                var status =  full.status
+                if( (status != 'Tiada Tindakan') && (status != 'Belum Siap')) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Lihat</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
+                }
 
                 return btn;
             }

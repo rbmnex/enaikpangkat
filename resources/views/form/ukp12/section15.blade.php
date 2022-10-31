@@ -16,7 +16,7 @@
             </div>
             <div class="form-check form-check-inline ">
                 <input type="radio" value="0" class="form-check-input medium radio-accept" name="terima_tawaran" id="radio2-1" />
-                <label class="col-form-label" for="tatatertib"> Tidak Terima</label>
+                <label class="col-form-label" for="tatatertib"> Tolak</label>
             </div>
         </div>
         <div class="form-group col-md-12">
@@ -29,6 +29,7 @@
     </div>
     <div class="row">
         <div class="form-group col-12">
+            <span class="col-form-label">Sial berikan alasan jika tolak pemangkuan ini</span>
             <textarea row=3 type="text" width="100%" id="alasan_tolak" class="form-control alasan_tolak" name="alasan_tolak"  placeholder="Sila Berikan Sebab Jika Tolak Tawaran Pemangkuan Ini"></textarea>
             <div class="invalid-feedback"></div>
         </div>
