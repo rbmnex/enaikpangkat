@@ -151,7 +151,7 @@ class UkpController extends Controller
             }
         }
 
-        $maklumat = $this->load_info($profile,$nokp,$pemohon->id);
+        $maklumat = $this->load_info($profile,$nokp,$pemohon);
 
         return view('form.ukp12',[
             "profile" => $maklumat,

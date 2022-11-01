@@ -103,8 +103,16 @@ Route::prefix('/urussetia')->group(function() {
         Route::get('/lampiran', function() { return view('lampiran'); });
         Route::post('/mockup4', [ResumeController::class,'mockup4']);
         Route::post('/lampiran', [ResumeController::class,'lampiran']);
+        Route::get('/lampiran/{id}',[ResumeController::class,'lampiran']);
+        //Route::get('/display/{id}',[UkpController::class,'open']);
     //    Route::get('/resume', [ResumeController::class, 'document']);
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
+        Route::get('/lampiran2/{ic}', [ResumeController::class, 'lampiran2']);
+        Route::get('/lampiran3/{ic}', [ResumeController::class, 'lampiran3']);
+        Route::get('/lampiran4/{ic}', [ResumeController::class, 'lampiran4']);
+        Route::get('/pdf/lampiran2/{ic}', [ResumeController::class, 'lampiran2pdf']);
+        Route::get('/pdf/lampiran3/{ic}', [ResumeController::class, 'lampiran3pdf']);
+        Route::get('/pdf/lampiran4/{ic}', [ResumeController::class, 'lampiran4pdf']);
          Route::get('/email/{ic}', [ResumeController::class, 'email']);
     });
 
