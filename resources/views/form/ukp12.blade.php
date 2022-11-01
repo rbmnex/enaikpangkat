@@ -10,23 +10,48 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/tables/datatable/responsive.bootstrap4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset//vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/forms/pickers/form-flat-pickr.css')}}">
+    <style>
+        .text-notice {
+            color: red !important;
+            font-style: italic;
+        }
+
+        .select2-selection--single {
+            height: 60% !important;
+        }
+        .select2-selection__rendered{
+            word-wrap: break-word !important;
+            text-overflow: inherit !important;
+            white-space: normal !important;
+        }
+
+        .file {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-input {
+        position: absolute;
+        font-size: 50px;
+        opacity: 0;
+        right: 0;
+        top: 0;
+        }
+
+        input.larger {
+          width: 50px;
+          height: 50px;
+        }
+        input.medium {
+          width: 25px;
+          height: 25px;
+        }
+        input.small {
+          width: 10px;
+          height: 10px;
+        }
+    </style>
 @endsection
-
-<style>
-    .text-notice {
-        color: red !important;
-        font-style: italic;
-    }
-
-    .select2-selection--single {
-        height: 60% !important;
-    }
-    .select2-selection__rendered{
-        word-wrap: break-word !important;
-        text-overflow: inherit !important;
-        white-space: normal !important;
-    }
-</style>
 
 @section('content')
 {{-- <div class="content-header row">
@@ -248,5 +273,15 @@
 <script type="text/javascript">
 
    // $("#gender_select").val('{{ $profile['jantina'] }}').trigger('change');
+    @if($profile['loan'])
+    $(".pinjam-status").val('{{ $profile['loan']->status }}').trigger('change');
+    $(".nama_tabung").val('{{ $profile['loan']->nama_institusi }}');
+    $('.jumlah_pinjaman').val('{{ $profile['loan']->jumlah_pinjaman }}');
+    $('.mula_pinjam').val('{{ $profile['loan']->tkh_mula_pinjaman ? \Carbon\Carbon::parse($profile['loan']->tkh_mula_pinjaman)->format('d-m-Y') : '' }}');
+    $('.akhir_pinjam').val('{{ $profile['loan']->tkh_akhir_pinjaman ? \Carbon\Carbon::parse($profile['loan']->tkh_akhir_pinjaman)->format('d-m-Y') : '' }}');
+    $('.bayar_mula').val('{{ $profile['loan']->tkh_mula_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_mula_bayaran)->format('d-m-Y') : '' }}');
+    $('.selesai_bayar').val('{{ $profile['loan']->tkh_selesai_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_selesai_bayaran)->format('d-m-Y') : '' }}');
+    $('.loan-file').html('{{ $profile['loan']->file ? $profile['loan']->file->filename : '' }}')
+    @endif
 </script>
 @endsection

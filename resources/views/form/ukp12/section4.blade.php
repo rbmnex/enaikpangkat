@@ -4,16 +4,24 @@
         <small class="text-notice">Sila kemas kini di bahagian PERIBADI di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-12">
             <label class="col-form-label" for="tarikhAkhir_harta">Tarikh Akhir Pengisytiharan Harta Terkini:</label>
             <input type="text" readonly class="form-control" value="{{ $profile['tkh_istihar'] }}" id="tarikhAkhir_harta" name="harta_tkh_akhir_pengisytiharan">
             <div class="invalid-feedback"></div>
         </div>
-        <div class="form-group col-md-6">
+        <div class="form-group col-md-12">
             {{-- <form id="upload_harta" width="100%"> --}}
             <label class="col-form-label" for="lampiran_E">Muat Naik Lampiran E</label>
-            <input class="form-control upload-harta" type="file" id="lampiran_E" name="harta_surat_kelulusan" />
+
             {{-- </form> --}}
+        </div>
+        <div class="form-group col-md-12">
+            <div class="file btn btn-primary">
+                <i data-feather='upload'></i> Muat Naik
+                <input class="file-input upload-harta" type="file" id="lampiran_E" name="harta_surat_kelulusan" />
+            </div>
+            <span class="col-form-label harta-file">{{ $profile['file_harta'] }}</span>
+            <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" style="font-style: italic" for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</b></label>

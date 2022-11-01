@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Profail;
+namespace App\Models\Permohonan;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

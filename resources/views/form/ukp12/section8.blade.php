@@ -24,6 +24,13 @@
                         <td>{{ empty($a->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($a->tkh_kelulusan)->format('Y') }}</td>
                     </tr>
                 @endforeach
+                @if($profile['akademik']->count() == 0)
+                <tr data-akademik-id="">
+                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                </tr>
+
+
+                @endif
                 </tbody>
             </table>
         </div>

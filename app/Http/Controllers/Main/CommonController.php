@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Main;
 
 use App\Http\Controllers\Controller;
+use App\Models\File;
 use App\Models\Mykj\LGred;
 use App\Models\Mykj\LJawatan;
 use App\Models\Mykj\LJurusan;
@@ -61,5 +62,17 @@ class CommonController extends Controller
 
     public function load_pegawai_info(Request $request) {
 
+    }
+
+    public function download_by_id(Request $request) {
+        $file_id = $request->input('fileid');
+        $file = File::find($file_id);
+        $filename = $file->filename;
+
+        $path       = public_path().'/files/'.$filename;
+        $contents   = base64_decode($file->content_bytes);
+        file_put_contents($path, $contents);
+
+        return response()->download($path)->deleteFileAfterSend(true);
     }
 }

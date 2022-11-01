@@ -21,6 +21,13 @@
                         <td>{{ empty($sijil->tkh_mula_peristiwa) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula_peristiwa)->format('Y') }}</td>
                     </tr>
                 @endforeach
+                @if($profile['pengiktirafan']->count() == 0)
+                <tr data-pengiktirafan-id="">
+                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                </tr>
+
+
+                @endif
                 </tbody>
             </table>
         </div>

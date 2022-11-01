@@ -1,16 +1,18 @@
 class DatatableUI{
-    static init({selector, columnList, columnDef = [], url = '', buttons = [], label = false}){
-        $(''+ selector +' thead tr').clone(true).appendTo(''+ selector +' thead');
-        $(''+ selector +' thead tr:eq(1) th').each(function (i) {
-            var title = $(this).text();
-            $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
+    static init({selector, columnList, columnDef = [], url = '', buttons = [], label = false, columnsSearchable = false}){
+        if(columnsSearchable) {
+            $(''+ selector +' thead tr').clone(true).appendTo(''+ selector +' thead');
+            $(''+ selector +' thead tr:eq(1) th').each(function (i) {
+                var title = $(this).text();
+                $(this).html('<input type="text" class="form-control form-control-sm" placeholder="Search ' + title + '" />');
 
-            $('input', this).on('keyup change', function () {
-                if (dt_filter.column(i).search() !== this.value) {
-                    dt_filter.column(i).search(this.value).draw();
-                }
+                $('input', this).on('keyup change', function () {
+                    if (dt_filter.column(i).search() !== this.value) {
+                        dt_filter.column(i).search(this.value).draw();
+                    }
+                });
             });
-        });
+        }
 
         var dt_filter = $(selector).DataTable({
             serverSide: true,

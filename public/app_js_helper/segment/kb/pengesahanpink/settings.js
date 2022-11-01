@@ -6,11 +6,10 @@ DatatableUI.init({
         {data: 'nokp'},
         {data: 'nama'},
         {data: 'jawatan'},
-        {data: 'jenis'},
         {data: 'status'},
         {data: 'aksi'},
     ],
-    url: '/hr2/pinkform/get-pink-form-list',
+    url: '/kb/pengesahan-pink/get-pengesahan-pink-form-list',
     buttons: [
 
     ],
@@ -62,10 +61,13 @@ DatatableUI.init({
             title: 'Tindakan',
             orderable: false,
             render: function (data, type, full, meta) {
-                let row_status = full.status;
+                let row_status = full.kerani_tkh;
+
                 let btn = '';
-                if(row_status == 'LL') {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pinkform" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Hantar</button>';
+                if(row_status == '' || row_status == null) {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light semak-pengesahan" data-pemohon="'+ full.id_pemohon +'" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Semak</button>';
+                }else{
+                    btn += 'Dihantar Kepada Ketua Jabatan';
                 }
                 return btn;
             }

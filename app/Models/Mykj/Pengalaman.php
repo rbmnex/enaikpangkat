@@ -17,7 +17,7 @@ class Pengalaman extends Model
         return $this->belongsTo(LGelaranJawatan::class,'kod_gelaran_jawatan','kod_gelaran_jawatan');
     }
 
-     public function LAktiviti()
+    public function LAktiviti()
     {
         return $this->hasOne(LAktiviti::class, 'kod_aktiviti','kod_aktiviti');
     }

@@ -6,6 +6,7 @@ use App\Http\Controllers\HR\PinkFormController;
 use App\Http\Controllers\Main\CommonController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
+use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Pdf\Ukp12Pdf;
@@ -53,8 +54,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin']], functio
     Route::prefix('/pengguna')->group(function() {
         Route::get('/', [UserMgmtController::class,'index']);
         Route::get('/senarai', [UserMgmtController::class,'senarai_pengguna']);
-        Route::get('/carian', [UserMgmtController::class,'carian_pengguna']);
-        Route::get('/api',[UserMgmtController::class,'maklumat_pengguna']);
+        //Route::get('/carian', [UserMgmtController::class,'carian_pengguna']);
+        //Route::get('/api',[UserMgmtController::class,'maklumat_pengguna']);
         Route::post('/api',[UserMgmtController::class,'save_pengguna']);
 
         Route::get('/mockup2', [UserMgmtController::class,'mockup2']);
@@ -62,7 +63,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin']], functio
         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
     });
 });
-
+Route::get('/admin/pengguna/carian',[UserMgmtController::class,'carian_pengguna']);
+Route::get('/admin/pengguna/api',[UserMgmtController::class,'maklumat_pengguna']);
 // Route::prefix('/admin')->group(function() {
 //     Route::prefix('/pengguna')->group(function() {
 //         Route::get('/', [UserMgmtController::class,'index']);
@@ -113,6 +115,14 @@ Route::prefix('/urussetia')->group(function() {
         Route::get('/pdf/lampiran4/{ic}', [ResumeController::class, 'lampiran4pdf']);
          Route::get('/email/{ic}', [ResumeController::class, 'email']);
     });
+
+    Route::prefix('/appl')->group(function() {
+        Route::prefix('/main')->group(function() {
+            Route::get('/',[ApplicationController::class,'main_page']);
+            Route::get('/list',[ApplicationController::class,'main_list']);
+            Route::post('/delete',[ApplicationController::class,'delete_application']);
+        });
+    });
 });
 
 Route::prefix('/hr')->group(function() {
@@ -126,18 +136,28 @@ Route::prefix('/form')->group(function() {
     Route::prefix('/ukp12')->group(function() {
         Route::get('/display/{id}',[UkpController::class,'open']);
         Route::get('/apply/{encryted}',[UkpController::class,'apply'])->middleware('auth');
+        Route::get('/download/part',[UkpController::class,'download_form_part']);
+        Route::get('/final',function() {
+            return view('form.message',['message' => 'Anda Telah Berjaya Menghantar Pemohonan Ini!']);
+        });
+        Route::get('/view/{id}',[UkpController::class,'load_view']);
     });
+
     Route::prefix('/api')->group(function() {
         Route::post('/org',[UkpController::class,'save_organization']);
         Route::post('/org/del',[UkpController::class,'delete_organization']);
         Route::post('/property/save',[UkpController::class,'save_harta']);
         Route::post('/loan/save',[UkpController::class,'save_loan']);
+        Route::post('/submit',[UkpController::class,'submit_application']);
+        Route::post('/cuti/upload',[UkpController::class,'upload_pengesahan']);
+
     });
 });
 
 //Common Controller
 Route::prefix('/common')->group(function () {
     Route::post('/get-listing', [CommonController::class, 'listing']);
+    Route::get('/id-download', [CommonController::class, 'download_by_id']);
 });
 
 // test api
@@ -159,8 +179,8 @@ Route::get('/test/view_pdf',function() {
 });
 
 Route::get('/test/pdf',function() {
-    Ukp12Pdf::print();
-    exit;
+    return Ukp12Pdf::print(NULL);
+    //exit;
 });
 
 require __DIR__.'/hr.php';

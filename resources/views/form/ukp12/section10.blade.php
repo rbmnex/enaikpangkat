@@ -21,6 +21,13 @@
                 <td>{{ $k->nama_kelulusan }}</td>
                 <td>{{ $k->tahap }}</td>
                 @endforeach
+                @if($profile['kompeten']->count() == 0)
+                <tr data-kompeten-id="">
+                    <td colspan="2" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                </tr>
+
+
+                @endif
                 </tbody>
             </table>
         </div>

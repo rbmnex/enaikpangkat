@@ -34,7 +34,6 @@
                             <th>NOKP</th>
                             <th>NAMA</th>
                             <th>JAWATAN</th>
-                            <th>JENIS</th>
                             <th>STATUS</th>
                             <th>TINDAKAN</th>
                         </tr>
@@ -44,7 +43,6 @@
                             <th>NOKP</th>
                             <th>NAMA</th>
                             <th>JAWATAN</th>
-                            <th>JENIS</th>
                             <th>STATUS</th>
                             <th>TINDAKAN</th>
                         </tr>
