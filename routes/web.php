@@ -176,11 +176,14 @@ Route::get('/test/file',function() {
 });
 
 Route::get('/test/view_pdf',function() {
-    return view('pdf.ukp12');
+     $pdf = PDF::loadView('pdf.ukp12', [], []);
+     return $pdf->stream();
+
+    //  return view('pdf.ukp12');
 });
 
 Route::get('/test/pdf',function() {
-    return Ukp12Pdf::print(NULL);
+    return Ukp12Pdf::print_test();
     //exit;
 });
 
