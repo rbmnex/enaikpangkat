@@ -195,6 +195,8 @@
                                 </button>
                             </div>
                         </div>
+
+
                         <div class="bs-stepper-content">
                             {{-- <form id="ukp12_form"> --}}
                                 @include('form.ukp12.section1')
@@ -220,6 +222,9 @@
             </div>
         </div>
     </div>
+     <div class="col-sm-2"> 
+                            <a href="{{Request::root()}}/urussetia/resume/lampiran/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-danger me-1 setEmaillink">Lampiran</a>
+                        </div> 
 </section>
 
 

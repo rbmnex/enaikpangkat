@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class LPeristiwa extends Model
 {
     use HasFactory;
-    protected $table = "l_peristiwa";
     protected $connection = 'pgsqlmykj';
+    protected $table = 'l_peristiwa';
+
 }

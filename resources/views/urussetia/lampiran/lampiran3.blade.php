@@ -74,15 +74,15 @@
                                                      <div class="col-sm-2"> 
                                                         <a href="{{Request::root()}}/urussetia/resume/resume/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-info me-1 setIClink" target="_blank">Cetak</a>
                                                     </div> 
-                                                    <!-- <div class="col-sm-2"> 
-                                                        <a href="{{Request::root()}}/urussetia/resume/pdf/lampiran2/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-info me-1 setl2link" target="_blank">Lampiran 2</a>
+                                                    <div class="col-sm-2"> 
+                                                        <a href="{{Request::root()}}/urussetia/resume/lampiran2/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-info me-1 setl2link" target="_blank">Lampiran 2</a>
                                                     </div> 
                                                     <div class="col-sm-2"> 
                                                         <a href="{{Request::root()}}/urussetia/resume/lampiran3/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-info me-1 setl3link" target="_blank">Lampiran 3</a>
                                                     </div> 
                                                     <div class="col-sm-2"> 
                                                         <a href="{{Request::root()}}/urussetia/resume/lampiran4/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-info me-1 setl4link" target="_blank">Lampiran 4</a>
-                                                    </div>  -->
+                                                    </div> 
                                                      </div>
                                             </div>
                                         </div>
@@ -488,7 +488,7 @@
 
       $(document).on('keyup', '#setIC', function(){
         let ic = $('#setICtext').val($(this).val());
-        $('.setl2link').attr('href', window.location.origin +'/urussetia/resume/pdf/lampiran2/' + ic);  
+        $('.setl2link').attr('href', window.location.origin +'/urussetia/resume/lampiran2/' + ic);  
     });
 
       $(document).on('keyup', '#setIC', function(){

@@ -60,6 +60,26 @@ class ListPegawai2 extends Model
         return $data;
     }
 
+     public static function kelayakan($ic){
+        $data= [];
+
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '!=',[8,9,10,20])->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                    'tkh_kelulusan' => $m->tkh_kelulusan
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+
+
    public static function isytiharHarta($ic){
         $data= [];
 
@@ -103,7 +123,7 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
-                    'kod_peristiwa' => $m->LAktiviti->peristiwa,
+                    'kod_peristiwa' => $m->LPeristiwa->peristiwa ?  $m->LPeristiwa->peristiwa : '', 
                     'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa
                 ];
             }
@@ -207,12 +227,12 @@ class ListPegawai2 extends Model
         $data= [];
 
         
-        $model = Markah::where('nokp', $ic)->whereBetween('tahun', [2017, 2019])->orderBy('tahun', 'asc')->get();
+        $model = Markah::where('nokp', $ic)->orderBy('tahun', 'desc')->limit(3)->get();
 
         if($model){
             foreach($model as $m){
                 $data[] = [
-                    'tahun' => $m->tahun,
+                    'tahun' => $m->tahun ? $m->tahun : "tiada rekod",
                     'purata' => $m->purata
                 ];
             }
@@ -254,8 +274,9 @@ class ListPegawai2 extends Model
     public static function pengalamanPengkhususan($ic){
         $data= [];
 
-        $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
+        $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
 
+        // $tkh_awal = Pengalaman::where
         if($model){
             foreach($model as $m){
                 // $diff=date_diff($m->tkh_mula,$m->tkh_tamat);
@@ -278,23 +299,9 @@ class ListPegawai2 extends Model
     }
 
 
-    public static function kelayakan($ic){
-        $data= [];
 
-        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '!=',[8,9,10,20])->get();
 
-        if($model){
-            foreach($model as $m){
-                $data[] = [
-                    'nama_kelulusan' => $m->nama_kelulusan,
-                    'institusi' => $m->institusi,
-                    'tkh_kelulusan' => $m->tkh_kelulusan
-                ];
-            }
-        }
-
-        return $data;
-    }
+   
 
     public static function professional($ic){
         $data= [];
@@ -304,18 +311,16 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
-<<<<<<< HEAD
                     'kod_gred' => $m->kod_gred,
                     'kod_jawatan' => $m->kod_jawatan,
-                    'taraf'=> $m->PerkhidmatanTaraf->perkhidmatan,
+                    'taraf'=> $m->PerkhidmatanTaraf ?$m->PerkhidmatanTaraf->perkhidmatan:'',
                     'skim' => $m->LKumpulan ? $m->LKumpulan->kumpulan : '',
                     'gred_hakiki' =>$m->kod_gred,
-                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik
+                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik,
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
                      'no_daftar' => $m->no_pendaftaran,
                     'tkh_kelulusan' => $m->tkh_kelulusan
->>>>>>> yana
                 ];
             }
         }
