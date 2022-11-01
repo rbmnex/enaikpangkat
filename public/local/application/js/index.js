@@ -29,6 +29,13 @@ $(document).on('click','.delete-appliation, .view-applicant',function() {
             }
         });
     } else if(selectedClass.hasClass('view-applicant')) {
+        window.open(getUrl() + '/urussetia/appl/calon/main/'+application_id,'_self');
+    }
+});
 
+$(document).on('click','.back-main',function() {
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('delete-appliation')) {
+        window.open(getUrl() + '/urussetia/appl/main','_self');
     }
 });

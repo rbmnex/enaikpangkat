@@ -55,6 +55,17 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class,'role_user','user_id','role_id');
     }
 
+    public static function addOrUpdate($nokp) {
+        $user = User::where('nokp',$nokp)->first();
+        if($user) {
+            $user = User::upsert($nokp,$user->id);
+        } else {
+            $user = User::upsert($nokp);
+        }
+
+        return $user;
+    }
+
     public static function upsert($nokp,$id = NULL) {
         $mykjPeribadi = DB::connection('pgsqlmykj')->table('public.peribadi as p')
                 ->leftJoin('public.l_agama as la', 'p.kod_agama', 'la.kod_agama')

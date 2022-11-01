@@ -9,6 +9,8 @@ use App\Models\MyKj\Cuti;
 use App\Models\Mykj\Gaji;
 use App\Models\MyKj\Harta;
 use App\Models\Mykj\Kelayakan;
+use App\Models\Mykj\ListPegawai2;
+use App\Models\Mykj\Markah;
 use App\Models\MyKj\Pengalaman;
 use App\Models\Mykj\Peristiwa;
 use App\Models\MyKj\Waris;
@@ -26,6 +28,7 @@ use App\Models\Permohonan\PinjamanPendidikan;
 use App\Models\Permohonan\Professional;
 use App\Models\Profail\Peribadi;
 use App\Models\Urussetia\Calon;
+use App\Models\Urussetia\TatatertibUkp12;
 use App\Models\User;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Http\Request;
@@ -34,6 +37,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class UkpController extends Controller
 {
@@ -686,7 +690,33 @@ class UkpController extends Controller
         $pengakuan->updated_by = Auth::user()->nokp;
         $pengakuan->save();
 
+        $kerani_user = User::addOrUpdate($alldata['kerani_nokp']);
+        if(!$kerani_user->hasRole('clerk')) {
+            $kerani_user->attachRole('clerk');
+        }
         //send email
+        $secure_link = Crypt::encryptString($pemohon->id);
+
+                $content = [
+                    'link' => "http://mywebapp/form/ukp12/eview/".$secure_link,
+                    'gred' => $pemohon->gred,
+                    'jawatan' => $pemohon->jawatan,
+                    'nokp' => $formdata->nokp_baru,
+                    'nama' => $formdata->nama
+                ];
+                Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
+                    // testing purpose
+                    $message->to('rubmin@vn.net.my',$kerani_user->name);
+
+                    //$message->to($kerani_user->email,$kerani_user->name);
+                    $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
+
+                });
+
+        $ketua_user = User::addOrUpdate($alldata['ketua_nokp']);
+        if(!$ketua_user->hasRole('hod')) {
+            $ketua_user->attachRole('hod');
+        }
 
         return response()->json([
             'success' => 1,
@@ -698,6 +728,11 @@ class UkpController extends Controller
     public function download_form_part(Request $request) {
         $formdata = json_decode($request->input('dataform'));
         return Ukp12Pdf::print($formdata);
+    }
+
+    public function secure_view(Request $request,$encrypted) {
+        $id = Crypt::decryptString($encrypted);
+        $this->load_view($request,$id);
     }
 
     public function load_view(Request $request,$id) {
@@ -714,6 +749,10 @@ class UkpController extends Controller
         $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();
         $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
         $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
+        $lnpt = Markah::where('nokp',$peribadi->nokp)->orderBy('tahun','desc')->limit(3)->get();
+        $clerk = ListPegawai2::getMaklumatPegawai($pemohon->pengesahan_perkhidmatan_nokp);
+        $hod = ListPegawai2::getMaklumatPegawai($pemohon->nokp_ketua_jabatan);
+        $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
 
         return view('form.view.view_ukp12',[
             'pemohon' => $pemohon,
@@ -728,8 +767,126 @@ class UkpController extends Controller
             'kompetenans' => $kompetenan,
             'pengiktirafans' => $pengiktirafan,
             'akuan_pinjaman' => $akuan_pinjaman,
-            'akuan_pegawai' => $akuan_pegawai
+            'akuan_pegawai' => $akuan_pegawai,
+            'lnpt' => $lnpt,
+            'clerk' => $clerk,
+            'hod' => $hod,
+            'tatatertib' => $tatatertib
         ]);
+    }
+
+    public function urussetia_submit(Request $request) {
+        $pemohon_id = $request->input('pemohon_id');
+        $pengesahan = $request->input('pengesahan');
+        $jenis_hukuman = $request->input('jenis');
+        $tkh_hukuman = $request->input('tkh');
+
+        $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon_id)->first();
+
+        if(empty($tatatertib)) {
+            $tatatertib = new TatatertibUkp12;
+            $tatatertib->updated_by = Auth::user()->nokp;
+            $tatatertib->flag = 1;
+            $tatatertib->delete_id = 0;
+        }
+
+        $tatatertib->pengesahan_tindakan = $pengesahan;
+        $tatatertib->jenis_hukuman = $jenis_hukuman;
+        $tatatertib->tkh_hukuman = empty($tkh_hukuman) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_hukuman)->format('Y-m-d');
+        $tatatertib->id_pemohon = $pemohon_id;
+
+        if($tatatertib->save()) {
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+    }
+
+    public function kerani_submit(Request $request) {
+        $pemohon_id = $request->input('pemohon_id');
+
+        $pengesahan = $request->input('pengesahan');
+        $nama = $request->input('nama');
+        $jawatan = $request->input('jawatan');
+        $jabatan = $request->input('jabatan');
+        //$tkh_pengesahan = $request->input('tkh_pengesahan');
+        $pemohon = Pemohon::find($pemohon_id);
+        $user_pemohon = User::find($pemohon->user_id);
+        $pemohon->pengesahan_perkhidmatan = $pengesahan;
+        $pemohon->pengesahan_perkhidmatan_jawatan = $jawatan;
+        $pemohon->pengesahan_perkhidmatan_cawangan = $jabatan;
+        $pemohon->pengesahan_perkhidmatan_tkh = Date::now();
+        $pemohon->pengesahan_perkhidmatan_nama = $nama;
+        if($pemohon->save()) {
+            $ketua_user = User::addOrUpdate($pemohon->nokp_ketua_jabatan);
+        if(!$ketua_user->hasRole('hod')) {
+            $ketua_user->attachRole('hod');
+        }
+            $secure_link = Crypt::encryptString($pemohon->id);
+                $content = [
+                    'link' => "http://mywebapp/form/ukp12/eview/".$secure_link,
+                    'gred' => $pemohon->gred,
+                    'jawatan' => $pemohon->jawatan,
+                    'nokp' => $user_pemohon->nokp,
+                    'nama' => $user_pemohon->name
+                ];
+                Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($ketua_user) {
+                    // testing purpose
+                    $message->to('rubmin@vn.net.my',$ketua_user->name);
+
+                    //$message->to($ketua_user->email,$kerani_user->name);
+                    $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
+
+                });
+
+
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+    }
+
+    Public function ketua_submit(Request $request) {
+        $pemohon_id = $request->input('pemohon_id');
+        $pengesahan = $request->input('pengesahan');
+        $nama = $request->input('nama');
+        $jawatan = $request->input('jawatan');
+        $jabatan = $request->input('jabatan');
+        $ulasan = $request->input('ulasan');
+
+        $pemohon = Pemohon::find($pemohon_id);
+        $pemohon->perakuan_ketua_jabatan = $pengesahan;
+        $pemohon->perakuan_ketua_jabatan_jawatan = $jawatan;
+        $pemohon->perakuan_ketua_jabatan_alamat_pejabat = $jabatan;
+        $pemohon->pengesahan_perkhidmatan_tkh = Date::now();
+        $pemohon->pengesahan_perkhidmatan_nama = $nama;
+        $pemohon->perakuan_ketua_jabatan_ulasan = $ulasan;
+
+        $pemohon->status(Pemohon::PROCESSING);
+
+        if($pemohon->save()) {
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
     }
 
     private function verify_applicant($nokp,$formId) {
