@@ -10,6 +10,7 @@
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
+
                     <th>Jawatan</th>
                     <th>Nama Pertubuhan</th>
                     <th>Tahun</th>
@@ -18,6 +19,7 @@
                 <tbody id="tbody-badan">
                 @foreach ($profile['pertubuhan'] as $org)
                     <tr data-pertubuhan-id="{{ $org->id }}">
+
                         <td>{{ $org->jawatan }}</td>
                         <td>{{ $org->nama }}</td>
                         <td>{{ $org->tahun }}</td>

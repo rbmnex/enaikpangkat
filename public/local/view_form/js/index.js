@@ -1,11 +1,13 @@
-$(document).on('click','.btn-download, .btn-back',function() {
+$(document).on('click','.btn-download, .btn-back, .btn-pdf',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('btn-download')) {
         var file_id = $(this).attr('data-file-id');
         window.open(getUrl() + '/common/id-download?fileid='+file_id,'_blank');
-    } else if(selectedClass.has('btn-back')) {
+    } else if(selectedClass.hasClass('btn-back')) {
         var back_id = $(this).attr('data-appl-id');
         window.open(getUrl() + '/urussetia/appl/calon/main/'+back_id,'_self');
+    } else if(selectedClass.hasClass('btn-pdf')) {
+        window.open(getUrl() + '/test/view_pdf','_blank');
     }
 });
 
@@ -17,21 +19,35 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
     data.append('pemohon_id',pemohon_id);
     if(selectedClass.hasClass('btn-bpsm')) {
         var valid = true;
+        let lnpts = new Array();
         data.append('pengesahan',$('.tatatertib2').filter(':checked').val());
         data.append('jenis',$('#nama_hkm').val());
         data.append('tkh',$('.tkh_hukuman').val());
+        $('.markah-lnpt').each(function(){
+            var tahun = $(this).attr('data-tahun-lnpt');
+            var markah = $(this).val();
+            if(markah == 0) {
+                valid = false;
+                addInvalid(this, 'Sila berikan markah');
+            } else {
+                clearInvalid(this);
+                lnpts.push({'tahun' : tahun, 'purata': markah});
+            }
+        });
         if(!$('.tatatertib2').is(':checked')) {
             valid = false;
             addInvalid('.tatatertib2', 'Sila berikan pengesahan');
         } else {
             clearInvalid('.tatatertib2');
         }
+        data.append('lnpts',JSON.stringify(lnpts));
+
         if(valid) {
             swalAjax({
                 titleText : 'Adakah Anda Pasti?',
                 mainText : 'Data akan disimpan',
                 icon: 'info',
-                confirmButtonText: 'Tambah',
+                confirmButtonText: 'Simpan',
                 postData: {
                     url : '/form/api/urussetia/submit',
                     data: data,
@@ -66,7 +82,7 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
                 titleText : 'Adakah Anda Pasti?',
                 mainText : 'Data akan disimpan',
                 icon: 'info',
-                confirmButtonText: 'Tambah',
+                confirmButtonText: 'Simpan',
                 postData: {
                     url : '/form/api/kerani/submit',
                     data: data,
@@ -102,7 +118,7 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
                 titleText : 'Adakah Anda Pasti?',
                 mainText : 'Data akan disimpan',
                 icon: 'info',
-                confirmButtonText: 'Tambah',
+                confirmButtonText: 'Simpan',
                 postData: {
                     url : '/form/api/ketua/submit',
                     data: data,

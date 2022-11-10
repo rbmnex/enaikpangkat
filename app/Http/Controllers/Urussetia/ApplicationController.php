@@ -10,6 +10,7 @@ use App\Models\Urussetia\Kumpulan;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
 
@@ -48,14 +49,54 @@ class ApplicationController extends Controller
             ]);
         } else {
             return response()->json([
-                'success' => 1,
+                'success' => 0,
                 'data' => []
             ]);
         }
     }
 
+    public function applicant_info(Request $request) {
+        $permohon_id = $request->input('id');
+        $pemohon = Pemohon::find($permohon_id);
+        $peribadi = $pemohon->pemohonPeribadi;
+
+        return response()->json([
+            'success' => 1,
+            'data' => [
+                'nama' => $peribadi->nama,
+                'nokp' => $peribadi->nokp,
+                'jawatan' => $pemohon->jawatan,
+                'gred' => $pemohon->gred
+            ]
+        ]);
+    }
+
     public function applicant_page(Request $request,$id) {
         return view('urussetia.application.applicant',['permohonan_id'=>$id]);
+    }
+
+    public function applicant_verdict(Request $request) {
+        $pemohon_id = $request->input('pemohon_id');
+        $verdict = $request->input('verdict');
+        $record =  Pemohon::find($pemohon_id);
+        if($verdict) {
+            $record->status = Pemohon::SUCCESSED;
+        } else {
+            $record->status = Pemohon::FAILED;
+        }
+        $record->updated_by = Auth::user()->nokp;
+
+        if($record->save()) {
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
     }
 
     public function applicant_list(Request $request) {
@@ -69,6 +110,7 @@ class ApplicationController extends Controller
             $item->gred = $info['gred'];
             $item->status = $info['status'];
             $item->pemohon_id = $info['pemohon_id'];
+            $item->colour = $info['colour'];
         });
 
         return DataTables::of($candidates)
@@ -91,30 +133,55 @@ class ApplicationController extends Controller
 
         if($user) {
             $pemohon = Pemohon::where('user_id',$user->id)->where('pemohon.id_permohonan',$id_permohonan)->first();
-            $pemohon->loadMissing('pemohonPeribadi');
-            $info['pemohon_id'] = $pemohon->id;
-            $info['name'] = $pemohon->pemohonPeribadi->nama;
-            $info['jawatan'] = $pemohon->jawatan;
-            $info['gred'] = $pemohon->gred;
-            if($pemohon->status == Pemohon::NOT_SUBMITTED) {
-                $info['status'] = 'Belum Siap';
-            } else if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
-                $info['status'] = 'Tunggu Pengesahan';
-            } else if($pemohon->status == Pemohon::REJECTED_APPLICATION) {
-                $info['status'] = 'Tolak Tawaran';
-            } else if($pemohon->status == Pemohon::PROCESSING) {
-                $info['status'] = 'Tunggu Proses';
-            } else if($pemohon->status == Pemohon::SUCCESSED) {
-                $info['status'] = 'Calon Berjaya';
-            } else if($pemohon->status == Pemohon::FAILED) {
-                $info['status'] = 'Calon Gagal';
-            } else if($pemohon->status == Pemohon::REFUSED) {
-                $info['status'] = 'Tolak Lantikan';
-            } else if($pemohon->status == Pemohon::WAITING_REPLY) {
-                $info['status'] = 'Tunggu Jawapan';
-            } else if($pemohon->status == Pemohon::ACCEPTED) {
-                $info['status'] = 'Terima Lantikan';
+
+            if($pemohon) {
+                $pemohon->loadMissing('pemohonPeribadi');
+
+                $info['pemohon_id'] = $pemohon->id;
+                $info['name'] = $pemohon->pemohonPeribadi->nama;
+                $info['jawatan'] = $pemohon->jawatan;
+                $info['gred'] = $pemohon->gred;
+                if($pemohon->status == Pemohon::NOT_SUBMITTED) {
+                    $info['status'] = 'Belum Siap';
+                    $info['colour'] = 'warning';
+                } else if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
+                    $info['status'] = 'Tunggu Pengesahan';
+                    $info['colour'] = 'warning';
+                } else if($pemohon->status == Pemohon::REJECTED_APPLICATION) {
+                    $info['status'] = 'Tolak Tawaran';
+                    $info['colour'] = 'danger';
+                } else if($pemohon->status == Pemohon::PROCESSING) {
+                    $info['status'] = 'Tunggu Proses';
+                    $info['colour'] = 'warning';
+                } else if($pemohon->status == Pemohon::SUCCESSED) {
+                    $info['status'] = 'Calon Berjaya';
+                    $info['colour'] = 'success';
+                } else if($pemohon->status == Pemohon::FAILED) {
+                    $info['status'] = 'Calon Gagal';
+                    $info['colour'] = 'secondary';
+                } else if($pemohon->status == Pemohon::REFUSED) {
+                    $info['status'] = 'Tolak Lantikan';
+                    $info['colour'] = 'dark';
+                } else if($pemohon->status == Pemohon::WAITING_REPLY) {
+                    $info['status'] = 'Tunggu Jawapan';
+                    $info['colour'] = 'info';
+                } else if($pemohon->status == Pemohon::ACCEPTED) {
+                    $info['status'] = 'Terima Lantikan';
+                    $info['colour'] = 'primary';
+                } else if($pemohon->status == Pemohon::WAITING_VERDICT) {
+                    $info['status'] = 'Tunggu Keputusan';
+                    $info['colour'] = 'warning';
+                }
+            } else {
+                $pegawai = ListPegawai2::where('nokp',$nokp)->first();
+                    $info['name'] = $pegawai->nama;
+                    $info['jawatan'] = $pegawai->jawatan;
+                    $info['gred'] = $pegawai->kod_gred;
+                    $info['status'] = 'Tiada Tindakan';
+                    $info['colour'] = 'danger';
+                    $info['pemohon_id'] = 0;
             }
+
         } else {
             $pegawai = ListPegawai2::where('nokp',$nokp)->first();
             $info['name'] = $pegawai->nama;

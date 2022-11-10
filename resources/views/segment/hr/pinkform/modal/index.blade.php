@@ -9,7 +9,7 @@
                     <div class="col-xl-12 col-md-6 col-12">
                         <div class="mb-1 form-group">
                             <label class="form-label" for="basicInput">No. Rujukan Surat</label>
-                            <input type="text" class="form-control" id="pinkform-name" value="Bil. 58/2022 ruj:(93) JKR/KPKR/010. 030 104 JLD. 25" readonly/>
+                            <input type="text" class="form-control" id="pinkform-name" placeholder="Bil. 58/2022 ruj:(93) JKR/KPKR/010. 030 104 JLD. 25" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

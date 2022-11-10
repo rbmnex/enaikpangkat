@@ -23,6 +23,15 @@ DatatableUI.init({
     ],
     columnDef: [
         {
+            targets: -2,
+            title: 'Status',
+            orderable: false,
+            searchable: false,
+            render: function (data, type, full, meta) {
+                return '<div class="badge badge-'+full.colour+'">'+full.status+'</div>';
+            }
+        },
+        {
             // Actions
             targets: -1,
             title: 'Tindakan',
@@ -35,10 +44,13 @@ DatatableUI.init({
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Lihat</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
                 }
+                if(status == 'Tunggu Keputusan') {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
+                }
 
                 return btn;
             }
         }
     ],
-    label: 'Senarai Permohonan'
+    label: 'Senarai Calon'
 });

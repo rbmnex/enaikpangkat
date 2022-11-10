@@ -11,6 +11,7 @@
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
+                    <th>Bil.</th>
                     <th>Kelayakkan Profesional / Pendaftaran Dengan Badan
                         Profesional</th>
                     <th>Badan Profesional Yang Diiktiraf</th>
@@ -20,6 +21,7 @@
                 <tbody id="tbody-profesional">
                 @foreach ($profile['profesional'] as $pro)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $pro->nama_kelulusan }}</td>
                         <td>{{ $pro->institusi }}</td>
                         <td>{{ $pro->no_pendaftaran }}</td>

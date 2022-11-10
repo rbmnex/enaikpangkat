@@ -18,7 +18,7 @@ $(document).on('click','.add-pengguna, .pengguna-info',function() {
             ['.pengguna-unit', 'text'],
             ['.pengguna-pejabat', 'text'],
             ['.pengguna-jawatan', 'text'],
-            ['.pengguna-role', 'checkbox'],
+            ['.role-checkbox', 'checkbox'],
         ]);
         $('.post-add-pengguna').html('Tambah');
         $('.hidden-ops').val(0);
@@ -34,7 +34,7 @@ $(document).on('click','.add-pengguna, .pengguna-info',function() {
             ['.pengguna-unit', 'text'],
             ['.pengguna-pejabat', 'text'],
             ['.pengguna-jawatan', 'text'],
-            ['.pengguna-role', 'checkbox'],
+            ['.role-checkbox', 'checkbox'],
         ]);
         load_user(no_ic);
         $('.post-add-pengguna').html('Kemaskini');
@@ -46,7 +46,7 @@ $(document).on('click', '.post-add-pengguna', function() {
     let operation =  $('.hidden-ops').val();
 
     let roleArr = new Array();
-    $('.pengguna-role').each(function(){
+    $('.role-checkbox').each(function(){
         if($(this).prop('checked') == true){
             roleArr.push($(this).attr('data-role-id'));
         }
@@ -55,11 +55,11 @@ $(document).on('click', '.post-add-pengguna', function() {
     data.append('roles',JSON.stringify(roleArr));
     data.append('ops', operation);
     data.append('_token', getToken());
-    if(operation) {
-        data.append('userid',$('.hidden-user-id').val());
-    } else {
-        data.append('nokp',$('.pengguna-nokp').val());
-    }
+    data.append('userid',$('.hidden-user-id').val());
+    data.append('nokp',$('.pengguna-nokp').val());
+    // if(operation) {
+    // } else {
+    // }
 
     swalAjax({
         titleText : 'Adakah Anda Pasti?',
@@ -82,7 +82,7 @@ $(document).on('click', '.post-add-pengguna', function() {
                     //swalPostFire('error', 'Gagal Ditambah', 'Ralat telah berlaku');
                     toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                 }
-
+                $('.pengguna-modal').modal('hide');
             },
         }
     });

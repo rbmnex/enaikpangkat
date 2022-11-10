@@ -45,7 +45,7 @@ class UserMgmtController extends Controller
                 ->addColumn('lokasi', function($data) {
                     return strtoupper($data->unit).", ".strtoupper($data->bahagian).", ".strtoupper($data->cawangan).", ".strtoupper($data->pejabat);
                 })
-                ->rawColumns(['aktif','aksi'])
+                ->rawColumns(['aksi'])
                 ->make(true);
     }
 
@@ -122,14 +122,16 @@ class UserMgmtController extends Controller
         //     $model = User::upsert($nokp);
         //     $userid = $model->id;
         // }
+        RoleUser::removeAll($userid);
 
-        // foreach($roleArr as $r){
-        //     $newQuery = new RoleUser;
-        //     $newQuery->user_id = $userid;
-        //     $newQuery->role_id = $r;
-        //     $newQuery->user_type = 'App\Models\User';
-        //     $newQuery->save();
-        // }
+        foreach($roleArr as $r){
+            // $newQuery = new RoleUser;
+            // $newQuery->user_id = $userid;
+            // $newQuery->role_id = $r;
+            // $newQuery->user_type = 'App\Models\User';
+            // $newQuery->save();
+            $model->attachRole($r);
+        }
 
         return response()->json([
             'success' => 1,

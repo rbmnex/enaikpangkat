@@ -35,11 +35,11 @@ $('.pengguna-carian').wrap('<div class="position-relative"></div>').select2({
     minimumInputLength: 1,
 });
 
-dropdown_populate(
-    '.roles-list',
-    'pengguna-role',
-    'checkbox',
-    'Role',
-    []
-);
+// dropdown_populate(
+//     '.roles-list',
+//     'pengguna-role',
+//     'checkbox',
+//     'Role',
+//     []
+// );
 

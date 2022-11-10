@@ -4,6 +4,20 @@
 @include('web.sweet-alert-css')
 @include('web.datatable-css')
 <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/select/select2.min.css')}}">
+<style>
+    input.larger {
+      width: 50px;
+      height: 50px;
+    }
+    input.medium {
+      width: 25px;
+      height: 25px;
+    }
+    input.small {
+      width: 10px;
+      height: 10px;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -49,6 +63,7 @@
     </div>
     </section>
 </div>
+@include('urussetia.application.modal.applicant')
 @endsection
 
 @section('customJs')

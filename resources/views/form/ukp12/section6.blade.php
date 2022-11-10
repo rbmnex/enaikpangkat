@@ -12,6 +12,7 @@
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
+                    <th>Bil.</th>
                     <th>Gelaran Jawatan</th>
                     <th>Penempatan</th>
                     <th>Tahun Berkhidmat</th>
@@ -19,6 +20,7 @@
                 <tbody id="tbody-khidmat">
                     @foreach ($profile['pengalaman'] as $pengalaman)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $pengalaman->gelaran_jawatan->gelaran_jawatan ?? '' }}</td>
                         <td>{{ $pengalaman->tempat }}</td>
                         <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula )->format('d-m-Y') }}</td>
@@ -26,7 +28,7 @@
                     @endforeach
                     @if($profile['pengalaman']->count() == 0)
                     <tr data-pengalaman-id="">
-                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                     </tr>
 
 
