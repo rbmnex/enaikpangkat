@@ -25,8 +25,8 @@ function load_user(ic) {
                 $('.hidden-ops').val(1);
 
                 for (let index = 0; index < roles.length; index++) {
-                    $('.pengguna-role').each(function(){
-                        if($(this).attr('data-role-id') == roles[index]){
+                    $('.role-checkbox').each(function(){
+                        if($(this).attr('data-role-id') == roles[index].role_id){
                             $(this).prop('checked',true);
                         }
                     });

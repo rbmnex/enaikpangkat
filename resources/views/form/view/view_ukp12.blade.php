@@ -378,6 +378,7 @@
                         <div class="table-responsive">
                             <table class="datatables table -table">
                                 <thead>
+                                    <th>Bil.</th>
                                     <th>Gelaran Jawatan</th>
                                     <th>Penempatan</th>
                                     <th>Tahun Berkhidmat</th>
@@ -385,6 +386,7 @@
                                 <tbody id="tbody-khidmat">
                                     @foreach ($perkhidmatans as $pengalaman)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $pengalaman->jawatan ?? '' }}</td>
                                         <td>{{ $pengalaman->penempatan }}</td>
                                         <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula_berkhidmat)->format('d-m-Y') }}</td>
@@ -411,11 +413,11 @@
                         <div class="form-group col-md-12">
                             <div class="table-responsive">
                                 <table class="datatables table -table">
-                                    <thead>
+                                    {{-- <thead>
                                         <th>Jawatan</th>
                                         <th>Nama Pertubuhan</th>
                                         <th>Tahun</th>
-                                        {{-- <th>Tindakan</th> --}}
+
                                     </thead>
                                     <tbody id="tbody-badan">
                                     @foreach ($pertubuhans as $org)
@@ -423,7 +425,6 @@
                                             <td>{{ $org->jawatan }}</td>
                                             <td>{{ $org->nama }}</td>
                                             <td>{{ $org->tahun }}</td>
-                                            {{-- <td><button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-org"><i data-feather='trash-2'></i> Hapus</button></td> --}}
                                         </tr>
                                     @endforeach
                                     @if($pertubuhans->count() == 0)
@@ -433,7 +434,28 @@
 
 
                                     @endif
-                                    </tbody>
+                                    </tbody> --}}
+                                    <thead>
+                                        <th>Bil.</th>
+                                        <th>Sumbangan/Jawatankuasa Teknikal</th>
+                                        <th>Tempat</th>
+                                        <th>Tahun</th>
+                                        {{-- <th>Tindakan</th> --}}
+                                    </thead>
+                                    <tbody id="tbody-badan">
+                                    @foreach ($sumbangan as $org)
+                                        <tr data-pertubuhan-id="{{ $org->id }}">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $org->sumbangan }}</td>
+                                            <td>{{ $org->tempat }}</td>
+                                            <td>{{ $org->tkh_peristiwa ? \Carbon\Carbon::parse($org->tkh_peristiwa)->format('Y') : ''  }}</td>
+                                        </tr>
+                                    @endforeach
+                                    @if($sumbangan->count() == 0)
+                                    <tr data-pertubuhan-id="">
+                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                    </tr>
+                                    @endif
                                 </table>
                             </div>
                         </div>
@@ -448,14 +470,15 @@
                             <div class="table-responsive">
                                 <table class="datatables table -table">
                                     <thead>
+                                        <th>Bil.</th>
                                         <th>Kelulusan</th>
                                         <th>Institut Pusat Pengajian Tinggi</th>
                                         <th>Tahun</th>
-                                        {{-- <th>Aksi</th> --}}
                                     </thead>
                                     <tbody id="tbody-universiti">
                                     @foreach ($akademiks as $a)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $a->nama_sijil }}</td>
                                             <td>{{ $a->nama_insititusi }}</td>
                                             <td>{{ empty($a->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($a->tkh_kelulusan)->format('Y') }}</td>
@@ -463,7 +486,7 @@
                                     @endforeach
                                     @if($akademiks->count() == 0)
                                     <tr data-akademik-id="">
-                                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
 
 
@@ -483,6 +506,7 @@
                             <div class="table-responsive">
                                 <table class="datatables table -table">
                                     <thead>
+                                        <th>Bil.</th>
                                         <th>Kelayakkan Profesional / Pendaftaran Dengan Badan
                                             Profesional</th>
                                         <th>Badan Profesional Yang Diiktiraf</th>
@@ -492,6 +516,7 @@
                                     <tbody id="tbody-profesional">
                                     @foreach ($profesionals as $pro)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pro->nama_sijil }}</td>
                                             <td>{{ $pro->badan_professional }}</td>
                                             <td>{{ $pro->no_pendaftaran }}</td>
@@ -500,7 +525,7 @@
                                     @endforeach
                                     @if($profesionals->count() == 0)
                                     <tr data-profesional-id="">
-                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="5" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
 
 
@@ -518,21 +543,21 @@
                         </div>
                         <div class="form-group col-md-12">
                             <div class="table-responsive col-md-12">
-                                <table class="datatables table -table">
+                                <table class="datatables table komp-table">
                                     <thead>
+                                        <th>Bil.</th>
                                         <th>Pensijilan Kekompetenan</th>
                                         <th>Tahap</th>
-                                        {{-- <th>Fail</th>
-                                        <th>Aksi</th> --}}
                                     </thead>
                                     <tbody id="tbody-kompeten">
                                     @foreach ($kompetenans as $k)
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $k->nama_sijil }}</td>
                                     <td>{{ $k->tahap }}</td>
                                     @endforeach
                                     @if($kompetenans->count() == 0)
                                     <tr data-kompeten-id="">
-                                        <td colspan="2" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
 
 
@@ -552,12 +577,14 @@
                             <div class="table-responsive">
                                 <table class="datatables table -table">
                                     <thead>
+                                        <th>Bil.</th>
                                         <th>Pengiktirafan</th>
                                         <th>Tahun</th>
                                     </thead>
                                     <tbody id="tbody-iktiraf">
                                     @foreach ($pengiktirafans as $sijil)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $sijil->jenis ?? '' }}</td>
                                             <td>{{ empty($sijil->tkh_mula) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula)->format('Y') }}</td>
                                         </tr>
@@ -808,7 +835,12 @@
                                 <tr>
                                     <td class="cell head-cell">Markah</td>
                                     @foreach($lnpt as $p)
-                                    <td class="cell">{{ $p->purata }}</td>
+                                    <td class="cell">
+                                        <div class="form-group">
+                                        <input type="number" id="markah-{{ $p->tahun }}" class="markah-lnpt form-control" data-tahun-lnpt="{{ $p->tahun }}" value="{{ $p->purata }}">
+                                        <div class="invalid-feedback"></div>
+                                        </div>
+                                    </td>
                                     @endforeach
                                 </tr>
                             </tbody>
@@ -823,14 +855,14 @@
                     <div class="form-group col-md-12">
                         <label class="col-form-label" for="">Pengesahan Tindakan Tatatertib</label>
                     </div>
-                    {{-- @role('secretariat') --}}
+                    {{-- @role(['superadmin','secretariat']) --}}
                     <div class="form-group col-md-12">
                         <div class="form-check form-check-inline ">
-                            <input type="radio" value="1" class="form-check-input medium tatatertib2" @role('user')onclick="return false;"@endrole @if(!empty($tatatertib)){{ $tatatertib->pengesahan_tindakan == '1' ? 'checked' : '' }}@endif name="tatatertib2" id="radio1" />
+                            <input type="radio" value="1" class="form-check-input medium tatatertib2" {{-- @role('user')onclick="return false;"@endrole --}} @if(!empty($tatatertib)){{ $tatatertib->pengesahan_tindakan == '1' ? 'checked' : '' }}@endif name="tatatertib2" id="radio1" />
                             <label class="col-form-label" for="tatatertib"> Ada</label>
                         </div>
                         <div class="form-check form-check-inline ">
-                            <input type="radio" value="0" class="form-check-input medium tatatertib2" @role('user')onclick="return false;"@endrole @if(!empty($tatatertib)){{ $tatatertib->pengesahan_tindakan == '0' ? 'checked' : '' }}@endif name="tatatertib2" id="radio2" />
+                            <input type="radio" value="0" class="form-check-input medium tatatertib2" {{-- @role('user')onclick="return false;"@endrole--}} @if(!empty($tatatertib)){{ $tatatertib->pengesahan_tindakan == '0' ? 'checked' : '' }}@endif name="tatatertib2" id="radio2" />
                             <label class="col-form-label" for="tatatertib"> Tiada </label>
                             <div class="invalid-feedback"></div>
                         </div>
@@ -838,11 +870,11 @@
                      {{-- @endrole --}}
                     <div class="form-group col-md-12">
                         <label class="col-form-label" for="">Jenis Hukuman (Jika Ada)</label>
-                        <input type="text" id="nama_hkm" class="form-control" name="nama_hkm" value="{{ empty($tatatertib) ? '' : $tatatertib->jenis_hukuman }}" placeholder="" @role('user') readonly @endrole/>
+                        <input type="text" id="nama_hkm" class="form-control" name="nama_hkm" value="{{ empty($tatatertib) ? '' : $tatatertib->jenis_hukuman }}" placeholder="" {{-- @role('user') readonly @endrole --}}/>
                     </div>
                     <div class="form-group col-md-12">
                         <label class="col-form-label" for="">Tarikh Hukuman</label>
-                        <input type="text" class="form-control flatpickr-hkm tkh_hukuman" id="selesai_bayar" name="selesai_bayar" value="@if(!empty($tatatertib)){{ empty($tatatertib->tkh_hukuman) ? '' : \Carbon\Carbon::parse($tatatertib->tkh_hukuman)->format('d-m-Y') }}@endif" @role('user') readonly @endrole/>
+                        <input type="text" class="form-control flatpickr-hkm tkh_hukuman" id="selesai_bayar" name="selesai_bayar" value="@if(!empty($tatatertib)){{ empty($tatatertib->tkh_hukuman) ? '' : \Carbon\Carbon::parse($tatatertib->tkh_hukuman)->format('d-m-Y') }} @endif"/>
                     </div>
                     @role(['secretariat','superadmin'])
                     <div class="col-md-12 d-flex justify-content-between">
@@ -998,6 +1030,14 @@
                         </div>
                         @endrole
                     </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="col-md-12 d-flex justify-content-between">
+                    <button type="button" class="btn btn-primary btn-pdf">
+                        <i data-feather='download' class="align-middle mr-sm-25 mr-0"></i>
+                        <span class="align-middle d-sm-inline-block d-none">Muat Turun</span>
+                    </button>
                 </div>
             </div>
     </div>

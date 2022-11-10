@@ -11,19 +11,21 @@
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
+                    <th>Bil.</th>
                     <th>Pengiktirafan</th>
                     <th>Tahun</th>
                 </thead>
                 <tbody id="tbody-iktiraf">
                 @foreach ($profile['pengiktirafan'] as $sijil)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $sijil->jenis->peristiwa ?? '' }}</td>
                         <td>{{ empty($sijil->tkh_mula_peristiwa) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula_peristiwa)->format('Y') }}</td>
                     </tr>
                 @endforeach
                 @if($profile['pengiktirafan']->count() == 0)
                 <tr data-pengiktirafan-id="">
-                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                    <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 
 

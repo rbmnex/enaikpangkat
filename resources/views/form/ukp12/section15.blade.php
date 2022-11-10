@@ -29,7 +29,7 @@
     </div>
     <div class="row">
         <div class="form-group col-12">
-            <span class="col-form-label">Sial berikan alasan jika tolak pemangkuan ini</span>
+            <span class="col-form-label">Sila berikan alasan jika tolak pemangkuan ini</span>
             <textarea row=3 type="text" width="100%" id="alasan_tolak" class="form-control alasan_tolak" name="alasan_tolak"  placeholder="Sila Berikan Sebab Jika Tolak Tawaran Pemangkuan Ini"></textarea>
             <div class="invalid-feedback"></div>
         </div>

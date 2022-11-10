@@ -11,6 +11,7 @@
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
+                    <th>Bil.</th>
                     <th>Kelulusan</th>
                     <th>Institut Pusat Pengajian Tinggi</th>
                     <th>Tahun</th>
@@ -19,6 +20,7 @@
                 <tbody id="tbody-universiti">
                 @foreach ($profile['akademik'] as $a)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $a->nama_kelulusan }}</td>
                         <td>{{ $a->institusi }}</td>
                         <td>{{ empty($a->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($a->tkh_kelulusan)->format('Y') }}</td>
@@ -26,7 +28,7 @@
                 @endforeach
                 @if($profile['akademik']->count() == 0)
                 <tr data-akademik-id="">
-                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                    <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 
 

@@ -230,7 +230,7 @@
                                 @include('form.ukp12.section4')
                                 @include('form.ukp12.section5')
                                 @include('form.ukp12.section6')
-                                @include('form.ukp12.section7')
+                                @include('form.ukp12.section7-2')
                                 @include('form.ukp12.section8')
                                 @include('form.ukp12.section9')
                                 @include('form.ukp12.section10')
@@ -247,9 +247,9 @@
             </div>
         </div>
     </div>
-     <div class="col-sm-2"> 
+     <div class="col-sm-2">
                             <a href="{{Request::root()}}/urussetia/resume/lampiran/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-danger me-1 setEmaillink">Lampiran</a>
-                        </div> 
+                        </div>
 </section>
 
 

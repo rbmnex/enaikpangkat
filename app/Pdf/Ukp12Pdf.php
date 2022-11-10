@@ -297,6 +297,6 @@ class Ukp12Pdf extends Fpdf {
         $pdf->AliasNbPages();
         $pdf->AddPage();
         $pdf->pengistiharan_harta();
-        $pdf->stream();
+        $pdf->Output('I','Permohonan_UKP12',true);
     }
 }

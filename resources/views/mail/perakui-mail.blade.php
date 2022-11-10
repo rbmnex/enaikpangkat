@@ -6,6 +6,7 @@
                   <div class="card-body">
                         <p>Assalamualaikum WBT & Salam Sejahtera,</p>
                         <p>Tuan/Puan,</p>
+                        <p><strong>PERKARA : PERAKUAN KETUA JABATAN UNTUK URUSAN PEMANGKUAN</strong></p>
                         <p>Pegawai bernama {{ $nama }} berjawatan {{ $jawatan }} {{ $gred }} dengan nombor kad pengenalan {{ $nokp }} ingin mendapatkan Perakuan dari pihak Tuan/Puan untuk urusan pemangkuan.</p>
                         <p>Sila gunakan pautan link dibawah ini untuk memulakan proses perakuan:</p>
                         <p>Pautan Link  :   {{ $link }}</p>
