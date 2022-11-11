@@ -89,7 +89,7 @@ class Ukp12Pdf extends Fpdf {
         $this->Ln(4);
         $this->Cell(75,4,' Tarikh lantikan perkhidmatan (semasa J41) ','L',0,'L');
         $this->Cell(4,4,' : ',0,0,'L');
-        $this->Cell(0,4,empty($input)? '' : \Carbon\Carbon::parse($input->tkh_lantikan)->format('d-m-Y'),'R',0,'L');
+        $this->Cell(0,4,empty($input)? '' : \Carbon\Carbon::parse($input->tkh_lantikan_j41)->format('d-m-Y'),'R',0,'L');
         $this->Ln(4);
         $this->Cell(75,4,' Tarikh * disahkan jawatan / naik pangkat terkini ','L',0,'L');
         $this->Cell(4,4,' : ',0,0,'L');

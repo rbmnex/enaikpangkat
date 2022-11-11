@@ -56,6 +56,7 @@
 <div class="content-body">
     <section id="basic-datatable">
     <div class="row">
+        <h4 class=""><span style="font-weight: bold;">Borang Pemangkuan JKR UKP 12</span></h4>
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -814,7 +815,7 @@
         </div>
         @role(['secretariat','superadmin','user'])
         <div class="col-12">
-            <div class="card">
+            <div class="card" style="background-color: greenyellow;">
             <div class="card-header">
                 <h4 class="card-title">UNTUK TINDAKAN URUS SETIA KENAIKAN PANGKAT</h4>
             </div>

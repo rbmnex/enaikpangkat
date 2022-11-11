@@ -6,7 +6,7 @@
     <div class="row">
         <div class="form-group col-md-12">
             <span class="col-form-label">
-                Saya {{ $profile['nama'] }}
+                Saya {{ $profile['nama'] }} No. Kad Pengenalan {{ $profile['nokp_baru'] }}
             </span>
         </div>
         <div class="form-group col-md-12">
@@ -27,7 +27,7 @@
             <span class="col-form-label">tawaran pemangkuan ini.</span>
         </div>
     </div>
-    <div class="row">
+    <div class="row reason_reject">
         <div class="form-group col-12">
             <span class="col-form-label">Sila berikan alasan jika tolak pemangkuan ini</span>
             <textarea row=3 type="text" width="100%" id="alasan_tolak" class="form-control alasan_tolak" name="alasan_tolak"  placeholder="Sila Berikan Sebab Jika Tolak Tawaran Pemangkuan Ini"></textarea>
@@ -37,10 +37,10 @@
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-primary btn-prev">
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
-            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+            <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
         </button>
         <button type="button" class="btn btn-outline-success btn-submit">
-            <span class="align-middle d-sm-inline-block d-none">Submit</span>
+            <span class="align-middle d-sm-inline-block d-none">Hantar</span>
             <i data-feather="send" class="align-middle ml-sm-25 ml-0"></i>
         </button>
     </div>

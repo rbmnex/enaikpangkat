@@ -154,10 +154,19 @@ class UkpController extends Controller
 
         $maklumat = $this->load_info($profile,$nokp,$pemohon);
 
-        return view('form.ukp12',[
-            "profile" => $maklumat,
-            "pemohon_id" =>$pemohon->id
-        ]);
+
+        if($maklumat['jenis_penempatan'] == 2) {
+            return view('form.ukp12-kader',[
+                "profile" => $maklumat,
+                "pemohon_id" =>$pemohon->id
+            ]);
+        } else {
+            return view('form.ukp12',[
+                "profile" => $maklumat,
+                "pemohon_id" =>$pemohon->id
+            ]);
+        }
+
     }
 
     public function apply(Request $request,$encrypted) {
@@ -229,10 +238,19 @@ class UkpController extends Controller
 
         $maklumat = $this->load_info($profile,$nokp,$pemohon);
 
-        return view('form.ukp12',[
-            "profile" => $maklumat,
-            "pemohon_id" =>$pemohon->id
-        ]);
+        if($maklumat['jenis_penempatan'] == 2) {
+            return view('form.ukp12-kader',[
+                "profile" => $maklumat,
+                "pemohon_id" =>$pemohon->id
+            ]);
+        } else {
+            return view('form.ukp12',[
+                "profile" => $maklumat,
+                "pemohon_id" =>$pemohon->id
+            ]);
+        }
+
+
     }
 
     public function save_organization(Request $request) {
@@ -759,8 +777,11 @@ class UkpController extends Controller
     }
 
     public function download_form_part(Request $request) {
-        $formdata = json_decode($request->input('dataform'));
-        return Ukp12Pdf::print($formdata);
+        $formdata = $request->input('dataform');
+        $pemohon = Pemohon::find($formdata);
+        $profile = $pemohon->pemohonPeribadi;
+        $maklumat = json_encode($this->load_info($profile,$profile->nokp,$pemohon));
+        return Ukp12Pdf::print(json_decode($maklumat));
     }
 
     private function verify_applicant($nokp,$formId) {
@@ -797,7 +818,10 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         ->select('p.kod_gred','p.kod_jawatan','j.jawatan', 'p.tkh_lantik', 'p.tkh_sah_perkhidmatan')
         ->where('nokp',$nokp)->where('p.kod_gred','J41')->first();
 
-
+        $penempatanX = DB::connection('pgsqlmykj')->table('penempatanx')
+            ->select('*')
+            ->where('flag',1)->where('ref_id',0)->where('nokp',$nokp)
+            ->first();
 
         $gaji = Gaji::where('nokp',$nokp)->where('flag',1)->first();
         //$agama = LAgama::all();
@@ -819,7 +843,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $profesional = Kelayakan::where('nokp',$nokp)->where('kod_kelulusan',8)->get();
         $kompeten = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[9,10])->get();
 
-        $iktiraf = Peristiwa::where('nokp',$nokp)->wherein('kod_peristiwa',['P8','A1','P10','A4'])->get();
+        $iktiraf = Peristiwa::where('nokp',$nokp)->whereIn('kod_peristiwa',['P8','A1','P10','A4'])->get();
         $sumbangan = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[21,22,23])->get();
         $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
         $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
@@ -872,6 +896,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $maklumat['loan'] = $loan;
         $maklumat['gred_memangku'] = $pemohon->pemohonPermohonan ? $pemohon->pemohonPermohonan->gred : '';
         $maklumat['sumbangan'] = $sumbangan;
+        $maklumat['jenis_penempatan'] = empty($penempatanX) ? 1 : $penempatanX->jenis_penempatan;
 
         $pemohon->jawatan =$maklumat['jawatan'] ;
         $pemohon->kod_jawatan = $maklumat['kod_jawatan'];
@@ -880,7 +905,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $pemohon->tkh_lantikan = $maklumat['tkh_lantikan'];
         $pemohon->tkh_sah_perkhidmatan = $maklumat['tkh_sah'];
         $pemohon->alamat_pejabat = $maklumat['alamat_pejabat'];
-
+        $pemohon->jenis_penempatan = empty($penempatanX) ? 1 : $penempatanX->jenis_penempatan;
         $pemohon->save();
 
         return $maklumat;

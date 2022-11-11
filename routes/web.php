@@ -191,7 +191,7 @@ Route::get('/test/view_pdf',function() {
      $pdf = PDF::loadView('pdf.ukp12', [], []);
      return $pdf->stream();
 
-    // return view('pdf.ukp12');
+    //return view('pdf.ukp12');
 });
 
 Route::get('/test/pdf',function() {
