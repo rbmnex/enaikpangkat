@@ -79,7 +79,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                <h4 class="card-title">Borang Pemangkuan JKR UKP 12</h4>
+                <h4 class="card-title"><span style="font-weight: bold;">Borang Pemangkuan JKR UKP 12</span></h4>
                 <h6 class="card-subtitle" style="font-style: italic; color:red !important;">* Jika berlaku kesilapan maklumat, sila kemas kini maklumat pada portal MyKJ</h6>
                 <section class="vertical-wizard">
                     <div class="bs-stepper vertical vertical-wizard-example">
@@ -98,7 +98,7 @@
                                     <span class="bs-stepper-box">2</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 2</span>
-                                        <span class="bs-stepper-subtitle">Maklumat Cuti Dan Pengesahan</span>
+                                        <span class="bs-stepper-subtitle"><span>Maklumat Cuti</span><br/> <span>Dan Pengesahan</span></span>
                                     </span>
                                 </button>
                             </div>
@@ -206,7 +206,8 @@
                                     <span class="bs-stepper-box">13</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 13</span>
-                                        <span class="bs-stepper-subtitle">Ketua Jabatan/Bahagian</span>
+                                        <span class="bs-stepper-subtitle"><span>Ketua Jabatan /</span><br/>
+                                            <span>Bahagian</span></span>
                                     </span>
                                 </button>
                             </div>
@@ -247,9 +248,9 @@
             </div>
         </div>
     </div>
-     <div class="col-sm-2">
+     {{-- <div class="col-sm-2">
                             <a href="{{Request::root()}}/urussetia/resume/lampiran/{{$user['nokp'] ?? ''}}" type="button" class="btn btn-danger me-1 setEmaillink">Lampiran</a>
-                        </div>
+                        </div> --}}
 </section>
 
 

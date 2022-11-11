@@ -52,10 +52,10 @@
                                                         <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-7">
-            <label class="col-form-label" for="formFileMultiple">MUATNAIK PENYATA BAYARAN PINJAMAN TERKINI /  SURAT PENGESAHAN</label>
+            <label class="col-form-label" style="font-style: italic; font-size: 0.857rem; color: red;" for="formFileMultiple">* Sila sertakan Penyata Bayaran Pinjaman terkini  atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan</label>
         </div>
         <div class="form-group col-md-12 div-loan-7">
-            <div class="file btn btn-primary">
+            <div class="file btn btn-success">
                 <i data-feather='upload'></i> Muat Naik
                 <input class="form-control file-input penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran"/>
             </div>
@@ -67,10 +67,10 @@
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-primary btn-prev">
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
-            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+            <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
         </button>
         <button type="button" class="btn btn-primary btn-next">
-            <span class="align-middle d-sm-inline-block d-none">Next</span>
+            <span class="align-middle d-sm-inline-block d-none">Selanjutnya</span>
             <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
         </button>
     </div>

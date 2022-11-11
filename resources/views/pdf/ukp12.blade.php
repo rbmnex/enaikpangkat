@@ -74,6 +74,22 @@
             text-align: center;
         }
 
+        .box-small {
+            border-style: solid;
+            border-width: 1px;
+            width: 20px; height: 20px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .box-normal {
+            border-style: solid;
+            border-width: 1px;
+            width: 30px; height: 30px;
+            display: inline-block;
+            text-align: center;
+        }
+
         .ow {
             overflow-wrap: break-word;
             word-wrap: break-word;
@@ -1290,6 +1306,391 @@
                 <td>IV.</td>
                 <td colspan="11">SURAT AKUAN PINJAMAN PENDIDIKAN INSTITUSI / TABUNG PENDIDIKAN</td>
 
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr style="" class="normal-size">
+                <td></td>
+                <td colspan="11">Saya MUHAMMAD BRUNSON BIN ARMY No.K.P.: 830801025623 mengesahkan bahawa :</td>
+
+            </tr>
+            <tr>
+                <td colspan="12" style="height: 10px"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="box-normal normal-size"></span></td>
+                <td colspan="10">
+                    <span class="normal-size"> Saya tidak ada mengambil pinjaman pendidikan daripada mana-mana
+                    institusi / tabung pendidikan;</span>
+                </td>
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="box-normal normal-size"></span></td>
+                <td colspan="10">
+                    <span class="normal-size">Saya ada mengambil pinjaman pendidikan dan saya mengesahkan masih belum membuat bayaran;</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="6">
+                    <table border="1">
+                        <tbody>
+                            <tr>
+                                <td>Institusi /tabung pendidikan</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Tahun Pinjaman</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah Pinjaman</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="box-normal normal-size"></span></td>
+                <td colspan="10">
+                    <span class="normal-size"> Saya tidak ada mengambil pinjaman pendidikan daripada mana-mana
+                    institusi / tabung pendidikan;</span>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="box-normal normal-size"></span></td>
+                <td colspan="10">
+                    <span class="normal-size">Saya ada mengambil pinjaman pendidikan dan pada masa ini sedang membuat pembayaran secara bulanan melalui pembayaran tunai / potongan gaji;</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="6">
+                    <table border="1">
+                        <tbody>
+                            <tr>
+                                <td>Institusi/tabung pendidikan</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Tahun Pinjaman</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah Pinjaman</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Bayaran mulai (Tahun)</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td><span class="box-normal normal-size"></span></td>
+                <td colspan="10">
+                    <span class="normal-size">Saya ada mengambil pinjaman pendidikan dan saya telahpun menyelesaikan sepenuhnya pinjaman;</span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2"></td>
+                <td colspan="6">
+                    <table border="1">
+                        <tbody>
+                            <tr>
+                                <td>Institusi/tabung pendidikan</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Tahun Pinjaman</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah Pinjaman</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Selesai Pembayaran (Tahun)</td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td colspan="4"></td>
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 30px"></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="11"><span style="font-weight: bold; font-style: italic;">*Disertakan Penyata Bayaran Pinjaman terkini  atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan</span></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="page-break"></div>
+    <table>
+        <tbody>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="font-weight: bold;" class="normal-size">
+                <td>V.</td>
+                <td colspan="11">PERAKUAN PEGAWAI</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr style="" class="normal-size">
+                <td></td>
+                <td colspan="11">Saya dengan ini mengesahkan bahawa saya:</td>
+
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr class="normal-size">
+                <td></td>
+                <td>a)</td>
+                <td colspan="5">Tindakan tatatertib:</td>
+
+                <td>Pernah</td>
+                <td><span class="box-small"></span></td>
+                <td colspan="2">Tidak Pernah</td>
+                <td><span class="box-small"></span></td>
+
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr class="normal-size">
+                <td></td>
+                <td>b)</td>
+                <td colspan="10">Telah mengisytiharkan harta mengikut peraturan yang ditetapkan.</td>
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr class="normal-size">
+                <td></td>
+                <td>c)</td>
+                <td colspan="5">Lanjutan tempoh percubaan dengan denda :</td>
+
+                <td>Pernah</td>
+                <td><span class="box-small"></span></td>
+                <td colspan="2">Tidak Pernah</td>
+                <td><span class="box-small"></span></td>
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr class="normal-size">
+                <td></td>
+                <td>d)</td>
+                <td colspan="5">Cuti Tanpa Gaji selain Cuti Belajar Tanpa Gaji</td>
+
+                <td>Pernah</td>
+                <td><span class="box-small"></span></td>
+                <td colspan="2">Tidak Pernah</td>
+                <td><span class="box-small"></span></td>
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 10px"></td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="11">
+                    Saya mengaku bahawa butiran yang dinyatakan di dalam Borang JKR/UKP/12 ini adalah benar. Sekiranya tidak benar, saya boleh dikenakan tindakan tatatertib di bawah Peraturan 4 (f) dan Peraturan 4 (g), Peraturan-Peraturan Pegawai Awam ( Kelakuan dan Tatatertib ) 1993.
+                </td>
+            </tr>
+            <tr>
+
+                <td colspan="12" style="height: 50px"></td>
+
+            </tr>
+            <tr class="normal-size">
+                <td></td>
+                <td colspan="3">Tandatangan Pegawai :</td>
+
+                <td colspan="8"></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">Nama</td>
+
+                <td style="text-align: center;">:</td>
+                <td colspan="8">MUHAMMAD BRUNSON BIN ARMY</td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">Jawatan</td>
+
+                <td style="text-align: center;">:</td>
+                <td colspan="8">JURUTERA AWAM J44</td>
+
+            </tr>
+            <tr>
+                <td></td>
+
+                <td colspan="2">Alamat Pejabat</td>
+
+                <td style="text-align: center;">:</td>
+                <td colspan="8">CAWANGAN KERJA BANGUNAN AM 1 IBU
+                    PEJABAT JKR MALAYSIA TINGKAT 13,13A & 17,
+                    MENARA PJD NO.50, JALAN TUN RAZAK 50400
+                    KUALA LUMPUR</td>
+
+            </tr>
+            <tr>
+                <td></td>
+                <td colspan="2">Tarikh</td>
+
+                <td style="text-align: center;">:</td>
+                <td colspan="8">11-11-2022</td>
+            </tr>
+            <tr>
+                <td colspan="12" style="height: 30px"></td>
+            </tr>
+            <tr style="font-weight: bold;" class="normal-size">
+                <td>VI.</td>
+                <td colspan="11">PERAKUAN KETUA JABATAN</td>
+
+            </tr>
+            <tr>
+                <td colspan="12" style="height: 10px"></td>
+            </tr>
+            <tr style="" class="normal-size top-border">
+                <td colspan="12" style="height: 20px" class=""></td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td></td>
+                <td colspan="3">Perakuan Ketua Jabatan :</td>
+                <td colspan="2">Diperaku</td>
+                <td><span class="box-small"></span></td>
+                <td colspan="2">Tidak Diperakui</td>
+                <td><span class="box-small"></span></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td colspan="12" style="height: 20px" class=""></td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td></td>
+                <td colspan="3">Ulasan Ketua Jabatan :</td>
+                <td colspan="8"></td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td colspan="12" style="height: 20px" class=""></td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td></td>
+                <td colspan="11">
+                    ...................................................................................................................................................
+                </td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td></td>
+                <td colspan="11">
+                    ...................................................................................................................................................
+                </td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td></td>
+                <td colspan="11">
+                    ...................................................................................................................................................
+                </td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td></td>
+                <td colspan="11">
+                    ...................................................................................................................................................
+                </td>
+            </tr>
+            <tr style="" class="normal-size side-border">
+                <td colspan="12" style="height: 100px" class=""></td>
+            </tr>
+            <tr class="normal-size side-border">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="5" style="border-right-style: solid; border-right-width: 1px;">
+                    ................................................................
+                </td>
+            </tr>
+            <tr class="normal-size side-border">
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="5" style="border-right-style: solid; border-right-width: 1px;">
+                    <span style="font-weight: bold; font-style: italic;">Tandatangan dan Cop Ketua Jabatan</span>
+                </td>
+            </tr>
+            <tr style="" class="normal-size bottom-border">
+                <td colspan="6" style="height: 20px" class=""></td>
+                <td colspan="6" style="height: 20px" class=""></td>
             </tr>
         </tbody>
     </table>
