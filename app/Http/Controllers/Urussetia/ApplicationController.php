@@ -64,6 +64,6 @@ class ApplicationController extends Controller
     }
 
     private function get_info($nokp) {
-        $pemohon = Pemohon::join('peribadi','')
+        $pemohon = Pemohon::join('peribadi','');
     }
 }
