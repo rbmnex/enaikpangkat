@@ -55,7 +55,7 @@
                             <th>jawatan</th>
                             <th>penempatan</th>
                             <th>emel</th>
-                            <th>aksi</th>
+                            <th>Tindakan</th>
                         </tr>
                     </thead>
                 </table>

@@ -1,4 +1,4 @@
-$(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
+$(document).on('click','.btn-submit, .btn-download',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('btn-submit')) {
         //$('#modal-cuti').modal('show');
@@ -51,9 +51,9 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
         }
     } else if(selectedClass.hasClass('btn-download')) {
         var data = new FormData;
-        var dataform = $('input[name="_formid"]').val();
+        var dataform = $('input[name="_formdata"]').val();
         data.append('_token', getToken());
-        data.append('dataform',$('input[name="_formid"]').val());
+        data.append('dataform',$('input[name="_formdata"]').val());
         window.open(getUrl() + '/form/ukp12/download/part?dataform='+dataform,'_blank');
         // $.ajax({
         //     type: 'POST',
@@ -78,13 +78,6 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
         //         link.click();
         //     }
         // });
-    } else if(selectedClass.hasClass('radio-accept')) {
-        let result = selectedClass.val();
-        if(result == 1) {
-            $('.reason_reject').hide();
-        } else {
-            $('.reason_reject').show();
-        }
     }
 });
 

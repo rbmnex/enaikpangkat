@@ -21,6 +21,11 @@ class Pengalaman extends Model
     {
         return $this->hasOne(LAktiviti::class, 'kod_aktiviti','kod_aktiviti');
     }
+
+     public function LJawatan()
+    {
+        return $this->hasOne(LJawatan::class, 'kod_jawatan','kod_jawatan');
+    }
 }
 
 

@@ -19,7 +19,7 @@
                         </li>
                         <li class="breadcrumb-item">Admin
                         </li>
-                        <li class="breadcrumb-item active"><a href="#">Senarai Pegawai </a>
+                        <li class="breadcrumb-item active"><a href="#">Pengurusan Pengguna</a>
                         </li>
                     </ol>
                 </div>
@@ -32,14 +32,14 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <table class="datatables table table-resume">
+                <table class="datatables table table-user">
                     <thead>
                         <tr>
-                            <th>NOKP</th>
-                            <th>Nama</th>
-                            <th>Kod Gred</th>
-                            <th>Jawatan</th>
-                            <th>Status</th>
+                            <th>no. kp</th>
+                            <th>nama</th>
+                            <th>jawatan</th>
+                            <th>penempatan</th>
+                            <th>emel</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>
@@ -57,8 +57,8 @@
 @include('web.datatable-js')
 @include('web.sweet-alert-js')
 <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
-<script src="{{asset('local/resume/js/page_setting.js')}}"></script>
-<script src="{{asset('local/resume/js/datatable.js')}}"></script>
-<script src="{{asset('local/resume/js/index.js')}}"></script>
-<script src="{{asset('local/resume/js/ajax.js')}}"></script>
+<script src="{{asset('local/usermgmt/js/page_setting.js')}}"></script>
+<script src="{{asset('local/usermgmt/js/datatable.js')}}"></script>
+<script src="{{asset('local/usermgmt/js/index.js')}}"></script>
+<script src="{{asset('local/usermgmt/js/ajax.js')}}"></script>
 @endsection

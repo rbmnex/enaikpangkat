@@ -70,7 +70,7 @@ class ListPegawai2 extends Model
                 $data[] = [
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
-                    'tkh_kelulusan' => $m->tkh_kelulusan
+                    'tkh_kelulusan' => $m->tkh_kelulusan ?  $m->tkh_kelulusan : ''
                 ];
             }
         }
@@ -89,7 +89,7 @@ class ListPegawai2 extends Model
          if($model){
             $data = [
                 'kod_peristiwa' => $model->LPeristiwa->peristiwa,
-                'tkh_mula_peristiwa' => $model->tkh_mula_peristiwa
+                'tkh_mula_peristiwa' => $model->tkh_mula_peristiwa  ?  $model->tkh_mula_peristiwa : ''
             ];
         }
 
@@ -105,7 +105,7 @@ class ListPegawai2 extends Model
             foreach($model as $m){
                 $data[] = [
                     'kod_peristiwa' => $m->LPeristiwa->peristiwa,
-                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ?  $m->tkh_mula_peristiwa:''
                 ];
             }
         }
@@ -121,8 +121,8 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
-                    'kod_peristiwa' => $m->LPeristiwa->peristiwa ?  $m->LPeristiwa->peristiwa : '',
-                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa
+                    'kod_peristiwa' => $m->LPeristiwa->peristiwa ?  $m->LPeristiwa->peristiwa : '', 
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa : ''
                 ];
             }
         }
@@ -138,8 +138,8 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
-                   'kod_peristiwa' => $m->LAktiviti->peristiwa,
-                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa
+                   'kod_peristiwa' => $m->LAktiviti->peristiwa ? $m->LAktiviti->peristiwa :'',
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa :''
                 ];
             }
         }
@@ -157,7 +157,7 @@ class ListPegawai2 extends Model
                 $data[] = [
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
-                    'tkh_kelulusan' => $m->tkh_kelulusan
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan : ''
                 ];
             }
         }
@@ -175,7 +175,7 @@ class ListPegawai2 extends Model
                 $data[] = [
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
-                    'tkh_kelulusan' => $m->tkh_kelulusan
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :'' 
                 ];
             }
         }
@@ -193,7 +193,7 @@ class ListPegawai2 extends Model
                 $data[] = [
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
-                    'tkh_kelulusan' => $m->tkh_kelulusan
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
                 ];
             }
         }
@@ -211,7 +211,7 @@ class ListPegawai2 extends Model
                 $data[] = [
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
-                    'tkh_kelulusan' => $m->tkh_kelulusan
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
                 ];
             }
         }
@@ -255,12 +255,12 @@ class ListPegawai2 extends Model
 // $interval = $datetime1->diff($datetime2);
 // $days = $interval->format('%a');
                     'tempat' => $m->tempat,
-                    'mula' => $m->tkh_mula,
-                    'tamat' => $m->tkh_tamat,
+                    'mula' => $m->tkh_mula ? $m->tkh_mula:'',
+                    'tamat' => $m->tkh_tamat ? $m->tkh_tamat:'',
                     'aktiviti' => $m->LAktiviti->aktiviti,
                     'kod_aktiviti' => $m->kod_aktiviti,
                     'kod_gred_sebenar' => $m->kod_gred_sebenar,
-                    'kod_gelaran_jawatan' => $m->kod_gelaran_jawatan
+                    'kod_gelaran_jawatan' => $m->gelaran_jawatan->gelaran_jawatan ? $m->gelaran_jawatan->gelaran_jawatan :''
 
                 ];
             }
@@ -271,8 +271,10 @@ class ListPegawai2 extends Model
 
     public static function pengalamanPengkhususan($ic){
         $data= [];
-
+        
         $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
+
+        // $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->distinct('kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
         // $tkh_awal = Pengalaman::where
         if($model){
@@ -281,12 +283,12 @@ class ListPegawai2 extends Model
 
                 $data[] = [
                     'tempat' => $m->tempat,
-                    'mula' => $m->tkh_mula,
-                    'tamat' => $m->tkh_tamat,
+                    'mula' => $m->tkh_mula ? $m->tkh_mula :'',
+                    'tamat' => $m->tkh_tamat ?$m->tkh_tamat :'',
                     // 'diff' => $diff->format("%R%a days"),
                     'aktiviti' => $m->LAktiviti->aktiviti,
                     'kod_gred_sebenar' => $m->kod_gred_sebenar,
-                    'kod_gelaran_jawatan' => $m->kod_gelaran_jawatan,
+                    'kod_gelaran_jawatan' => $m->gelaran_jawatan->gelaran_jawatan ? $m->gelaran_jawatan->gelaran_jawatan:'',
                     'kod_aktiviti' => $m->kod_aktiviti
 
                 ];
@@ -312,13 +314,13 @@ class ListPegawai2 extends Model
                     'kod_gred' => $m->kod_gred,
                     'kod_jawatan' => $m->kod_jawatan,
                     'taraf'=> $m->PerkhidmatanTaraf ?$m->PerkhidmatanTaraf->perkhidmatan:'',
-                    'skim' => $m->LKumpulan ? $m->LKumpulan->kumpulan : '',
+                    // 'skim' => $m->LKumpulan->kumpulan ? $m->LKumpulan->kumpulan : '',
                     'gred_hakiki' =>$m->kod_gred,
-                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik,
+                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik ? $m->tkh_lantik:'',
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
                      'no_daftar' => $m->no_pendaftaran,
-                    'tkh_kelulusan' => $m->tkh_kelulusan
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
                 ];
             }
         }
@@ -336,9 +338,9 @@ class ListPegawai2 extends Model
                     'kod_gred' => $model->kod_gred,
                     'kod_jawatan' => $model->kod_jawatan,
                     'taraf'=> $model->PerkhidmatanTaraf->perkhidmatan,
-                    'skim' => $model->LKumpulan->kumpulan,
+                    'skim' =>  $model->LKumpulan->kumpulan ? $model->LKumpulan->kumpulan : '',
                     'gred_hakiki' =>$model->kod_gred,
-                    'tkh_mula_gred_hakiki' =>$model->tkh_lantik
+                    'tkh_mula_gred_hakiki' =>$model->tkh_lantik ? $model->tkh_lantik :''
                 ];
             }
 
@@ -360,7 +362,7 @@ class ListPegawai2 extends Model
                 'no_fax' => $model->fax_pejabat,
                 'tel_bimbit' => $model->tel_bimbit,
                 'gambar' => $model->gambar,
-                'tkh_wajib_bersara' => $model->tkh_bersara
+                'tkh_wajib_bersara' => $model->tkh_bersara ? $model->tkh_bersara:''
 
             ];
         }
