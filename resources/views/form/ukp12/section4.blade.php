@@ -6,17 +6,17 @@
     <div class="row">
         <div class="form-group col-md-12">
             <label class="col-form-label" for="tarikhAkhir_harta">Tarikh Akhir Pengisytiharan Harta Terkini:</label>
-            <input type="text" readonly class="form-control" value="{{ $profile['tkh_istihar'] }}" id="tarikhAkhir_harta" name="harta_tkh_akhir_pengisytiharan">
+            <input type="text" readonly class="form-control" value="{{ $profile['tkh_istihar'] == 0 ? $profile['tkh_istihar'] : \Carbon\Carbon::parse($profile['tkh_istihar'])->format('d-m-Y') }}" id="tarikhAkhir_harta" name="harta_tkh_akhir_pengisytiharan">
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12">
             {{-- <form id="upload_harta" width="100%"> --}}
-            <label class="col-form-label" for="lampiran_E">Muat Naik Lampiran E</label>
+            <label class="col-form-label" style="color: red; font-size: 0.857rem; !important; font-style: italic;" for="lampiran_E">* Sila Muat Naik Lampiran E</label>
 
             {{-- </form> --}}
         </div>
         <div class="form-group col-md-12">
-            <div class="file btn btn-primary">
+            <div class="file btn btn-success ">
                 <i data-feather='upload'></i> Muat Naik
                 <input class="file-input upload-harta" type="file" id="lampiran_E" name="harta_surat_kelulusan" />
             </div>
@@ -24,19 +24,19 @@
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12">
-            <label class="col-form-label" style="font-style: italic" for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</b></label>
+            <label class="col-form-label" style="font-style: italic; font-size: 0.857rem; " for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</b></label>
         </div>
         <div class="form-group col-md-12">
-            <label class="col-form-label" style="font-style: italic" for=""><b>* Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir</b></label>
+            <label class="col-form-label" style="font-style: italic; font-size: 0.857rem; " for=""><b>* Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir</b></label>
         </div>
     </div>
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-primary btn-prev">
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
-            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+            <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
         </button>
         <button class="btn btn-primary btn-next">
-            <span class="align-middle d-sm-inline-block d-none">Next</span>
+            <span class="align-middle d-sm-inline-block d-none">Selanjutnya</span>
             <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
         </button>
     </div>

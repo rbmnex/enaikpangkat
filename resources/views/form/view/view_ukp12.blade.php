@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('customCss')
+@include('web.sweet-alert-css')
+<link rel="stylesheet" type="text/css" href="{{asset('asset//vendors/css/pickers/flatpickr/flatpickr.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/forms/pickers/form-flat-pickr.css')}}">
 <style>
     input.larger {
       width: 50px;
@@ -53,10 +56,19 @@
 <div class="content-body">
     <section id="basic-datatable">
     <div class="row">
+        <h4 class=""><span style="font-weight: bold;">Borang Pemangkuan JKR UKP 12</span></h4>
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h4 class="card-title">BUTIR-BUTIR PERIBADI</h4>
+                    <h4 class="card-title pull-left">BUTIR-BUTIR PERIBADI</h4>
+                    @role(['superadmin','secretariat'])
+                    <div class="text-right">
+                                            <button data-appl-id={{ $pemohon->id_permohonan }} class="btn btn-success btn-back">
+                                                <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
+                                                <span class="align-middle d-sm-inline-block d-none">Kembali</span>
+                                            </button>
+                    </div>
+                    @endrole
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -104,6 +116,7 @@
                             <input type="number" id="sect-1-bersara" readonly nama="pilihan_bersara_wajib" value="{{ $peribadi->pilihan_bersara_wajib }}" class="form-control" placeholder=""  />
                             <div class="invalid-feedback"></div>
                         </div>
+                        <input type="hidden" id="id_pemohon" class="hidden_id" value="{{ $pemohon->id }}"/>
                         {{-- end section1 --}}
                         {{-- section 2 --}}
 
@@ -366,6 +379,7 @@
                         <div class="table-responsive">
                             <table class="datatables table -table">
                                 <thead>
+                                    <th>Bil.</th>
                                     <th>Gelaran Jawatan</th>
                                     <th>Penempatan</th>
                                     <th>Tahun Berkhidmat</th>
@@ -373,6 +387,7 @@
                                 <tbody id="tbody-khidmat">
                                     @foreach ($perkhidmatans as $pengalaman)
                                     <tr>
+                                        <td>{{ $loop->iteration }}</td>
                                         <td>{{ $pengalaman->jawatan ?? '' }}</td>
                                         <td>{{ $pengalaman->penempatan }}</td>
                                         <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula_berkhidmat)->format('d-m-Y') }}</td>
@@ -399,11 +414,11 @@
                         <div class="form-group col-md-12">
                             <div class="table-responsive">
                                 <table class="datatables table -table">
-                                    <thead>
+                                    {{-- <thead>
                                         <th>Jawatan</th>
                                         <th>Nama Pertubuhan</th>
                                         <th>Tahun</th>
-                                        {{-- <th>Tindakan</th> --}}
+
                                     </thead>
                                     <tbody id="tbody-badan">
                                     @foreach ($pertubuhans as $org)
@@ -411,7 +426,6 @@
                                             <td>{{ $org->jawatan }}</td>
                                             <td>{{ $org->nama }}</td>
                                             <td>{{ $org->tahun }}</td>
-                                            {{-- <td><button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-org"><i data-feather='trash-2'></i> Hapus</button></td> --}}
                                         </tr>
                                     @endforeach
                                     @if($pertubuhans->count() == 0)
@@ -421,7 +435,28 @@
 
 
                                     @endif
-                                    </tbody>
+                                    </tbody> --}}
+                                    <thead>
+                                        <th>Bil.</th>
+                                        <th>Sumbangan/Jawatankuasa Teknikal</th>
+                                        <th>Tempat</th>
+                                        <th>Tahun</th>
+                                        {{-- <th>Tindakan</th> --}}
+                                    </thead>
+                                    <tbody id="tbody-badan">
+                                    @foreach ($sumbangan as $org)
+                                        <tr data-pertubuhan-id="{{ $org->id }}">
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $org->sumbangan }}</td>
+                                            <td>{{ $org->tempat }}</td>
+                                            <td>{{ $org->tkh_peristiwa ? \Carbon\Carbon::parse($org->tkh_peristiwa)->format('Y') : ''  }}</td>
+                                        </tr>
+                                    @endforeach
+                                    @if($sumbangan->count() == 0)
+                                    <tr data-pertubuhan-id="">
+                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                    </tr>
+                                    @endif
                                 </table>
                             </div>
                         </div>
@@ -436,14 +471,15 @@
                             <div class="table-responsive">
                                 <table class="datatables table -table">
                                     <thead>
+                                        <th>Bil.</th>
                                         <th>Kelulusan</th>
                                         <th>Institut Pusat Pengajian Tinggi</th>
                                         <th>Tahun</th>
-                                        {{-- <th>Aksi</th> --}}
                                     </thead>
                                     <tbody id="tbody-universiti">
                                     @foreach ($akademiks as $a)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $a->nama_sijil }}</td>
                                             <td>{{ $a->nama_insititusi }}</td>
                                             <td>{{ empty($a->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($a->tkh_kelulusan)->format('Y') }}</td>
@@ -451,7 +487,7 @@
                                     @endforeach
                                     @if($akademiks->count() == 0)
                                     <tr data-akademik-id="">
-                                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
 
 
@@ -471,6 +507,7 @@
                             <div class="table-responsive">
                                 <table class="datatables table -table">
                                     <thead>
+                                        <th>Bil.</th>
                                         <th>Kelayakkan Profesional / Pendaftaran Dengan Badan
                                             Profesional</th>
                                         <th>Badan Profesional Yang Diiktiraf</th>
@@ -480,6 +517,7 @@
                                     <tbody id="tbody-profesional">
                                     @foreach ($profesionals as $pro)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $pro->nama_sijil }}</td>
                                             <td>{{ $pro->badan_professional }}</td>
                                             <td>{{ $pro->no_pendaftaran }}</td>
@@ -488,7 +526,7 @@
                                     @endforeach
                                     @if($profesionals->count() == 0)
                                     <tr data-profesional-id="">
-                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="5" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
 
 
@@ -506,21 +544,21 @@
                         </div>
                         <div class="form-group col-md-12">
                             <div class="table-responsive col-md-12">
-                                <table class="datatables table -table">
+                                <table class="datatables table komp-table">
                                     <thead>
+                                        <th>Bil.</th>
                                         <th>Pensijilan Kekompetenan</th>
                                         <th>Tahap</th>
-                                        {{-- <th>Fail</th>
-                                        <th>Aksi</th> --}}
                                     </thead>
                                     <tbody id="tbody-kompeten">
                                     @foreach ($kompetenans as $k)
+                                    <td>{{ $loop->iteration }}</td>
                                     <td>{{ $k->nama_sijil }}</td>
                                     <td>{{ $k->tahap }}</td>
                                     @endforeach
                                     @if($kompetenans->count() == 0)
                                     <tr data-kompeten-id="">
-                                        <td colspan="2" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
 
 
@@ -540,12 +578,14 @@
                             <div class="table-responsive">
                                 <table class="datatables table -table">
                                     <thead>
+                                        <th>Bil.</th>
                                         <th>Pengiktirafan</th>
                                         <th>Tahun</th>
                                     </thead>
                                     <tbody id="tbody-iktiraf">
                                     @foreach ($pengiktirafans as $sijil)
                                         <tr>
+                                            <td>{{ $loop->iteration }}</td>
                                             <td>{{ $sijil->jenis ?? '' }}</td>
                                             <td>{{ empty($sijil->tkh_mula) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula)->format('Y') }}</td>
                                         </tr>
@@ -752,7 +792,7 @@
                         </div> --}}
                         <div class="form-group col-md-12">
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" readonly class="form-check-input medium akuan_peribadi" value="1" name="akuan" id="checkbox_akuan" checked />
+                                <input type="checkbox" readonly onclick="return false;" class="form-check-input medium akuan_peribadi" value="1" name="akuan" id="checkbox_akuan" checked />
                                 <label class="col-form-label" for="customCheck1">Saya mengaku bahawa butiran yang dinyatakan di dalam Borang JKR/UKP/12 ini adalah benar. Sekiranya tidak benar, saya boleh dikenakan tindakan tatatertib di bawah Peraturan 4 (f) dan Peraturan 4 (g), Peraturan-Peraturan Pegawai Awam ( Kelakuan dan Tatatertib ) 1993.</label>
                             </div>
                             <div class="invalid-feedback"></div>
@@ -773,8 +813,9 @@
                 </div>
             </div>
         </div>
+        @role(['secretariat','superadmin','user'])
         <div class="col-12">
-            <div class="card">
+            <div class="card" style="background-color: greenyellow;">
             <div class="card-header">
                 <h4 class="card-title">UNTUK TINDAKAN URUS SETIA KENAIKAN PANGKAT</h4>
             </div>
@@ -788,15 +829,20 @@
                             <tbody>
                                 <tr>
                                     <td class="cell head-cell">Tahun</td>
-                                    <td class="cell"></td>
-                                    <td class="cell"></td>
-                                    <td class="cell"></td>
+                                    @foreach($lnpt as $m)
+                                    <td class="cell">{{ $m->tahun }}</td>
+                                    @endforeach
                                 </tr>
                                 <tr>
                                     <td class="cell head-cell">Markah</td>
-                                    <td class="cell"></td>
-                                    <td class="cell"></td>
-                                    <td class="cell"></td>
+                                    @foreach($lnpt as $p)
+                                    <td class="cell">
+                                        <div class="form-group">
+                                        <input type="number" id="markah-{{ $p->tahun }}" class="markah-lnpt form-control" data-tahun-lnpt="{{ $p->tahun }}" value="{{ $p->purata }}">
+                                        <div class="invalid-feedback"></div>
+                                        </div>
+                                    </td>
+                                    @endforeach
                                 </tr>
                             </tbody>
                         </table>
@@ -810,36 +856,40 @@
                     <div class="form-group col-md-12">
                         <label class="col-form-label" for="">Pengesahan Tindakan Tatatertib</label>
                     </div>
+                    {{-- @role(['superadmin','secretariat']) --}}
                     <div class="form-group col-md-12">
                         <div class="form-check form-check-inline ">
-                            <input type="radio" value="1" class="form-check-input medium tatatertib2" name="tatatertib2" id="radio1" />
+                            <input type="radio" value="1" class="form-check-input medium tatatertib2" {{-- @role('user')onclick="return false;"@endrole --}} @if(!empty($tatatertib)){{ $tatatertib->pengesahan_tindakan == '1' ? 'checked' : '' }}@endif name="tatatertib2" id="radio1" />
                             <label class="col-form-label" for="tatatertib"> Ada</label>
                         </div>
                         <div class="form-check form-check-inline ">
-                            <input type="radio" value="0" class="form-check-input medium tatatertib2" name="tatatertib2" id="radio2" />
-                            <label class="col-form-label" for="tatatertib"> Tiada</label>
+                            <input type="radio" value="0" class="form-check-input medium tatatertib2" {{-- @role('user')onclick="return false;"@endrole--}} @if(!empty($tatatertib)){{ $tatatertib->pengesahan_tindakan == '0' ? 'checked' : '' }}@endif name="tatatertib2" id="radio2" />
+                            <label class="col-form-label" for="tatatertib"> Tiada </label>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
+                     {{-- @endrole --}}
                     <div class="form-group col-md-12">
                         <label class="col-form-label" for="">Jenis Hukuman (Jika Ada)</label>
-                        <input type="text" id="nama_hkm" class="form-control" name="nama_hkm" value="" placeholder="" />
+                        <input type="text" id="nama_hkm" class="form-control" name="nama_hkm" value="{{ empty($tatatertib) ? '' : $tatatertib->jenis_hukuman }}" placeholder="" {{-- @role('user') readonly @endrole --}}/>
                     </div>
                     <div class="form-group col-md-12">
                         <label class="col-form-label" for="">Tarikh Hukuman</label>
-                        <input type="text" class="form-control flatpickr-hkm tkh_hukuman" id="selesai_bayar" name="selesai_bayar"
-                                                    value="" />
+                        <input type="text" class="form-control flatpickr-hkm tkh_hukuman" id="selesai_bayar" name="selesai_bayar" value="@if(!empty($tatatertib)){{ empty($tatatertib->tkh_hukuman) ? '' : \Carbon\Carbon::parse($tatatertib->tkh_hukuman)->format('d-m-Y') }} @endif"/>
                     </div>
+                    @role(['secretariat','superadmin'])
                     <div class="col-md-12 d-flex justify-content-between">
                         <button type="button" class="btn btn-primary btn-prev btn-bpsm">
                             <i data-feather='send' class="align-middle mr-sm-25 mr-0"></i>
                             <span class="align-middle d-sm-inline-block d-none">Hantar</span>
                         </button>
                     </div>
+                    @endrole
                 </div>
             </div>
             </div>
         </div>
+        @endrole
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -849,8 +899,9 @@
                     <div class="row">
                         <div class="form-group col-md-12">
                             <div class="form-check form-check-inline">
-                                <input type="checkbox" class="form-check-input pengesahan_kbp medium" value="1" name="akuan_kbp" id="checkbox_akuan" />
-                                <label class="col-form-label" for="customCheck1">Saya telah menyemak butir-butir perkhidmatan pegawai di atas dan disahkan betul</label>
+
+                                <input type="checkbox" class="form-check-input pengesahan_kbp medium" value="1" name="akuan_kbp" id="checkbox_akuan" @if(!(\Laratrust::hasRole('clerk'))) onclick="return false;" @endif @if(!empty($pemohon->pengesahan_perkhidmatan_tkh)) checked @endif/>
+                                <label class="col-form-label" for="customCheck1">Saya telah menyemak butir-butir perkhidmatan pegawai di atas dan disahkan betul </label>
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
@@ -860,7 +911,7 @@
                                     <label class="col-form-label" for="first-name">Nama</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" id="" readonly class="form-control"placeholder="">
+                                    <input type="text" id="nama_kerani" readonly class="form-control nama_kerani" placeholder="" value="{{ empty($pemohon->pengesahan_perkhidmatan_nama) ? $clerk['name'] : $pemohon->pengesahan_perkhidmatan_nama }}">
                                 </div>
                             </div>
                         </div>
@@ -870,7 +921,7 @@
                                     <label class="col-form-label" for="first-name">Jawatan</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" id="" readonly class="form-control"placeholder="">
+                                    <input type="text" id="jawatan_kerani" readonly class="form-control jawatan_kerani" value="{{ empty($pemohon->pengesahan_perkhidmatan_jawatan) ? $clerk['jawatan'] : $pemohon->pengesahan_perkhidmatan_jawatan }}" placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -880,7 +931,7 @@
                                     <label class="col-form-label" for="first-name">Caw./Jabatan</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" id="" readonly class="form-control"placeholder="">
+                                    <input type="text" id="jabatan_kerani" readonly class="form-control jabatan_kerani" value="{{ empty($pemohon->pengesahan_perkhidmatan_cawangan) ? $clerk['waran_name']['bahagian'].','.$clerk['waran_name']['cawangan'] : $pemohon->pengesahan_perkhidmatan_cawangan }}" placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -890,20 +941,23 @@
                                     <label class="col-form-label" for="first-name">Tarikh</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" id="" readonly class="form-control"placeholder="">
+                                    <input type="text" id="tkh_kerani" readonly class="form-control tkh_kerani" placeholder="" value="{{ empty($pemohon->pengesahan_perkhidmatan_tkh) ? \Carbon\Carbon::parse(Date::now())->format('d-m-Y') : \Carbon\Carbon::parse($pemohon->pengesahan_perkhidmatan_tkh)->format('d-m-Y') }}">
                                 </div>
                             </div>
                         </div>
+                        @role(['clerk'])
                         <div class="col-md-12 d-flex justify-content-between">
                             <button type="button" class="btn btn-primary btn-prev btn-kbp">
                                 <i data-feather='send' class="align-middle mr-sm-25 mr-0"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Hantar</span>
                             </button>
                         </div>
+                        @endrole
                     </div>
                 </div>
             </div>
             </div>
+
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -912,22 +966,29 @@
                     <div class="card-body">
                         <div class="form-group col-md-12">
                             <div class="form-check form-check-inline ">
-                                <input type="radio" value="1" class="form-check-input medium radio-certified" name="terima_tawaran" id="radiol-1" />
+                                <input type="radio" value="1" class="form-check-input medium radio-certified" name="terima_tawaran" id="radiol-1" @if(!(\Laratrust::hasRole('hod'))) onclick="return false;" @endif @if($pemohon->perakuan_ketua_jabatan == 1) checked @endif/>
                                 <label class="col-form-label" for="tatatertib"> Diperakui</label>
                             </div>
                             <div class="form-check form-check-inline ">
-                                <input type="radio" value="0" class="form-check-input medium radio-certified" name="terima_tawaran" id="radiol-2" />
-                                <label class="col-form-label" for="tatatertib"> Tidak Diperakui</label>
+                                <input type="radio" value="0" class="form-check-input medium radio-certified" name="terima_tawaran" id="radiol-2" @if(!(\Laratrust::hasRole('hod'))) onclick="return false;" @endif @if(!empty($pemohon->perakuan_ketua_jabatan) && $pemohon->perakuan_ketua_jabatan == 0) checked @endif/>
+                                <label class="col-form-label" for="tatatertib"> Tidak Diperakui </label>
                             </div>
                             <div class="invalid-feedback"></div>
                         </div>
+
+                            <div class="form-group col-12">
+                                <span class="col-form-label">Ulasan</span>
+                                <textarea row=3 type="text" width="100%" id="ulasan_ketua" class="form-control ulasan_ketua" name="ulasan_ketua"  placeholder="Sila Berikan Ulasan Anda">{{ empty($pemohon->perakuan_ketua_jabatan_ulasan) ? '' : $pemohon->perakuan_ketua_jabatan_ulasan }}</textarea>
+                                <div class="invalid-feedback"></div>
+                            </div>
+
                         <div class="col-md-12">
                             <div class="form-group row">
                                 <div class="col-sm-2 col-form-label">
                                     <label class="col-form-label" for="first-name">Nama</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" id="" readonly class="form-control"placeholder="">
+                                    <input type="text" id="nama-ketua" value="{{ empty($pemohon->perakuan_ketua_jabatan_nama) ? $hod['name'] : $pemohon->perakuan_ketua_jabatan_nama  }}" readonly class="form-control nama-ketua" placeholder="">
                                 </div>
                             </div>
                         </div>
@@ -937,7 +998,7 @@
                                     <label class="col-form-label" for="first-name">Jawatan</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" id="" readonly class="form-control"placeholder="">
+                                    <input type="text" id="jawatan-ketua" readonly class="form-control jawatan-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_jawatan) ? $hod['jawatan'] : $pemohon->perakuan_ketua_jabatan_jawatan }}">
                                 </div>
                             </div>
                         </div>
@@ -947,7 +1008,7 @@
                                     <label class="col-form-label" for="first-name">Caw./Jabatan</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" id="" readonly class="form-control"placeholder="">
+                                    <input type="text" id="jabatan-ketua" readonly class="form-control jabatan-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_alamat_pejabat) ? $hod['waran_name']['bahagian'].','.$clerk['waran_name']['cawangan'] : $pemohon->perakuan_ketua_jabatan_alamat_pejabat }}">
                                 </div>
                             </div>
                         </div>
@@ -957,17 +1018,27 @@
                                     <label class="col-form-label" for="first-name">Tarikh</label>
                                 </div>
                                 <div class="col-sm-10">
-                                    <input type="text" id="" readonly class="form-control"placeholder="">
+                                    <input type="text" id="tkh-ketua" readonly class="form-control tkh-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_tkh) ? \Carbon\Carbon::parse(Date::now())->format('d-m-Y') : \Carbon\Carbon::parse($pemohon->perakuan_ketua_jabatan_tkh)->format('d-m-Y') }}">
                                 </div>
                             </div>
                         </div>
+                        @role('hod')
                         <div class="col-md-12 d-flex justify-content-between">
                             <button type="button" class="btn btn-primary btn-prev btn-hod">
                                 <i data-feather='send' class="align-middle mr-sm-25 mr-0"></i>
                                 <span class="align-middle d-sm-inline-block d-none">Hantar</span>
                             </button>
                         </div>
+                        @endrole
                     </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="col-md-12 d-flex justify-content-between">
+                    <button type="button" class="btn btn-primary btn-pdf">
+                        <i data-feather='download' class="align-middle mr-sm-25 mr-0"></i>
+                        <span class="align-middle d-sm-inline-block d-none">Muat Turun</span>
+                    </button>
                 </div>
             </div>
     </div>
@@ -976,5 +1047,8 @@
 @endsection
 
 @section('customJs')
+@include('web.sweet-alert-js')
+<script src="{{ asset('asset/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
+<script src="{{ asset('local/view_form/js/page_setting.js') }}"></script>
 <script src="{{ asset('local/view_form/js/index.js') }}"></script>
 @endsection

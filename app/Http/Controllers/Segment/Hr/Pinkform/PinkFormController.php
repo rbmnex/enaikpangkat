@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use PHP_CodeSniffer\Util\Common;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Mail;
 use App\Models\File;
 
 class PinkFormController extends Controller{
@@ -70,6 +71,20 @@ class PinkFormController extends Controller{
         $pemohon = CommonController::getModel(Pemohon::class, 1, $pink->id_pemohon);
         $pemohon->status = Pemohon::WAITING_REPLY;
         $pemohon->save();
+        $pemohon->loadMissing('pemohonPeribadi');
+        $content = [
+            'link' => url('/').'/pemangku/tawaran/update/'.$pemohon->id,
+            'pink' => url('/').'/common/id-download/'.$file->id
+        ];
+        //send email
+        Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
+            // testing purpose
+            $message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
+
+            //$message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
+            $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
+
+        });
 
         return response()->json([
             'success' => 1,

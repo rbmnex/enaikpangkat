@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\admin\UserMgmtController;
 use App\Http\Controllers\Form\UkpController;
+use App\Http\Controllers\Form\ViewController;
 use App\Http\Controllers\HR\PinkFormController;
 use App\Http\Controllers\Main\CommonController;
 use App\Http\Controllers\Test\FunctionController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\Urussetia\BatchMgmtController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('landing');
 });
 
 //test aku untuk vnat, nanti aku delete
@@ -121,9 +123,17 @@ Route::prefix('/urussetia')->group(function() {
 
     Route::prefix('/appl')->group(function() {
         Route::prefix('/main')->group(function() {
-            Route::get('/',[ApplicationController::class,'main_page']);
+            Route::get('/',[ApplicationController::class,'main_page'])->middleware(['auth']);
             Route::get('/list',[ApplicationController::class,'main_list']);
             Route::post('/delete',[ApplicationController::class,'delete_application']);
+            Route::get('/calon/main/{id}',[ApplicationController::class,'applicant_page']);
+            Route::get('/calon/list',[ApplicationController::class,'applicant_list']);
+        });
+        Route::prefix('/calon')->group(function() {
+            Route::get('/main/{id}',[ApplicationController::class,'applicant_page']);
+            Route::get('/load/list',[ApplicationController::class,'applicant_list']);
+            Route::get('/info',[ApplicationController::class,'applicant_info']);
+            Route::post('/verdict',[ApplicationController::class,'applicant_verdict']);
         });
     });
 });
@@ -143,7 +153,8 @@ Route::prefix('/form')->group(function() {
         Route::get('/final',function() {
             return view('form.message',['message' => 'Anda Telah Berjaya Menghantar Pemohonan Ini!']);
         });
-        Route::get('/view/{id}',[UkpController::class,'load_view']);
+        Route::get('/view/{id}',[ViewController::class,'load_view'])->middleware(['auth']);
+        Route::get('/eview/{encryted}',[ViewController::class,'secure_view'])->middleware(['auth']);
     });
 
     Route::prefix('/api')->group(function() {
@@ -158,7 +169,9 @@ Route::prefix('/form')->group(function() {
         Route::post('/loan/save',[UkpController::class,'save_loan']);
         Route::post('/submit',[UkpController::class,'submit_application']);
         Route::post('/cuti/upload',[UkpController::class,'upload_pengesahan']);
-
+        Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);;
+        Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);;
+        Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);;
     });
 });
 
@@ -183,11 +196,14 @@ Route::get('/test/file',function() {
 });
 
 Route::get('/test/view_pdf',function() {
-    return view('pdf.ukp12');
+     $pdf = PDF::loadView('pdf.ukp12', [], []);
+     return $pdf->stream();
+
+    //return view('pdf.ukp12');
 });
 
 Route::get('/test/pdf',function() {
-    return Ukp12Pdf::print(NULL);
+    return Ukp12Pdf::print_test();
     //exit;
 });
 

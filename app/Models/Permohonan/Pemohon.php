@@ -22,6 +22,8 @@ class Pemohon extends Model
     public const REJECTED_APPLICATION = "PT";
     // Sedang Diproses
     public const PROCESSING = "SP";
+    // tunggu keputusan
+    public const WAITING_VERDICT = "TK";
     // Lulus Lantikan
     public const SUCCESSED = "LL";
     // Gagal Lantikan
@@ -30,7 +32,7 @@ class Pemohon extends Model
     public const REFUSED = "PL";
     // Menunggu jawapan
     public const WAITING_REPLY = "MJ";
-    // Terima Lantikan
+    // Terima Lantikanmy
     public const ACCEPTED = "TL";
 
     public function  pemohonPeribadi(){

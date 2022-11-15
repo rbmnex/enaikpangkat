@@ -211,7 +211,7 @@ class BatchMgmtController extends Controller
 
                 $content = [
                     //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
-                    'link' => "http://mywebapp/form/ukp12/apply/".$secure_link,
+                    'link' => url('/')."/form/ukp12/apply/".$secure_link,
                     'gred' => $kod_gred,
                     'end_date' => Carbon::now()->addDays(14)->format('d M Y')
                 ];

@@ -11,6 +11,7 @@
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
+                    <th>Bil.</th>
                     <th>Kelayakkan Profesional / Pendaftaran Dengan Badan
                         Profesional</th>
                     <th>Badan Profesional Yang Diiktiraf</th>
@@ -20,6 +21,7 @@
                 <tbody id="tbody-profesional">
                 @foreach ($profile['profesional'] as $pro)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $pro->nama_kelulusan }}</td>
                         <td>{{ $pro->institusi }}</td>
                         <td>{{ $pro->no_pendaftaran }}</td>
@@ -28,7 +30,7 @@
                 @endforeach
                 @if($profile['profesional']->count() == 0)
                 <tr data-profesional-id="">
-                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                    <td colspan="5" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 
 
@@ -42,10 +44,10 @@
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-primary btn-prev">
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
-            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+            <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
         </button>
         <button type="button" class="btn btn-primary btn-next">
-            <span class="align-middle d-sm-inline-block d-none">Next</span>
+            <span class="align-middle d-sm-inline-block d-none">Selanjutnya</span>
             <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
         </button>
     </div>

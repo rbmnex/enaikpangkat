@@ -89,7 +89,7 @@ class Ukp12Pdf extends Fpdf {
         $this->Ln(4);
         $this->Cell(75,4,' Tarikh lantikan perkhidmatan (semasa J41) ','L',0,'L');
         $this->Cell(4,4,' : ',0,0,'L');
-        $this->Cell(0,4,empty($input)? '' : \Carbon\Carbon::parse($input->tkh_lantikan)->format('d-m-Y'),'R',0,'L');
+        $this->Cell(0,4,empty($input)? '' : \Carbon\Carbon::parse($input->tkh_lantikan_j41)->format('d-m-Y'),'R',0,'L');
         $this->Ln(4);
         $this->Cell(75,4,' Tarikh * disahkan jawatan / naik pangkat terkini ','L',0,'L');
         $this->Cell(4,4,' : ',0,0,'L');
@@ -238,6 +238,49 @@ class Ukp12Pdf extends Fpdf {
         $this->Cell(0,5,'* potong mana yang tidak berkenaan','',0,'L');
     }
 
+    function pengistiharan_harta() {
+        $this->SetFont('Arial','',10);
+        $this->Cell(0,10,'','TLR',0,'L');
+        $this->Ln(10);
+        $this->Cell(30,20,' Alamat Tempat Bertugas : ','L',0,'L');
+        $this->Cell(0,20,'CAWANGAN KERJA BANGUNAN AM 1
+        IBU PEJABAT JKR MALAYSIA
+        TINGKAT 13,13A & 17, MENARA PJD
+        NO.50, JALAN TUN RAZAK
+        50400 KUALA LUMPUR','RT',0,'L');
+        $this->Ln(20);
+        $this->Cell(30,5,'No. Telefon   : (Pejabat) ','L',0,'L');
+        $this->Cell(0,5,'07-78902341','R',0,'L');
+        $this->Ln(5);
+        $this->Cell(30,5,'No. Faksimili : ','L',0,'L');
+        $this->Cell(0,5,'07-78908901','R',0,'L');
+        $this->Ln(5);
+        $this->Cell(30,5,'No. Telefon (Bimbit) : ','L',0,'L');
+        $this->Cell(0,5,'011-78915671','R',0,'L');
+        $this->Ln(5);
+        $this->Cell(30,5,'E-mel : ','R',0,'L');
+        $this->Cell(0,5,'raihan_mambo@jkr.gov.my','L',0,'L');
+        $this->Ln(5);
+        $this->Cell(0,20,'','LRB',0,'L');
+        $this->Ln(20);
+        $this->Cell(0,10,'','LR',0,'L');
+        $this->Ln(10);
+        $this->Cell(0,10,'Pengisytiharan Harta','LR',0,'L');
+        $this->Ln(10);
+        $this->Cell(50,10,'Tarikh Akhir Pengisytiharan Harta Terkini : ','R',0,'L');
+        $this->Cell(0,10,'10-10-2020','R',0,'L');
+        $this->Ln(10);
+        $this->SetFont('Arial','BI',10);
+        $this->Cell(0,10,'* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama','LR',0,'L');
+        $this->Ln(10);
+        $this->Cell(0,10,'','LR',0,'L');
+        $this->Ln(10);
+        $this->Cell(0,10,'* Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir','LR',0,'L');
+        $this->Ln(10);
+        $this->Cell(0,20,'','LRB',0,'L');
+        $this->Ln(20);
+    }
+
     public static function print($input) {
         $pdf = new Ukp12Pdf;
         $pdf->AliasNbPages();
@@ -246,6 +289,14 @@ class Ukp12Pdf extends Fpdf {
         $pdf->isi($input);
         $pdf->butirPeribadi($input);
         //$pdf->AddPage();
+        $pdf->Output('I','Permohonan_UKP12',true);
+    }
+
+    public static function print_test() {
+        $pdf = new Ukp12Pdf;
+        $pdf->AliasNbPages();
+        $pdf->AddPage();
+        $pdf->pengistiharan_harta();
         $pdf->Output('I','Permohonan_UKP12',true);
     }
 }

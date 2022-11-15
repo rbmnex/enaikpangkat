@@ -75,24 +75,29 @@
             <input type="text" readonly id="sect-2-emel" class="form-control" name="emel" value="{{ $profile['email'] }}" placeholder="Emel"/>
             <div class="invalid-feedback"></div>
         </div>
-        <div class="form-group col-md-12">
-            <label class="col-form-label" for="email-id">Muat Naik Borang Pengesahan (Disahkan oleh Kerani Perkhidmatan)</label>
-            <div class="invalid-feedback"></div>
-        </div>
+
         <div class="form-group d-flex justify-content-between col-md-12">
-            <div class="file btn btn-primary">
+            <a class="btn-download">
+
+                <img src="{{ asset('images/pdf_icon_1.png') }}" />
+                <span style="color: red; font-size: 0.857rem; !important; font-style: italic;" class="align-middle d-sm-inline-block d-none">* Sila Muat Turun Borang Pengesahan Ini (perlu disahkan oleh Kerani Perkhidmatan). Calon perlu memuat naik semula dokumen yang telah disahkan.</span>
+            </a>
+        </div>
+        <div class="form-group col-md-12">
+            <div class="file btn btn-success">
                 <i data-feather='upload'></i>  Muat Naik
                 <input class="form-control file-input cuti-upload" type="file" id="cuti_sah" name="cuti_sah"/>
             </div>
             <span class="col-form-label cuti-file">{{ $profile['file_cuti'] }}</span>
             <div class="invalid-feedback"></div>
-            <button class="btn btn-warning btn-download">
-                <span class="align-middle d-sm-inline-block d-none">Muat Turun</span>
-                <i data-feather="download" class="align-middle ml-sm-25 ml-0"></i>
-            </button>
+
         </div>
-        <div class="form-group col-md-12">
+        {{-- <div class="form-group col-md-12">
             <div class="invalid-feedback cuti-error"></div>
+        </div> --}}
+        <div class="col-md-12">
+            <label style="color: red; font-size: 0.857rem; !important; font-style: italic;" class="col-form-label" for="email-id"></label>
+            <div class="invalid-feedback"></div>
         </div>
     </div>
     {{-- <br/>
@@ -100,10 +105,10 @@
         <div class="d-flex justify-content-between">
             <button  class="btn btn-primary btn-prev">
                 <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
-                <span class="align-middle d-sm-inline-block d-none">Previous</span>
+                <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
             </button>
             <button class="btn btn-primary btn-next">
-                <span class="align-middle d-sm-inline-block d-none">Next</span>
+                <span class="align-middle d-sm-inline-block d-none">Selanjutnya</span>
                 <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
             </button>
         </div>

@@ -67,6 +67,7 @@ class PengesahanBahagianController extends Controller{
         $data->perakuan_ketua_jabatan = 1;
         $data->save();
 
+
         return redirect()->action(
             [PengesahanBahagianController::class, 'index']
         );

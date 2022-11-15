@@ -10,6 +10,7 @@
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
+
                     <th>Jawatan</th>
                     <th>Nama Pertubuhan</th>
                     <th>Tahun</th>
@@ -18,6 +19,7 @@
                 <tbody id="tbody-badan">
                 @foreach ($profile['pertubuhan'] as $org)
                     <tr data-pertubuhan-id="{{ $org->id }}">
+
                         <td>{{ $org->jawatan }}</td>
                         <td>{{ $org->nama }}</td>
                         <td>{{ $org->tahun }}</td>
@@ -40,10 +42,10 @@
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-primary btn-prev">
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
-            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+            <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
         </button>
         <button type="button" class="btn btn-primary btn-next">
-            <span class="align-middle d-sm-inline-block d-none">Next</span>
+            <span class="align-middle d-sm-inline-block d-none">Selanjutnya</span>
             <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
         </button>
     </div>

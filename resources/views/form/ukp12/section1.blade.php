@@ -33,12 +33,12 @@
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
-            <label class="col-form-label" for="vertical-email">Tarikh Lantikan Perkhidmatan</label>
-            <input type="text" id="sect-1-tkh_lantik" readonly name="tkh_lantikan" class="form-control" value="{{ \Carbon\Carbon::parse($profile['tkh_lantikan'])->format('d-m-Y')  }}" placeholder=""  />
+            <label class="col-form-label" for="vertical-email">Tarikh Lantikan Perkhidmatan (semasa J41)</label>
+            <input type="text" id="sect-1-tkh_lantik" readonly name="tkh_lantikan" class="form-control" value="{{ \Carbon\Carbon::parse($profile['tkh_lantikan_j41'])->format('d-m-Y')  }}" placeholder=""  />
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
-            <label class="col-form-label" for="vertical-email">Tarikh Disahkan Jawatan</label>
+            <label class="col-form-label" for="vertical-email">Tarikh disahkan jawatan / naik pangkat terkini</label>
             <input type="text" id="sect-1-tkh_sah" readonly name="tkh_sah" class="form-control" value="{{ \Carbon\Carbon::parse($profile['tkh_sah'])->format('d-m-Y') }}" placeholder=""  />
             <div class="invalid-feedback"></div>
         </div>
@@ -51,10 +51,10 @@
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-outline-secondary btn-prev" disabled>
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
-            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+            <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
         </button>
         <button type="button" class="btn btn-primary btn-next">
-            <span class="align-middle d-sm-inline-block d-none">Next</span>
+            <span class="align-middle d-sm-inline-block d-none">Selanjutnya</span>
             <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
         </button>
     </div>

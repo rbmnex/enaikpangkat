@@ -10,6 +10,8 @@ $('.div-loan-5').hide();
 $('.div-loan-6').hide();
 $('.div-loan-7').hide();
 
+$('.reason_reject').hide();
+
 var bsStepper = document.querySelectorAll('.bs-stepper'),
 verticalWizard = document.querySelector('.vertical-wizard-example'),
 select = $('.select2');

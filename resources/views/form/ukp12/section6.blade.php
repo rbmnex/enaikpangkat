@@ -12,6 +12,7 @@
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
                 <thead>
+                    <th>Bil.</th>
                     <th>Gelaran Jawatan</th>
                     <th>Penempatan</th>
                     <th>Tahun Berkhidmat</th>
@@ -19,14 +20,15 @@
                 <tbody id="tbody-khidmat">
                     @foreach ($profile['pengalaman'] as $pengalaman)
                     <tr>
+                        <td>{{ $loop->iteration }}</td>
                         <td>{{ $pengalaman->gelaran_jawatan->gelaran_jawatan ?? '' }}</td>
                         <td>{{ $pengalaman->tempat }}</td>
-                        <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula )->format('d-m-Y') }}</td>
+                        <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula )->format('Y') }}</td>
                     </tr>
                     @endforeach
                     @if($profile['pengalaman']->count() == 0)
                     <tr data-pengalaman-id="">
-                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                     </tr>
 
 
@@ -41,10 +43,10 @@
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-primary btn-prev">
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
-            <span class="align-middle d-sm-inline-block d-none">Previous</span>
+            <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
         </button>
         <button type="button" class="btn btn-primary btn-next">
-            <span class="align-middle d-sm-inline-block d-none">Next</span>
+            <span class="align-middle d-sm-inline-block d-none">Selanjutnya</span>
             <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
         </button>
     </div>

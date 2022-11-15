@@ -63,7 +63,7 @@ class ListPegawai2 extends Model
      public static function kelayakan($ic){
         $data= [];
 
-        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '!=','8,9,10,20,21,22,23')->get();
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '!=',[8,9,10,20])->get();
 
         if($model){
             foreach($model as $m){
@@ -83,8 +83,6 @@ class ListPegawai2 extends Model
    public static function isytiharHarta($ic){
         $data= [];
 
-        
-
         $model = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','=','L8')->orderBy('tkh_mula_peristiwa', 'desc')->first();
 
 
@@ -96,7 +94,7 @@ class ListPegawai2 extends Model
         }
 
         return $data;
-    } 
+    }
 
     public static function aPC($ic){
         $data= [];
@@ -226,7 +224,7 @@ class ListPegawai2 extends Model
     public static function markah($ic){
         $data= [];
 
-        
+
         $model = Markah::where('nokp', $ic)->orderBy('tahun', 'desc')->limit(3)->get();
 
         if($model){
@@ -249,8 +247,8 @@ class ListPegawai2 extends Model
 
         if($model){
             foreach($model as $m){
-              
-                
+
+
                 $data[] = [
 //                     $datetime1 = new DateTime($m->tkh_mula);
 // $datetime2 = new DateTime($m->tkh_tamat);
@@ -282,7 +280,7 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 // $diff=date_diff($m->tkh_mula,$m->tkh_tamat);
-                
+
                 $data[] = [
                     'tempat' => $m->tempat,
                     'mula' => $m->tkh_mula ? $m->tkh_mula :'',
@@ -303,7 +301,7 @@ class ListPegawai2 extends Model
 
 
 
-   
+
 
     public static function professional($ic){
         $data= [];
@@ -345,7 +343,7 @@ class ListPegawai2 extends Model
                     'tkh_mula_gred_hakiki' =>$model->tkh_lantik ? $model->tkh_lantik :''
                 ];
             }
-        
+
 
         return $data;
     }

@@ -80,16 +80,16 @@
                 </div>
                 <div class="row roles-list">
                     {{-- loop here --}}
-                    {{-- @foreach ($roles as $role)
+                    @foreach ($roles as $role)
                     <div class="col-xl-3 col-md-4 col-12">
                         <div class="form-group">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" name="roles" class="custom-control-input role-checkbox role-{{ $role->name }}" id="{{ $role->id }}-{{ $role->name }}" data-role-id="{{ $role->id }}" onClick="this.checked=!this.checked;" />
-                                <label class="custom-control-label" for="{{ $role->display_name }}">{{ $role->display_name }}</label>
+                            <div class="form-check form-check-inline">
+                                <input type="checkbox" name="roles-{{ $role->name }}" class="role-{{ $role->name }} form-check-input role-checkbox medium" id="{{ $role->id }}-{{ $role->name }}" data-role-id="{{ $role->id }}" />
+                                <label class="col-form-label" for="{{ $role->display_name }}">{{ $role->display_name }}</label>
                             </div>
                         </div>
                     </div>
-                    @endforeach --}}
+                    @endforeach
                     {{-- end loop --}}
                 </div>
             </div>
