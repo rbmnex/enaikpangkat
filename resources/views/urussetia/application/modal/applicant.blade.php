@@ -41,8 +41,13 @@
                             <input type="radio" value="0" class="form-check-input medium radio-verdict" name="keputusan" id="radio-verdict-2"/>
                             <label class="col-form-label" for="tatatertib"> GAGAL</label>
                         </div>
+                        <div class="form-check form-check-inline ">
+                            <input type="radio" value="2" class="form-check-input medium radio-verdict" name="keputusan" id="radio-verdict-3"/>
+                            <label class="col-form-label" for="tatatertib"> SIMPANAN</label>
+                        </div>
                         <div class="invalid-feedback"></div>
                     </div>
+                    <input id="pemohon-id-modal" class="pemohon-id-modal" type="hidden"/>
                 </div>
             </div>
             <div class="modal-footer">

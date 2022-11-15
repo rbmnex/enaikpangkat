@@ -8,10 +8,8 @@ use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PermohonanUkp12;
 use App\Models\Urussetia\Kumpulan;
 use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Yajra\DataTables\DataTables;
 
 class ApplicationController extends Controller
@@ -66,7 +64,8 @@ class ApplicationController extends Controller
                 'nama' => $peribadi->nama,
                 'nokp' => $peribadi->nokp,
                 'jawatan' => $pemohon->jawatan,
-                'gred' => $pemohon->gred
+                'gred' => $pemohon->gred,
+                'status' => $pemohon->status
             ]
         ]);
     }
@@ -79,10 +78,12 @@ class ApplicationController extends Controller
         $pemohon_id = $request->input('pemohon_id');
         $verdict = $request->input('verdict');
         $record =  Pemohon::find($pemohon_id);
-        if($verdict) {
+        if($verdict == 1) {
             $record->status = Pemohon::SUCCESSED;
-        } else {
+        } else if($verdict == 0){
             $record->status = Pemohon::FAILED;
+        } else if($verdict == 2){
+            $record->status = Pemohon::RESERVE;
         }
         $record->updated_by = Auth::user()->nokp;
 
@@ -151,7 +152,7 @@ class ApplicationController extends Controller
                     $info['status'] = 'Tolak Tawaran';
                     $info['colour'] = 'danger';
                 } else if($pemohon->status == Pemohon::PROCESSING) {
-                    $info['status'] = 'Tunggu Proses';
+                    $info['status'] = 'Dalam Proses';
                     $info['colour'] = 'warning';
                 } else if($pemohon->status == Pemohon::SUCCESSED) {
                     $info['status'] = 'Calon Berjaya';
@@ -169,7 +170,10 @@ class ApplicationController extends Controller
                     $info['status'] = 'Terima Lantikan';
                     $info['colour'] = 'primary';
                 } else if($pemohon->status == Pemohon::WAITING_VERDICT) {
-                    $info['status'] = 'Tunggu Keputusan';
+                    $info['status'] = 'Tunggu Keputusan LKPPA';
+                    $info['colour'] = 'warning';
+                } else if($pemohon->status == Pemohon::RESERVE) {
+                    $info['status'] = 'Calon Simpanan';
                     $info['colour'] = 'warning';
                 }
             } else {
@@ -189,6 +193,7 @@ class ApplicationController extends Controller
             $info['gred'] = $pegawai->kod_gred;
             $info['status'] = 'Tiada Tindakan';
             $info['pemohon_id'] = 0;
+            $info['colour'] = 'danger';
         }
 
         return $info;

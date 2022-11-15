@@ -34,6 +34,8 @@ class Pemohon extends Model
     public const WAITING_REPLY = "MJ";
     // Terima Lantikanmy
     public const ACCEPTED = "TL";
+    // Simpanan (lulus)
+    public const RESERVE = "LS";
 
     public function  pemohonPeribadi(){
         return $this->hasOne(Peribadi::class, 'id', 'id_peribadi');
@@ -53,5 +55,9 @@ class Pemohon extends Model
 
     public function file() {
         return $this->hasOne(File::class, 'id', 'pengesahan_cuti');
+    }
+
+    public function form() {
+        return $this->hasOne(File::class, 'id', 'form_file');
     }
 }

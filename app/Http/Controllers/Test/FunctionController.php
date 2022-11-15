@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Profail\Penempatan;
 use App\Models\Profail\Peribadi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use PDF;
@@ -130,5 +131,10 @@ class FunctionController extends Controller
         $pdf = PDF::loadView('pdf.ukp12');
         //return $pdf->download('test_pdf.pdf');
         return $pdf->stream();
+    }
+
+    public function encrypt(Request $request) {
+        $encrypt = Crypt::encryptString($request->input('input'));
+        return $encrypt;
     }
 }

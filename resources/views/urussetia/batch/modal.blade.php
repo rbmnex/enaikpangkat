@@ -69,7 +69,7 @@
                                 {{-- <th>gred</th>
                                 <th>jurusan</th>
                                 <th>penempatan</th> --}}
-                                <th>tarikh lantikan</th>
+                                <th>tarikh lantikan / naik pangkat</th>
                                 <th>kekananan<th>
                             </tr>
                         </thead>
@@ -176,7 +176,7 @@
                                 {{-- <th>gred</th>
                                 <th>jurusan</th>
                                 <th>penempatan</th> --}}
-                                <th>tarikh lantikan</th>
+                                <th>tarikh lantikan / naik pangkat</th>
                                 <th>kekananan</th>
                                 <th>aksi</th>
                             </tr>

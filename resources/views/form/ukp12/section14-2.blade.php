@@ -4,134 +4,20 @@
         <small class="text-muted"></small>
     </div>
         <div class="row">
-            <div class="col-xl-12 col-md-6 col-12 mb-1 search-section">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Carian Ketua Bahagian Perkhidmatan/Pentadbiran </label>
-                    <select class="pengguna-carian form-control" id="select2-ajax"></select>
-                    <div class="invalid-feedback"></div>
-                </div>
+            <div class="form-group col-md-12">
+                <a class="btn-form-download">
+                    <img src="{{ asset('images/pdf_icon_1.png') }}" />
+                    <span style="color: red; font-size: 0.857rem; !important; font-style: italic;" class="align-middle d-sm-inline-block d-none">* Sila Muat Turun Borang Pemangkuan UKP 12 ini selepas mengisi (perlu disahkan oleh Kerani Perkhidmatan dan diperakui oleh Ketua Jabatan). Calon perlu memuat naik semula dokumen yang telah disahkan.</span>
+                </a>
             </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">No. KP</label>
-                    <input type="text" class="form-control pengguna-nokp" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
+            <div class="form-group col-md-12">
+                <div class="file btn btn-success">
+                    <i data-feather='upload'></i>  Muat Naik
+                    <input class="form-control file-input form-kader-upload" type="file" id="kader_file" name="kader_file"/>
                 </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Nama</label>
-                    <input type="text" class="form-control pengguna-nama" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Jawatan</label>
-                    <input type="text" class="form-control pengguna-jawatan" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Emel</label>
-                    <input type="text" class="form-control pengguna-email" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Unit</label>
-                    <input type="text" class="form-control pengguna-unit" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Bahagian</label>
-                    <input type="text" class="form-control pengguna-bahagian" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Cawangan</label>
-                    <input type="text" class="form-control pengguna-cawangan" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl- col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Pejabat</label>
-                    <input type="text" class="form-control pengguna-pejabat" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-        </div>
+                <span class="col-form-label kader-file"></span>
+                <div class="invalid-feedback"></div>
 
-        <div class="row">
-            <div class="col-xl-12 col-md-6 col-12 mb-1 search-section">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Carian Ketua Jabatan/Bahagian</label>
-                    <select class="pegawai-carian form-control" id="select2-ajax-1"></select>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">No. KP</label>
-                    <input type="text" class="form-control pegawai-nokp" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Nama</label>
-                    <input type="text" class="form-control pegawai-nama" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Jawatan</label>
-                    <input type="text" class="form-control pegawai-jawatan" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Emel</label>
-                    <input type="text" class="form-control pegawai-email" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Unit</label>
-                    <input type="text" class="form-control pegawai-unit" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Bahagian</label>
-                    <input type="text" class="form-control pegawai-bahagian" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl-6 col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Cawangan</label>
-                    <input type="text" class="form-control pegawai-cawangan" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
-            </div>
-            <div class="col-xl- col-md-6 col-12 mb-1">
-                <div class="form-group">
-                    <label for="basicInput col-form-label">Pejabat</label>
-                    <input type="text" class="form-control pegawai-pejabat" id="basicInput" placeholder="" readonly/>
-                    <div class="invalid-feedback"></div>
-                </div>
             </div>
         </div>
 

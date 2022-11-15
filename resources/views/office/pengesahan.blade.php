@@ -11,17 +11,17 @@
     <div class="content-header-left col-md-9 col-12 mb-2">
         <div class="row breadcrumbs-top">
             <div class="col-12">
-                <h2 class="content-header-title float-left mb-0">Pengurusan Permohonan</h2>
-                <div class="breadcrumb-wrapper">
+                <h2 class="content-header-title float-left mb-0">Pengesahan Borang</h2>
+                {{-- <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
                         </li>
-                        <li class="breadcrumb-item">BPSM
+                        <li class="breadcrumb-item">Pegawai
                         </li>
                         <li class="breadcrumb-item active"><a href="#">Pengurusan Permohonan</a>
                         </li>
                     </ol>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -31,12 +31,13 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <table class="datatables table table-borang">
+                <table class="datatables table table-disah">
                     <thead>
                         <tr>
+                            <th>no kad pengenalan</th>
                             <th>nama</th>
-                            <th>gred</th>
-                            <th>disiplin</th>
+                            <th>jawatan</th>
+                            <th>borang</th>
                             <th>tindakan</th>
                         </tr>
                     </thead>

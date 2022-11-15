@@ -50,12 +50,12 @@
     </div>
     <br/>
     <div class="row">
-        <div class="col-form-group col-md-12">
+        <div class="form-group col-md-12">
             <label class="col-form-label" for="alamat_bertugas">Alamat Tempat Bertugas</label>
             <textarea row=6 readonly id="sect-2-alamat_pej" class="form-control" name="alamat_bertugas" value="" placeholder="">{{ $profile['alamat_pejabat'] }}</textarea>
             <div class="invalid-feedback"></div>
         </div>
-        <div class="col-form-group col-md-6">
+        <div class="form-group col-md-6">
             <label class="col-form-label" for="no_tel_pejabat">No Telefon Pejabat</label>
             <input type="text" readonly id="sect-2-tel_pejabat" class="form-control" name="no_tel_pejabat" value="{{ $profile['tel_pejabat'] }}" placeholder=""/>
             <div class="invalid-feedback"></div>

@@ -41,12 +41,15 @@ DatatableUI.init({
                 var btn = '';
                 var status =  full.status
                 if( (status != 'Tiada Tindakan') && (status != 'Belum Siap')) {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Lihat</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Kemaskini</button>';
+                    // btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-lnpt">'+ feather.icons['file-text'].toSvg() +' LNPT</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
-                }
-                if(status == 'Tunggu Keputusan') {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
                 }
+                // if(status == 'Tunggu Keputusan LKPPA') {
+
+                // }
+
 
                 return btn;
             }
