@@ -807,7 +807,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
 
     }
 
-    private function load_info($profile,$nokp,$pemohon) {
+    public function load_info($profile,$nokp,$pemohon) {
         $khidmat = DB::connection('pgsqlmykj')->table('perkhidmatan as p')
         ->join('l_jawatan as j', 'j.kod_jawatan','p.kod_jawatan')
         ->select('p.kod_gred','p.kod_jawatan','j.jawatan', 'p.tkh_lantik', 'p.tkh_sah_perkhidmatan')

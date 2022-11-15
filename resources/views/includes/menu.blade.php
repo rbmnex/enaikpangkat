@@ -69,6 +69,12 @@
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Lampiran</span>
                             </a>
                     </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="/bpsm/question/">
+                            <i data-feather='link-2'></i>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">LNPK Bank Soalan</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             @endrole
@@ -137,6 +143,20 @@
                     </li>
                 </ul>
             </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Naik Pangkat</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="/naikpangkat/ukp13/">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">UKP 13</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             @endrole
             @role(['clerk','superadmin'])
             <li class=" nav-item">
@@ -153,6 +173,7 @@
                     </li>
                 </ul>
             </li>
+
             @endrole
             @role(['hod','superadmin'])
             <li class=" nav-item">
@@ -165,6 +186,22 @@
                         <a class="d-flex align-items-center" href="/kj/pengesahan-pink/">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            @endrole
+            @role(['supervisor'])
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Penyelia</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="/penyelia/lpnk/">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Borang LPNK</span>
                         </a>
                     </li>
                 </ul>
