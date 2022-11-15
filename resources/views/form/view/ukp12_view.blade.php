@@ -187,6 +187,7 @@
                             <input type="text" readonly id="sect-2-emel" class="form-control" name="emel" value="{{ $peribadi->email }}" placeholder="Emel"/>
                             <div class="invalid-feedback"></div>
                         </div>
+                        @if($pemohon->jenis_penempatan != 2)
                         <div class="form-group col-md-12">
                             <span class="col-form-label cuti-file">{{ $pemohon->file->filename }}</span>
                             <button class="btn btn-warning btn-download" data-file-id="{{ $pemohon->pengesahan_cuti }}">
@@ -194,6 +195,7 @@
                                 <i data-feather="download" class="align-middle ml-sm-25 ml-0"></i>
                             </button>
                         </div>
+                        @endif
                         {{-- <div class="form-group col-md-12">
                             <label class="col-form-label" for="email-id">Muat Naik Borang Pengesahan (Disahkan oleh Kerani Perkhidmatan)</label>
                             <div class="invalid-feedback"></div>
@@ -811,234 +813,17 @@
                 </div>
             </div>
         </div>
-        @role(['secretariat','superadmin','user'])
-        <div class="col-12">
-            <div class="card" style="background-color: greenyellow;">
-            <div class="card-header">
-                <h4 class="card-title">UNTUK TINDAKAN URUS SETIA KENAIKAN PANGKAT</h4>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="form-group col-md-12">
-                        <label class="col-form-label" for="">Markah LNPT TerkinI (Tiga (3) Tahun Terakhir)</label>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <table style="border-collapse: collapse; " class="table">
-                            <tbody>
-                                <tr>
-                                    <td class="cell head-cell">Tahun</td>
-                                    @foreach($lnpt as $m)
-                                    <td class="cell">{{ $m->tahun }}</td>
-                                    @endforeach
-                                </tr>
-                                <tr>
-                                    <td class="cell head-cell">Markah</td>
-                                    @foreach($lnpt as $p)
-                                    <td class="cell">
-                                        <div class="form-group">
-                                        <input type="number" id="markah-{{ $p->tahun }}" class="markah-lnpt form-control" data-tahun-lnpt="{{ $p->tahun }}" value="{{ $p->purata }}">
-                                        <div class="invalid-feedback"></div>
-                                        </div>
-                                    </td>
-                                    @endforeach
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="col-form-label" style="font-style: italic" for=""><b>* Pegawai KADER perlu memajukan salinan LNPT yang telah disahkan oleh pejabat</b></label>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="col-form-label" style="font-style: italic" for=""><b>* Sekiranya menggunakan Laporan Nilaian Prestasi Khas (LNPK), LNPK tersebut perlu disahkan dan disertakan bersama.</b></label>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="col-form-label" for="">Pengesahan Tindakan Tatatertib</label>
-                    </div>
-                    {{-- @role(['superadmin','secretariat']) --}}
-                    <div class="form-group col-md-12">
-                        <div class="form-check form-check-inline ">
-                            <input type="radio" value="1" class="form-check-input medium tatatertib2" {{-- @role('user')onclick="return false;"@endrole --}} @if(!empty($tatatertib)){{ $tatatertib->pengesahan_tindakan == '1' ? 'checked' : '' }}@endif name="tatatertib2" id="radio1" />
-                            <label class="col-form-label" for="tatatertib"> Ada</label>
-                        </div>
-                        <div class="form-check form-check-inline ">
-                            <input type="radio" value="0" class="form-check-input medium tatatertib2" {{-- @role('user')onclick="return false;"@endrole--}} @if(!empty($tatatertib)){{ $tatatertib->pengesahan_tindakan == '0' ? 'checked' : '' }}@endif name="tatatertib2" id="radio2" />
-                            <label class="col-form-label" for="tatatertib"> Tiada </label>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
-                     {{-- @endrole --}}
-                    <div class="form-group col-md-12">
-                        <label class="col-form-label" for="">Jenis Hukuman (Jika Ada)</label>
-                        <input type="text" id="nama_hkm" class="form-control" name="nama_hkm" value="{{ empty($tatatertib) ? '' : $tatatertib->jenis_hukuman }}" placeholder="" {{-- @role('user') readonly @endrole --}}/>
-                    </div>
-                    <div class="form-group col-md-12">
-                        <label class="col-form-label" for="">Tarikh Hukuman</label>
-                        <input type="text" class="form-control flatpickr-hkm tkh_hukuman" id="selesai_bayar" name="selesai_bayar" value="@if(!empty($tatatertib)){{ empty($tatatertib->tkh_hukuman) ? '' : \Carbon\Carbon::parse($tatatertib->tkh_hukuman)->format('d-m-Y') }} @endif"/>
-                    </div>
-                    @role(['secretariat','superadmin'])
-                    <div class="col-md-12 d-flex justify-content-between">
-                        <button type="button" class="btn btn-primary btn-prev btn-bpsm">
-                            <i data-feather='send' class="align-middle mr-sm-25 mr-0"></i>
-                            <span class="align-middle d-sm-inline-block d-none">Hantar</span>
-                        </button>
-                    </div>
-                    @endrole
-                </div>
-            </div>
-            </div>
-        </div>
-        @endrole
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">PENGESAHAN KETUA BAHAGIAN PERKHIDMATAN</h4>
-                </div>
-                <div class="card-body">
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <div class="form-check form-check-inline">
-
-                                <input type="checkbox" class="form-check-input pengesahan_kbp medium" value="1" name="akuan_kbp" id="checkbox_akuan" @if(!(\Laratrust::hasRole('clerk'))) onclick="return false;" @endif @if(!empty($pemohon->pengesahan_perkhidmatan_tkh)) checked @endif/>
-                                <label class="col-form-label" for="customCheck1">Saya telah menyemak butir-butir perkhidmatan pegawai di atas dan disahkan betul </label>
-                            </div>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label class="col-form-label" for="first-name">Nama</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="text" id="nama_kerani" readonly class="form-control nama_kerani" placeholder="" value="{{ empty($pemohon->pengesahan_perkhidmatan_nama) ? $clerk['name'] : $pemohon->pengesahan_perkhidmatan_nama }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label class="col-form-label" for="first-name">Jawatan</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="text" id="jawatan_kerani" readonly class="form-control jawatan_kerani" value="{{ empty($pemohon->pengesahan_perkhidmatan_jawatan) ? $clerk['jawatan'] : $pemohon->pengesahan_perkhidmatan_jawatan }}" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label class="col-form-label" for="first-name">Caw./Jabatan</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="text" id="jabatan_kerani" readonly class="form-control jabatan_kerani" value="{{ empty($pemohon->pengesahan_perkhidmatan_cawangan) ? $clerk['waran_name']['bahagian'].','.$clerk['waran_name']['cawangan'] : $pemohon->pengesahan_perkhidmatan_cawangan }}" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label class="col-form-label" for="first-name">Tarikh</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="text" id="tkh_kerani" readonly class="form-control tkh_kerani" placeholder="" value="{{ empty($pemohon->pengesahan_perkhidmatan_tkh) ? \Carbon\Carbon::parse(Date::now())->format('d-m-Y') : \Carbon\Carbon::parse($pemohon->pengesahan_perkhidmatan_tkh)->format('d-m-Y') }}">
-                                </div>
-                            </div>
-                        </div>
-                        @role(['clerk'])
-                        <div class="col-md-12 d-flex justify-content-between">
-                            <button type="button" class="btn btn-primary btn-prev btn-kbp">
-                                <i data-feather='send' class="align-middle mr-sm-25 mr-0"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Hantar</span>
-                            </button>
-                        </div>
-                        @endrole
-                    </div>
-                </div>
-            </div>
-            </div>
-
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">PERAKUAN KETUA JABATAN</h4>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group col-md-12">
-                            <div class="form-check form-check-inline ">
-                                <input type="radio" value="1" class="form-check-input medium radio-certified" name="terima_tawaran" id="radiol-1" @if(!(\Laratrust::hasRole('hod'))) onclick="return false;" @endif @if($pemohon->perakuan_ketua_jabatan == 1) checked @endif/>
-                                <label class="col-form-label" for="tatatertib"> Diperakui</label>
-                            </div>
-                            <div class="form-check form-check-inline ">
-                                <input type="radio" value="0" class="form-check-input medium radio-certified" name="terima_tawaran" id="radiol-2" @if(!(\Laratrust::hasRole('hod'))) onclick="return false;" @endif @if(!empty($pemohon->perakuan_ketua_jabatan) && $pemohon->perakuan_ketua_jabatan == 0) checked @endif/>
-                                <label class="col-form-label" for="tatatertib"> Tidak Diperakui </label>
-                            </div>
-                            <div class="invalid-feedback"></div>
-                        </div>
-
-                            <div class="form-group col-12">
-                                <span class="col-form-label">Ulasan</span>
-                                <textarea row=3 type="text" width="100%" id="ulasan_ketua" class="form-control ulasan_ketua" name="ulasan_ketua"  placeholder="Sila Berikan Ulasan Anda">{{ empty($pemohon->perakuan_ketua_jabatan_ulasan) ? '' : $pemohon->perakuan_ketua_jabatan_ulasan }}</textarea>
-                                <div class="invalid-feedback"></div>
-                            </div>
-
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label class="col-form-label" for="first-name">Nama</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="text" id="nama-ketua" value="{{ empty($pemohon->perakuan_ketua_jabatan_nama) ? $hod['name'] : $pemohon->perakuan_ketua_jabatan_nama  }}" readonly class="form-control nama-ketua" placeholder="">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label class="col-form-label" for="first-name">Jawatan</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="text" id="jawatan-ketua" readonly class="form-control jawatan-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_jawatan) ? $hod['jawatan'] : $pemohon->perakuan_ketua_jabatan_jawatan }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label class="col-form-label" for="first-name">Caw./Jabatan</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="text" id="jabatan-ketua" readonly class="form-control jabatan-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_alamat_pejabat) ? $hod['waran_name']['bahagian'].','.$clerk['waran_name']['cawangan'] : $pemohon->perakuan_ketua_jabatan_alamat_pejabat }}">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-12">
-                            <div class="form-group row">
-                                <div class="col-sm-2 col-form-label">
-                                    <label class="col-form-label" for="first-name">Tarikh</label>
-                                </div>
-                                <div class="col-sm-10">
-                                    <input type="text" id="tkh-ketua" readonly class="form-control tkh-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_tkh) ? \Carbon\Carbon::parse(Date::now())->format('d-m-Y') : \Carbon\Carbon::parse($pemohon->perakuan_ketua_jabatan_tkh)->format('d-m-Y') }}">
-                                </div>
-                            </div>
-                        </div>
-                        @role('hod')
-                        <div class="col-md-12 d-flex justify-content-between">
-                            <button type="button" class="btn btn-primary btn-prev btn-hod">
-                                <i data-feather='send' class="align-middle mr-sm-25 mr-0"></i>
-                                <span class="align-middle d-sm-inline-block d-none">Hantar</span>
-                            </button>
-                        </div>
-                        @endrole
-                    </div>
-                </div>
-            </div>
-            <div class="col-12">
+        @foreach ($pages as $include)
+        @include($include)
+        @endforeach
+        {{--  <div class="col-12">
                 <div class="col-md-12 d-flex justify-content-between">
                     <button type="button" class="btn btn-primary btn-pdf">
                         <i data-feather='download' class="align-middle mr-sm-25 mr-0"></i>
                         <span class="align-middle d-sm-inline-block d-none">Muat Turun</span>
                     </button>
                 </div>
-            </div>
+        </div> --}}
     </div>
     </section>
 </div>

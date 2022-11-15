@@ -35,6 +35,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class UkpController extends Controller
 {
@@ -249,8 +250,6 @@ class UkpController extends Controller
                 "pemohon_id" =>$pemohon->id
             ]);
         }
-
-
     }
 
     public function save_organization(Request $request) {
@@ -310,6 +309,9 @@ class UkpController extends Controller
         $file = $request->file('lampiran_e');
         $formdata = json_decode($request->input('formdata'));
 
+        $base64Content = base64_encode(file_get_contents($file));
+        $extension = $file->getClientOriginalExtension();
+
         $file_info = CommonController::base64_upload($file);
 
         $harta = PermohonanHarta::where('id_pemohon',$formdata->pemohon_id)->first();
@@ -317,8 +319,11 @@ class UkpController extends Controller
             if($harta) {
                 $harta->tkh_akhir_pengisytiharan = $formdata->tkh_istihar;
                 $uploadedFile = File::find($harta->surat_kelulusan_id);
-                $uploadedFile->content_bytes = $file_info['base64'];
-                $uploadedFile->ext = $file_info['ext'];
+                if(empty($uploadedFile)) {
+                    $uploadedFile = new File;
+                }
+                $uploadedFile->content_bytes = $base64Content;
+                $uploadedFile->ext = $extension;
                 $uploadedFile->filename = $file->getClientOriginalName();
                 $harta->updated_by = Auth::user()->nokp;
                 if($uploadedFile->save()) {
@@ -336,8 +341,8 @@ class UkpController extends Controller
                 }
             } else {
                 $uploadedFile = new File;
-                $uploadedFile->content_bytes = $file_info['base64'];
-                $uploadedFile->ext = $file_info['ext'];
+                $uploadedFile->content_bytes = $base64Content;
+                $uploadedFile->ext = $extension;
                 $uploadedFile->filename = $file->getClientOriginalName();
                 if($uploadedFile->save()) {
                     $harta =  new PermohonanHarta;
@@ -369,7 +374,10 @@ class UkpController extends Controller
         $file = $request->file('penyata_bayaran');
         $file_info = CommonController::base64_upload($file);
 
-        $formdata = json_decode($request->input('formdata'));
+        $base64Content = base64_encode(file_get_contents($file));
+        $extension = $file->getClientOriginalExtension();
+
+        $formdata = $request->input('formdata');
         $status = $request->input('status');
         $nama_institusi = $request->input('nama');
         $tkh_mula_pinjaman = $request->input('mula');
@@ -381,11 +389,14 @@ class UkpController extends Controller
         //id_pemohon
         //flag
         //delete_id
-        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->first();
+        $loan = PinjamanPendidikan::where('id_pemohon',$formdata)->first();
         if($loan) {
             $uploadedFile = File::find($loan->surat_kelulusan_id);
-            $uploadedFile->content_bytes = $file_info['base64'];
-                $uploadedFile->ext = $file_info['ext'];
+            if(empty($uploadedFile)) {
+                $uploadedFile = new File;
+            }
+            $uploadedFile->content_bytes = $base64Content;
+                $uploadedFile->ext = $extension;
                 $uploadedFile->filename = $file->getClientOriginalName();
             if($uploadedFile->save()) {
                 $loan->status = $status;
@@ -396,7 +407,7 @@ class UkpController extends Controller
                 $loan->tkh_selesai_bayaran = empty($tkh_selesai_bayaran) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_selesai_bayaran)->format('Y-m-d');
                 $loan->jumlah_pinjaman = $jumlah_pinjaman;
                 $loan->updated_by = Auth::user()->nokp;
-                $loan->id_pemohon = $formdata->pemohon_id;
+                $loan->id_pemohon = $formdata;
 
                 $loan->save();
 
@@ -412,8 +423,8 @@ class UkpController extends Controller
             }
         } else {
             $uploadedFile = new File;
-                $uploadedFile->content_bytes = $file_info['base64'];
-                $uploadedFile->ext = $file_info['ext'];
+            $uploadedFile->content_bytes = $base64Content;
+            $uploadedFile->ext = $extension;
                 $uploadedFile->filename = $file->getClientOriginalName();
             if($uploadedFile->save()) {
                 $loan = new PinjamanPendidikan;
@@ -429,7 +440,7 @@ class UkpController extends Controller
                 $loan->surat_perakuan = $uploadedFile->id;
                 $loan->created_by = Auth::user()->nokp;
                 $loan->updated_by = Auth::user()->nokp;
-                $loan->id_pemohon = $formdata->pemohon_id;
+                $loan->id_pemohon = $formdata;
 
                 $loan->save();
 
@@ -450,6 +461,8 @@ class UkpController extends Controller
         $file = $request->file('borang_pengesahan');
         $file_info = CommonController::base64_upload($file);
         $pemohon_id = $request->input('pemohon_id');
+
+
 
         $pemohon = Pemohon::find($pemohon_id);
 
@@ -477,6 +490,343 @@ class UkpController extends Controller
                 'data' => []
             ]);
         }
+    }
+
+    public function upload_form(Request $request) {
+        $file = $request->file('full_form');
+        $file_info = CommonController::base64_upload($file);
+        $pemohon_id = $request->input('pemohon_id');
+
+        $pemohon = Pemohon::find($pemohon_id);
+
+        if(empty($pemohon->form_file)) {
+            $uploadedFile = new File;
+        } else {
+            $uploadedFile = File::find($pemohon->form_file);
+        }
+
+        $uploadedFile->content_bytes = $file_info['base64'];
+        $uploadedFile->ext = $file_info['ext'];
+        $uploadedFile->filename = $file->getClientOriginalName();
+
+        if($uploadedFile->save()) {
+            $pemohon->form_file = $uploadedFile->id;
+            $pemohon->save();
+
+            return response()->json([
+                'success' => 1,
+                'data' => []
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+    }
+
+    public function kader_submission(Request $request) {
+        $alldata = $request->all();
+        $formdata = json_decode($alldata['pemohon']);
+        /*
+        $maklumat['nama'] = $profile->nama;
+                $maklumat['nokp_baru'] = $profile->nokp;
+                $maklumat['nokp_lama'] = $profile->nokp_lama;
+                $maklumat['jawatan'] = $khidmat->jawatan;
+                $maklumat['kod_jawatan'] = $khidmat->kod_jawatan;
+                $maklumat['gred'] = $khidmat->kod_gred;
+                $maklumat['tkh_lantikan'] = $khidmat->tkh_lantik;
+                $maklumat['tkh_sah'] = $khidmat->tkh_sah_perkhidmatan;
+                $maklumat['umur_besara'] = $profile->pilihan_bersara_wajib;
+                $maklumat['alamat_pejabat'] = $profile->alamat_pejabat;
+                $maklumat['tel_pejabat'] = $profile->tel_pejabat;
+                $maklumat['no_faks'] = $profile->fax_pejabat;
+                $maklumat['no_hp'] = $profile->tel_bimbit;
+                $maklumat['email'] = $profile->email;
+                $maklumat['jantina'] = $profile->jantina;
+                $maklumat['bangsa'] = $profile->bangsa;
+                $maklumat['agama'] = $profile->agama;
+                $maklumat['tkh_lahir'] = $profile->tkh_lahir;
+                $maklumat['tmpt_lahir'] = $profile->negeri_lahir;
+                $maklumat['gaji'] = empty($gaji) ? 0 : $gaji->gaji_pokok;
+                $maklumat['alamat_rumah'] = $profile->alamat;
+                $maklumat['gelaran'] =  $profile->gelaran;
+                $maklumat['tkh_istihar'] = empty($tkh_istihar) ? 0 : $tkh_istihar;
+                $maklumat['pasangan'] = empty($waris) ? '' : $waris->nama;
+                $maklumat['alamat_pasangan'] = empty($waris) ? '' : $waris->tempat_kerja;
+                $maklumat['pekerjaan_pasangan'] = empty($waris) ? '' : $waris->pekerjaan;
+                $maklumat['cuti'] = $cuti;
+                $maklumat['pengalaman'] = $pengalaman;
+                $maklumat['akademik'] = $akademik;
+                $maklumat['profesional'] = $profesional;
+                $maklumat['kompeten'] = $kompeten;
+                $maklumat['pengiktirafan'] = $iktiraf;
+                $maklumat['pertubuhan'] = $pertubuhan;
+                $maklumat['pemohon_id'] = $pemohon->id;
+                $maklumat['peribadi_id'] = $profile->id;
+                $maklumat['file_cuti'] = $pemohon->file ? $pemohon->file->filename : '';
+                if($harta) {
+                    $maklumat['file_harta'] = $harta->file ? $harta->file->filename : '';
+                } else {
+                    $maklumat['file_harta'] = '';
+                }
+                $maklumat['loan'] = $loan;
+        */
+        //pemohon
+        $pemohon = Pemohon::find($formdata->pemohon_id);
+        $pemohon->gaji_hakiki = $formdata->gaji;
+        //$pemohon->nokp_ketua_jabatan = $alldata['ketua_nokp'];
+        // $pemohon->perakuan_ketua_jabatan
+        // $pemohon->perakuan_ketua_jabatan_ulasan
+        // $pemohon->perakuan_ketua_jabatan_jawatan
+        // $pemohon->perakuan_ketua_jabatan_tkh
+        // $pemohon->perakuan_ketua_jabatan_alamat_pejabat
+        // $pemohon->pengesahan_perkhidmatan
+        //$pemohon->pengesahan_perkhidmatan_nokp = $alldata['kerani_nokp'];
+        // $pemohon->pengesahan_perkhidmatan_jawatan
+        // $pemohon->pengesahan_perkhidmatan_cawangan
+        // $pemohon->pengesahan_perkhidmatan_tkh
+
+
+        if(!empty($alldata['accept'])) {
+            if($alldata['accept']) {
+                $pemohon->status = Pemohon::PROCESSING;
+            } else {
+                $pemohon->status = Pemohon::REJECTED_APPLICATION;
+            }
+        }
+        $pemohon->alasan = $alldata['alasan'];
+        $pemohon->updated_by = Auth::user()->nokp;
+        $pemohon->jawatan = $formdata->jawatan;
+        $pemohon->kod_jawatan = $formdata->kod_jawatan;
+        $pemohon->gred = $formdata->gred;
+        $pemohon->tkh_lantikan = $formdata->tkh_lantikan;
+        $pemohon->tkh_sah_perkhidmatan = $formdata->tkh_sah;
+        $pemohon->alamat_pejabat = $formdata->alamat_pejabat;
+        $pemohon->save();
+
+        $cuti_records = PermohonanCuti::where('id_pemohon',$formdata->pemohon_id)->get();
+        if($cuti_records->count() > 0) {
+            //cuti
+            PermohonanCuti::where('id_pemohon',$formdata->pemohon_id)->delete();
+        }
+
+        foreach($formdata->cuti as $cuti) {
+            $rekoc_cuti =  new PermohonanCuti;
+            $rekoc_cuti->jenis = $cuti->jenis_cuti;
+            $rekoc_cuti->tkh_mula = $cuti->tkh_mula;
+            $rekoc_cuti->tkh_akhir = $cuti->tkh_akhir;
+            //$rekoc_cuti->surat_kelulusan
+            $rekoc_cuti->id_pemohon = $formdata->pemohon_id;
+            $rekoc_cuti->flag = 1;
+            $rekoc_cuti->delete_id = 0;
+            $rekoc_cuti->created_by = Auth::user()->nokp;
+            $rekoc_cuti->updated_by = Auth::user()->nokp;
+
+            $rekoc_cuti->save();
+        }
+
+
+        // pengistiharan harta
+        $harta = PermohonanHarta::where('id_pemohon',$formdata->pemohon_id)->first();
+        if($harta) {
+            $harta->tkh_akhir_pengisytiharan = $formdata->tkh_istihar;
+            $harta->updated_by = Auth::user()->nokp;
+            $harta->save();
+        }
+
+        $rekod_pasangan = Pasangan::where('id_pemohon',$formdata->pemohon_id)->first();
+        if(empty($rekod_pasangan)) {
+            $rekod_pasangan = new Pasangan;
+        }
+        // pasangan
+        $rekod_pasangan->id_pemohon = $formdata->pemohon_id;
+        $rekod_pasangan->hubungan = strtoupper($formdata->jantina) == 'L' ? 'ISTERI' : 'SUAMI';
+        $rekod_pasangan->nama = $formdata->pasangan;
+        $rekod_pasangan->pekerjaan = $formdata->pekerjaan_pasangan;
+        $rekod_pasangan->alamat_pejabat = $formdata->alamat_pasangan;
+        $rekod_pasangan->flag = 1;
+        $rekod_pasangan->delete_id = 0;
+        $rekod_pasangan->created_by = Auth::user()->nokp;
+        $rekod_pasangan->updated_by = Auth::user()->nokp;
+        $rekod_pasangan->save();
+
+        $rekod_khidmat = Perkhidmatan::where('id_pemohon',$formdata->pemohon_id)->get();
+        if($rekod_khidmat->count() > 0) {
+            //cuti
+            Perkhidmatan::where('id_pemohon',$formdata->pemohon_id)->delete();
+        }
+        // Perkhidmatan
+        foreach($formdata->pengalaman as $pengalaman) {
+            $rekod_khidmat = new Perkhidmatan;
+            $rekod_khidmat->jawatan = $pengalaman->gelaran_jawatan ? $pengalaman->gelaran_jawatan->gelaran_jawatan : '';
+            $rekod_khidmat->gred = $pengalaman->kod_gelaran_jawatan;
+            $rekod_khidmat->penempatan = $pengalaman->tempat;
+            $rekod_khidmat->tkh_mula_berkhidmat = $pengalaman->tkh_mula;
+            $rekod_khidmat->tkh_akhir_berkhidmat = $pengalaman->tkh_tamat;
+            $rekod_khidmat->flag = 1;
+            $rekod_khidmat->delete_id = 0;
+            $rekod_khidmat->created_by = Auth::user()->nokp;
+            $rekod_khidmat->updated_by = Auth::user()->nokp;
+            $rekod_khidmat->id_pemohon = $formdata->pemohon_id;
+            $rekod_khidmat->save();
+
+        }
+
+        $rekod_sumbangan = Sumbangan::where('pemohon_id',$formdata->pemohon_id)->get();
+        if($rekod_sumbangan->count() > 0) {
+            //cuti
+            Sumbangan::where('pemohon_id',$formdata->pemohon_id)->delete();
+        }
+        //sumbangan
+        foreach($formdata->sumbangan as $contribute) {
+            $rekod_sumbangan = new Sumbangan();
+            $rekod_sumbangan->sumbangan = $contribute->nama_kelulusan;
+            $rekod_sumbangan->tkh_peristiwa = $contribute->tkh_kelulusan;
+            $rekod_sumbangan->pemohon_id = $formdata->pemohon_id;
+            $rekod_sumbangan->created_by =  Auth::user()->nokp;
+            $rekod_sumbangan->updated_by =   Auth::user()->nokp;
+            $rekod_sumbangan->flag = 1;
+            $rekod_sumbangan->delete_id = 0;
+            $rekod_sumbangan->tempat =  $contribute->institusi;
+            $rekod_sumbangan->save();
+        }
+
+        $rekod_akademik = Akademik::where('id_pemohon',$formdata->pemohon_id)->get();
+        if($rekod_akademik->count() > 0) {
+            //cuti
+            Akademik::where('id_pemohon',$formdata->pemohon_id)->delete();
+        }
+        //Akademik
+        foreach($formdata->akademik as $academic) {
+            $rekod_akademik = new Akademik;
+            $rekod_akademik->nama_sijil = $academic->nama_kelulusan;
+            $rekod_akademik->nama_insititusi = $academic->institusi;
+            $rekod_akademik->id_pemohon = $formdata->pemohon_id;
+            $rekod_akademik->flag = 1;
+            $rekod_akademik->delete_id = 0;
+            $rekod_akademik->created_by = Auth::user()->nokp;
+            $rekod_akademik->updated_by = Auth::user()->nokp;
+            $rekod_akademik->tkh_kelulusan = $academic->tkh_kelulusan;
+            $rekod_akademik->save();
+        }
+
+        $rekod_professional = Professional::where('id_pemohon',$formdata->pemohon_id)->get();
+        if($rekod_professional->count() > 0) {
+            //cuti
+            Professional::where('id_pemohon',$formdata->pemohon_id)->delete();
+        }
+        //Profesional
+        foreach($formdata->profesional as $pro) {
+            $rekod_professional = new Professional;
+            $rekod_professional->nama_sijil = $pro->nama_kelulusan;
+            $rekod_professional->badan_professional = $pro->institusi;
+            $rekod_professional->no_pendaftaran = $pro->no_pendaftaran;
+            $rekod_professional->id_pemohon = $formdata->pemohon_id;
+            $rekod_professional->created_by = Auth::user()->nokp;
+            $rekod_professional->updated_by = Auth::user()->nokp;
+            $rekod_professional->flag = 1;
+            $rekod_professional->delete_id = 0;
+            $rekod_professional->tkh_kelulusan = $pro->tkh_kelulusan;
+            $rekod_professional->save();
+        }
+
+        $rekod_kompeten = Kompetensi::where('id_pemohon',$formdata->pemohon_id)->get();
+        if($rekod_kompeten->count() > 0) {
+            //cuti
+            Kompetensi::where('id_pemohon',$formdata->pemohon_id)->delete();
+        }
+        //Kompetensi
+        foreach($formdata->kompeten as $komp) {
+            $rekod_kompeten = new Kompetensi;
+            $rekod_kompeten->nama_sijil = $komp->nama_kelulusan;
+            $rekod_kompeten->tahap = $komp->tahap;
+            $rekod_kompeten->id_pemohon = $formdata->pemohon_id;
+            $rekod_kompeten->flag = 1;
+            $rekod_kompeten->delete_id = 0;
+            $rekod_kompeten->created_by = Auth::user()->nokp;
+            $rekod_kompeten->updated_by = Auth::user()->nokp;
+            $rekod_kompeten->save();
+        }
+
+        $rekod_iktiraf = Pengiktirafan::where('id_pemohon',$formdata->pemohon_id)->get();
+        if($rekod_iktiraf->count() > 0) {
+            //cuti
+            Pengiktirafan::where('id_pemohon',$formdata->pemohon_id)->delete();
+        }
+        //pengiktirafan
+        foreach($formdata->pengiktirafan as $iktiraf) {
+            $rekod_iktiraf = new Pengiktirafan;
+            $rekod_iktiraf->jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
+            $rekod_iktiraf->tkh_mula = $iktiraf->tkh_mula_peristiwa;
+            $rekod_iktiraf->tkh_tamat =  $iktiraf->tkh_tamat_peristiwa;
+            $rekod_iktiraf->flag = 1;
+            $rekod_iktiraf->delete_id = 0;
+            $rekod_iktiraf->id_pemohon = $formdata->pemohon_id;
+            $rekod_iktiraf->created_by = Auth::user()->nokp;
+            $rekod_iktiraf->updated_by = Auth::user()->nokp;
+            $rekod_iktiraf->save();
+        }
+
+        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->first();
+        if(empty($loan)) {
+            $loan = new PinjamanPendidikan;
+            $loan->created_by = Auth::user()->nokp;
+        }
+        $loan->flag = 1;
+                $loan->delete_id = 0;
+                $loan->status = $alldata['status_pinjam'];
+                $loan->nama_institusi = $alldata['nama_pinjam'];
+                $loan->tkh_mula_pinjaman = empty($alldata['mula_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['mula_pinjam'])->format('Y-m-d');
+                $loan->tkh_akhir_pinjaman = empty($alldata['akhir_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['akhir_pinjam'])->format('Y-m-d');
+                $loan->tkh_mula_bayaran = empty($alldata['bayar_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['bayar_pinjam'])->format('Y-m-d');
+                $loan->tkh_selesai_bayaran = empty($alldata['selesai_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['selesai_pinjam'])->format('Y-m-d');
+                $loan->jumlah_pinjaman = $alldata['jumlah_pinjam'];
+
+                $loan->updated_by = Auth::user()->nokp;
+                $loan->id_pemohon = $formdata->pemohon_id;
+        $loan->save();
+
+        $pengakuan = new PengakuanPemohon;
+        $pengakuan->tatatertib = $alldata['tatatertib'];
+        $pengakuan->isytihar_harta = 1;
+        $pengakuan->cuti_tanpa_gaji = $alldata['cuti'];
+        $pengakuan->perakuan = $alldata['akuan'];
+        $pengakuan->tempoh_percubaan_denda = $alldata['denda'];
+        $pengakuan->perakuan_tkh = Date::now();
+        $pengakuan->id_pemohon = $formdata->pemohon_id;
+        $pengakuan->flag = 0;
+        $pengakuan->delete_id = 0;
+        $pengakuan->created_by = Auth::user()->nokp;
+        $pengakuan->updated_by = Auth::user()->nokp;
+        $pengakuan->save();
+
+        if(!empty($pemohon->status)) {
+            if ($pemohon->status == Pemohon::REJECTED_APPLICATION) {
+                $content = [
+                    'gred' => $pemohon->gred,
+                    'jawatan' => $pemohon->jawatan,
+                    'nokp' => $formdata->nokp_baru,
+                    'nama' => $formdata->nama,
+                    'reason' => $pemohon->alasan
+                ];
+
+                Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
+                    // testing purpose
+                    $message->to('rubmin@vn.net.my','Urus Setia Kenaik Pangkat');
+                    $message->from($formdata->email,$formdata->nama);
+
+                    //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
+                    $message->subject('MENOLAK TAWARAN PEMANGKUAN');
+
+                });
+            }
+        }
+
+        return response()->json([
+            'success' => 1,
+            'data' => []
+        ]);
     }
 
     public function submit_application(Request $request) {
@@ -540,6 +890,7 @@ class UkpController extends Controller
         // $pemohon->pengesahan_perkhidmatan_jawatan
         // $pemohon->pengesahan_perkhidmatan_cawangan
         // $pemohon->pengesahan_perkhidmatan_tkh
+
         if($alldata['accept']) {
             $pemohon->status = Pemohon::WAITING_VERIFICATION;
         } else {
@@ -728,7 +1079,7 @@ class UkpController extends Controller
             $secure_link = Crypt::encryptString($pemohon->id);
 
                     $content = [
-                        'link' => url('/')."/form/ukp12/eview/".$secure_link,
+                        'link' => url('/')."/form/ukp12/eview/".$secure_link."?view=s",
                         'gred' => $pemohon->gred,
                         'jawatan' => $pemohon->jawatan,
                         'nokp' => $formdata->nokp_baru,
@@ -782,6 +1133,46 @@ class UkpController extends Controller
         $profile = $pemohon->pemohonPeribadi;
         $maklumat = json_encode($this->load_info($profile,$profile->nokp,$pemohon));
         return Ukp12Pdf::print(json_decode($maklumat));
+    }
+
+    public function download_form_full(Request $request) {
+        $formdata = $request->input('dataform');
+        $pemohon = Pemohon::find($formdata);
+        $permohonan = $pemohon->pemohonPermohonan;
+        $peribadi = Peribadi::find($pemohon->id_peribadi);
+        $cuti = PermohonanCuti::where('id_pemohon',$pemohon->id)->get();
+        $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
+        $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
+        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get();
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
+        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get();
+        $profesional = Professional::where('id_pemohon',$pemohon->id)->get();
+        $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->get();
+        $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();
+        $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
+        $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
+        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get();
+
+        $data = [
+            'pemohon' => $pemohon,
+            'peribadi' => $peribadi,
+            'cutis' => $cuti,
+            'harta' => $harta,
+            'pasangan' => $pasangan,
+            'perkhidmatans' => $perkhidmatan,
+            'pertubuhans' => $pertubuhan,
+            'akademiks' => $akademik,
+            'profesionals' => $profesional,
+            'kompetenans' => $kompetenan,
+            'pengiktirafans' => $pengiktirafan,
+            'akuan_pinjaman' => $akuan_pinjaman,
+            'akuan_pegawai' => $akuan_pegawai,
+            'sumbangan' => $contribution,
+            'borang' => $permohonan
+        ];
+
+        $pdf = PDF::loadView('pdf.ukp12-kader', $data, []);
+        return $pdf->stream();
     }
 
     private function verify_applicant($nokp,$formId) {

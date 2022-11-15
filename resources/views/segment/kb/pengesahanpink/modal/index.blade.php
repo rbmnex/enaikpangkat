@@ -15,7 +15,7 @@
                     </div>
                     <div class="col-xl-12 col-md-6 col-12">
                         <div class="mb-1 form-group">
-                            <label class="form-label" for="basicInput">Tarikh Lapor Diri</label>
+                            <label class="form-label" for="basicInput">Tarikh Kuasa</label>
                             <input type="text" class="form-control" id="pinkform-tkh-lapor-diri" value=""/>
                             <div class="invalid-feedback"></div>
                         </div>

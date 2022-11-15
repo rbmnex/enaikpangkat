@@ -237,9 +237,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });
@@ -255,7 +255,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         data.append('bayar',$('.bayar_mula').val());
         data.append('selesai',$('.selesai_bayar').val());
         data.append('penyata_bayaran',file);
-        data.append('formdata',$('input[name="_formdata"]').val());
+        data.append('formdata',$('._formid').val());
         $('.loan-file').html(file.name);
         $.ajax({
             type:'POST',
@@ -267,9 +267,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });
@@ -290,9 +290,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });

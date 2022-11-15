@@ -5,6 +5,7 @@ use App\Http\Controllers\Form\UkpController;
 use App\Http\Controllers\Form\ViewController;
 use App\Http\Controllers\HR\PinkFormController;
 use App\Http\Controllers\Main\CommonController;
+use App\Http\Controllers\Office\PengesahanController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\ApplicationController;
@@ -147,11 +148,13 @@ Route::prefix('/form')->group(function() {
         Route::get('/display/{id}',[UkpController::class,'open']);
         Route::get('/apply/{encryted}',[UkpController::class,'apply'])->middleware('auth');
         Route::get('/download/part',[UkpController::class,'download_form_part']);
+        Route::get('/download/full',[UkpController::class,'download_form_full']);
         Route::get('/final',function() {
             return view('form.message',['message' => 'Anda Telah Berjaya Menghantar Pemohonan Ini!']);
         });
         Route::get('/view/{id}',[ViewController::class,'load_view'])->middleware(['auth']);
         Route::get('/eview/{encryted}',[ViewController::class,'secure_view'])->middleware(['auth']);
+        Route::get('/nview/{id}',[ViewController::class,'view_form'])->middleware(['auth']);
     });
 
     Route::prefix('/api')->group(function() {
@@ -160,10 +163,19 @@ Route::prefix('/form')->group(function() {
         Route::post('/property/save',[UkpController::class,'save_harta']);
         Route::post('/loan/save',[UkpController::class,'save_loan']);
         Route::post('/submit',[UkpController::class,'submit_application']);
+        Route::post('/submit-kader',[UkpController::class,'kader_submission']);
         Route::post('/cuti/upload',[UkpController::class,'upload_pengesahan']);
+        Route::post('/form/upload',[UkpController::class,'upload_form']);
         Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);;
         Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);;
         Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);;
+    });
+});
+
+Route::prefix('/validate')->group(function() {
+    Route::prefix('/senarai')->group(function() {
+        Route::get('/',[PengesahanController::class,'index']);
+        Route::get('/pemohon',[PengesahanController::class,'applicant_list']);
     });
 });
 
@@ -180,6 +192,7 @@ Route::get('/api/test/req',[FunctionController::class, 'req']);
 Route::get('/api/test/mail',[FunctionController::class, 'mail']);
 Route::post('/api/test/upload',[FunctionController::class,'upload']);
 Route::post('/api/test/download',[FunctionController::class,'download']);
+Route::get('/api/test/encrypt',[FunctionController::class,'encrypt']);
 Route::get('/test/form',function() {
     return view('form.ukp12');
 });
