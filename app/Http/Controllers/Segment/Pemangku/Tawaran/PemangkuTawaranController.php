@@ -7,6 +7,7 @@ use App\Models\Mykj\ListPegawai2;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PenerimaanUkp11;
 use App\Models\Pink\SuratPink;
+use App\Models\RoleUser;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use PHP_CodeSniffer\Util\Common;
@@ -114,9 +115,9 @@ class PemangkuTawaranController extends Controller{
         $ukp11 = PenerimaanUkp11::where('id_pemohon', $pemohon_id)->first();
         $ukp11->status_terima_pemangkuan = $tawaran_setuju == 'TL' ? 1 : 0;
         $ukp11->tkh_status_terima_pemangkuan = date('Y-m-d');
-        $ukp11->tkh_kuatkuasa_pemangkuan_pinkform = $pemohon->pemohonPink->tkh_lapor_diri;
-        $ukp11->tkh_lapor_diri = $tawaran_tkh_lapor_diri;
-        $ukp11->tkh_kuatkuasa_pemangkuan = $tawaran_tkh_mula_tugas;
+        $ukp11->tkh_kuatkuasa_pemangkuan_pinkform = date('Y-m-d', strtotime($pemohon->pemohonPink->tkh_lapor_diri));
+        $ukp11->tkh_lapor_diri = date('Y-m-d', strtotime($tawaran_tkh_lapor_diri));
+        $ukp11->tkh_kuatkuasa_pemangkuan = date('Y-m-d', strtotime($tawaran_tkh_mula_tugas));
         $ukp11->id_surat_pink = $pemohon->pemohonPink->id;
 
         $kerani = ListPegawai2::getMaklumatPegawai($tawaran_ketua_bahagian);
@@ -135,17 +136,25 @@ class PemangkuTawaranController extends Controller{
         $ukp11->cawangan_ketua_jabatan = $ketuaJabatan['waran_name']['cawangan'];
 
         $kbUser = User::upsert($tawaran_ketua_jabatan);
-        DB::table('role_user')->insert([
-            'role_id' => 5,
-            'user_id' => $keraniUser->id,
-            'user_type' => 'jkr',
-        ]);
 
-        DB::table('role_user')->insert([
-            'role_id' => 6,
-            'user_id' => $kbUser->id,
-            'user_type' => 'jkr',
-        ]);
+        $checkKerani = RoleUser::where('role_id', 5)->where('user_id', $keraniUser->id)->first();
+        $checkKB = RoleUser::where('role_id', 6)->where('user_id', $kbUser->id)->first();
+
+        if(!$checkKerani){
+            DB::table('role_user')->insert([
+                'role_id' => 5,
+                'user_id' => $keraniUser->id,
+                'user_type' => 'App\Models\User',
+            ]);
+        }
+
+        if(!$checkKB) {
+            DB::table('role_user')->insert([
+                'role_id' => 6,
+                'user_id' => $kbUser->id,
+                'user_type' => 'App\Models\User',
+            ]);
+        }
         $ukp11->save();
         $pemohon->save();
 
