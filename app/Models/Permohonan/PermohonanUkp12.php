@@ -10,4 +10,8 @@ class PermohonanUkp12 extends Model
     use HasFactory;
     protected $table = "permohonan_ukp12";
     protected $connection = 'pgsql';
+
+    public function getPemohon(){
+        return $this->hasOne(Pemohon::class, 'id', 'id_permohonan');
+    }
 }

@@ -75,10 +75,10 @@ class User extends Authenticatable
                 ->select('p.*','la.agama','ltp.taraf_perkahwinan', 'lb.bangsa', 'ln2.negeri as negeri_lahir')
                 ->where('p.nokp',$nokp)->first();
 
-        $newuser = new User;
+        $newuser = User::where('nokp', $nokp)->first();
 
-        if($id) {
-            $newuser = User::find($id);
+        if(!$newuser) {
+            $newuser = new User;
         }
 
         $newuser->name = $mykjPeribadi->nama;

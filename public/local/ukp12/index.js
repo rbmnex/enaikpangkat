@@ -88,7 +88,7 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
     }
 });
 
-$(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan',function() {
+$(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kursus, .add-projek',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-cuti')) {
         let row = [];
@@ -149,7 +149,85 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan',function(
                 },
             }
         });
+      } else if(selectedClass.hasClass('add-kursus')){
+        let tajuk = $('input[name="kursus-tajuk"]').val();
+        let mula = $('input[name="kursus-mula"]').val();
+        let tamat = $('input[name="kursus-tamat"]').val();
+        let tempat = $('input[name="kursus-tempat"]').val();
+
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('tajuk',tajuk);
+        data.append('mula',mula);
+        data.append('tamat',tamat);
+        data.append('tempat',tempat);
+        data.append('nokp',$('input[name="nokp"]').val());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan disimpan',
+            icon: 'info',
+            confirmButtonText: 'Hantar',
+            postData: {
+                url : '/form/api/kursus',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        let row = [];
+                        row.push(parseData.tajuk);
+                        row.push(parseData.mula);
+                        row.push(parseData.tamat);
+                        row.push(parseData.tempat);
+                        row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
+                        add_row('#tbody-badan-kursus',row,'data-kursus-id='+parseData.id);
+                        $('#modal-kursus').modal('hide');
+                        toasting('Kursus Ditambah', 'success');
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                    }
+                },
+            }
+        });
+      } else if(selectedClass.hasClass('add-projek')){
+        let tajuk = $('input[name="projek-nama"]').val();
+        let kos = $('input[name="projek-kos"]').val();
+
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('tajuk',tajuk);
+        data.append('kos',kos);
+        data.append('pemohonId',$('._formid').val());
+        data.append('nokp',$('input[name="nokp"]').val());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan disimpan',
+            icon: 'info',
+            confirmButtonText: 'Hantar',
+            postData: {
+                url : '/form/api/projek',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        let row = [];
+                        row.push(parseData.tajuk);
+                        row.push(parseData.kos);
+                        row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
+                        add_row('#tbody-badan-projek',row,'data-projek-id='+parseData.id);
+                        $('#modal-projek').modal('hide');
+                        toasting('projek Ditambah', 'success');
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                    }
+                },
+            }
+        });
     }
+
 });
 
 $(document).on('click','.delete-row, .delete-org',function() {
@@ -186,7 +264,102 @@ $(document).on('click','.delete-row, .delete-org',function() {
     }
 });
 
-$(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti-upload', function() {
+$(document).on('click','.delete-row, .delete-kursus',function() {
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('delete-row')) {
+        remove_row(selectedClass);
+    } else if(selectedClass.hasClass('delete-kursus')) {
+        let kursus_id = selectedClass.closest('tr').attr('data-kursus-id');
+
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('id',kursus_id);
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan dipadam',
+            icon: 'waring',
+            confirmButtonText: 'Padam',
+            postData: {
+                url : '/form/api/kursus/del',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        remove_row(selectedClass);
+                        toasting('Kursus Dipadam', 'success');
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Data telah gagal dipadam', 'error');
+                    }
+                },
+            }
+        });
+    }
+});
+
+
+$(document).on('click','.delete-row, .delete-projek',function() {
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('delete-row')) {
+        remove_row(selectedClass);
+    } else if(selectedClass.hasClass('delete-projek')) {
+        let projek_id = selectedClass.closest('tr').attr('data-projek-id');
+
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('id',projek_id);
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan dipadam',
+            icon: 'waring',
+            confirmButtonText: 'Padam',
+            postData: {
+                url : '/form/api/projek/del',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        remove_row(selectedClass);
+                        toasting('Projek Dipadam', 'success');
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Data telah gagal dipadam', 'error');
+                    }
+                },
+            }
+        });
+    }
+});
+
+$(document).on('click','.upload-lampiran', function(){
+    let upload = $('#lampiran_beban')[0].files[0];
+
+    let data = new FormData();
+    data.append('_token', getToken());
+    data.append('lampiran_beban',upload);
+    data.append('nokp',$('input[name="nokp"]').val());
+
+    $.ajax({
+        type:'POST',
+        url: '/form/api/bebankerja',
+        data:data,
+        processData: false,
+        contentType: false,
+        context: this,
+        success: function(resp) {
+            let d = resp.success;
+            if(d == 1) {
+                toasting('Fail berjaya sudah dimuat naik', 'success');
+            } else {
+                toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+            }
+        }
+    });
+});
+
+$(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_bayaran, .cuti-upload', function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('pinjam-status')) {
         var value = selectedClass.val();
@@ -240,6 +413,30 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
                     toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
                     toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
+                }
+            }
+        });
+     } else if(selectedClass.hasClass('upload-beban')) {
+        //var form = $('#upload-harta')[0];
+        let data = new FormData();
+        var file = $('#lampiran_beban')[0].files[0];
+        data.append('_token', getToken());
+        data.append('formdata',$('input[name="_formdata"]').val());
+        data.append('lampiran_beban',file);
+        $('.lampiran_beban').html(file.name);
+        $.ajax({
+            type:'POST',
+            url: '/form/api/bebankerja',
+            data:data,
+            processData: false,
+            contentType: false,
+            context: this,
+            success: function(resp) {
+                let d = resp.success;
+                if(d == 1) {
+                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                } else {
+                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
                 }
             }
         });

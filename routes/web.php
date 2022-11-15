@@ -82,6 +82,9 @@ Route::get('/admin/pengguna/api',[UserMgmtController::class,'maklumat_pengguna']
 //     });
 // });
 
+   Route::resource('betafeedback', 'MailController');
+        Route::post('mail/sendfeedback', ['as' => 'mail.sendfeedback', 'uses' => 'MailController@sendfeedback']);
+
 Route::prefix('/urussetia')->group(function() {
     Route::prefix('/kumpulan')->group(function() {
         Route::get('/', [BatchMgmtController::class,'index']);
@@ -103,20 +106,20 @@ Route::prefix('/urussetia')->group(function() {
 
     Route::prefix('/resume')->group(function() {
         Route::get('/', function() { return view('mockup4'); });
-        Route::get('/lampiran', function() { return view('lampiran'); });
         Route::post('/mockup4', [ResumeController::class,'mockup4']);
-        Route::post('/lampiran', [ResumeController::class,'lampiran']);
-        Route::get('/lampiran/{id}',[ResumeController::class,'lampiran']);
+        Route::get('/lampiran',[ResumeController::class,'lampiran']);
+        Route::get('/display/{id}',[ResumeController::class,'open']);
+        Route::get('/senarai',[ResumeController::class,'senarai']);
+        Route::get('/senarairesume',[ResumeController::class,'senarai_pengguna']);
+        Route::get('/staff',[ResumeController::class,'senarai_pegawai']);
+        Route::get('/carian',[ResumeController::class,'carian_pegawai']);
+        Route::post('/list', [ResumeController::class,'list']);
         //Route::get('/display/{id}',[UkpController::class,'open']);
     //    Route::get('/resume', [ResumeController::class, 'document']);
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
-        Route::get('/lampiran2/{ic}', [ResumeController::class, 'lampiran2']);
         Route::get('/lampiran3/{ic}', [ResumeController::class, 'lampiran3']);
-        Route::get('/lampiran4/{ic}', [ResumeController::class, 'lampiran4']);
-        Route::get('/pdf/lampiran2/{ic}', [ResumeController::class, 'lampiran2pdf']);
-        Route::get('/pdf/lampiran3/{ic}', [ResumeController::class, 'lampiran3pdf']);
-        Route::get('/pdf/lampiran4/{ic}', [ResumeController::class, 'lampiran4pdf']);
          Route::get('/email/{ic}', [ResumeController::class, 'email']);
+     
     });
 
     Route::prefix('/appl')->group(function() {
@@ -160,7 +163,12 @@ Route::prefix('/form')->group(function() {
     Route::prefix('/api')->group(function() {
         Route::post('/org',[UkpController::class,'save_organization']);
         Route::post('/org/del',[UkpController::class,'delete_organization']);
-        Route::post('/property/save',[UkpController::class,'save_harta']);
+        Route::post('/kursus',[ResumeController::class,'save_kursus']);
+        Route::post('/kursus/del',[ResumeController::class,'delete_kursus']);
+        Route::post('/bebankerja',[ResumeController::class,'save_beban']);
+         Route::post('/projek',[ResumeController::class,'save_projek']);
+         Route::post('/projek/del',[ResumeController::class,'delete_projek']);
+         Route::post('/property/save',[UkpController::class,'save_harta']);
         Route::post('/loan/save',[UkpController::class,'save_loan']);
         Route::post('/submit',[UkpController::class,'submit_application']);
         Route::post('/submit-kader',[UkpController::class,'kader_submission']);

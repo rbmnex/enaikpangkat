@@ -30,7 +30,8 @@ class DatatableUI{
                     previous: '&nbsp;',
                     next: '&nbsp;'
                 }
-            }
+            },
+            destroy: true
         });
         if(label){
             $('div.head-label').html('<h6 class="mb-0">'+ label +'</h6>');
