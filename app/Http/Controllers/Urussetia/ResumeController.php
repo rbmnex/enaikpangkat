@@ -330,7 +330,7 @@ public function lampiran3($ic)
 
         $model=ListPegawai2::getMaklumatPegawai($ic);
         $mula_khidmat=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
-        $mula_gred_hakiki=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->where('status_perkhidmatan','H')->orderBy('tkh_lantik', 'asc')->first();
+        $mula_gred_hakiki=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->where('status_perkhidmatan','H')->orderBy('tkh_lantik', 'desc')->first();
         $modelp = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
         // $mula_p = Pengalaman::where('nokp',$ic)->orderBy('tkh_mula','asc')->groupBy('kod_aktiviti','id_pengalaman')->first();
