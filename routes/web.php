@@ -149,7 +149,7 @@ Route::prefix('/hr')->group(function() {
 
 Route::prefix('/form')->group(function() {
     Route::prefix('/ukp12')->group(function() {
-        Route::get('/display/{id}',[UkpController::class,'open']);
+        Route::get('/display/{id}',[UkpController::class,'open'])->middleware(['auth']);
         Route::get('/apply/{encryted}',[UkpController::class,'apply'])->middleware('auth');
         Route::get('/download/part',[UkpController::class,'download_form_part']);
         Route::get('/download/full',[UkpController::class,'download_form_full']);
@@ -190,9 +190,10 @@ Route::prefix('/validate')->group(function() {
 });
 
 Route::prefix('/user')->group(function() {
-    Route::get('/form',[PermohonanController::class,'index']);
+    Route::get('/form',[PermohonanController::class,'index'])->middleware(['auth']);
     Route::get('/form/list',[PermohonanController::class,'load_list']);
     Route::get('/form/pink/{id}',[PermohonanController::class,'downlaod_pink']);
+    Route::get('/resume/lampiran',[ResumeController::class,'open_lampiran'])->middleware(['auth']);
 });
 
 //Common Controller

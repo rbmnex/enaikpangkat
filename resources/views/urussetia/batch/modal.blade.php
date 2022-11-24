@@ -154,13 +154,13 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
-                    <div class="col-xl-12 col-md-6 col-12 mb-1">
+                    {{-- <div class="col-xl-12 col-md-6 col-12 mb-1">
                         <div class="form-group">
                             <label for="basicInput">Penempatan</label>
                             <input type="text"  class="form-control calon-tempat" id="basicInput5" placeholder="" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-xl-12 col-md-6 col-12 mb-1">
                         <button type="button" class="btn btn-success tambah-calon"><i data-feather='plus'></i>Tambah</button>
                     </div>

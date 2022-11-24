@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Form;
 use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
 use App\Models\File;
-use App\Models\MyKj\Cuti;
+use App\Models\Mykj\Cuti;
 use App\Models\Mykj\Gaji;
-use App\Models\MyKj\Harta;
+use App\Models\Mykj\Harta;
 use App\Models\Mykj\Kelayakan;
-use App\Models\MyKj\Pengalaman;
+use App\Models\Mykj\Pengalaman;
 use App\Models\Mykj\Peristiwa;
-use App\Models\MyKj\Waris;
+use App\Models\Mykj\Waris;
 use App\Models\Permohonan\Akademik;
 use App\Models\Permohonan\Cuti as PermohonanCuti;
 use App\Models\Permohonan\Harta as PermohonanHarta;
@@ -115,6 +115,10 @@ class UkpController extends Controller
 
             $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
 
+            if(empty($profile)) {
+                $profile = $profile = Peribadi::recreate($user->id,$nokp);
+            }
+
             $pemohon = new Pemohon;
             $pemohon->flag = 1;
             $pemohon->delete_id = 0;
@@ -198,6 +202,10 @@ class UkpController extends Controller
             $user = User::where('nokp',$nokp)->first();
 
             $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
+
+            if(empty($profile)) {
+                $profile = $profile = Peribadi::recreate($user->id,$nokp);
+            }
 
             $pemohon = new Pemohon;
             $pemohon->flag = 1;
@@ -1218,6 +1226,19 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         //$agama = LAgama::all();
         //$bangsa = LBangsa::all();
         $tkh_istihar = Harta::where('nokp',$nokp)->max('tkh_istihar');
+
+        //Carbon::parse('2000-01-01 12:00')->floatDiffInDays('2000-02-11 06:00');
+        $isValidDate = 0;
+
+        if(!empty($tkh_istihar)) {
+            $diifDays = \Carbon\Carbon::parse($tkh_istihar)->floatDiffInDays(Date::now());
+            if($diifDays > 1580) {
+                $isValidDate = 1;
+            }
+        } else {
+            $isValidDate = 1;
+        }
+
         $waris = Waris::where('nokp',$nokp)->where('kod_perhubungan', strtoupper($profile->jantina) == 'L' ? 4 : 3)->first();
         $cuti = Cuti::where('nokp',$nokp)->whereIn('jenis_cuti', array('CUTI TANPA GAJI',
         'CUTI SEPARUH GAJI',
@@ -1288,6 +1309,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $maklumat['gred_memangku'] = $pemohon->pemohonPermohonan ? $pemohon->pemohonPermohonan->gred : '';
         $maklumat['sumbangan'] = $sumbangan;
         $maklumat['jenis_penempatan'] = empty($penempatanX) ? 1 : $penempatanX->jenis_penempatan;
+        $maklumat['istihar_sah'] = $isValidDate;
 
         $pemohon->jawatan =$maklumat['jawatan'] ;
         $pemohon->kod_jawatan = $maklumat['kod_jawatan'];
