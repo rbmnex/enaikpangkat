@@ -94,7 +94,7 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-form-dow
 
             $.ajax({
                 type:'POST',
-                url: '/form/api/submit-kader',
+                url: getUrl() + '/form/api/submit-kader',
                 data:data,
                 processData: false,
                 contentType: false,
@@ -284,7 +284,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         $('.loan-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/loan/save',
+            url: getUrl() + '/form/api/loan/save',
             data:data,
             processData: false,
             contentType: false,
@@ -307,7 +307,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         $('.cuti-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/cuti/upload',
+            url: getUrl() + '/form/api/cuti/upload',
             data:data,
             processData: false,
             contentType: false,
@@ -330,7 +330,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         $('.kader-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/form/upload',
+            url: getUrl() + '/form/api/form/upload',
             data:data,
             processData: false,
             contentType: false,

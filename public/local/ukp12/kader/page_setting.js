@@ -556,7 +556,7 @@ function last_verification() {
 
     if($('.kader-file').is(':empty')) {
         valid = false;
-        addInvalid('.selesai_bayar', 'Sila Muat Naik Penyata Pembayaran Pinjaman Terkini atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan');
+        addInvalid('.selesai_bayar', 'Sila Muat Naik Borang UKP 12 yang telah disahkan');
     }
 
     if(!valid) {
