@@ -80,7 +80,7 @@
             <div class="card">
                 <div class="card-body">
                 <h4 class="card-title">Borang Lampiran</h4>
-
+                
                 <section class="vertical-wizard">
                     <div class="bs-stepper vertical vertical-wizard-example">
                         <div class="bs-stepper-header">
@@ -88,34 +88,46 @@
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">1</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 1</span>
-                                        <span class="bs-stepper-subtitle">Lampiran Kursus</span>
+                                        <span class="bs-stepper-title">Lampiran Kursus</span>
+                                        <span class="bs-stepper-subtitle"></span>
                                     </span>
                                 </button>
                             </div>
-
+                         
                             <div class="step" data-target="#bebankerja-vertical">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">2</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 2</span>
-                                        <span class="bs-stepper-subtitle"> Lampiran Beban Kerja</span>
+                                        <span class="bs-stepper-title">Lampiran Beban Kerja</span>
+                                        <span class="bs-stepper-subtitle"> </span>
                                     </span>
                                 </button>
                             </div>
-
-
-
+                           
+                          
+                          
                             <div class="step" data-target="#projek-vertical">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">3</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 3</span>
-                                        <span class="bs-stepper-subtitle">Lampiran Projek</span>
+                                        <span class="bs-stepper-title">Lampiran Projek</span>
+                                        <span class="bs-stepper-subtitle"></span>
                                     </span>
                                 </button>
                             </div>
 
+                                <div class="step" data-target="#pendedahan-vertical">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">4</span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Pendedahan</span>
+                                        <span class="bs-stepper-subtitle"></span>
+                                    </span>
+                                </button>
+                            </div>
+
+                        
+                            
                         </div>
 
 
@@ -125,6 +137,7 @@
                                  @include('form.ukp12.lampiranbebankerja')
                                 @include('form.ukp12.lampirankursus')
                                 @include('form.ukp12.lampiranprojek')
+                                @include('form.ukp12.lampiranpendedahan')
                                  @include('segment.layouts.custom_view_links.datepicker.flatpickr.css.index')
                             {{-- </form> --}}
                         </div>
@@ -134,17 +147,17 @@
             </div>
         </div>
     </div>
-     <div class="col-sm-2">
+     <div class="col-sm-2"> 
 
-                        </div>
+                        </div> 
 </section>
 
 
 </div>
 @include('form.ukp12.modal')
 <input type="hidden" id="_token_alt" class="_token_alt" name="_token_alt" value="{{csrf_token()}}">
-{{-- <input type="hidden" id="nokp_1" class="nokp" name="nokp" value="{{ $nokp }}">
-<input type="hidden" id="user_1" class="user" name="user" value="{{ $user }}"> --}}
+<input type="hidden" id="nokp_1" class="nokp" name="nokp" value="{{ $nokp }}">
+<input type="hidden" id="user_1" class="user" name="user" value="{{ $user }}">
 
 @endsection
 

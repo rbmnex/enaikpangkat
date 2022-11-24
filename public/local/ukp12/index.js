@@ -88,7 +88,7 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
     }
 });
 
-$(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kursus, .add-projek',function() {
+$(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kursus, .add-projek, add-pendedahan',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-cuti')) {
         let row = [];
@@ -191,6 +191,42 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
             }
         });
       } else if(selectedClass.hasClass('add-projek')){
+        let tajuk = $('input[name="projek-nama"]').val();
+        let kos = $('input[name="projek-kos"]').val();
+
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('tajuk',tajuk);
+        data.append('kos',kos);
+        data.append('pemohonId',$('._formid').val());
+        data.append('nokp',$('input[name="nokp"]').val());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan disimpan',
+            icon: 'info',
+            confirmButtonText: 'Hantar',
+            postData: {
+                url : '/form/api/projek',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        let row = [];
+                        row.push(parseData.tajuk);
+                        row.push(parseData.kos);
+                        row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
+                        add_row('#tbody-badan-projek',row,'data-projek-id='+parseData.id);
+                        $('#modal-projek').modal('hide');
+                        toasting('projek Ditambah', 'success');
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                    }
+                },
+            }
+        });
+    }else if(selectedClass.hasClass('add-pendedahan')){
         let tajuk = $('input[name="projek-nama"]').val();
         let kos = $('input[name="projek-kos"]').val();
 

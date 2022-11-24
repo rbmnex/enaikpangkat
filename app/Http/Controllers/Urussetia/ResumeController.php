@@ -330,6 +330,8 @@ public function lampiran3($ic)
 
         $model=ListPegawai2::getMaklumatPegawai($ic);
         $mula_khidmat=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
+        $gred_sekarang = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
+
         $mula_gred_hakiki=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->where('status_perkhidmatan','H')->orderBy('tkh_lantik', 'desc')->first();
         $modelp = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
@@ -374,10 +376,13 @@ public function lampiran3($ic)
         $lampiran_projek = LampiranProjek::where('nokp',$ic)->get();
      
 
-                    
-        $pdf = Pdf::loadView('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek','tempoh_pnp','modelp'));
-        return $pdf->stream("dompdf_out.pdf", array("Attachment" => false, 'enable_remote' => true));
-        exit(0);
+        // echo '<pre>';
+        // print_r($model);
+        // echo '</pre>';
+        // die();        
+         return view('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek','tempoh_pnp','modelp','gred_sekarang'));
+
+        
     }
 
 
