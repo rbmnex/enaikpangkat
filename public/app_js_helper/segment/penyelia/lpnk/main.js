@@ -31,6 +31,7 @@ $(document).on('click', '.post-tidak-setuju, .post-setuju', function(){
     }
     v.append('skorArr', JSON.stringify(skorArr));
     v.append('id_permohonan', $('#id-permohonan').val());
+    v.append('id_pemohon',$('#id-pemohon').val())
 
     if(curThis.hasClass('post-setuju')){
         trigger = 0;

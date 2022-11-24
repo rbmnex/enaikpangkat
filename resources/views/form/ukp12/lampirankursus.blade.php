@@ -17,7 +17,7 @@
                     <th>Tindakan</th>
                 </thead>
                 <tbody id="tbody-badan-kursus">
-                @foreach ($lampirankursus as $org)
+                {{-- @foreach ($lampirankursus as $org)
                     <tr data-kursus-id="{{ $org->id }}">
                         <td>{{ $org->nama_kursus }}</td>
                         <td>{{ $org->tkh_mula }}</td>
@@ -26,16 +26,16 @@
                         <td><button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-kursus"><i data-feather='trash-2'></i> Hapus</button></td>
                     </tr>
                 @endforeach
-                @if($lampirankursus->count() == 0)
+                @if($lampirankursus->count() == 0) --}}
                 <tr data-kurusu-id="">
-                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                    <td colspan="5" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
-                @endif
-                </tbody>
+                {{-- @endif
+                </tbody> --}}
             </table>
         </div>
     </div>
     <br/>
     <br/>
-   
+
 </div>

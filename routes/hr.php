@@ -15,6 +15,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/',[PinkFormController::class,'index']);
             Route::get('/get-pink-form-list',[PinkFormController::class,'getPinkFormList']);
             Route::post('/hantar',[PinkFormController::class,'hantar']);
+            Route::get('/download-pink/{id}',[PinkFormController::class,'display_pink']);
         });
     });
 

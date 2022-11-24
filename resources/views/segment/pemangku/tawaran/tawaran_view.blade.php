@@ -17,7 +17,7 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">BORANG UKP11</h2>
+                    <h2 class="content-header-title float-start mb-0">BORANG UKP 11</h2>
                     <div class="breadcrumb-wrapper">
                     </div>
                 </div>
@@ -100,11 +100,12 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-12 col-form-label" style="color:red">Adakah Saya {{$data->pemohonPeribadi->nama}}, No. kad pengenalan {{$data->pemohonPeribadi->nokp}}</label>
                         <div class="col-sm-3">
-                            <select class="select2 form-select form-control" id="tawaran-setuju">
+                            {{-- <select class="select2 form-select form-control" id="tawaran-setuju">
                                 <option value="">-- Sila Pilih --</option>
                                 <option value="TL">Setuju</option>
                                 <option value="PL">Tidak Setuju</option>
-                            </select>
+                            </select> --}}
+                            <input type="text" class="form-control" id="tawaran-rujukan" value="{{ empty($ukp11->status_terima_pemangkuan) ? '' : ($ukp11->status_terima_pemangkuan == 1 ? 'SETUJU' : 'TOLAK')}}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

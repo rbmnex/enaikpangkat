@@ -38,57 +38,74 @@
                     </li>
                 </ul>
             </li> --}}
-            @role(['secretariat','superadmin'])
+            @role(['secretariat'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">BPSM</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pemangkuan</span>
                 </a>
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="/urussetia/kumpulan/">
                             <i data-feather='users'></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan <br/> Kumpulan</span>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Kumpulan</span>
                         </a>
                     </li>
                     <li>
                         <a class="d-flex align-items-center" href="/urussetia/appl/main/">
                             <i data-feather="inbox"></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan <br/> Permohonan</span>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">senarai <br/> Permohonan</span>
                         </a>
                     </li>
-                    <li>
-                        <a class="d-flex align-items-center" href="/urussetia/resume/">
-                            <i data-feather='file-text'></i>
-                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Resume</span>
-                            </a>
-                    </li>
-                    <li>
+                    {{-- <li>
                         <a class="d-flex align-items-center" href="/urussetia/resume/lampiran/">
                             <i data-feather='link-2'></i>
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Lampiran</span>
                             </a>
+                    </li> --}}
+
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Resume</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="/urussetia/resume/">
+                            <i data-feather='file-text'></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Resume</span>
+                            </a>
                     </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Tetapan</span>
+                </a>
+                <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="/bpsm/question/">
                             <i data-feather='link-2'></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">LNPK Bank Soalan</span>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">LNPK <br/> Bank Soalan</span>
                         </a>
                     </li>
                 </ul>
             </li>
             @endrole
-            @role(['coordinator','superadmin'])
+            @role(['coordinator'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">BPSK</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Surat Pink</span>
                 </a>
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="/hr2/pinkform/">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Surat Pink</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai <br/> Surat Pink</span>
                         </a>
                     </li>
                 </ul>
@@ -98,13 +115,15 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Admin</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">
+                        Pengguna
+                    </span>
                 </a>
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="/admin/pengguna/">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan <br/> Pengguna</span>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Pengguna</span>
                         </a>
                     </li>
                     {{-- <li>
@@ -128,13 +147,19 @@
                 </ul>
             </li>
             @endrole
-            @role(['user','superadmin'])
+            @role(['user'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Pemangku</span>
                 </a>
                 <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="/user/form/">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai Permohonan</span>
+                        </a>
+                    </li>
                     <li>
                         <a class="d-flex align-items-center" href="/pemangku/tawaran/">
                             <i data-feather="circle"></i>
@@ -158,34 +183,46 @@
                 </ul>
             </li>
             @endrole
-            @role(['clerk','superadmin'])
+            @role(['clerk'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Ketua Bahagian</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pengesahan</span>
                 </a>
                 <ul class="menu-content">
                     <li>
+                        <a class="d-flex align-items-center" href="/validate/senarai">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="d-flex align-items-center" href="/kb/pengesahan-pink/">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/> Lapor Diri Pegawai</span>
                         </a>
                     </li>
                 </ul>
             </li>
 
             @endrole
-            @role(['hod','superadmin'])
+            @role(['hod'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Ketua Jabatan</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pengesahan</span>
                 </a>
                 <ul class="menu-content">
                     <li>
+                        <a class="d-flex align-items-center" href="/validate/senarai">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
+                        </a>
+                    </li>
+                    <li>
                         <a class="d-flex align-items-center" href="/kj/pengesahan-pink/">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/> Lapor Diri Pegawai</span>
                         </a>
                     </li>
                 </ul>
@@ -195,13 +232,13 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Penyelia</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">LPNK</span>
                 </a>
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="/penyelia/lpnk/">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Borang LPNK</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai <br/>Borang LPNK</span>
                         </a>
                     </li>
                 </ul>

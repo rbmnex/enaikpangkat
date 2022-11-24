@@ -23,7 +23,7 @@ DatatableUI.init({
                 let row_type = full.jenis;
                 if(row_type == 'UKP12') {
                     return ('Pemangkuan');
-                } else if(row_type == 'UKP11') {
+                } else if(row_type == 'UKP13') {
                     return 'Kenaik Pangkat';
                 } else {
                     return '';

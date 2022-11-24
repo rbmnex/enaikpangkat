@@ -55,6 +55,6 @@
 <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app_js_helper/main/common.js') }}"></script>
 <script src="{{ asset('app_js_helper/inits/datatable/index.js') }}"></script>
-<script src="{{asset('local/application/js/page_setting.js')}}"></script>
-<script src="{{asset('local/application/js/index.js')}}"></script>
+<script src="{{asset('local/pengesahan/js/page_setting.js')}}"></script>
+<script src="{{asset('local/pengesahan/js/index.js')}}"></script>
 @endsection

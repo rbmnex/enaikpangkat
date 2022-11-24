@@ -45,26 +45,22 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
-                <table class="datatables table table-pemohon">
+                <table class="datatables table table-personal">
                     <thead>
                         <tr>
-                            <th>no kad pengenalan</th>
-                            <th>nama</th>
-                            <th>jawatan</th>
-                            <th>gred</th>
+                            <th>jenis</th>
                             <th>status</th>
-                            <th>tangga</th>
                             <th>tindakan</th>
                         </tr>
                     </thead>
                 </table>
-                <input type="hidden" id="hdn_id_application" value="{{ $permohonan_id }}"/>
+                <input type="hidden" id="hdn_id" class="hidden-class" value=""/>
             </div>
         </div>
     </div>
     </section>
 </div>
-@include('urussetia.application.modal.applicant')
+{{-- @include('urussetia.application.modal.applicant') --}}
 @endsection
 
 @section('customJs')
@@ -73,6 +69,6 @@
 <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app_js_helper/main/common.js') }}"></script>
 <script src="{{ asset('app_js_helper/inits/datatable/index.js') }}"></script>
-<script src="{{asset('local/applicant/js/page_setting.js')}}"></script>
-<script src="{{asset('local/applicant/js/index.js')}}"></script>
+<script src="{{asset('local/user/js/page_setting.js')}}"></script>
+<script src="{{asset('local/user/js/index.js')}}"></script>
 @endsection

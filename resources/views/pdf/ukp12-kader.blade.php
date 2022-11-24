@@ -628,17 +628,26 @@
                 <td><span class="normal-size" style="font-weight: bold;">III.</span></td>
                 <td colspan="11"><span class="normal-size" style="font-weight: bold;">BUTIR-BUTIR CALON UNTUK TAPISAN KEUTUHAN</span></td>
             </tr>
+            <tr class="">
+                <td colspan="12" style="height: 10px;"></td>
+            </tr>
             <tr>
                 <td></td>
                 <td colspan="11">
                     <span class="normal-size" style="font-weight: bold;">PERINGATAN : </span>
                 </td>
             </tr>
+            <tr class="">
+                <td colspan="12" style="height: 10px;"></td>
+            </tr>
             <tr>
                 <td></td>
                 <td colspan="11">
                     <span class="normal-size">Semua ruangan hendaklah dipenuhkan. Jika tidak berkenaan tulis </span> <span class="normal-size" style="font-weight: bold;">“TIDAK BERKENAAN”</span><span class="normal-size">, tiada, tulis </span><span class="normal-size" style="font-weight: bold;">“TIADA”</span><span class="normal-size">.</span>
                 </td>
+            </tr>
+            <tr class="">
+                <td colspan="12" style="height: 10px;"></td>
             </tr>
             <tr>
                 <td></td>
@@ -1639,10 +1648,7 @@
                 <td colspan="2">Alamat Pejabat</td>
 
                 <td style="text-align: center;">:</td>
-                <td colspan="8">CAWANGAN KERJA BANGUNAN AM 1 IBU
-                    PEJABAT JKR MALAYSIA TINGKAT 13,13A & 17,
-                    MENARA PJD NO.50, JALAN TUN RAZAK 50400
-                    KUALA LUMPUR</td>
+                <td colspan="8">{{ $peribadi->alamat_pejabat }}</td>
 
             </tr>
             <tr>

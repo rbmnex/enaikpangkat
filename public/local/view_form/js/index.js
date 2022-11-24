@@ -7,7 +7,8 @@ $(document).on('click','.btn-download, .btn-back, .btn-pdf',function() {
         var back_id = $(this).attr('data-appl-id');
         window.open(getUrl() + '/urussetia/appl/calon/main/'+back_id,'_self');
     } else if(selectedClass.hasClass('btn-pdf')) {
-        window.open(getUrl() + '/test/view_pdf','_blank');
+        var pemohon_id = $('.hidden_id').val();
+        window.open(getUrl() + '/form/ukp12/download/view?dataform='+pemohon_id,'_blank');
     }
 });
 
@@ -110,7 +111,7 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
         data.append('pengesahan',$('.radio-certified').filter(':checked').val());
         data.append('nama',$('.nama-ketua').val());
         data.append('jawatan',$('.jawatan-ketua').val());
-        data.append('jabatan',$('.jabatan-ketuai').val());
+        data.append('jabatan',$('.jabatan-ketua').val());
         data.append('ulasan',$('.ulasan_ketua').val());
         //data.append('tkh_pengesahan',$('.tkh_kerani').val());
         if(valid) {

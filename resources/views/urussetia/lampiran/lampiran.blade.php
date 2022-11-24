@@ -80,7 +80,7 @@
             <div class="card">
                 <div class="card-body">
                 <h4 class="card-title">Borang Lampiran</h4>
-                
+
                 <section class="vertical-wizard">
                     <div class="bs-stepper vertical vertical-wizard-example">
                         <div class="bs-stepper-header">
@@ -93,7 +93,7 @@
                                     </span>
                                 </button>
                             </div>
-                         
+
                             <div class="step" data-target="#bebankerja-vertical">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">2</span>
@@ -103,9 +103,9 @@
                                     </span>
                                 </button>
                             </div>
-                           
-                          
-                          
+
+
+
                             <div class="step" data-target="#projek-vertical">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">3</span>
@@ -115,7 +115,7 @@
                                     </span>
                                 </button>
                             </div>
-                            
+
                         </div>
 
 
@@ -134,17 +134,17 @@
             </div>
         </div>
     </div>
-     <div class="col-sm-2"> 
+     <div class="col-sm-2">
 
-                        </div> 
+                        </div>
 </section>
 
 
 </div>
 @include('form.ukp12.modal')
 <input type="hidden" id="_token_alt" class="_token_alt" name="_token_alt" value="{{csrf_token()}}">
-<input type="hidden" id="nokp_1" class="nokp" name="nokp" value="{{ $nokp }}">
-<input type="hidden" id="user_1" class="user" name="user" value="{{ $user }}">
+{{-- <input type="hidden" id="nokp_1" class="nokp" name="nokp" value="{{ $nokp }}">
+<input type="hidden" id="user_1" class="user" name="user" value="{{ $user }}"> --}}
 
 @endsection
 

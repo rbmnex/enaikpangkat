@@ -5,9 +5,9 @@ $(document).on('click','.valid-applicant', function() {
         let role = selectedClass.closest('tr').attr('data-role-name');
         let view = 'n'
         if(role == 'clerk')
-            view = s;
+            view = 's';
         else if(role == 'hod')
-            view = h;
-        window.open(getUrl() + 'form/ukp12/nview/'+pemohon_id+'?view='+view,'_self');
+            view = 'h';
+        window.open(getUrl() + '/form/ukp12/nview/'+pemohon_id+'?view='+view,'_self');
     }
 });
