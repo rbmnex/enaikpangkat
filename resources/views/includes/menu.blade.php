@@ -46,13 +46,13 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/urussetia/kumpulan/">
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/kumpulan/') }}">
                             <i data-feather='users'></i>
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Kumpulan</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-items-center" href="/urussetia/appl/main/">
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/appl/main/') }}">
                             <i data-feather="inbox"></i>
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">senarai <br/> Permohonan</span>
                         </a>
@@ -73,7 +73,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/urussetia/resume/">
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/resume/') }}">
                             <i data-feather='file-text'></i>
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Resume</span>
                             </a>
@@ -87,7 +87,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/bpsm/question/">
+                        <a class="d-flex align-items-center" href="{{ url('/bpsm/question/') }}">
                             <i data-feather='link-2'></i>
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">LNPK <br/> Bank Soalan</span>
                         </a>
@@ -103,7 +103,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/hr2/pinkform/">
+                        <a class="d-flex align-items-center" href="{{ url('/hr2/pinkform/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai <br/> Surat Pink</span>
                         </a>
@@ -121,7 +121,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/admin/pengguna/">
+                        <a class="d-flex align-items-center" href="{{ url('/admin/pengguna/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Pengguna</span>
                         </a>
@@ -155,13 +155,13 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/user/form/">
+                        <a class="d-flex align-items-center" href="{{ url('/user/form/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai Permohonan</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-items-center" href="/pemangku/tawaran/">
+                        <a class="d-flex align-items-center" href="{{ url('/pemangku/tawaran/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran</span>
                         </a>
@@ -175,7 +175,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/naikpangkat/ukp13/">
+                        <a class="d-flex align-items-center" href="{{ url('/naikpangkat/ukp13/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">UKP 13</span>
                         </a>
@@ -191,7 +191,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/validate/senarai">
+                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
                         </a>
@@ -214,13 +214,13 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/validate/senarai">
+                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-items-center" href="/kj/pengesahan-pink/">
+                        <a class="d-flex align-items-center" href="{{ url('/kj/pengesahan-pink/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/> Lapor Diri Pegawai</span>
                         </a>
@@ -236,7 +236,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="/penyelia/lpnk/">
+                        <a class="d-flex align-items-center" href="{{ url('/penyelia/lpnk/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai <br/>Borang LPNK</span>
                         </a>
