@@ -31,6 +31,7 @@ class ListPegawai2 extends Model
             $maklumatPegawai = $maklumatPegawaiGet;
 
             $data['nokp'] = $no_ic;
+            $data['gelaran'] = $maklumatPegawai->gelaran;
             $data['name'] = html_entity_decode($maklumatPegawai->nama, ENT_QUOTES | ENT_HTML5);
             $data['tel_bimbit'] = $maklumatPegawai->tel_bimbit;
             $data['tel_pejabat'] = $maklumatPegawai->tel_pejabat;
@@ -63,7 +64,7 @@ class ListPegawai2 extends Model
      public static function kelayakan($ic){
         $data= [];
 
-        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '!=',[8,9,10,20])->get();
+        $model = Kelayakan::where('nokp', $ic)->whereNotIn('kod_kelulusan',[8,9,10,20,21,22,23])->get();
 
         if($model){
             foreach($model as $m){
@@ -243,7 +244,7 @@ class ListPegawai2 extends Model
         $data= [];
         //$days='';
 
-        $model = Pengalaman::where('nokp', $ic)->get();
+        $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
 
         if($model){
             foreach($model as $m){
@@ -272,7 +273,7 @@ class ListPegawai2 extends Model
     public static function pengalamanPengkhususan($ic){
         $data= [];
         
-        $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
+        $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
         // $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->distinct('kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
@@ -280,21 +281,55 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 // $diff=date_diff($m->tkh_mula,$m->tkh_tamat);
+                if($m->kod_aktiviti >= 50){
+                    if($m->tkh_mula && $m->tkh_tamat){
+                        $date1 = new DateTime($m->tkh_mula);
+                        $date2 = new DateTime($m->tkh_tamat);
+                        $interval = $date1->diff($date2);
+                    }else{
+                        $interval = '';
+                    }
+                    
 
-                $data[] = [
-                    'tempat' => $m->tempat,
-                    'mula' => $m->tkh_mula ? $m->tkh_mula :'',
-                    'tamat' => $m->tkh_tamat ?$m->tkh_tamat :'',
-                    // 'diff' => $diff->format("%R%a days"),
-                    'aktiviti' => $m->LAktiviti->aktiviti,
-                    'kod_gred_sebenar' => $m->kod_gred_sebenar,
-                    'kod_gelaran_jawatan' => $m->gelaran_jawatan->gelaran_jawatan ? $m->gelaran_jawatan->gelaran_jawatan:'',
-                    'kod_aktiviti' => $m->kod_aktiviti
+                    $data['khusus'][$m->LAktiviti->aktiviti]['data'][] = [
+                        'tempat' => $m->tempat,
+                        'interval_month' => $interval->m,
+                        'interval_year' => $interval->y,
+                        // 'diff' => $diff->format("%R%a days"),
+                        'aktiviti' => $m->LAktiviti->aktiviti,
+                        'kod_gred_sebenar' => $m->kod_gred_sebenar,
+                        'kod_gelaran_jawatan' => $m->gelaran_jawatan->gelaran_jawatan ? $m->gelaran_jawatan->gelaran_jawatan:'',
+                        'kod_aktiviti' => $m->kod_aktiviti
 
-                ];
+                    ];
+                }
+                
             }
         }
 
+        foreach ($data['khusus'] as $key => $value) {
+            $title = $key;
+            if(count($value['data']) > 0){
+                $totalYear = 0;
+                $totalMonth = 0;
+                foreach($value['data'] as $v){
+                    $totalMonth += $v['interval_month'];
+                    $totalYear += $v['interval_year'];
+                }
+
+                if($totalMonth >= 12){
+                    while($totalMonth >= 12){
+                        $totalMonth= $totalMonth - 12;
+                        $totalYear += 1;
+                    }
+                }
+
+                $data['khusus'][$key]['jumlah_pengalaman'] = $title.' selama '.$totalYear.' tahun, '.$totalMonth.' bulan';
+            }
+            
+        }
+
+        
         return $data;
     }
 
@@ -331,7 +366,7 @@ class ListPegawai2 extends Model
     public static function perkhidmatan($ic){
         $data= [];
 
-        $model = Perkhidmatan::where('nokp', $ic)->where('flag',1)->first();
+        $model = Perkhidmatan::where('nokp', $ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
 
         if($model){
                 $data = [
@@ -339,8 +374,8 @@ class ListPegawai2 extends Model
                     'kod_jawatan' => $model->kod_jawatan,
                     'taraf'=> $model->PerkhidmatanTaraf->perkhidmatan,
                     'skim' =>  $model->LKumpulan->kumpulan ? $model->LKumpulan->kumpulan : '',
-                    'gred_hakiki' =>$model->kod_gred,
-                    'tkh_mula_gred_hakiki' =>$model->tkh_lantik ? $model->tkh_lantik :''
+                    'gred_sekarang' =>$model->kod_gred,
+                    'tkh_mula_gred_sekarang' =>$model->tkh_lantik ? $model->tkh_lantik :''
                 ];
             }
 

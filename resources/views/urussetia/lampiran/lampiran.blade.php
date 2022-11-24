@@ -88,8 +88,8 @@
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">1</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 1</span>
-                                        <span class="bs-stepper-subtitle">Lampiran Kursus</span>
+                                        <span class="bs-stepper-title">Lampiran Kursus</span>
+                                        <span class="bs-stepper-subtitle"></span>
                                     </span>
                                 </button>
                             </div>
@@ -98,8 +98,8 @@
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">2</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 2</span>
-                                        <span class="bs-stepper-subtitle"> Lampiran Beban Kerja</span>
+                                        <span class="bs-stepper-title">Lampiran Beban Kerja</span>
+                                        <span class="bs-stepper-subtitle"> </span>
                                     </span>
                                 </button>
                             </div>
@@ -110,11 +110,23 @@
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">3</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 3</span>
-                                        <span class="bs-stepper-subtitle">Lampiran Projek</span>
+                                        <span class="bs-stepper-title">Lampiran Projek</span>
+                                        <span class="bs-stepper-subtitle"></span>
                                     </span>
                                 </button>
                             </div>
+
+                                <div class="step" data-target="#pendedahan-vertical">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">4</span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Pendedahan</span>
+                                        <span class="bs-stepper-subtitle"></span>
+                                    </span>
+                                </button>
+                            </div>
+
+                        
                             
                         </div>
 
@@ -125,6 +137,7 @@
                                  @include('form.ukp12.lampiranbebankerja')
                                 @include('form.ukp12.lampirankursus')
                                 @include('form.ukp12.lampiranprojek')
+                                @include('form.ukp12.lampiranpendedahan')
                                  @include('segment.layouts.custom_view_links.datepicker.flatpickr.css.index')
                             {{-- </form> --}}
                         </div>
