@@ -61,14 +61,14 @@
             <div class="card">
                 <div class="card-header">
                     <h4 class="card-title pull-left">BUTIR-BUTIR PERIBADI</h4>
-                    @role(['superadmin','secretariat'])
+                    {{-- @role(['superadmin','secretariat']) --}}
                     <div class="text-right">
-                                            <button data-appl-id={{ $pemohon->id_permohonan }} class="btn btn-success btn-back">
+                                            <button data-appl-id={{ $pemohon->id_permohonan }} class="btn btn-success btn-jump" onclick="window.history.back();">
                                                 <i data-feather="arrow-left" class="align-middle ml-sm-25 ml-0"></i>
                                                 <span class="align-middle d-sm-inline-block d-none">Kembali</span>
                                             </button>
                     </div>
-                    @endrole
+                    {{-- @endrole --}}
                 </div>
                 <div class="card-body">
                     <div class="row">

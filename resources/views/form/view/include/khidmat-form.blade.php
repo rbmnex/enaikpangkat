@@ -8,7 +8,7 @@
                 <div class="form-group col-md-12">
                     <div class="form-check form-check-inline">
 
-                        <input type="checkbox" class="form-check-input pengesahan_kbp medium" value="1" name="akuan_kbp" onclick="return false;" id="checkbox_akuan" @if(!empty($pemohon->pengesahan_perkhidmatan_tkh)) checked @endif/>
+                        <input type="checkbox" class="form-check-input pengesahan_kbp medium" value="1" name="akuan_kbp" id="checkbox_akuan" @if(!empty($pemohon->pengesahan_perkhidmatan_tkh)) checked @endif/>
                         <label class="col-form-label" for="customCheck1">Saya telah menyemak butir-butir perkhidmatan pegawai di atas dan disahkan betul </label>
                     </div>
                     <div class="invalid-feedback"></div>

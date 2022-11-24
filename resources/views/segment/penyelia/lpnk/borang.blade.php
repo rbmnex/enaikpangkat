@@ -183,6 +183,7 @@
         </div>
     </div>
     <input type="hidden" id="id-permohonan" value="{{ $id_permohonan }}">
+    <input type="hidden" id="id-pemohon" value="{{ $pemohon->id }}">
     @include('segment.bpsm.modal.index')
 @endsection
 

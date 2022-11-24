@@ -48,7 +48,7 @@
                         <label class="col-form-label" for="first-name">Caw./Jabatan</label>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" id="jabatan-ketua" readonly class="form-control jabatan-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_alamat_pejabat) ? $hod['waran_name']['bahagian'].','.$clerk['waran_name']['cawangan'] : $pemohon->perakuan_ketua_jabatan_alamat_pejabat }}">
+                        <input type="text" id="jabatan-ketua" readonly class="form-control jabatan-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_alamat_pejabat)?$hod['waran_name']['bahagian'].','.$clerk['waran_name']['cawangan']:$pemohon->perakuan_ketua_jabatan_alamat_pejabat }}">
                     </div>
                 </div>
             </div>

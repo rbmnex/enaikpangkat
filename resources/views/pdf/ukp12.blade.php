@@ -74,14 +74,6 @@
             text-align: center;
         }
 
-        .box-small {
-            border-style: solid;
-            border-width: 1px;
-            width: 20px; height: 20px;
-            display: inline-block;
-            text-align: center;
-        }
-
         .box-normal {
             border-style: solid;
             border-width: 1px;
@@ -370,29 +362,61 @@
                 </td>
             </tr>
             <tr class="side-border">
-                <td colspan="12">
+                <td><span class="box-small">{{ $pemohon->pengesahan_perkhidmatan == 1 ? '/' : '' }}</span></td>
+                <td colspan="11">
                     <span class="normal-size" style="font-style: italic; padding-left: 5px;">Saya telah menyemak butir-butir perkhidmatan pegawai di atas dan disahkan betul</span>
                 </td>
             </tr>
             <tr class="side-border">
-                <td colspan="12" style="height: 100px;"></td>
+                <td colspan="12" style="height: 30px;"></td>
             </tr>
 
             <tr class="side-border">
                 <td colspan="2"></td>
-                <td colspan="8" style="text-align: center">
-                    .....................................................................
+                <td style="normal-size">
+                    <span>Nama</span>
                 </td>
-                <td colspan="2"></td>
+                <td style="normal-size" style="text-align: center;">
+                    <span>:</span>
+                </td>
+                <td colspan="8">{{ $pemohon->pengesahan_perkhidmatan_nama}}</td>
             </tr>
+
             <tr class="side-border">
                 <td colspan="2"></td>
-                <td colspan="8" style="text-align: center;"><span class="normal-size" style="font-style: italic; padding-left: 5px; font-weight: bold;">Tandatangan dan Cop Kerani Perkhidmatan</span></td>
+                <td style="normal-size">
+                    <span>Jawatan</span>
+                </td>
+                <td style="normal-size" style="text-align: center;">
+                    <span>:</span>
+                </td>
+                <td colspan="8">{{ $pemohon->pengesahan_perkhidmatan_jawatan}}</td>
+            </tr>
+
+            <tr class="side-border">
                 <td colspan="2"></td>
+                <td style="normal-size">
+                    <span>Caw./Jabatan</span>
+                </td>
+                <td style="normal-size" style="text-align: center;">
+                    <span>:</span>
+                </td>
+                <td colspan="8">{{ $pemohon->pengesahan_perkhidmatan_cawangan}}</td>
+            </tr>
+
+            <tr class="side-border">
+                <td colspan="2"></td>
+                <td style="normal-size">
+                    <span>Tarikh</span>
+                </td>
+                <td style="normal-size" style="text-align: center;">
+                    <span>:</span>
+                </td>
+                <td colspan="8">{{ empty($pemohon->pengesahan_perkhidmatan_tkh) ? '' : \Carbon\Carbon::parse($pemohon->pengesahan_perkhidmatan_tkh)->format('d-m-Y')}}</td>
             </tr>
 
             <tr class="bottom-border">
-                <td colspan="12" style="height: 10px;"></td>
+                <td colspan="12" style="height: 50px;"></td>
             </tr>
             <tr class="">
                 <td colspan="12">
@@ -536,15 +560,23 @@
                         <tbody>
                             <tr style="text-align: center;">
                                 <td>Tahun</td>
-                                <td>{{ $year-1 }}</td>
+                                @foreach($lnpt as $m)
+                                <td class="">{{ $m->tahun }}</td>
+                                @endforeach
+                                {{-- <td>{{ $year-1 }}</td>
                                 <td>{{ $year-2 }}</td>
-                                <td>{{ $year-3 }}</td>
+                                <td>{{ $year-3 }}</td> --}}
                             </tr>
                             <tr style="text-align: center;">
                                 <td>Markah</td>
+                                @foreach($lnpt as $p)
+                                    <td class="cell">
+                                        {{ $p->purata }}
+                                    </td>
+                                    @endforeach
+                                {{-- <td></td>
                                 <td></td>
-                                <td></td>
-                                <td></td>
+                                <td></td> --}}
                             </tr>
                         </tbody>
                     </table>
@@ -628,17 +660,26 @@
                 <td><span class="normal-size" style="font-weight: bold;">III.</span></td>
                 <td colspan="11"><span class="normal-size" style="font-weight: bold;">BUTIR-BUTIR CALON UNTUK TAPISAN KEUTUHAN</span></td>
             </tr>
+            <tr class="">
+                <td colspan="12" style="height: 10px;"></td>
+            </tr>
             <tr>
                 <td></td>
                 <td colspan="11">
                     <span class="normal-size" style="font-weight: bold;">PERINGATAN : </span>
                 </td>
             </tr>
+            <tr class="">
+                <td colspan="12" style="height: 10px;"></td>
+            </tr>
             <tr>
                 <td></td>
                 <td colspan="11">
                     <span class="normal-size">Semua ruangan hendaklah dipenuhkan. Jika tidak berkenaan tulis </span> <span class="normal-size" style="font-weight: bold;">“TIDAK BERKENAAN”</span><span class="normal-size">, tiada, tulis </span><span class="normal-size" style="font-weight: bold;">“TIADA”</span><span class="normal-size">.</span>
                 </td>
+            </tr>
+            <tr class="">
+                <td colspan="12" style="height: 10px;"></td>
             </tr>
             <tr>
                 <td></td>
@@ -1639,10 +1680,7 @@
                 <td colspan="2">Alamat Pejabat</td>
 
                 <td style="text-align: center;">:</td>
-                <td colspan="8">CAWANGAN KERJA BANGUNAN AM 1 IBU
-                    PEJABAT JKR MALAYSIA TINGKAT 13,13A & 17,
-                    MENARA PJD NO.50, JALAN TUN RAZAK 50400
-                    KUALA LUMPUR</td>
+                <td colspan="8">{{ $peribadi->alamat_pejabat }}</td>
 
             </tr>
             <tr>
@@ -1650,7 +1688,7 @@
                 <td colspan="2">Tarikh</td>
 
                 <td style="text-align: center;">:</td>
-                <td colspan="8">{{ \Carbon\Carbon::parse(Date::now())->format('d-m-Y') }}</td>
+                <td colspan="8">{{ \Carbon\Carbon::parse($akuan_pegawai->perakuan_tkh)->format('d-m-Y') }}</td>
             </tr>
             <tr>
                 <td colspan="12" style="height: 30px"></td>
@@ -1670,9 +1708,9 @@
                 <td></td>
                 <td colspan="3">Perakuan Ketua Jabatan :</td>
                 <td colspan="2">Diperaku</td>
-                <td><span class="box-small"></span></td>
+                <td><span class="box-small">{{ empty($pemohon->perakuan_ketua_jabatan) ? '' : ($pemohon->perakuan_ketua_jabatan == 1 ? '/' : '') }}</span></td>
                 <td colspan="2">Tidak Diperakui</td>
-                <td><span class="box-small"></span></td>
+                <td><span class="box-small">{{ empty($pemohon->perakuan_ketua_jabatan) ? '' : ($pemohon->perakuan_ketua_jabatan != 1 ? '/' : '') }}</span></td>
                 <td></td>
                 <td></td>
             </tr>
@@ -1690,53 +1728,54 @@
             <tr style="" class="normal-size side-border">
                 <td></td>
                 <td colspan="11">
-                    ...................................................................................................................................................
+                    {{ $pemohon->perakuan_ketua_jabatan_ulasan }}
                 </td>
             </tr>
             <tr style="" class="normal-size side-border">
-                <td></td>
-                <td colspan="11">
-                    ...................................................................................................................................................
-                </td>
+                <td colspan="12" style="height: 30px" class=""></td>
             </tr>
-            <tr style="" class="normal-size side-border">
-                <td></td>
-                <td colspan="11">
-                    ...................................................................................................................................................
+            <tr class="side-border">
+                <td colspan="2"></td>
+                <td style="normal-size">
+                    <span>Nama</span>
                 </td>
-            </tr>
-            <tr style="" class="normal-size side-border">
-                <td></td>
-                <td colspan="11">
-                    ...................................................................................................................................................
+                <td style="normal-size" style="text-align: center;">
+                    <span>:</span>
                 </td>
+                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_nama}}</td>
             </tr>
-            <tr style="" class="normal-size side-border">
-                <td colspan="12" style="height: 100px" class=""></td>
-            </tr>
-            <tr class="normal-size side-border">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td colspan="5" style="border-right-style: solid; border-right-width: 1px;">
-                    ................................................................
+
+            <tr class="side-border">
+                <td colspan="2"></td>
+                <td style="normal-size">
+                    <span>Jawatan</span>
                 </td>
-            </tr>
-            <tr class="normal-size side-border">
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td colspan="5" style="border-right-style: solid; border-right-width: 1px;">
-                    <span style="font-weight: bold; font-style: italic;">Tandatangan dan Cop Ketua Jabatan</span>
+                <td style="normal-size" style="text-align: center;">
+                    <span>:</span>
                 </td>
+                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_jawatan}}</td>
+            </tr>
+
+            <tr class="side-border">
+                <td colspan="2"></td>
+                <td style="normal-size">
+                    <span>Caw./Jabatan</span>
+                </td>
+                <td style="normal-size" style="text-align: center;">
+                    <span>:</span>
+                </td>
+                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_alamat_pejabat}}</td>
+            </tr>
+
+            <tr class="side-border">
+                <td colspan="2"></td>
+                <td style="normal-size">
+                    <span>Tarikh</span>
+                </td>
+                <td style="normal-size" style="text-align: center;">
+                    <span>:</span>
+                </td>
+                <td colspan="8">{{ empty($pemohon->perakuan_ketua_jabatan_tkh) ? '' : \Carbon\Carbon::parse($pemohon->perakuan_ketua_jabatan_tkh)->format('d-m-Y')}}</td>
             </tr>
             <tr style="" class="normal-size bottom-border">
                 <td colspan="6" style="height: 20px" class=""></td>

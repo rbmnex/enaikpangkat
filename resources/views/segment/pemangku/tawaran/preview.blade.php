@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Document</title>
+    <title>Borang UKP 11</title>
     <style>
         .centerCell {
             text-align: center;
@@ -31,45 +31,104 @@
         .page-break {
             page-break-before: always;
         }
+        .word-line {
+            line-height: 15px;
+        }
     </style>
 </head>
 <body>
     <table>
         <tbody>
-            <tr style="text-align:right">
+            <tr>
                 <td></td>
                 <td></td>
-                <td style="text-align: center">
-                    <img src="{{ asset('images/jkr_logo.png') }}" width="70" height="50">
-                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td colspan="2" style="text-align: center" colspan="2"><img src="{{ asset('images/jkr_logo.png') }}" width="70" height="50"></td>
 
                 <td></td>
-                <td style="font-size: 7">
-                    <span style="font-weight:bold">JKR/UKP/11(Pind 1/2021)</span><br>
+                <td></td>
+                <td></td>
+                <td colspan="3" style="font-size: 7;text-align: right;">
+                    <span style="font-weight:bold;">JKR/UKP/11(Pind 1/2021)</span><br>
                     PENGESAHAN PENERIMAAN<br>
                     PEMANGKUAN
                 </td>
             </tr>
             <tr>
-                <td style="font-size:10px">
-                    Nama<br>
-                    Jawatan/Disiplin<br>
-                    Gred Memangku<br>
-                    Alamat Pejabat<br>
-                    Pejabat Baru<br>
-                    No telefon/emel<br>
+                <td colspan="12" style="height: 20px;"></td>
+            </tr>
+            <tr class="word-line">
+                <td colspan="2" style="font-size:16px">
+                    Nama
                 </td>
-                <td colspan="5" style="font-size:10px">
-                    : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nama }}</span><br>
-                    : <span style="text-decoration: underline">{{ $data->jawatan }}</span><br>
-                    : <span style="text-decoration: underline">{{ $data->pemohonPermohonan->gred }}</span><br>
-                    : <span style="text-decoration: underline">{{ $data->alamat_pejabat }}</span><br>
-                    : <span style="text-decoration: underline">{{ $data->pemohonPink->alamat }}</span><br>
-                    : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->tel_bimbit }} / {{ $data->pemohonPeribadi->email }}</span>
+                <td>:</td>
+                <td colspan="9" style="font-size:16px">
+                    <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nama }}</span><br>
+                </td>
+            </tr>
+            <tr class="word-line">
+                <td colspan="2" style="font-size:16px">
+                    Jawatan/Disiplin
+                </td>
+                <td>:</td>
+                <td colspan="9" style="font-size:16px">
+                    <span style="text-decoration: underline">{{ $data->jawatan }}</span>
+                </td>
+            </tr>
+            <tr class="word-line">
+                <td colspan="2" style="font-size:16px">
+                    Gred Memangku
+                </td>
+                <td>:</td>
+                <td colspan="9" style="font-size:16px">
+                    <span style="text-decoration: underline">{{ $data->pemohonPermohonan->gred }}</span>
+                </td>
+            </tr>
+            <tr class="word-line">
+                <td colspan="2" style="font-size:16px; vertical-align: top;">
+                    Alamat Pejabat
+                </td>
+                <td style="vertical-align: top;">:</td>
+                <td colspan="9" style="font-size:16px; vertical-align: top;">
+                    <span style="text-decoration: underline">{{ $data->alamat_pejabat }}</span>
+                </td>
+            </tr>
+            <tr class="word-line">
+                <td colspan="2" style="font-size:16px">
+                    Pejabat Baru
+                </td>
+                <td>:</td>
+                <td colspan="9" style="font-size:16px">
+                    <span style="text-decoration: underline">{{ $data->pemohonPink->alamat }}</span>
+                </td>
+            </tr>
+            <tr class="word-line">
+                <td colspan="2" style="font-size:16px">
+                    No telefon/emel
+                </td>
+                <td>:</td>
+                <td colspan="9" style="font-size:16px">
+                    <span style="text-decoration: underline">{{ $data->pemohonPeribadi->tel_bimbit }} / {{ $data->pemohonPeribadi->email }}</span>
                 </td>
             </tr>
         <tr>
-            <td rowspan="4" colspan="5"></td>
+            <td colspan="12" style="height: 10px"></td>
         </tr>
         </tbody>
     </table>
@@ -83,7 +142,7 @@
                 <td></td>
             </tr>
             <tr>
-                <td colspan="5" style="font-size:10px">
+                <td colspan="5" style="font-size:16px">
                     Ketua Bahagian<br>
                     Bahagian Pengurusan Sumber Manusia<br>
                     Cawangan Pengurusan Dasar & Korporat<br>
@@ -94,7 +153,7 @@
                 </td>
             </tr>
             <tr>
-                <td style="font-size:8" colspan="5">
+                <td style="font-size:16px" colspan="5">
                     <br>
                     Tuan,
                     <br>
@@ -120,7 +179,10 @@
                 </td>
             </tr>
             <tr>
-                <td style="font-size:10px">
+                <td colspan="5" style="font-size:16px; height: 10px;"></td>
+            </tr>
+            <tr>
+                <td style="font-size:16px">
                     Nama<br>
                     Kad Pengenalan<br>
                     <br>
@@ -128,7 +190,7 @@
                     <br>
                     <br>
                 </td>
-                <td style="font-size:10px">
+                <td style="font-size:16px" colspan="4">
                     : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nama }}</span><br>
                     : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nokp }}</span><br>
                     <br>
@@ -138,12 +200,13 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="5" style="font-size: 9">
+                <td colspan="5" style="font-size: 14px">
                     <span style="font-weight: bold">Perhatian:</span> Persetujuan penerimaan pemangkuan ini mestilah dikembalikan ke pejabat ini dalam tempoh 14 hari dari tarikh melaporkan diri. Sekiranya tarikh penangguhan melebihi empat belas (14) hari, tarikh kuat kuasa pemangkuan pegawai adalah mulai tarikh pegawai kembali melaporkan diri dan menjalankan tugas sepenuh masa di jawatan yang dipangku.
                 </td>
             </tr>
         </tbody>
     </table>
+    <div class="page-break"></div>
     <table>
         <tr>
             <td></td>
@@ -153,30 +216,30 @@
             <td></td>
         </tr>
         <tr>
-            <td colspan="5" style="font-size:9">
+            <td colspan="5" style="font-size:16px">
                 Pengesahan Penerimaan Pemangkuan Oleh Unit / Bahagian Perkhidmatan (pejabat baru)<br><br>
             </td>
         </tr>
-        <tr style="font-size:9">
+        <tr style="font-size:16px">
             <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br>(berdasarkan 'pink form')<br><br></td>
             <td>: {{ $data->pemohonUkp11->tkh_kuatkuasa_pemangkuan_pinkform }}<br><br></td>
         </tr>
-        <tr style="font-size:9">
+        <tr style="font-size:16px">
             <td colspan="2">Tarikh Melaporkan Diri<br><br></td>
             <td>: {{ $data->pemohonUkp11->tkh_lapor_diri }}<br><br></td>
         </tr>
-        <tr style="font-size:9">
+        <tr style="font-size:16px">
             <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br><br></td>
             <td>: {{ $data->pemohonPink->tkh_lapor_diri }}<br><br></td>
         </tr>
-        <tr style="font-size:9">
+        <tr style="font-size:16px">
             <td colspan="5">(Tuan/puan diminta untuk melaporkan diri pada tarikh yang telah ditetapkan. Sekiranya penangguhan/pelepasan tuan/puan melebihi 14 hari (termasuk cuti mingguan dan kelepasan am), tarikh kuat kuasa pemangkuan tuan/puan adalah mulai tarikh tuan/puan kembali melaporkan diri dan melaksanakan tugas sepenuh masa di jawatan yang dipangku. Elaun pemangkuan hanya layak dibayar mulai tarikh tuan/puan menjalankan tugas yang dipangku secara sepenuh masa. Semua  penangguhan/pelepasan hendaklah dipersetujui Ketua Jabatan (yang baru) dan salinan kelulusan penangguhan disertakan bersama)<br><br></td>
         </tr>
-        <tr style="font-size:9">
+        <tr style="font-size:16px">
             <td colspan="2">Ketua Bahagian Perkhidmatan / Kerani Perkhidmatan<br><br></td>
             <td>: {{ $data->pemohonUkp11->nokp_kerani }}<br><br></td>
         </tr>
-        <tr style="font-size:9">
+        <tr style="font-size:16px">
             <td colspan="2">Pejabat Baru<br><br></td>
             <td>: {{ $data->pemohonPink->alamat }}<br><br></td>
         </tr>

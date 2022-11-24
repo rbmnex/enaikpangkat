@@ -372,7 +372,7 @@ class NaikpangkatController extends Controller
             $content = [
                 'gred' => $pemohon->gred,
                 'jawatan' => $pemohon->jawatan,
-                'nokp' => $formdata->nokp_bau,
+                'nokp' => $formdata->nokp_baru,
                 'nama' => $formdata->nama,
                 'reason' => $pemohon->alasan
             ];
@@ -387,8 +387,6 @@ class NaikpangkatController extends Controller
 
             });
         }
-
-
 
         return response()->json([
             'success' => 1,

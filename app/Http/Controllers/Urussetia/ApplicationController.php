@@ -65,7 +65,8 @@ class ApplicationController extends Controller
                 'nokp' => $peribadi->nokp,
                 'jawatan' => $pemohon->jawatan,
                 'gred' => $pemohon->gred,
-                'status' => $pemohon->status
+                'status' => $pemohon->status,
+                'rank' => $pemohon->ranking
             ]
         ]);
     }
@@ -77,6 +78,7 @@ class ApplicationController extends Controller
     public function applicant_verdict(Request $request) {
         $pemohon_id = $request->input('pemohon_id');
         $verdict = $request->input('verdict');
+        $rank = $request->input('rank');
         $record =  Pemohon::find($pemohon_id);
         if($verdict == 1) {
             $record->status = Pemohon::SUCCESSED;
@@ -85,6 +87,7 @@ class ApplicationController extends Controller
         } else if($verdict == 2){
             $record->status = Pemohon::RESERVE;
         }
+        $record->ranking = $rank;
         $record->updated_by = Auth::user()->nokp;
 
         if($record->save()) {
@@ -112,9 +115,14 @@ class ApplicationController extends Controller
             $item->status = $info['status'];
             $item->pemohon_id = $info['pemohon_id'];
             $item->colour = $info['colour'];
+            $item->rank = $info['rank'];
         });
+        $model = $candidates->sortBy('rank');
 
-        return DataTables::of($candidates)
+        // print_r($model->values()->all());
+
+        // die();
+        return DataTables::of($model)
             ->setRowAttr([
                 'data-calon-nokp' => function($data) {
                     return $data->nokp;
@@ -142,48 +150,51 @@ class ApplicationController extends Controller
                 $info['name'] = $pemohon->pemohonPeribadi->nama;
                 $info['jawatan'] = $pemohon->jawatan;
                 $info['gred'] = $pemohon->gred;
+                $info['rank'] = empty($pemohon->ranking) ? 99 : $pemohon->ranking;
+                $info['status'] = $pemohon->status;
                 if($pemohon->status == Pemohon::NOT_SUBMITTED) {
-                    $info['status'] = 'Belum Siap';
+
                     $info['colour'] = 'warning';
                 } else if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
-                    $info['status'] = 'Tunggu Pengesahan';
+
                     $info['colour'] = 'warning';
                 } else if($pemohon->status == Pemohon::REJECTED_APPLICATION) {
-                    $info['status'] = 'Tolak Tawaran';
+
                     $info['colour'] = 'danger';
                 } else if($pemohon->status == Pemohon::PROCESSING) {
-                    $info['status'] = 'Dalam Proses';
+
                     $info['colour'] = 'warning';
                 } else if($pemohon->status == Pemohon::SUCCESSED) {
-                    $info['status'] = 'Calon Berjaya';
+
                     $info['colour'] = 'success';
                 } else if($pemohon->status == Pemohon::FAILED) {
-                    $info['status'] = 'Calon Gagal';
+
                     $info['colour'] = 'secondary';
                 } else if($pemohon->status == Pemohon::REFUSED) {
-                    $info['status'] = 'Tolak Lantikan';
+
                     $info['colour'] = 'dark';
                 } else if($pemohon->status == Pemohon::WAITING_REPLY) {
-                    $info['status'] = 'Tunggu Jawapan';
+
                     $info['colour'] = 'info';
                 } else if($pemohon->status == Pemohon::ACCEPTED) {
-                    $info['status'] = 'Terima Lantikan';
+
                     $info['colour'] = 'primary';
                 } else if($pemohon->status == Pemohon::WAITING_VERDICT) {
-                    $info['status'] = 'Tunggu Keputusan LKPPA';
+
                     $info['colour'] = 'warning';
                 } else if($pemohon->status == Pemohon::RESERVE) {
-                    $info['status'] = 'Calon Simpanan';
-                    $info['colour'] = 'warning';
+
+                    $info['colour'] = 'info';
                 }
             } else {
                 $pegawai = ListPegawai2::where('nokp',$nokp)->first();
                     $info['name'] = $pegawai->nama;
                     $info['jawatan'] = $pegawai->jawatan;
                     $info['gred'] = $pegawai->kod_gred;
-                    $info['status'] = 'Tiada Tindakan';
+                    $info['status'] = 'NA';
                     $info['colour'] = 'danger';
                     $info['pemohon_id'] = 0;
+                    $info['rank'] = 99;
             }
 
         } else {
@@ -191,9 +202,10 @@ class ApplicationController extends Controller
             $info['name'] = $pegawai->nama;
             $info['jawatan'] = $pegawai->jawatan;
             $info['gred'] = $pegawai->kod_gred;
-            $info['status'] = 'Tiada Tindakan';
+            $info['status'] = 'NA';
             $info['pemohon_id'] = 0;
             $info['colour'] = 'danger';
+            $info['rank'] = 99;
         }
 
         return $info;

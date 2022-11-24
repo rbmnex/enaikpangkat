@@ -22,9 +22,10 @@ class PinkFormController extends Controller{
         $model = DB::connection('pgsql')->table('pemohon as p')
         ->join('peribadi as b','p.id_peribadi','b.id')
         ->join('permohonan_ukp12 as u','p.id_permohonan','u.id')
-        ->select('p.id','b.nokp','b.nama','u.jawatan','u.gred','u.jenis','p.status')
+        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status')
         ->whereIn('p.status', array(Pemohon::SUCCESSED, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED))
         ->where('p.flag',1)
+        ->where('jenis','UKP12')
         ->where('p.delete_id',0)
         ->get();
 
@@ -74,7 +75,7 @@ class PinkFormController extends Controller{
         $pemohon->loadMissing('pemohonPeribadi');
         $content = [
             'link' => url('/').'/pemangku/tawaran/update/'.$pemohon->id,
-            'pink' => url('/').'/common/id-download/'.$file->id
+            'pink' => url('/').'/common/id-download?fileid='.$file->id
         ];
         //send email
         Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
@@ -89,5 +90,29 @@ class PinkFormController extends Controller{
         return response()->json([
             'success' => 1,
         ]);
+    }
+
+    public function papar(Request $request) {
+        $id_pemohon = $request->input('pemohon_id');
+        $pemohon = Pemohon::with('pemohonPeribadi', 'pemohonPink', 'pemohonPermohonan')->where('id', $id_pemohon)->first();
+        $ukp11 = PenerimaanUkp11::where('id_pemohon', $id_pemohon)->first();
+        return view('segment.pemangku.tawaran.tawaran_view', [
+            'data' => $pemohon,
+            'pemohon_id' => $id_pemohon,
+            'ukp11' => $ukp11
+        ]);
+    }
+
+    public function display_pink(Request $request,$id) {
+        $record = SuratPink::where('id_pemohon',$id)->first();
+        if(empty($record)) {
+            return view('form.message',['message' => 'Surat Belum Dimuat naik, Sila lakukan dengan segera!']);
+        } else {
+            if(empty($record->fail_id)) {
+                return view('form.message',['message' => 'Surat Belum Dimuat naik, Sila lakukan dengan segera!']);
+            } else {
+                redirect(url('/').'/common/id-download?fileid='.$record->fail_id);
+            }
+        }
     }
 }

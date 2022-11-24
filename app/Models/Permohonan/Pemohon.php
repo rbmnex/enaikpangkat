@@ -32,10 +32,13 @@ class Pemohon extends Model
     public const REFUSED = "PL";
     // Menunggu jawapan
     public const WAITING_REPLY = "MJ";
-    // Terima Lantikanmy
+    // Terima Lantikan
     public const ACCEPTED = "TL";
     // Simpanan (lulus)
     public const RESERVE = "LS";
+    // Tawaran Dihantar
+    public const OFFERED_SENT = "HT";
+
 
     public function  pemohonPeribadi(){
         return $this->hasOne(Peribadi::class, 'id', 'id_peribadi');

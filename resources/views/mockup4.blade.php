@@ -50,7 +50,7 @@
     </section>
 </div>
 <input type="hidden" id="_token" class="_token" name="_token" value="{{csrf_token()}}">
-@include('admin.user.modal')
+{{-- @include('admin.user.modal') --}}
 @endsection
 
 @section('customJs')

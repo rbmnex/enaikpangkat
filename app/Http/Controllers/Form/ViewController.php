@@ -29,6 +29,7 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 use Laratrust\LaratrustFacade as Laratrust;
+use Barryvdh\DomPDF\Facade\Pdf;
 use stdClass;
 
 class ViewController extends Controller
@@ -114,6 +115,7 @@ class ViewController extends Controller
                     array_push($includes, ViewController::LNPK_VIEW);
                     array_push($includes, ViewController::HOS_VIEW);
                     array_push($includes, ViewController::HOD_VIEW);
+                    array_push($includes, 'form.view.include.ukp12-download');
                 } else {
                     array_push($includes, ViewController::LNPK_VIEW);
                     array_push($includes, ViewController::KADER_VIEW);
@@ -127,6 +129,7 @@ class ViewController extends Controller
                     array_push($includes, ViewController::LNPK_VIEW);
                     array_push($includes, ViewController::HOS_VIEW);
                     array_push($includes, ViewController::HOD_VIEW);
+                    array_push($includes, 'form.view.include.ukp12-download');
                 }
             } else if($view == 'l') {
                 if(Laratrust::hasRole('secretariat')) {
@@ -136,6 +139,7 @@ class ViewController extends Controller
                         array_push($includes, ViewController::LNPK_VIEW);
                         array_push($includes, ViewController::HOS_VIEW);
                         array_push($includes, ViewController::HOD_VIEW);
+                        array_push($includes, 'form.view.include.ukp12-download');
                     } else {
                         array_push($includes, ViewController::LNPK_VIEW);
                         array_push($includes, ViewController::KADER_VIEW);
@@ -150,6 +154,7 @@ class ViewController extends Controller
                         array_push($includes, ViewController::LNPK_VIEW);
                         array_push($includes, ViewController::HOS_VIEW);
                         array_push($includes, ViewController::HOD_VIEW);
+                        array_push($includes, 'form.view.include.ukp12-download');
                     } else {
                         array_push($includes, ViewController::LNPK_VIEW);
                         array_push($includes, ViewController::KADER_VIEW);
@@ -405,6 +410,80 @@ class ViewController extends Controller
                 'data' => []
             ]);
         }
+    }
+
+    public function download_form_full(Request $request) {
+        $formdata = $request->input('dataform');
+        $pemohon = Pemohon::find($formdata);
+        $permohonan = $pemohon->pemohonPermohonan;
+        $peribadi = Peribadi::find($pemohon->id_peribadi);
+        $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();
+        $harta = Harta::where('id_pemohon',$pemohon->id)->first();
+        $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
+        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get();
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
+        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get();
+        $profesional = Professional::where('id_pemohon',$pemohon->id)->get();
+        $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->get();
+        $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();
+        $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
+        $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
+        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get();
+        $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
+        $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->get();
+        $markah =  collect([]);
+
+        if($rekod_markah->count() == 0) {
+            $first = new stdClass;
+            $first->tahun = $year-1;
+            $first->purata = 0;
+                $markah->push($first);
+            $second = new stdClass;
+            $second->tahun = $year-2;
+            $second->purata = 0;
+                $markah->push($second);
+            $third = new stdClass;
+            $third->tahun = $year-3;
+            $third->purata = 0;
+                $markah->push($third);
+            if(!empty($lnpt)) {
+                $markah->each(function ($item, $key) use ($lnpt) {
+                    foreach($lnpt as $l) {
+                        if($l->tahun == $item->tahun) {
+                            $item->purata = $l->purata;
+                        }
+                    }
+                });
+            }
+        } else {
+            $markah = $rekod_markah;
+            $markah->each(function ($item, $key) {
+                $item->purata = $item->markah;
+            });
+        }
+
+        $data = [
+            'pemohon' => $pemohon,
+            'peribadi' => $peribadi,
+            'cutis' => $cuti,
+            'harta' => $harta,
+            'pasangan' => $pasangan,
+            'perkhidmatans' => $perkhidmatan,
+            'pertubuhans' => $pertubuhan,
+            'akademiks' => $akademik,
+            'profesionals' => $profesional,
+            'kompetenans' => $kompetenan,
+            'pengiktirafans' => $pengiktirafan,
+            'akuan_pinjaman' => $akuan_pinjaman,
+            'akuan_pegawai' => $akuan_pegawai,
+            'sumbangan' => $contribution,
+            'borang' => $permohonan,
+            'lnpt' => $markah,
+            'tatatertib' => $tatatertib
+        ];
+
+        $pdf = PDF::loadView('pdf.ukp12', $data, []);
+        return $pdf->stream('Borang_UKP12_'.$peribadi->nokp.'.pdf');
     }
 
 }

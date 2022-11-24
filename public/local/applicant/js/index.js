@@ -24,6 +24,7 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
                     $('#verdict-nokp').val(parseData.nokp);
                     $('#verdict-jawatan').val(parseData.jawatan);
                     $('#verdict-gred').val(parseData.gred);
+                    $('#verdict-rank').val(parseData.rank);
                     if(parseData.status == 'LL') {
                         $('#radio-verdict-1').attr('checked','checked');
                         $('#radio-verdict-2').removeAttr('checked');
@@ -49,6 +50,7 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
         data.append('_token', getToken());
         data.append('pemohon_id',pemohon_id);
         data.append('verdict',verdict);
+        data.append('rank',$('#verdict-rank').val());
         swalAjax({
             titleText : 'Adakah Anda Pasti?',
             mainText : 'Data akan diubah',

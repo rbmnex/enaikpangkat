@@ -11,6 +11,7 @@ use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
 use App\Http\Controllers\Urussetia\ResumeController;
+use App\Http\Controllers\User\PermohonanController;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -119,7 +120,7 @@ Route::prefix('/urussetia')->group(function() {
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
         Route::get('/lampiran3/{ic}', [ResumeController::class, 'lampiran3']);
          Route::get('/email/{ic}', [ResumeController::class, 'email']);
-     
+
     });
 
     Route::prefix('/appl')->group(function() {
@@ -158,6 +159,7 @@ Route::prefix('/form')->group(function() {
         Route::get('/view/{id}',[ViewController::class,'load_view'])->middleware(['auth']);
         Route::get('/eview/{encryted}',[ViewController::class,'secure_view'])->middleware(['auth']);
         Route::get('/nview/{id}',[ViewController::class,'view_form'])->middleware(['auth']);
+        Route::get('/download/view',[ViewController::class,'download_form_full']);
     });
 
     Route::prefix('/api')->group(function() {
@@ -187,6 +189,12 @@ Route::prefix('/validate')->group(function() {
     });
 });
 
+Route::prefix('/user')->group(function() {
+    Route::get('/form',[PermohonanController::class,'index']);
+    Route::get('/form/list',[PermohonanController::class,'load_list']);
+    Route::get('/form/pink/{id}',[PermohonanController::class,'downlaod_pink']);
+});
+
 //Common Controller
 Route::prefix('/common')->group(function () {
     Route::post('/get-listing', [CommonController::class, 'listing']);
@@ -209,10 +217,10 @@ Route::get('/test/file',function() {
 });
 
 Route::get('/test/view_pdf',function() {
-     $pdf = PDF::loadView('pdf.ukp12', [], []);
-     return $pdf->stream();
+    //  $pdf = PDF::loadView('pdf.ukp12', [], []);
+    //  return $pdf->stream();
 
-    //return view('pdf.ukp12');
+    return view('pdf.ukp12');
 });
 
 Route::get('/test/pdf',function() {

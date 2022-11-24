@@ -97,11 +97,11 @@ class UkpController extends Controller
     public function open(Request $request,$id) {
         $nokp = $request->input('kp');
 
-        // $access = $this->verify_applicant($nokp,$id);
+        $access = $this->verify_applicant($nokp,$id);
 
-        // if(!$access) {
-        //     return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
-        // }
+        if(!$access) {
+            return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
+        }
 
 
         $profile = NULL;
@@ -1172,7 +1172,7 @@ class UkpController extends Controller
         ];
 
         $pdf = PDF::loadView('pdf.ukp12-kader', $data, []);
-        return $pdf->stream();
+        return $pdf->stream('Borang_UKP12_'.$peribadi->nokp.'.pdf');
     }
 
     private function verify_applicant($nokp,$formId) {

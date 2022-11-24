@@ -11,14 +11,14 @@
     <div class="content-header-left col-md-9 col-12 mb-2">
         <div class="row breadcrumbs-top">
             <div class="col-12">
-                <h2 class="content-header-title float-left mb-0">Pengurusan Permohonan</h2>
+                <h2 class="content-header-title float-left mb-0">Senarai Kumpulan</h2>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
                         </li>
                         <li class="breadcrumb-item">BPSM
                         </li>
-                        <li class="breadcrumb-item active"><a href="#">Pengurusan Permohonan</a>
+                        <li class="breadcrumb-item active"><a href="#">Senarai Kumpulan</a>
                         </li>
                     </ol>
                 </div>
