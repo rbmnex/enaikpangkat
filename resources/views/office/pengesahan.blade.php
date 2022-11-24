@@ -14,7 +14,7 @@
                 <h2 class="content-header-title float-left mb-0">Pengesahan Borang</h2>
                 {{-- <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
+                        <li class="breadcrumb-item"><a href="/dashboard">Laman Utama</a>
                         </li>
                         <li class="breadcrumb-item">Pegawai
                         </li>

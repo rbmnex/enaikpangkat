@@ -46,16 +46,35 @@ class ResumeController extends Controller
 
 
     public function mockup4(Request $request){
-   
+
         $model = Role::all();
         return view('mockup4')->with('roles',$model);
     }
 
         public function lampiran(Request $request){
-             
+
 
         return view('urussetia.lampiran.lampiran',[
-            
+
+        ]);
+    }
+
+    public function open_lampiran(Request $request) {
+        $user = Auth::user();
+        //$nokp = $request->input('kp');
+        $lampirankursus = LampiranKursus::where('nokp',$user->nokp)->get();
+        $lampiranbeban = LampiranBebanKerja::where('nokp',$user->nokp)->get();
+        $lampiranprojek = LampiranProjek::where('nokp',$user->nokp)->get();
+
+
+        //$user = User::where('nokp',$nokp)->first();
+
+        return view('urussetia.lampiran.lampiran',[
+            "nokp"=>$user->nokp,
+            "lampirankursus"=>$lampirankursus,
+            "lampiranbeban"=>$lampiranbeban,
+            "lampiranprojek"=>$lampiranprojek,
+            "user"=>$user
         ]);
     }
 
@@ -64,7 +83,7 @@ class ResumeController extends Controller
         $lampirankursus = LampiranKursus::where('nokp',$nokp)->get();
         $lampiranbeban = LampiranBebanKerja::where('nokp',$nokp)->get();
         $lampiranprojek = LampiranProjek::where('nokp',$nokp)->get();
- 
+
 
         $user = User::where('nokp',$nokp)->first();
 
@@ -86,7 +105,7 @@ class ResumeController extends Controller
         $user = $request->input('user');
        //$id = $request->input('pemohonId');
         //$nokp = $request->input('nokp');
- 
+
         $model = new LampiranKursus;
         $model->flag = 1;
         $model->delete_id = 0;
@@ -196,7 +215,7 @@ class ResumeController extends Controller
         $model = new LampiranBebanKerja;
         if($lampiran){
             $upload = CommonController::upload_image($lampiran, 'documents');
-            
+
             $model->path = '/documents/'.$upload;
             $model->nokp =  $nokp;
             $model->save();
@@ -205,7 +224,7 @@ class ResumeController extends Controller
         return response()->json(["success"=>true,"uploaded"=>true, "url"=>$model->path]);
     }
 
-    
+
 
     public function senarai_pengguna(Request $request) {
         // echo '<pre>';
@@ -300,9 +319,9 @@ class ResumeController extends Controller
             // print_r($model);
             // echo '</pre>';            // die();
         }
-        
 
-        
+
+
         return view('mockup4_b', [
             'user' => $model
         ]);
@@ -314,16 +333,16 @@ class ResumeController extends Controller
         return view('mockup4')->with('roles',$model);
     }
 
-    
-public function lampiran3($ic) 
+
+public function lampiran3($ic)
     {
     $lampiran_beban = LampiranBebanKerja::where('nokp',$ic)->orderBy('id','desc')->first();
       $pdf = Pdf::loadView('$lampiran_beban->path', compact('lampiran_beban'));
         return $pdf->stream("dompdf_out.pdf", array("Attachment" => false, 'enable_remote' => true));
         exit(0);
-     }       
+     }
 
-    public function document($ic) 
+    public function document($ic)
     {
         $model= [];
         $mula_khidmat ='';
@@ -339,14 +358,14 @@ public function lampiran3($ic)
         // dd($mula_p);
         //SEKTOR AWAM
         $sektor_awam_mula = Perkhidmatan::where('nokp',$ic)->orderBy('tkh_lantik','asc')->first();
-        $sektor_awam_tamat = Carbon::now();     
+        $sektor_awam_tamat = Carbon::now();
         $date2 = new DateTime($sektor_awam_mula->tkh_lantik);
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_awam = $date1->diff($date2);
 
          //PNP
         $pnp = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan','>=',3)->orderBy('tkh_lantik','asc')->first();
-        $sektor_awam_tamat = Carbon::now();     
+        $sektor_awam_tamat = Carbon::now();
         $date2 = new DateTime($pnp->tkh_lantik);
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
@@ -374,15 +393,15 @@ public function lampiran3($ic)
         $lampiran_kursus = LampiranKursus::where('nokp',$ic)->get();
         $lampiran_beban = LampiranBebanKerja::where('nokp',$ic)->orderBy('id','desc')->first();
         $lampiran_projek = LampiranProjek::where('nokp',$ic)->get();
-     
+
 
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek','tempoh_pnp','modelp','gred_sekarang'));
 
-        
+
     }
 
 
@@ -391,7 +410,7 @@ public function lampiran3($ic)
 
 
 
-   
+
 
       public function email(Request $request) {
          $nokp = $request->input('nokp');
@@ -402,13 +421,13 @@ public function lampiran3($ic)
          //    ->whereIn('np.nokp',$list_nokp)->get();
        $content = [
                      'link' => url('/')."/urussetia/resume/display/8?kp=".$nokp
-                   
+
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) {
                     // testing purpose
                     $message->to('haryana@vn.net.my');
 
-                    
+
                     $message->subject('KEMASKINI LAMPIRAN');
 
                 });
@@ -420,7 +439,7 @@ public function lampiran3($ic)
         ]);
     }
 
-    
+
 
 
 }

@@ -12,7 +12,7 @@
                 <h2 class="content-header-title float-left mb-0">Pemohon</h2>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
+                        <li class="breadcrumb-item"><a href="/dashboard">Laman Utama</a>
                         </li>
                         <li class="breadcrumb-item">Admin
                         </li>
@@ -100,8 +100,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                    
-                </div>                         
+
+                </div>
              </div>
         </div>
         <div class="col-12">
@@ -111,7 +111,7 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="maklumat_cuti">Maklumat Cuti</label>
                                 </div>
                                 <div class="col-sm-9">
@@ -123,38 +123,38 @@
                                                     </select>
                                                     </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="tarih_mula">Tarikh Mula</label>
                                 </div>
                                 <div class="col-sm-9">
                                 <input type="date" id="tarih_lantikan" name="tarih_mula"
-                                                        value="2022-00-00" min="2022-01-01" max="2090-12-31">         
+                                                        value="2022-00-00" min="2022-01-01" max="2090-12-31">
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="tarikh_tamat">Tarikh Tamat</label>
                                 </div>
                                 <div class="col-sm-9">
                                 <input type="date" id="tarikh_tamat" name="tarikh_tamat"
-                                                        value="2022-00-00" min="2022-01-01" max="2090-12-31">         
+                                                        value="2022-00-00" min="2022-01-01" max="2090-12-31">
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="formFileMultiple">Muat Naik Surat Kelulusan Cuti</label>
                                 </div>
                                 <div class="col-sm-9">
-                                <input class="form-control" type="file" id="formFileMultiple" multiple />              
+                                <input class="form-control" type="file" id="formFileMultiple" multiple />
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div class="col-sm-9 offset-sm-3">
                         <button type="#" class="btn btn-info me-1">Tambah</button>
@@ -169,7 +169,7 @@
                         <div class="card">
                         <div class="card-header">
                         <h4 class="card-title">Senarai Cuti</h4>
-                        </div>  
+                        </div>
                             <div class="card-body">
                             <form class="form form-horizontal">
                             <div class="table-responsive">
@@ -200,14 +200,14 @@
                             <center>
                             <button type="#" class="btn btn-primary me-1">KemasKini</button>
                             <button type="#" class="btn btn-primary me-1">Delete</button>
-                            </center>  
-                            </div> 
+                            </center>
+                            </div>
                             </form>
-                            </div>                          
+                            </div>
                         </div>
-                    
+
                     </div>
-                    
+
         </div>
         <div class="col-12">
             <div class="card">
@@ -219,53 +219,53 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="alamat_bertugas">Alamat Tempat Bertugas</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="alamat_bertugas" class="form-control" name="alamat_bertugas" placeholder="Alamat tempat bertugas"/>               
+                                    <input type="text" id="alamat_bertugas" class="form-control" name="alamat_bertugas" placeholder="Alamat tempat bertugas"/>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="no_tel_pejabat">No Telefon Pejabat</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="no_tel_pejabat" class="form-control" name="no_tel_pejabat" placeholder="No Telefon Pejabat"/>               
+                                    <input type="text" id="no_tel_pejabat" class="form-control" name="no_tel_pejabat" placeholder="No Telefon Pejabat"/>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="no_faksimili">No Faksimili</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="no_faksimili" class="form-control" name="no_faksimili" placeholder="No Faksimili"/>               
+                                    <input type="text" id="no_faksimili" class="form-control" name="no_faksimili" placeholder="No Faksimili"/>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="no_telefon">No Telefon Bimbit</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="no_telefon" class="form-control" name="no_telefon" placeholder="No Telefon Bimbit"/>               
+                                    <input type="text" id="no_telefon" class="form-control" name="no_telefon" placeholder="No Telefon Bimbit"/>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="emel">Emel</label>
                                 </div>
                                 <div class="col-sm-9">
-                                    <input type="text" id="emel" class="form-control" name="emel" placeholder="Emel"/>               
+                                    <input type="text" id="emel" class="form-control" name="emel" placeholder="Emel"/>
                                 </div>
-                            </div>    
+                            </div>
                         </div>
                     </form>
                     </div>
@@ -282,25 +282,25 @@
                         <form class="form form-horizontal">
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="tarikhAkhir_harta">Tarikh Akhir Pengisytiharan Harta Terkini:</label>
                                 </div>
                                 <div class="col-sm-9">
                                 <input type="date" id="tarikhAkhir_harta" name="tarikhAkhir_harta"
-                                                        value="2022-00-00" min="2022-01-01" max="2090-12-31">               
+                                                        value="2022-00-00" min="2022-01-01" max="2090-12-31">
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                         <div class="col-12">
                             <div class="mb-1 row">
-                                <div class="col-sm-3">    
+                                <div class="col-sm-3">
                                     <label class="col-form-label" for="lampiran_E">Muat Naik Lampiran E</label>
                                 </div>
                                 <div class="col-sm-9">
-                                <input class="form-control" type="file" id="lampiran_E" multiple />              
+                                <input class="form-control" type="file" id="lampiran_E" multiple />
                             </div>
                         </div>
-                        </div> 
+                        </div>
                         <div class="card-header">
                         <h4 class="card-title"><strong>*Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</strong></h4>
                         <h4 class="card-title">*Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir</h4>
@@ -310,19 +310,19 @@
                     </div>
                 </div>
             </div>
-        </div>                                  
-    </div>    
+        </div>
+    </div>
     </div class="col-sm-12">
         <div class="col-sm-4">
 
         </div>
 
         <div class="col-sm-4">
-            
+
         <div>
 
-        <div class="col-sm-4"> 
-         <a href="/admin/pengguna/mockup2">      
+        <div class="col-sm-4">
+         <a href="/admin/pengguna/mockup2">
         <button type="#" class="btn btn-success me-1">Seterusnya</button>
         </a>
         </div>

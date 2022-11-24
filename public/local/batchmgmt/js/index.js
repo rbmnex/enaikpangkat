@@ -263,7 +263,7 @@ $(document).on('change', '.calon-carian', function(){
                 $('.calon-gred').val(info.gred);
                 $('.calon-jurusan').val(info.jurusan);
                 $('.calon-tkh-sah').val(info.tkh_sah);
-                $('.calon-tempat').val(info.tempat);
+                //$('.calon-tempat').val(info.tempat);
             }
         }
     });

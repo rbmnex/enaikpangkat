@@ -12,7 +12,7 @@
                 <h2 class="content-header-title float-left mb-0">Pemohon</h2>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
+                        <li class="breadcrumb-item"><a href="/dashboard">Laman Utama</a>
                         </li>
                         <li class="breadcrumb-item">Admin
                         </li>
@@ -31,7 +31,7 @@
             <div class="card">
                 <div class="card-header basic-select2">
                                     <h4 class="card-title">IV. Perakuan Pegawai</h4>
-                </div>  
+                </div>
                 <div class="card-body">
                                     <form class="form form-horizontal">
                                         <div class="row">
@@ -109,21 +109,21 @@
                                             </div>
                                             <div class="col-12">
                                             <div class="mb-1 row">
-                                                <div class="col-sm-3">    
+                                                <div class="col-sm-3">
                                                     <label class="col-form-label" for="formFileMultiple">MUATNAIK PENYATA BAYARAN PINJAMAN TERKINI /  SURAT PENGESAHAN</label>
                                                 </div>
                                                 <div class="col-sm-9">
-                                                <input class="form-control" type="file" id="formFileMultiple" multiple name="penyata_bayaran"/>              
+                                                <input class="form-control" type="file" id="formFileMultiple" multiple name="penyata_bayaran"/>
                                                 </div>
-                                            </div>    
-                                        </div>              
+                                            </div>
+                                        </div>
                                     </form>
-            </div>    
+            </div>
         </div>
     </div>
     </section>
     <div class="col-sm-12">
-     
+
     <div class="col-sm-4">
 
     </div>
@@ -133,7 +133,7 @@
     <div class="col-sm-4">
     <button type="#" class="btn btn-success me-1">Seterusnya</button>
     </div>
-    
+
     </div>
 </div>
 @endsection

@@ -61,7 +61,7 @@
                 <h2 class="content-header-title float-left mb-0">Pengurusan Pengguna</h2>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
+                        <li class="breadcrumb-item"><a href="/dashboard">Laman Utama</a>
                         </li>
                         <li class="breadcrumb-item">BPSM
                         </li>
@@ -80,7 +80,7 @@
             <div class="card">
                 <div class="card-body">
                 <h4 class="card-title">Borang Lampiran</h4>
-                
+
                 <section class="vertical-wizard">
                     <div class="bs-stepper vertical vertical-wizard-example">
                         <div class="bs-stepper-header">
@@ -93,7 +93,7 @@
                                     </span>
                                 </button>
                             </div>
-                         
+
                             <div class="step" data-target="#bebankerja-vertical">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">2</span>
@@ -103,9 +103,9 @@
                                     </span>
                                 </button>
                             </div>
-                           
-                          
-                          
+
+
+
                             <div class="step" data-target="#projek-vertical">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">3</span>
@@ -126,8 +126,8 @@
                                 </button>
                             </div>
 
-                        
-                            
+
+
                         </div>
 
 
@@ -147,9 +147,9 @@
             </div>
         </div>
     </div>
-     <div class="col-sm-2"> 
+     <div class="col-sm-2">
 
-                        </div> 
+                        </div>
 </section>
 
 

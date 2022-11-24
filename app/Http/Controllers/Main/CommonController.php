@@ -29,7 +29,7 @@ class CommonController extends Controller
                 );
             }
         } else if($model == 'Jurusan') {
-            $query = LJurusan::all();
+            $query = LJurusan::whereNotIn('kod_jurusan',['ET','JU','L','PU','T'])->get();
             foreach($query as $list){
                 $data[] = array(
                     'label' => $list->jurusan,
@@ -37,7 +37,7 @@ class CommonController extends Controller
                 );
             }
         } else if($model == 'Gred') {
-            $query = LGred::where('kod_gred','like','J%')->get();
+            $query = LGred::whereIn('kod_gred',['J41','J44','J48','J52','J54'])->get();
             foreach($query as $list){
                 $data[] = array(
                     'label' => $list->kod_gred,

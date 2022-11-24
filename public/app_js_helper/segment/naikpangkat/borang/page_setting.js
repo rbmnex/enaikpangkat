@@ -340,9 +340,13 @@ function validate_form() {
 
     //section 3
     if(valid) {
-        if( tarikh_harta == 0 || tarikhAkhir_harta == '' || tarikhAkhir_harta == undefined) {
+        // if( tarikh_harta == 0 || tarikhAkhir_harta == '' || tarikhAkhir_harta == undefined) {
+        //     valid = false;
+        //     addInvalid('#tarikhAkhir_harta', 'Tiada Tarikh Pengisytiharan Harta Terkini!');
+        // }
+
+        if($('#tarikhAkhir_harta').hasClass('is-invalid'))  {
             valid = false;
-            addInvalid('#tarikhAkhir_harta', 'Tiada Tarikh Pengisytiharan Harta Terkini!');
         }
 
         if($('.harta-file').is(':empty')) {
