@@ -157,6 +157,20 @@
                     </li>
                 </ul>
             </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Lampiran</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="/urussetia/resume/display/">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Lampiran</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             @endrole
             @role(['clerk','superadmin'])
             <li class=" nav-item">
