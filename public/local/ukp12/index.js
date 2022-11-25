@@ -227,13 +227,11 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
             }
         });
     }else if(selectedClass.hasClass('add-pendedahan')){
-        let tajuk = $('input[name="projek-nama"]').val();
-        let kos = $('input[name="projek-kos"]').val();
+        let diskripsi = $('input[name="pendedahan-nama"]').val();
 
         var data = new FormData;
         data.append('_token', getToken());
-        data.append('tajuk',tajuk);
-        data.append('kos',kos);
+        data.append('diskripsi',diskripsi);
         data.append('pemohonId',$('._formid').val());
         data.append('nokp',$('input[name="nokp"]').val());
 
@@ -243,19 +241,18 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
             icon: 'info',
             confirmButtonText: 'Hantar',
             postData: {
-                url : '/form/api/projek',
+                url : '/form/api/pendedahan',
                 data: data,
                 postfunc: function(data) {
                     let success = data.success;
                     let parseData = data.data;
                     if(success == 1) {
                         let row = [];
-                        row.push(parseData.tajuk);
-                        row.push(parseData.kos);
+                        row.push(parseData.diskripsi);
                         row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
-                        add_row('#tbody-badan-projek',row,'data-projek-id='+parseData.id);
-                        $('#modal-projek').modal('hide');
-                        toasting('projek Ditambah', 'success');
+                        add_row('#tbody-badan-pendedahan',row,'data-pendedahan-id='+parseData.id);
+                        $('#modal-pendedahan').modal('hide');
+                        toasting('Senarai Kepakaran Ditambah', 'success');
                     } else if(success == 0) {
                         toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                     }

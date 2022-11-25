@@ -170,6 +170,8 @@ Route::prefix('/form')->group(function() {
         Route::post('/bebankerja',[ResumeController::class,'save_beban']);
          Route::post('/projek',[ResumeController::class,'save_projek']);
          Route::post('/projek/del',[ResumeController::class,'delete_projek']);
+        Route::post('/pendedahan',[ResumeController::class,'save_pendedahan']);
+         Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']); 
          Route::post('/property/save',[UkpController::class,'save_harta']);
         Route::post('/loan/save',[UkpController::class,'save_loan']);
         Route::post('/submit',[UkpController::class,'submit_application']);

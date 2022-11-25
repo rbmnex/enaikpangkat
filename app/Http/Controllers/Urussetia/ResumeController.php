@@ -26,6 +26,7 @@ use App\Models\Urussetia\Calon;
 use App\Models\Pink\LampiranKursus;
 use App\Models\Pink\LampiranProjek;
 use App\Models\Pink\LampiranBebanKerja;
+use App\Models\Pink\LampiranPendedahan;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -83,6 +84,8 @@ class ResumeController extends Controller
         $lampirankursus = LampiranKursus::where('nokp',$nokp)->get();
         $lampiranbeban = LampiranBebanKerja::where('nokp',$nokp)->get();
         $lampiranprojek = LampiranProjek::where('nokp',$nokp)->get();
+        $lampiranpendedahan = LampiranPendedahan::where('nokp',$nokp)->where('kod_kategori',1)->get();
+        $lampiranpencapaian = LampiranPendedahan::where('nokp',$nokp)->where('kod_kategori',2)->get();
 
 
         $user = User::where('nokp',$nokp)->first();
@@ -92,6 +95,8 @@ class ResumeController extends Controller
             "lampirankursus"=>$lampirankursus,
             "lampiranbeban"=>$lampiranbeban,
             "lampiranprojek"=>$lampiranprojek,
+            "lampiranpendedahan"=>$lampiranpendedahan,
+            "lampiranpencapaian"=>$lampiranpencapaian,
             "user"=>$user
         ]);
     }
@@ -164,6 +169,56 @@ class ResumeController extends Controller
                     'kos' => $model->kos_projek,
                     'id' => $model->id
                 ]
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+    }
+
+         public function save_pendedahan(Request $request) {
+        $tajuk = $request->input('tajuk');
+        $nokp = $request->input('nokp');
+        $user = $request->input('user');
+
+        $model = new LampiranPendedahan;
+        $model->flag = 1;
+        $model->delete_id = 0;
+        $model->diskripsi = $tajuk;
+        $model->created_by = $nokp;
+        $model->nokp = $nokp;
+        $model->user_id = $user;
+        $model->created_by = $nokp;
+        $model->updated_by = $nokp;
+
+        if($model->save()) {
+            return response()->json([
+                'success' => 1,
+                'data' => [
+                    'tajuk' => $model->diskripsi,
+                    'id' => $model->id
+                ]
+            ]);
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => []
+            ]);
+        }
+    }
+
+
+    public function delete_pendedahan(Request $request) {
+        $LampiranPendedahanID =  $request->input('id');
+
+        $model = LampiranPendedahan::find($LampiranPendedahanID);
+
+        if($model->delete()) {
+            return response()->json([
+                'success' => 1,
+                'data' => []
             ]);
         } else {
             return response()->json([
@@ -393,15 +448,17 @@ public function lampiran3($ic)
         $lampiran_kursus = LampiranKursus::where('nokp',$ic)->get();
         $lampiran_beban = LampiranBebanKerja::where('nokp',$ic)->orderBy('id','desc')->first();
         $lampiran_projek = LampiranProjek::where('nokp',$ic)->get();
-
+        $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',1)->get();
+        $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
+     
 
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();
-         return view('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek','tempoh_pnp','modelp','gred_sekarang'));
+        // die();        
+         return view('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
-
+        
     }
 
 
