@@ -5,11 +5,13 @@ use App\Http\Controllers\Form\UkpController;
 use App\Http\Controllers\Form\ViewController;
 use App\Http\Controllers\HR\PinkFormController;
 use App\Http\Controllers\Main\CommonController;
+use App\Http\Controllers\Office\PengesahanController;
 use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
 use App\Http\Controllers\Urussetia\ResumeController;
+use App\Http\Controllers\User\PermohonanController;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -118,7 +120,7 @@ Route::prefix('/urussetia')->group(function() {
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
         Route::get('/lampiran3/{ic}', [ResumeController::class, 'lampiran3']);
          Route::get('/email/{ic}', [ResumeController::class, 'email']);
-     
+
     });
 
     Route::prefix('/appl')->group(function() {
@@ -147,14 +149,17 @@ Route::prefix('/hr')->group(function() {
 
 Route::prefix('/form')->group(function() {
     Route::prefix('/ukp12')->group(function() {
-        Route::get('/display/{id}',[UkpController::class,'open']);
+        Route::get('/display/{id}',[UkpController::class,'open'])->middleware(['auth']);
         Route::get('/apply/{encryted}',[UkpController::class,'apply'])->middleware('auth');
         Route::get('/download/part',[UkpController::class,'download_form_part']);
+        Route::get('/download/full',[UkpController::class,'download_form_full']);
         Route::get('/final',function() {
             return view('form.message',['message' => 'Anda Telah Berjaya Menghantar Pemohonan Ini!']);
         });
         Route::get('/view/{id}',[ViewController::class,'load_view'])->middleware(['auth']);
         Route::get('/eview/{encryted}',[ViewController::class,'secure_view'])->middleware(['auth']);
+        Route::get('/nview/{id}',[ViewController::class,'view_form'])->middleware(['auth']);
+        Route::get('/download/view',[ViewController::class,'download_form_full']);
     });
 
     Route::prefix('/api')->group(function() {
@@ -170,11 +175,27 @@ Route::prefix('/form')->group(function() {
          Route::post('/property/save',[UkpController::class,'save_harta']);
         Route::post('/loan/save',[UkpController::class,'save_loan']);
         Route::post('/submit',[UkpController::class,'submit_application']);
+        Route::post('/submit-kader',[UkpController::class,'kader_submission']);
         Route::post('/cuti/upload',[UkpController::class,'upload_pengesahan']);
+        Route::post('/form/upload',[UkpController::class,'upload_form']);
         Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);;
         Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);;
         Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);;
     });
+});
+
+Route::prefix('/validate')->group(function() {
+    Route::prefix('/senarai')->group(function() {
+        Route::get('/',[PengesahanController::class,'index']);
+        Route::get('/pemohon',[PengesahanController::class,'applicant_list']);
+    });
+});
+
+Route::prefix('/user')->group(function() {
+    Route::get('/form',[PermohonanController::class,'index'])->middleware(['auth']);
+    Route::get('/form/list',[PermohonanController::class,'load_list']);
+    Route::get('/form/pink/{id}',[PermohonanController::class,'downlaod_pink']);
+    Route::get('/resume/lampiran',[ResumeController::class,'open_lampiran'])->middleware(['auth']);
 });
 
 //Common Controller
@@ -190,6 +211,7 @@ Route::get('/api/test/req',[FunctionController::class, 'req']);
 Route::get('/api/test/mail',[FunctionController::class, 'mail']);
 Route::post('/api/test/upload',[FunctionController::class,'upload']);
 Route::post('/api/test/download',[FunctionController::class,'download']);
+Route::get('/api/test/encrypt',[FunctionController::class,'encrypt']);
 Route::get('/test/form',function() {
     return view('form.ukp12');
 });
@@ -198,10 +220,10 @@ Route::get('/test/file',function() {
 });
 
 Route::get('/test/view_pdf',function() {
-     $pdf = PDF::loadView('pdf.ukp12', [], []);
-     return $pdf->stream();
+    //  $pdf = PDF::loadView('pdf.ukp12', [], []);
+    //  return $pdf->stream();
 
-    //return view('pdf.ukp12');
+    return view('pdf.ukp12');
 });
 
 Route::get('/test/pdf',function() {

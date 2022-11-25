@@ -4,7 +4,7 @@ $(document).on('click','.hantar-signal', function(){
     data.append('nokp', nokp);
     $.ajax({
         type:'GET',
-        url: '/urussetia/resume/email/'+nokp,
+        url: getUrl() + '/urussetia/resume/email/'+nokp,
 
         processData: false,
         contentType: false,

@@ -28,25 +28,25 @@
             </div>
         </div>
         <div class="form-group col-md-12 div-loan-3">
-            <label class="col-form-label" for="bayaran_mulai">Mula Pinjaman</label>
+            <label class="col-form-label" for="bayaran_mulai">Tarikh Mula Pinjaman</label>
             <input type="text" class="form-control flatpickr-loan mula_pinjam" id="mula_pinjaman" name="mula_pinjaman"
                                                         value="" />
                                                         <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-4">
-            <label class="col-form-label" for="bayaran_mulai">Akhir Pinjaman</label>
+            <label class="col-form-label" for="bayaran_mulai">Tarikh Akhir Pinjaman</label>
             <input type="text" class="form-control flatpickr-loan akhir_pinjam" id="akhir_pinjaman" name="akhir_pinjaman"
                                                         value="" />
                                                         <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-5">
-            <label class="col-form-label" for="bayaran_mulai">Bayaran Mulai</label>
+            <label class="col-form-label" for="bayaran_mulai">Tarikh Bayaran Mulai</label>
             <input type="text" class="form-control flatpickr-loan bayar_mula" id="bayaran_mulai" name="bayaran_mulai"
                                                         value="" />
                                                         <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-6">
-            <label class="col-form-label" for="selesai_bayar">Selesai Pembayaran</label>
+            <label class="col-form-label" for="selesai_bayar">Tarikh Selesai Pembayaran</label>
             <input type="text" class="form-control flatpickr-loan selesai_bayar" id="selesai_bayar" name="selesai_bayar"
                                                         value="" />
                                                         <div class="invalid-feedback"></div>

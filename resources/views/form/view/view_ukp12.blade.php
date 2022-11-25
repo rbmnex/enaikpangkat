@@ -41,7 +41,7 @@
                 <h2 class="content-header-title float-left mb-0">Pengurusan Pengguna</h2>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
+                        <li class="breadcrumb-item"><a href="/dashboard">Laman Utama</a>
                         </li>
                         <li class="breadcrumb-item">Admin
                         </li>
@@ -489,8 +489,6 @@
                                     <tr data-akademik-id="">
                                         <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
-
-
                                     @endif
                                     </tbody>
                                 </table>
@@ -552,16 +550,16 @@
                                     </thead>
                                     <tbody id="tbody-kompeten">
                                     @foreach ($kompetenans as $k)
+                                    <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $k->nama_sijil }}</td>
                                     <td>{{ $k->tahap }}</td>
+                                    </tr>
                                     @endforeach
                                     @if($kompetenans->count() == 0)
                                     <tr data-kompeten-id="">
                                         <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
-
-
                                     @endif
                                     </tbody>
                                 </table>
@@ -747,7 +745,7 @@
                         </div> --}}
                         <div class="form-group col-md-12">
                             <label class="col-form-label" for="">c) Lanjutan tempoh percubaan dengan denda</label>
-                            @if($akuan_pegawai->tatatertib == 1)
+                            @if($akuan_pegawai->tempoh_percubaan_denda == 1)
                             <input type="text" class="form-control" readonly value="Pernah"/>
                             @else
                             <input type="text" class="form-control" readonly value="Tidak Pernah"/>
@@ -770,7 +768,7 @@
                         </div> --}}
                         <div class="form-group col-md-12">
                             <label class="col-form-label" for="">d) Cuti Tanpa Gaji selain Cuti Belajar Tanpa Gaji</label>
-                            @if($akuan_pegawai->tatatertib == 1)
+                            @if($akuan_pegawai->cuti_tanpa_gaji == 1)
                             <input type="text" class="form-control" readonly value="Pernah"/>
                             @else
                             <input type="text" class="form-control" readonly value="Tidak Pernah"/>

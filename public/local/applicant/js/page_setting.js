@@ -6,6 +6,7 @@ DatatableUI.init({
         {data: 'jawatan'},
         {data: 'gred'},
         {data: 'status'},
+        {data: 'rank'},
         {data: 'aksi'},
     ],
     url: '/urussetia/appl/calon/load/list?id='+$('#hdn_id_application').val(),
@@ -23,12 +24,51 @@ DatatableUI.init({
     ],
     columnDef: [
         {
-            targets: -2,
+            targets: -3,
             title: 'Status',
             orderable: false,
             searchable: false,
             render: function (data, type, full, meta) {
-                return '<div class="badge badge-'+full.colour+'">'+full.status+'</div>';
+                var status =  full.status;
+                var text = '';
+
+                if(status == "BH") {
+                    text = 'Belum Siap';
+                } else if(status == "TA") {
+                    text = 'Tunggu Pengesahan';
+                } else if(status == "PT") {
+                    text = 'Tolak Tawaran';
+                } else if(status == "SP") {
+                    text = 'Dalam Proses';
+                } else if(status == "LL") {
+                    text = 'Calon Berjaya';
+                } else if(status == "GL") {
+                    text = 'Calon Gagal';
+                } else if(status == "PL") {
+                    text = 'Tolak Lantikan';
+                } else if(status == "MJ") {
+                    text = 'Tunggu Jawapan';
+                } else if(status == "TL") {
+                    text = 'Terima Lantikan';
+                } else if(status == "TK") {
+                    text = 'Tunggu Keputusan LKPPA';
+                } else if(status == "LS") {
+                    text = 'Calon Simpanan';
+                } else if(status == "NA") {
+                    text = 'Tiada Tindakan';
+                }
+                return '<div class="badge badge-'+full.colour+'">'+text+'</div>';
+            }
+        },
+        {
+            // Actions
+            targets: -2,
+            title: 'Tangga',
+            orderable: true,
+            searchable: false,
+            visible: true,
+            render: function (data, type, full, meta) {
+                return full.rank;
             }
         },
         {
@@ -40,17 +80,22 @@ DatatableUI.init({
             render: function (data, type, full, meta) {
                 var btn = '';
                 var status =  full.status
-                if( (status != 'Tiada Tindakan') && (status != 'Belum Siap')) {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Lihat</button>';
+                if( (status != 'NA') && (status != 'BH')) {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Kemaskini</button>';
+                    // btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-lnpt">'+ feather.icons['file-text'].toSvg() +' LNPT</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
-                }
-                if(status == 'Tunggu Keputusan') {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
+
                 }
+                // if(status == 'Tunggu Keputusan LKPPA') {
+
+                // }
+
 
                 return btn;
             }
         }
     ],
+    order: [[5, 'asc']],
     label: 'Senarai Calon'
 });

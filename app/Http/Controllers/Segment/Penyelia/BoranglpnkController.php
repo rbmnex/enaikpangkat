@@ -34,13 +34,13 @@ class BoranglpnkController extends Controller
                 return $data->pemohonPeribadi->nama;
             })
             ->addColumn('nokp', function($data){
-                return $data->pemohonPeribadi->nama;
+                return $data->pemohonPeribadi->nokp;
             })
             ->addColumn('jawatan', function($data){
                 return $data->jawatan;
             })
             ->addColumn('gred', function($data){
-                return $data->pemohonPeribadi->nokp;
+                return $data->gred;
             })
             ->addColumn('status', function($data){
                 return $data->lpnk_status == 0 ? 'BELUM DIJAWAB' : 'TELAH DIJAWAB';
@@ -95,15 +95,17 @@ class BoranglpnkController extends Controller
         $ulasan = $request->input('ulasan');
         $skorArr = json_decode($request->input('skorArr'));
         $id_permohonan = $request->input('id_permohonan');
+        $id_pemohon = $request->input('id_pemohon');
 
         $skt = $request->file('skt');
 
         $trigger = $request->input('trigger');
         $lnpk = new Lnpk;
-        $lnpk->id_permohonan = $id_permohonan;
+        //$lnpk->id_permohonan = $id_permohonan;
+        $lnpk->id_pemohon = $id_pemohon;
         $lnpk->ulasan = $ulasan;
         $lnpk->tempoh = $jumlah_pengawasan;
-        $lnpk->fail_skt = CommonController::upload_image($skt, 'lnpk');
+        //$lnpk->fail_skt = CommonController::upload_image($skt, 'lnpk');
 
         if($lnpk->save()){
             foreach($skorArr as $sk){
@@ -115,9 +117,14 @@ class BoranglpnkController extends Controller
             }
         }
 
-        $p = Pemohon::where('id_permohonan' ,$id_permohonan)->first();
+        $p = Pemohon::find($id_pemohon);
         //1 adalah setuju
         $p->lpnk_status = $trigger == 0 ? 1 : 2;
+        // if($p->lpnk_status == 1) {
+            $p->status = Pemohon::PROCESSING;
+        // } else {
+        //     $p->status = Pemohon::WAITING_VERIFICATION
+        // }
         $p->save();
 
         return response()->json([

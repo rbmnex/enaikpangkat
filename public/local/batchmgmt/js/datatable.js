@@ -126,7 +126,7 @@ function load_staff() {
             // {data: 'kod_gred'},
             // {data: 'jurusan'},
             // {data: 'tempat'},
-            {data: 'tkh_sah_perkhidmatan'},
+            {data: 'tkh_lantikan'},
             {data: 'kod_kanan'},
 
         ],
@@ -215,7 +215,7 @@ function search_staff(tahun,jurusan,gred) {
             // {data: 'kod_gred'},
             // {data: 'jurusan'},
             // {data: 'tempat'},
-            {data: 'tkh_sah_perkhidmatan'},
+            {data: 'tkh_lantikan'},
             {data: 'kod_kanan'},
         ],
         createdRow: function( row, data, dataIndex ) {
@@ -295,7 +295,7 @@ function display_staff(batch) {
             // {data: 'kod_gred'},
             // {data: 'jurusan'},
             // {data: 'tempat'},
-            {data: 'tkh_sah_perkhidmatan'},
+            {data: 'tkh_lantikan'},
             {data: 'kod_kanan'},
             {data: 'aksi'},
         ],

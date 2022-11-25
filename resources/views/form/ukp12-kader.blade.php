@@ -61,7 +61,7 @@
                 <h2 class="content-header-title float-left mb-0">Pengurusan Pengguna</h2>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="/dashboard">Rumah</a>
+                        <li class="breadcrumb-item"><a href="/dashboard">Laman Utama</a>
                         </li>
                         <li class="breadcrumb-item">BPSM
                         </li>
@@ -209,7 +209,7 @@
                                         <span class="bs-stepper-subtitle">Ketua Jabatan/Bahagian</span>
                                     </span>
                                 </button>
-                            </div> --}}
+                            </div>
                             <div class="step" data-target="#terima-tawaran">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">14</span>
@@ -218,7 +218,7 @@
                                         <span class="bs-stepper-subtitle">Penerimaan Tawaran</span>
                                     </span>
                                 </button>
-                            </div>
+                            </div> --}}
                         </div>
 
 
@@ -236,9 +236,9 @@
                                 @include('form.ukp12.section10')
                                 @include('form.ukp12.section11')
                                 @include('form.ukp12.section12')
-                                @include('form.ukp12.section13')
-                                {{-- @include('form.ukp12.section14') --}}
-                                @include('form.ukp12.section15')
+                                @include('form.ukp12.section13-2')
+                                {{-- @include('form.ukp12.section14-2')
+                                @include('form.ukp12.section15') --}}
 
                             {{-- </form> --}}
                         </div>

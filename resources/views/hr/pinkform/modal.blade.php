@@ -21,7 +21,7 @@
 
                     <div class="col-xl-12 col-md-6 col-12 mb-1">
                         <div class="form-group">
-                            <label for="basicInput" class="col-form-control">Tarikh Lapor Diri</label>
+                            <label for="basicInput" class="col-form-control">Tarikh Kuatkuasa</label>
                             <input type="text" id="fp-default" class="form-control flatpickr-basic lapor-date" placeholder="YYYY-MM-DD" />
                             <div class="invalid-feedback"></div>
                         </div>

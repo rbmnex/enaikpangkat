@@ -86,7 +86,8 @@ class PemangkuTawaranController extends Controller{
         $pdf = Pdf::loadView('segment.pemangku.tawaran.preview', compact('data'));
 //        $pdf->setPaper('A4', 'landscape');
         return $pdf->stream("preview_tawaran.pdf");
-        exit(0);
+//        return view('segment.pemangku.tawaran.preview', compact('data'));
+//        exit(0);
     }
 
     public function updateTawaran($id){

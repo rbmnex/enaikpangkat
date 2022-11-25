@@ -209,49 +209,49 @@ function validate_form() {
 
         if( name == 0 || name == '' || name == undefined) {
             valid = false;
-            addInvalid('#sect-1-nama', 'Tiada Nama');
+            addInvalid('#sect-1-nama', 'Tiada Nama, Sila Kemaskini di MyKj');
         }
 
         console.log('nama is '+valid);
 
         if( nokp == 0 || nokp == '' || nokp == undefined) {
             valid = false;
-            addInvalid('#sect-1-nokp', 'Tiada No Kad Pengenalan (Baru)');
+            addInvalid('#sect-1-nokp', 'Tiada No Kad Pengenalan (Baru), Sila Kemaskini di MyKj');
         }
 
         console.log('nokp is '+valid);
 
         if( jawatan == 0 || jawatan == '' || jawatan == undefined) {
             valid = false;
-            addInvalid('#sect-1-jawatan', 'Tiada Jawatan');
+            addInvalid('#sect-1-jawatan', 'Tiada Jawatan, Sila Kemaskini di MyKj');
         }
 
         console.log('jawatan is '+valid);
 
         if( tkh_lantik == 0 || tkh_lantik == '' || tkh_lantik == undefined) {
             valid = false;
-            addInvalid('#sect-1-tkh_lantik', 'Tiada Tarikh Lantikan Perkhidmatan');
+            addInvalid('#sect-1-tkh_lantik', 'Tiada Tarikh Lantikan Perkhidmatan, Sila Kemaskini di MyKj');
         }
 
         console.log('tkh_lantik is '+valid);
 
         if( bersara == 0 || bersara == '' || bersara == undefined) {
             valid = false;
-            addInvalid('#sect-1-bersara', 'Tiada Umur Persaraan Wajib');
+            addInvalid('#sect-1-bersara', 'Tiada Umur Persaraan Wajib, Sila Kemaskini di MyKj');
         }
 
         console.log('bersara is '+valid);
 
         if( gred == 0 || gred == '' || gred == undefined) {
             valid = false;
-            addInvalid('#sect-1-gred', 'Tiada Gred');
+            addInvalid('#sect-1-gred', 'Tiada Gred, Sila Kemaskini di MyKj');
         }
 
         console.log('gred is '+valid);
 
         if( tkh_sah == 0 || tkh_sah == '' || tkh_sah == undefined) {
             valid = false;
-            addInvalid('#sect-1-tkh_sah', 'Tiada Tarikh Disahkan Jawatan');
+            addInvalid('#sect-1-tkh_sah', 'Tiada Tarikh Disahkan Jawatan, Sila Kemaskini di MyKj');
         }
         console.log('tkh_sah is '+valid);
 
@@ -272,22 +272,22 @@ function validate_form() {
 
         if( alamat_pej == 0 || alamat_pej == '' || alamat_pej == undefined) {
             valid = false;
-            addInvalid('#sect-2-alamat_pej', 'Tiada Alamat Tempat Bertugas');
+            addInvalid('#sect-2-alamat_pej', 'Tiada Alamat Tempat Bertugas, Sila Kemaskini di MyKj');
         }
 
         if( tel_pejabat == 0 || tel_pejabat == '' || tel_pejabat == undefined) {
             valid = false;
-            addInvalid('#sect-2-tel_pejabat', 'Tiada No Telefon Pejabat');
+            addInvalid('#sect-2-tel_pejabat', 'Tiada No Telefon Pejabat, Sila Kemaskini di MyKj');
         }
 
         if( no_tel == 0 || no_tel == '' || no_tel == undefined) {
             valid = false;
-            addInvalid('#sect-2-no_tel', 'Tiada No Telefon Bimbit');
+            addInvalid('#sect-2-no_tel', 'Tiada No Telefon Bimbit, Sila Kemaskini di MyKj');
         }
 
         if( emel == 0 || emel == '' || emel == undefined) {
             valid = false;
-            addInvalid('#sect-2-no_tel', 'Tiada Emel');
+            addInvalid('#sect-2-no_tel', 'Tiada Emel, Sila Kemaskini di MyKj');
         }
 
         if($('.cuti-file').is(':empty')) {
@@ -303,9 +303,13 @@ function validate_form() {
 
     //section 3
     if(valid) {
-        if( tarikh_harta == 0 || tarikhAkhir_harta == '' || tarikhAkhir_harta == undefined) {
+        // if( tarikh_harta == 0 || tarikhAkhir_harta == '' || tarikhAkhir_harta == undefined) {
+        //     valid = false;
+        //     addInvalid('#tarikhAkhir_harta', 'Tiada Tarikh Pengisytiharan Harta Terkini!');
+        // }
+
+        if($('#tarikhAkhir_harta').hasClass('is-invalid'))  {
             valid = false;
-            addInvalid('#tarikhAkhir_harta', 'Tiada Tarikh Pengisytiharan Harta Terkini!');
         }
 
         if($('.harta-file').is(':empty')) {
@@ -340,68 +344,68 @@ function validate_form() {
 
         if( nama == 0 || nama == '' || nama == undefined) {
             valid = false;
-            addInvalid('#sect-4-nama', 'Tiada Nama');
+            addInvalid('#sect-4-nama', 'Tiada Nama, Sila Kemaskini di MyKj');
         }
 
         if( nokp == 0 || nokp == '' || nokp == undefined) {
             valid = false;
-            addInvalid('#sect-4-nokp', 'Tiada No Kad Pengenalan (Baru)');
+            addInvalid('#sect-4-nokp', 'Tiada No Kad Pengenalan (Baru), Sila Kemaskini di MyKj');
         }
 
         if( jantina == 0 || jantina == '' || jantina == undefined) {
             valid = false;
-            addInvalid('#sect-4-jantina', 'Tiada Jantina');
+            addInvalid('#sect-4-jantina', 'Tiada Jantina, Sila Kemaskini di MyKj');
         }
 
         if( bangsa == 0 || bangsa == '' || bangsa == undefined) {
             valid = false;
-            addInvalid('#sect-4-bangsa', 'Tiada Bangsa');
+            addInvalid('#sect-4-bangsa', 'Tiada Bangsa, Sila Kemaskini di MyKj');
         }
 
         if( agama == 0 || agama == '' || agama == undefined) {
             valid = false;
-            addInvalid('#sect-4-agama', 'Tiada Agama');
+            addInvalid('#sect-4-agama', 'Tiada Agama, Sila Kemaskini di MyKj');
         }
 
         if( tkh_lahir == 0 || tkh_lahir == '' || tkh_lahir == undefined) {
             valid = false;
-            addInvalid('#sect-4-tkh_lahir', 'Tiada Tarikh Lahir');
+            addInvalid('#sect-4-tkh_lahir', 'Tiada Tarikh Lahir, Sila Kemaskini di MyKj');
         }
 
         if( tmpt_lahir == 0 || tmpt_lahir == '' || tmpt_lahir == undefined) {
             valid = false;
-            addInvalid('#sect-4-tmpt_lahir', 'Tiada Tempat Lahir');
+            addInvalid('#sect-4-tmpt_lahir', 'Tiada Tempat Lahir, Sila Kemaskini di MyKj');
         }
 
         if( jawatan == 0 || jawatan == '' || jawatan == undefined) {
             valid = false;
-            addInvalid('#sect-4-tmpt_lahir', 'Tiada Jawatan');
+            addInvalid('#sect-4-tmpt_lahir', 'Tiada Jawatan, Sila Kemaskini di MyKj');
         }
 
         if( gred == 0 || gred == '' || gred == undefined) {
             valid = false;
-            addInvalid('#sect-4-gred', 'Tiada Gred');
+            addInvalid('#sect-4-gred', 'Tiada Gred, Sila Kemaskini di MyKj');
         }
 
         if( gaji == 0 || gaji == '' || gaji == undefined) {
             valid = false;
-            addInvalid('#sect-4-gaji', 'Tiada Gaji Hakiki');
+            addInvalid('#sect-4-gaji', 'Tiada Gaji Hakiki, Sila Kemaskini di MyKj');
         }
 
         if( alamat_bertugas == 0 || alamat_bertugas == '' || alamat_bertugas == undefined) {
             valid = false;
-            addInvalid('#sect-4-alamat_bertugas', 'Tiada Alamat Pejabat');
+            addInvalid('#sect-4-alamat_bertugas', 'Tiada Alamat Pejabat, Sila Kemaskini di MyKj');
         }
 
         if( alamat_rumah == 0 || alamat_rumah == '' || alamat_rumah == undefined) {
             valid = false;
-            addInvalid('#sect-4-alamat_rumah', 'Tiada Alamat Rumah');
+            addInvalid('#sect-4-alamat_rumah', 'Tiada Alamat Rumah, Sila Kemaskini di MyKj');
         }
 
         if(taraf == 'KAHWiN') {
             if( nama_pasangan == 0 || nama_pasangan == '' || nama_pasangan == undefined) {
                 valid = false;
-                addInvalid('#sect-4-nama_pasangan', 'Tiada Nama Pasangan');
+                addInvalid('#sect-4-nama_pasangan', 'Tiada Nama Pasangan, Sila Kemaskini di MyKj');
             }
         }
 

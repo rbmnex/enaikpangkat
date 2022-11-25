@@ -1,5 +1,5 @@
 class DatatableUI{
-    static init({selector, columnList, columnDef = [], url = '', buttons = [], label = false, columnsSearchable = false}){
+    static init({selector, columnList, columnDef = [], url = '', buttons = [], label = false, columnsSearchable = false}, order = []){
         if(columnsSearchable) {
             $(''+ selector +' thead tr').clone(true).appendTo(''+ selector +' thead');
             $(''+ selector +' thead tr:eq(1) th').each(function (i) {
@@ -31,6 +31,7 @@ class DatatableUI{
                     next: '&nbsp;'
                 }
             },
+            order: order,
             destroy: true
         });
         if(label){

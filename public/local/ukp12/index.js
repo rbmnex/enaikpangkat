@@ -376,7 +376,7 @@ $(document).on('click','.upload-lampiran', function(){
 
     $.ajax({
         type:'POST',
-        url: '/form/api/bebankerja',
+        url: getUrl() + '/form/api/bebankerja',
         data:data,
         processData: false,
         contentType: false,
@@ -435,7 +435,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_
         $('.harta-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/property/save',
+            url: getUrl() + '/form/api/property/save',
             data:data,
             processData: false,
             contentType: false,
@@ -443,9 +443,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });
@@ -459,7 +459,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_
         $('.lampiran_beban').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/bebankerja',
+            url: getUrl() + '/form/api/bebankerja',
             data:data,
             processData: false,
             contentType: false,
@@ -485,11 +485,11 @@ $(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_
         data.append('bayar',$('.bayar_mula').val());
         data.append('selesai',$('.selesai_bayar').val());
         data.append('penyata_bayaran',file);
-        data.append('formdata',$('input[name="_formdata"]').val());
+        data.append('formdata',$('._formid').val());
         $('.loan-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/loan/save',
+            url: getUrl() + '/form/api/loan/save',
             data:data,
             processData: false,
             contentType: false,
@@ -497,9 +497,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });
@@ -512,7 +512,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_
         $('.cuti-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/cuti/upload',
+            url: getUrl() + '/form/api/cuti/upload',
             data:data,
             processData: false,
             contentType: false,
@@ -520,9 +520,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });

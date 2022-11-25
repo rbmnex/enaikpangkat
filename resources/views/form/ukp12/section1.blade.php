@@ -12,7 +12,7 @@
         <div class="form-group col-md-6">
             <label class="col-form-label" for="vertical-email">No Kad Pengenalan (Lama)</label>
             <input type="text" id="vertical-email" readonly name="nokp_lama" class="form-control"
-            value="{{ $profile['nokp_lama'] }}" placeholder=""  />
+            value="{{ empty($profile['nokp_lama']) ? 'TIDAK BERKENAAN' : $profile['nokp_lama'] }}" placeholder=""  />
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">

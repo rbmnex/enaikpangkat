@@ -1,8 +1,11 @@
-$(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
+$(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-form-download',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('btn-submit')) {
         //$('#modal-cuti').modal('show');
-        let process = validate_form();
+        let process = last_verification();
+        if(process) {
+            process = validate_form();
+        }
         if(process) {
             // submit proccess
             var data = new FormData;
@@ -10,11 +13,10 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
             data.append('pemohon',$('input[name="_formdata"]').val());
             data.append('accept',$('.radio-accept').filter(':checked').val());
             data.append('alasan',$('.alasan_tolak').val());
-            data.append('ketua_nokp',$('.pegawai-nokp').val());
-            data.append('kerani_nokp',$('.pengguna-nokp').val());
             data.append('tatatertib',$('.tatatertib').filter(':checked').val());
             data.append('denda',$('.denda').filter(':checked').val());
             data.append('cuti',$('.cuti_check').filter(':checked').val());
+
             if($('.akuan_peribadi').is(':checked')) {
                 data.append('akuan',1);
             } else {
@@ -35,7 +37,7 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
                 icon: 'info',
                 confirmButtonText: 'Hantar',
                 postData: {
-                    url : '/form/api/submit',
+                    url : '/form/api/submit-kader',
                     data: data,
                     postfunc: function(data) {
                         let success = data.success;
@@ -62,6 +64,51 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
             $('.reason_reject').hide();
         } else {
             $('.reason_reject').show();
+        }
+    } else if(selectedClass.hasClass('btn-form-download')) {
+        let process = validate_form();
+        var dataform = $('input[name="_formid"]').val();
+        if(process) {
+            var data = new FormData;
+            data.append('_token', getToken());
+            data.append('pemohon',$('input[name="_formdata"]').val());
+            // data.append('accept',$('.radio-accept').filter(':checked').val());
+            data.append('alasan',$('.alasan_tolak').val());
+            data.append('tatatertib',$('.tatatertib').filter(':checked').val());
+            data.append('denda',$('.denda').filter(':checked').val());
+            data.append('cuti',$('.cuti_check').filter(':checked').val());
+
+            if($('.akuan_peribadi').is(':checked')) {
+                data.append('akuan',1);
+            } else {
+                data.append('akuan',0);
+            }
+
+            data.append('status_pinjam',$('.pinjam-status').val());
+            data.append('nama_pinjam',$('.nama_tabung').val());
+            data.append('jumlah_pinjam',$('.jumlah_pinjaman').val());
+            data.append('mula_pinjam',$('.mula_pinjam').val());
+            data.append('akhir_pinjam',$('.akhir_pinjam').val());
+            data.append('bayar_pinjam',$('.bayar_mula').val());
+            data.append('selesai_pinjam',$('.selesai_bayar').val());
+
+            $.ajax({
+                type:'POST',
+                url: getUrl() + '/form/api/submit-kader',
+                data:data,
+                processData: false,
+                contentType: false,
+                context: this,
+                success: function(resp) {
+                    let d = resp.success;
+                    if(d == 1) {
+                        // toasting('Dokumen berjaya sudah dimuat naik', 'success');
+                        window.open(getUrl() + '/form/ukp12/download/full?dataform='+dataform,'_blank');
+                    } else {
+                        toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                    }
+                }
+            });
         }
     }
 });
@@ -164,7 +211,7 @@ $(document).on('click','.delete-row, .delete-org',function() {
     }
 });
 
-$(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti-upload', function() {
+$(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti-upload, .form-kader-upload', function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('pinjam-status')) {
         var value = selectedClass.val();
@@ -200,9 +247,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
     } else if(selectedClass.hasClass('upload-harta')) {
         //var form = $('#upload-harta')[0];
         let data = new FormData();
-        var file = $('#lampiran_E')[0].files[0];
+        var file = $('.upload-harta')[0].files[0];
         data.append('_token', getToken());
-        data.append('formdata',$('input[name="_formdata"]').val());
+        data.append('formdata',$('._formdata').val());
         data.append('lampiran_e',file);
         $('.harta-file').html(file.name);
         $.ajax({
@@ -215,9 +262,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });
@@ -233,11 +280,11 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         data.append('bayar',$('.bayar_mula').val());
         data.append('selesai',$('.selesai_bayar').val());
         data.append('penyata_bayaran',file);
-        data.append('formdata',$('input[name="_formdata"]').val());
+        data.append('formdata',$('._formid').val());
         $('.loan-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/loan/save',
+            url: getUrl() + '/form/api/loan/save',
             data:data,
             processData: false,
             contentType: false,
@@ -245,9 +292,9 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });
@@ -260,7 +307,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         $('.cuti-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/cuti/upload',
+            url: getUrl() + '/form/api/cuti/upload',
             data:data,
             processData: false,
             contentType: false,
@@ -268,9 +315,32 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
             success: function(resp) {
                 let d = resp.success;
                 if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
                 } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
+                }
+            }
+        });
+    } else if(selectedClass.hasClass('form-kader-upload')) {
+        let data = new FormData();
+        var file =$('.form-kader-upload')[0].files[0];
+        data.append('_token', getToken());
+        data.append('pemohon_id',$('._formid').val());
+        data.append('full_form',file);
+        $('.kader-file').html(file.name);
+        $.ajax({
+            type:'POST',
+            url: getUrl() + '/form/api/form/upload',
+            data:data,
+            processData: false,
+            contentType: false,
+            context: this,
+            success: function(resp) {
+                let d = resp.success;
+                if(d == 1) {
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
+                } else {
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
             }
         });

@@ -40,9 +40,14 @@ class BatchMgmtController extends Controller
     }
 
     public function senarai_pegawai(Request $request) {
+        // $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+        //     ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
+        //     ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan')
+        //     ->orderBy('np.kod_kanan','asc')
+        //     ->limit(100)->get();
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan')
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan')
             ->orderBy('np.kod_kanan','asc')
             ->limit(100)->get();
 
@@ -51,11 +56,14 @@ class BatchMgmtController extends Controller
                 'data-calon-kp' => function($data) {
                 }
             ])
-            ->addColumn('tempat',function($data) {
-                $unit = empty($data->unit) ? '' : strtoupper($data->unit).', ';
-                $bahagian = empty($data->bah) ? '' : strtoupper($data->bah).', ';
-                $cawagan = empty($data->caw) ? '' : strtoupper($data->caw);
-                return $unit.$bahagian.$cawagan;
+            // ->addColumn('tempat',function($data) {
+            //     $unit = empty($data->unit) ? '' : strtoupper($data->unit).', ';
+            //     $bahagian = empty($data->bah) ? '' : strtoupper($data->bah).', ';
+            //     $cawagan = empty($data->caw) ? '' : strtoupper($data->caw);
+            //     return $unit.$bahagian.$cawagan;
+            // })
+            ->addColumn('tkh_lantikan',function($data) {
+                return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
             })
             ->make(true);
     }
@@ -65,9 +73,13 @@ class BatchMgmtController extends Controller
         $jurusan = $request->input('jurusan');
         $gred = $request->input('gred');
 
+        // $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+        //     ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
+        //     ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan');
+
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan');
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan');
 
         if(!empty($tahun)) {
             $model = $model->where(DB::raw('extract(year from np.tkh_sah_perkhidmatan)'),$tahun);
@@ -85,11 +97,14 @@ class BatchMgmtController extends Controller
                 'data-calon-kp' => function($data) {
                 }
             ])
-            ->addColumn('tempat',function($data) {
-                $unit = empty($data->unit) ? '' : strtoupper($data->unit).', ';
-                $bahagian = empty($data->bah) ? '' : strtoupper($data->bah).', ';
-                $cawagan = empty($data->caw) ? '' : strtoupper($data->caw);
-                return $unit.$bahagian.$cawagan;
+            // ->addColumn('tempat',function($data) {
+            //     $unit = empty($data->unit) ? '' : strtoupper($data->unit).', ';
+            //     $bahagian = empty($data->bah) ? '' : strtoupper($data->bah).', ';
+            //     $cawagan = empty($data->caw) ? '' : strtoupper($data->caw);
+            //     return $unit.$bahagian.$cawagan;
+            // })
+            ->addColumn('tkh_lantikan',function($data) {
+                return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
             })
             ->make(true);
     }
@@ -200,6 +215,11 @@ class BatchMgmtController extends Controller
         $model->tajuk = $batch->name;
 
         if($model->save()) {
+            $batch->updated_by = Auth::user()->nokp;
+            $batch->status = "PROCESSED";
+            $batch->permohonan_id = $model->id;
+            $batch->save();
+
             $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
 
             $pegawais=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
@@ -217,7 +237,8 @@ class BatchMgmtController extends Controller
                 ];
                 Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
                     // testing purpose
-                    $message->to('rubmin@vn.net.my',$calon->nama);
+                    //$message->to('rubmin@vn.net.my',$calon->nama);
+                    $message->to('munirahj@jkr.gov.my',$calon->nama);
 
                     //$message->to($calon->email,$calon->nama);
                     $message->subject('URUSAN PEMANGKUAN KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
@@ -226,10 +247,6 @@ class BatchMgmtController extends Controller
 
             }
 
-            $batch->updated_by = Auth::user()->nokp;
-            $batch->status = "PROCESSED";
-            $batch->permohonan_id = $model->id;
-            $batch->save();
         }
 
         return response()->json([
@@ -256,9 +273,16 @@ class BatchMgmtController extends Controller
 
         $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
 
+        // $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+        //     ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
+        //     ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan')
+        //     ->whereIn('np.nokp',$list_nokp)
+        //     ->orderBy('np.kod_kanan','asc')
+        //     ->get();
+
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan')
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan')
             ->whereIn('np.nokp',$list_nokp)
             ->orderBy('np.kod_kanan','asc')
             ->get();
@@ -270,11 +294,14 @@ class BatchMgmtController extends Controller
                 },
                 'data-batch-id' => $batch_id,
             ])
-            ->addColumn('tempat',function($data) {
-                $unit = empty($data->unit) ? '' : strtoupper($data->unit).', ';
-                $bahagian = empty($data->bah) ? '' : strtoupper($data->bah).', ';
-                $cawagan = empty($data->caw) ? '' : strtoupper($data->caw);
-                return $unit.$bahagian.$cawagan;
+            // ->addColumn('tempat',function($data) {
+            //     $unit = empty($data->unit) ? '' : strtoupper($data->unit).', ';
+            //     $bahagian = empty($data->bah) ? '' : strtoupper($data->bah).', ';
+            //     $cawagan = empty($data->caw) ? '' : strtoupper($data->caw);
+            //     return $unit.$bahagian.$cawagan;
+            // })
+            ->addColumn('tkh_lantikan',function($data) {
+                return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -344,7 +371,7 @@ class BatchMgmtController extends Controller
         $search_term = $request->input('q');
         $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
         ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan')->where('np.nokp', 'ilike', '%'.$search_term.'%')
+        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan')->where('np.nokp', 'ilike', '%'.$search_term.'%')
             ->orWhereRaw("LOWER(np.nama) ilike '%".$search_term."%'")->limit(20)->get();
 
         if(count($peribadi) != 0){
@@ -364,15 +391,20 @@ class BatchMgmtController extends Controller
     public function info_calon(Request $request) {
         $nokp = $request->input('nokp');
 
-        $calon = $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+        // $calon = DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+        // ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
+        // ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','no_kanan')
+        // ->where('nokp', $nokp)->first();
+
+        $calon = DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
         ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','no_kanan')
+        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','no_kanan')
         ->where('nokp', $nokp)->first();
 
         if($calon) {
-            $unit = empty($calon->unit) ? '' : strtoupper($calon->unit).', ';
-                $bahagian = empty($calon->bah) ? '' : strtoupper($calon->bah).', ';
-                $cawagan = empty($calon->caw) ? '' : strtoupper($calon->caw);
+            // $unit = empty($calon->unit) ? '' : strtoupper($calon->unit).', ';
+            //     $bahagian = empty($calon->bah) ? '' : strtoupper($calon->bah).', ';
+            //     $cawagan = empty($calon->caw) ? '' : strtoupper($calon->caw);
 
             return response()->json([
                 'success' => 1,
@@ -381,7 +413,7 @@ class BatchMgmtController extends Controller
                     'nokp' => $calon->nokp,
                     'jawatan' => $calon->jawatan,
                     'gred' => $calon->kod_gred,
-                    'tempat' => $unit.$bahagian.$cawagan,
+                    //'tempat' => $unit.$bahagian.$cawagan,
                     'tkh_sah' => $calon->tkh_sah_perkhidmatan,
                     'jurusan' => $calon->jurusan
                 ]
