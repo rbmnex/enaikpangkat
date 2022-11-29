@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Test;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -18,8 +19,12 @@ class QueryController extends Controller
                 ->leftJoin('public.l_negeri as ln2', 'p.kod_negeri_lahir', 'ln2.kod_negeri')
                 ->select('p.*', 'ln2.negeri','la.agama','ltp.taraf_perkahwinan', 'lb.bangsa' )
                 ->where('p.nokp',$nokp);
-        $query = DB::connection('pgsqlmykj')->select('select distinct extract(year from lpn.tkh_sah_perkhidmatan) as years
-        from list_pegawai_naikpangkat lpn order by years asc')->get();
+        $query = DB::connection('pgsqlmykj')->select('select distinct extract(year from lpn.tkh_sah_perkhidmatan) as years from list_pegawai_naikpangkat lpn order by years asc');
         return print_r($query);
+    }
+
+    public function testCollection(Request $request) {
+        $model = Role::all();
+        return print_r(isset($model[4]) ? $model[4] : 'Empty Shell');
     }
 }

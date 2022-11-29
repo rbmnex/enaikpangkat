@@ -203,7 +203,7 @@ Route::prefix('/common')->group(function () {
 });
 
 // test api
-Route::get('/api/test/query', [QueryController::class, 'testQuery']);
+Route::get('/api/test/query', [QueryController::class, 'testCollection']);
 Route::get('/api/func/test',[FunctionController::class, 'func']);
 Route::get('/api/test/req',[FunctionController::class, 'req']);
 Route::get('/api/test/mail',[FunctionController::class, 'mail']);

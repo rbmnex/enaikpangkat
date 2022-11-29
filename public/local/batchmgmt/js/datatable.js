@@ -17,6 +17,16 @@ $('.table-kumpulan').DataTable({
     columnDefs: [
         {
             // Actions
+            targets: 0,
+            title: 'Nama',
+            orderable: true,
+            render: function (data, type, full, meta) {
+                let nama = full.name;
+                return nama.toUpperCase();
+            }
+        },
+        {
+            // Actions
             targets: -2,
             title: 'Status',
             orderable: false,

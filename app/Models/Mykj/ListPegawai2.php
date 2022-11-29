@@ -122,7 +122,7 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
-                    'kod_peristiwa' => $m->LPeristiwa->peristiwa ?  $m->LPeristiwa->peristiwa : '', 
+                    'kod_peristiwa' => $m->LPeristiwa->peristiwa ?  $m->LPeristiwa->peristiwa : '',
                     'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa : ''
                 ];
             }
@@ -176,7 +176,7 @@ class ListPegawai2 extends Model
                 $data[] = [
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
-                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :'' 
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
                 ];
             }
         }
@@ -272,7 +272,7 @@ class ListPegawai2 extends Model
 
     public static function pengalamanPengkhususan($ic){
         $data= [];
-        
+
         $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
         // $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->distinct('kod_aktiviti')->orderBy('kod_aktiviti')->get();
@@ -289,7 +289,7 @@ class ListPegawai2 extends Model
                     }else{
                         $interval = '';
                     }
-                    
+
 
                     $data['khusus'][$m->LAktiviti->aktiviti]['data'][] = [
                         'tempat' => $m->tempat,
@@ -303,33 +303,36 @@ class ListPegawai2 extends Model
 
                     ];
                 }
-                
+
             }
         }
 
-        foreach ($data['khusus'] as $key => $value) {
-            $title = $key;
-            if(count($value['data']) > 0){
-                $totalYear = 0;
-                $totalMonth = 0;
-                foreach($value['data'] as $v){
-                    $totalMonth += $v['interval_month'];
-                    $totalYear += $v['interval_year'];
-                }
-
-                if($totalMonth >= 12){
-                    while($totalMonth >= 12){
-                        $totalMonth= $totalMonth - 12;
-                        $totalYear += 1;
+        if(isset($data['khusus'])) {
+            foreach ($data['khusus'] as $key => $value) {
+                $title = $key;
+                if(count($value['data']) > 0){
+                    $totalYear = 0;
+                    $totalMonth = 0;
+                    foreach($value['data'] as $v){
+                        $totalMonth += $v['interval_month'];
+                        $totalYear += $v['interval_year'];
                     }
+
+                    if($totalMonth >= 12){
+                        while($totalMonth >= 12){
+                            $totalMonth= $totalMonth - 12;
+                            $totalYear += 1;
+                        }
+                    }
+
+                    $data['khusus'][$key]['jumlah_pengalaman'] = $title.' selama '.$totalYear.' tahun, '.$totalMonth.' bulan';
                 }
 
-                $data['khusus'][$key]['jumlah_pengalaman'] = $title.' selama '.$totalYear.' tahun, '.$totalMonth.' bulan';
             }
-            
         }
 
-        
+
+
         return $data;
     }
 

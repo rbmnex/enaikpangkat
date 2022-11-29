@@ -115,7 +115,7 @@ class ViewController extends Controller
                     array_push($includes, ViewController::LNPK_VIEW);
                     array_push($includes, ViewController::HOS_VIEW);
                     array_push($includes, ViewController::HOD_VIEW);
-                    array_push($includes, 'form.view.include.ukp12-download');
+                    array_push($includes, 'form.view.include.ukp12-dowload');
                 } else {
                     array_push($includes, ViewController::LNPK_VIEW);
                     array_push($includes, ViewController::KADER_VIEW);
@@ -129,7 +129,7 @@ class ViewController extends Controller
                     array_push($includes, ViewController::LNPK_VIEW);
                     array_push($includes, ViewController::HOS_VIEW);
                     array_push($includes, ViewController::HOD_VIEW);
-                    array_push($includes, 'form.view.include.ukp12-download');
+                    array_push($includes, 'form.view.include.ukp12-dowload');
                 }
             } else if($view == 'l') {
                 if(Laratrust::hasRole('secretariat')) {
@@ -139,7 +139,7 @@ class ViewController extends Controller
                         array_push($includes, ViewController::LNPK_VIEW);
                         array_push($includes, ViewController::HOS_VIEW);
                         array_push($includes, ViewController::HOD_VIEW);
-                        array_push($includes, 'form.view.include.ukp12-download');
+                        array_push($includes, 'form.view.include.ukp12-dowload');
                     } else {
                         array_push($includes, ViewController::LNPK_VIEW);
                         array_push($includes, ViewController::KADER_VIEW);
@@ -154,7 +154,7 @@ class ViewController extends Controller
                         array_push($includes, ViewController::LNPK_VIEW);
                         array_push($includes, ViewController::HOS_VIEW);
                         array_push($includes, ViewController::HOD_VIEW);
-                        array_push($includes, 'form.view.include.ukp12-download');
+                        array_push($includes, 'form.view.include.ukp12-dowload');
                     } else {
                         array_push($includes, ViewController::LNPK_VIEW);
                         array_push($includes, ViewController::KADER_VIEW);
@@ -222,7 +222,7 @@ class ViewController extends Controller
         $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
         $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get();
 
-        $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->get();
+        $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->orderBy('tahun','desc')->get();
         $markah =  collect([]);
 
         if($rekod_markah->count() == 0) {
@@ -285,20 +285,42 @@ class ViewController extends Controller
 
         $lnpts = json_decode($request->input('lnpts'));
 
+        $record = LnptUkp12::where('id_pemohon',$pemohon_id)->orderBy('tahun','desc')->get();
+        $index = 0;
         foreach($lnpts as $lnpt) {
-            $record = LnptUkp12::where('tahun',$lnpt->tahun)->where('id_pemohon',$pemohon_id)->first();
-            if(empty($record)) {
-                $record = new LnptUkp12();
-                $record->created_by = Auth::user()->nokp;
+            $model = NULL;
+            if(isset($record[$index])) {
+                $model = $record[$index];
+            } else {
+                $model = new LnptUkp12();
+                $model->created_by = Auth::user()->nokp;
             }
-                $record->updated_by = Auth::user()->nokp;
-                $record->flag = 1;
-                $record->delete_id = 0;
-                $record->id_pemohon = $pemohon_id;
-                $record->tahun = $lnpt->tahun;
-                $record->markah = $lnpt->purata;
-                $record->save();
+
+                $model->updated_by = Auth::user()->nokp;
+                $model->flag = 1;
+                $model->delete_id = 0;
+                $model->id_pemohon = $pemohon_id;
+                $model->tahun = $lnpt->tahun;
+                $model->markah = $lnpt->purata;
+                $model->save();
+
+                $index++;
         }
+
+        // foreach($lnpts as $lnpt) {
+        //     $record = LnptUkp12::where('tahun',$lnpt->tahun)->where('id_pemohon',$pemohon_id)->first();
+        //     if(empty($record)) {
+        //         $record = new LnptUkp12();
+        //         $record->created_by = Auth::user()->nokp;
+        //     }
+        //         $record->updated_by = Auth::user()->nokp;
+        //         $record->flag = 1;
+        //         $record->delete_id = 0;
+        //         $record->id_pemohon = $pemohon_id;
+        //         $record->tahun = $lnpt->tahun;
+        //         $record->markah = $lnpt->purata;
+        //         $record->save();
+        // }
 
         $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon_id)->first();
 
@@ -393,8 +415,8 @@ class ViewController extends Controller
         $pemohon->perakuan_ketua_jabatan = $pengesahan;
         $pemohon->perakuan_ketua_jabatan_jawatan = $jawatan;
         $pemohon->perakuan_ketua_jabatan_alamat_pejabat = $jabatan;
-        $pemohon->pengesahan_perkhidmatan_tkh = Date::now();
-        $pemohon->pengesahan_perkhidmatan_nama = $nama;
+        $pemohon->perakuan_ketua_jabatan_tkh = Date::now();
+        $pemohon->perakuan_ketua_jabatan_nama = $nama;
         $pemohon->perakuan_ketua_jabatan_ulasan = $ulasan;
 
         $pemohon->status = Pemohon::PROCESSING;
@@ -413,6 +435,7 @@ class ViewController extends Controller
     }
 
     public function download_form_full(Request $request) {
+        $year = Carbon::parse(Date::now())->format('Y');
         $formdata = $request->input('dataform');
         $pemohon = Pemohon::find($formdata);
         $permohonan = $pemohon->pemohonPermohonan;
@@ -430,7 +453,7 @@ class ViewController extends Controller
         $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
         $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get();
         $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
-        $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->get();
+        $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->orderBy('tahun','desc')->get();
         $markah =  collect([]);
 
         if($rekod_markah->count() == 0) {
