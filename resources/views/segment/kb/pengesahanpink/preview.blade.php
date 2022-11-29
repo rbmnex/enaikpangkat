@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Document</title>
-    <style>
+    <style> 
         .centerCell {
             text-align: center;
             vertical-align: middle !important;
@@ -56,7 +56,6 @@
             Jawatan/Disiplin<br>
             Gred Memangku<br>
             Alamat Pejabat<br>
-            Pejabat Baru<br>
             No telefon/emel<br>
         </td>
         <td colspan="5" style="font-size:10px">
@@ -64,7 +63,6 @@
             : <span style="text-decoration: underline">{{ $data->jawatan }}</span><br>
             : <span style="text-decoration: underline">{{ $data->pemohonPermohonan->gred }}</span><br>
             : <span style="text-decoration: underline">{{ $data->alamat_pejabat }}</span><br>
-            : <span style="text-decoration: underline">{{ $data->pemohonPink->alamat }}</span><br>
             : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->tel_bimbit }} / {{ $data->pemohonPeribadi->email }}</span>
         </td>
     </tr>
@@ -174,10 +172,10 @@
     </tr>
     <tr style="font-size:9">
         <td colspan="2">Ketua Bahagian Perkhidmatan / Kerani Perkhidmatan<br><br></td>
-        <td>: {{ $data->pemohonUkp11->nokp_kerani }}<br><br></td>
+        <td>: {{ $data->pemohonUkp11->nokp_kerani  }}<br><br></td>
     </tr>
     <tr style="font-size:9">
-        <td colspan="2">Pejabat Baru<br><br></td>
+        <td colspan="2">Alamat Pejabat<br><br></td>
         <td>: {{ $data->pemohonPink->alamat }}<br><br></td>
     </tr>
 </table>

@@ -149,6 +149,8 @@ class PengesahanPinkController extends Controller{
         $data->kerani_tkh = $setuju == 1 ? date('Y-m-d') : date('Y-m-d');
         $data->save();
 
+
+
         return redirect()->action(
             [PengesahanPinkController::class, 'index']
         );

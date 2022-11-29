@@ -90,11 +90,11 @@ class NaikpangkatController extends Controller
         ]);
     }
 
+
     public function borang($id_pemohonan){
         $ukpC = new UkpController;
 
         $model = Pemohon::where('id_permohonan', $id_pemohonan)->first();
-        //$model = Pemohon::find($id);
 
         if($model->id_peribadi == null){
             $peribadi = Peribadi::recreate(Auth::user()->id,Auth::user()->nokp);
@@ -438,5 +438,4 @@ class NaikpangkatController extends Controller
         $maklumat = json_encode($ukpC->load_info($profile,$profile->nokp,$pemohon));
         return Ukp13Pdf::print(json_decode($maklumat));
     }
-
 }

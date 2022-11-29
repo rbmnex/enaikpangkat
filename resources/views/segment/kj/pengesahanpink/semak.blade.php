@@ -15,7 +15,7 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">Persetujuan Pink Form</h2>
+                    <h2 class="content-header-title float-start mb-0">Perakuan Ketua Jabatan</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                         </ol>
@@ -44,10 +44,10 @@
         <div class="row">
             <div class="col-3"></div>
             <div class="col-3" style="text-align:center">
-                <a style="width:100%;" class="btn btn-success" id="button-setuju" href="{{Request::root()}}/kj/pengesahan-pink/setuju/1/{{$pemohon_id}}">Setuju</a>
+                <a style="width:100%;" class="btn btn-success" id="button-setuju" href="{{Request::root()}}/kj/pengesahan-pink/setuju/1/{{$pemohon_id}}">Diperaku</a>
             </div>
             <div class="col-3" style="text-align:center">
-                <a style="width:100%;" class="btn btn-danger" id="button-tidak-setuju"  href="{{Request::root()}}/kj/pengesahan-pink/setuju/0/{{$pemohon_id}}">Tidak Setuju</a>
+                <a style="width:100%;" class="btn btn-danger" id="button-tidak-setuju"  href="{{Request::root()}}/kj/pengesahan-pink/setuju/0/{{$pemohon_id}}">Tidak Diperaku</a>
             </div>
             <div class="col-3"></div>
         </div>

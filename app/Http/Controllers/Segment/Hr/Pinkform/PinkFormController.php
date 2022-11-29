@@ -51,7 +51,7 @@ class PinkFormController extends Controller{
         $pink = CommonController::getModel(SuratPink::class, 0);
         $pink->id_pemohon = $request->input('pemohon_id');
         $pink->no_surat = $request->input('pinkform_name');
-        $pink->tkh_lapor_diri = $request->input('pinkform_tkh');
+        $pink->tkh_lapor_diri = CommonController::dateAugment($request->input('pinkform_tkh'));
         $pink->save();
 
         if($request->file('pinkform_borang')){
@@ -82,7 +82,8 @@ class PinkFormController extends Controller{
             // testing purpose
             //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
-            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
+//            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
+            $message->to('munirahj@jkr.gov.my',$pemohon->pemohonPeribadi->nama);
             $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
         });

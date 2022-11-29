@@ -511,12 +511,12 @@ public function lampiran3($ic)
         $lampiran_projek = LampiranProjek::where('nokp',$ic->nokp)->get();
         $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',1)->get();
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',2)->get();
-     
+
 
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('admin.user.resume.cetak_sendiri', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
      }
@@ -576,12 +576,12 @@ public function lampiran3($ic)
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
 
 
-     
 
-            
+
+
          return view('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
-        
+
     }
 
       public function email(Request $request,$ic) {
@@ -592,12 +592,12 @@ public function lampiran3($ic)
              ->select('np.nokp','np.nama','np.email')
              ->where('np.nokp',$ic)->first();
        $content = [
-                     'link' => url('/urussetia/resume/display/8?kp='.$nokp)
+                     'link' => url('/urussetia/resume/display/8?kp='.$ic)
 
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
-                    $message->to('munirahj@jkr.gov.my',$pegawai->nama);
+                    $message->to('rubmin@vn.net.my',$pegawai->nama);
 
 
                     $message->subject('KEMASKINI LAMPIRAN');

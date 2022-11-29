@@ -15,6 +15,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\File;
 use Pdf;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PemangkuTawaranController extends Controller{
     public function index(){
@@ -29,6 +30,7 @@ class PemangkuTawaranController extends Controller{
         ->whereIn('p.status', array(Pemohon::SUCCESSED, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED))
         ->where('p.flag',1)
         ->where('p.delete_id',0)
+        ->where('b.nokp',Auth::user()->nokp)
         ->get();
 
         return DataTables::of($model)

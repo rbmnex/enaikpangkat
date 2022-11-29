@@ -98,7 +98,7 @@
                     </div>
                     <hr>
                     <div class="form-group row">
-                        <label for="" class="col-sm-12 col-form-label" style="color:red">Adakah Saya {{$data->pemohonPeribadi->nama}}, No. kad pengenalan {{$data->pemohonPeribadi->nokp}}</label>
+                        <label for="" class="col-sm-12 col-form-label" style="color:red">Adalah Saya {{$data->pemohonPeribadi->nama}}, No. kad pengenalan {{$data->pemohonPeribadi->nokp}}</label>
                         <div class="col-sm-3">
                             <select class="select2 form-select form-control" id="tawaran-setuju">
                                 <option value="">-- Sila Pilih --</option>

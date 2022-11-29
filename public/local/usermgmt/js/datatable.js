@@ -9,6 +9,7 @@ $('.table-user').DataTable({
         {data: 'jawatan'},
         {data: 'lokasi'},
         {data: 'email'},
+        {data: 'peranan'},
         {data: 'aksi'},
     ],
     createdRow: function( row, data, dataIndex ) {
