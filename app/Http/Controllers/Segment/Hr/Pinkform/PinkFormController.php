@@ -80,9 +80,9 @@ class PinkFormController extends Controller{
         //send email
         Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
             // testing purpose
-            $message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
+            //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
-            //$message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
+            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
             $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
         });
@@ -111,7 +111,9 @@ class PinkFormController extends Controller{
             if(empty($record->fail_id)) {
                 return view('form.message',['message' => 'Surat Belum Dimuat naik, Sila lakukan dengan segera!']);
             } else {
-                redirect(url('/').'/common/id-download?fileid='.$record->fail_id);
+                $common = new \App\Http\Controllers\Main\CommonController;
+                $request->merge(['fileid' => $record->fail_id]);
+                return $common->download_by_id($request);
             }
         }
     }

@@ -10,6 +10,7 @@ use App\Models\Urussetia\Kumpulan;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
 class ApplicationController extends Controller
@@ -57,6 +58,7 @@ class ApplicationController extends Controller
         $permohon_id = $request->input('id');
         $pemohon = Pemohon::find($permohon_id);
         $peribadi = $pemohon->pemohonPeribadi;
+        $permohonan = $pemohon->pemohonPermohonan;
 
         return response()->json([
             'success' => 1,
@@ -66,7 +68,9 @@ class ApplicationController extends Controller
                 'jawatan' => $pemohon->jawatan,
                 'gred' => $pemohon->gred,
                 'status' => $pemohon->status,
-                'rank' => $pemohon->ranking
+                'rank' => $pemohon->ranking,
+                'bil' => $permohonan->bil_mesyuarat,
+                'tkh' => empty($permohonan->tarikh_mesyuarat) ? '' : \Carbon\Carbon::parse($permohonan->tarikh_mesyuarat)->format('Y-m-d')
             ]
         ]);
     }
@@ -79,7 +83,10 @@ class ApplicationController extends Controller
         $pemohon_id = $request->input('pemohon_id');
         $verdict = $request->input('verdict');
         $rank = $request->input('rank');
+        $bil_mesyuarat = $request->input('bil');
+        $tkh_mesyuarat = $request->input('date');
         $record =  Pemohon::find($pemohon_id);
+        $form = PermohonanUkp12::find($record->id_permohonan);
         if($verdict == 1) {
             $record->status = Pemohon::SUCCESSED;
         } else if($verdict == 0){
@@ -91,6 +98,52 @@ class ApplicationController extends Controller
         $record->updated_by = Auth::user()->nokp;
 
         if($record->save()) {
+            $form->bil_mesyuarat = $bil_mesyuarat;
+            $form->tarikh_mesyuarat = empty($tkh_mesyuarat) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $tkh_mesyuarat)->format('Y-m-d');
+            $form->update_by = Auth::user()->nokp;
+
+            if($record->status == Pemohon::RESERVE) {
+                $content = [
+                    'title' => 'KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
+                    'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
+                    'nokp' => $record->pemohonPeribadi->nokp,
+                    'gred_pemangku' => $record->pemohonPermohonan->gred,
+                    'count' => $form->bil_mesyuarat,
+                    'year' => \Carbon\Carbon::parse($form->bil_mesyuarat)->format('Y-m-d'),
+                    'tarikh' => \Carbon\Carbon::parse($form->bil_mesyuarat)->format('Y'),
+                ];
+                Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($record) {
+                    // testing purpose
+                    //$message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
+                    //
+                    $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+
+                    //$message->to($kerani_user->email,$kerani_user->name);
+                    $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
+
+                });
+            } else if($record->status == Pemohon::FAILED) {
+                $content = [
+                    'title' => 'KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
+                    'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
+                    'nokp' => $record->pemohonPeribadi->nokp,
+                    'gred_pemangku' => $record->pemohonPermohonan->gred,
+                    'count' => $form->bil_mesyuarat,
+                    'year' => \Carbon\Carbon::parse($form->bil_mesyuarat)->format('Y-m-d'),
+                    'tarikh' => \Carbon\Carbon::parse($form->bil_mesyuarat)->format('Y'),
+
+                ];
+                Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record) {
+                    // testing purpose
+                    //$message->to('enaikpangkat@jkr.gov.my',$record->pemohonPeribadi->nama);
+                    //
+                     $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+
+                    //$message->to($kerani_user->email,$kerani_user->name);
+                    $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
+
+                });
+            }
             return response()->json([
                 'success' => 1,
                 'data' => []

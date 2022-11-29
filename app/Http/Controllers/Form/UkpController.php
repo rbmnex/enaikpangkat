@@ -816,13 +816,17 @@ class UkpController extends Controller
                     'jawatan' => $pemohon->jawatan,
                     'nokp' => $formdata->nokp_baru,
                     'nama' => $formdata->nama,
-                    'reason' => $pemohon->alasan
+                    'reason' => $pemohon->alasan,
+                    'naik_gred' => $pemohon->pemohonPermohonan->gred,
+                    'alamat' => $pemohon->alamat_pejabat,
+                    'tarikh' => \Carbon\Carbon::parse(Date::now())->format('d-m-Y')
                 ];
 
                 Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
                     // testing purpose
-                    $message->to('rubmin@vn.net.my','Urus Setia Kenaik Pangkat');
-                    $message->from($formdata->email,$formdata->nama);
+                    $message->to('enaikpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
+
+                    //$message->from($formdata->email,$formdata->nama);
 
                     //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
                     $message->subject('MENOLAK TAWARAN PEMANGKUAN');
@@ -1078,11 +1082,22 @@ class UkpController extends Controller
         $pengakuan->updated_by = Auth::user()->nokp;
         $pengakuan->save();
 
-        if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
+        if(isset($alldata['kerani_nokp'])) {
             $kerani_user = User::addOrUpdate($alldata['kerani_nokp']);
             if(!$kerani_user->hasRole('clerk')) {
                 $kerani_user->attachRole('clerk');
             }
+        }
+
+        if(isset($alldata['ketua_nokp'])) {
+            $ketua_user = User::addOrUpdate($alldata['ketua_nokp']);
+            if(!$ketua_user->hasRole('hod')) {
+                $ketua_user->attachRole('hod');
+            }
+        }
+
+        if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
+
             //send email
             $secure_link = Crypt::encryptString($pemohon->id);
 
@@ -1095,30 +1110,31 @@ class UkpController extends Controller
                     ];
                     Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
                         // testing purpose
-                        $message->to('rubmin@vn.net.my',$kerani_user->name);
+                        //$message->to('rubmin@vn.net.my',$kerani_user->name);
 
-                        //$message->to($kerani_user->email,$kerani_user->name);
+
+                        $message->to($kerani_user->email,$kerani_user->name);
                         $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
                     });
 
-            $ketua_user = User::addOrUpdate($alldata['ketua_nokp']);
-            if(!$ketua_user->hasRole('hod')) {
-                $ketua_user->attachRole('hod');
-            }
+
         } else {
             $content = [
                 'gred' => $pemohon->gred,
                 'jawatan' => $pemohon->jawatan,
-                'nokp' => $formdata->nokp_bau,
+                'nokp' => $formdata->nokp_baru,
                 'nama' => $formdata->nama,
-                'reason' => $pemohon->alasan
+                'reason' => $pemohon->alasan,
+                'naik_gred' => $pemohon->pemohonPermohonan->gred,
+                'alamat' => $pemohon->alamat_pejabat,
+                'tarikh' => \Carbon\Carbon::parse(Date::now())->format('d-m-Y')
             ];
 
             Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
                 // testing purpose
-                $message->to('rubmin@vn.net.my','Urus Setia Kenaik Pangkat');
-                $message->from($formdata->email,$formdata->nama);
+                $message->to('enaikpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
+                //$message->from($formdata->email,$formdata->nama);
 
                 //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
                 $message->subject('MENOLAK TAWARAN PEMANGKUAN');

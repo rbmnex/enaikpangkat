@@ -238,9 +238,9 @@ class BatchMgmtController extends Controller
                 Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
                     // testing purpose
                     //$message->to('rubmin@vn.net.my',$calon->nama);
-                    $message->to('munirahj@jkr.gov.my',$calon->nama);
+                    //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                    //$message->to($calon->email,$calon->nama);
+                    $message->to($calon->email,$calon->nama);
                     $message->subject('URUSAN PEMANGKUAN KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                 });

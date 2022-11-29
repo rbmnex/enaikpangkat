@@ -24,17 +24,40 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
         data.append('pengesahan',$('.tatatertib2').filter(':checked').val());
         data.append('jenis',$('#nama_hkm').val());
         data.append('tkh',$('.tkh_hukuman').val());
-        $('.markah-lnpt').each(function(){
-            var tahun = $(this).attr('data-tahun-lnpt');
-            var markah = $(this).val();
-            if(markah == 0) {
+        for (let index = 1; index < 4; index++) {
+            var tahun = $('#tahun-'+index).val();
+            var markah = $('#markah-'+index).val();
+
+            if(tahun == '' || tahun == 0 || tahun == undefined) {
                 valid = false;
-                addInvalid(this, 'Sila berikan markah');
+                addInvalid('#tahun-'+index, 'Sila berikan markah');
             } else {
-                clearInvalid(this);
-                lnpts.push({'tahun' : tahun, 'purata': markah});
+                valid = true;
+                clearInvalid('#tahun-'+index);
             }
-        });
+
+            if(markah == '' || markah == 0 || markah == undefined) {
+                valid = false;
+                addInvalid('#markah-'+index, 'Sila berikan markah');
+            } else {
+                valid = true;
+                clearInvalid('#markah-'+index);
+            }
+
+            lnpts.push({'tahun' : tahun, 'purata': markah});
+        }
+
+        // $('.markah-lnpt').each(function(){
+        //     var tahun = $(this).attr('data-tahun-lnpt');
+        //     var markah = $(this).val();
+        //     if(markah == 0) {
+        //         valid = false;
+        //         addInvalid(this, 'Sila berikan markah');
+        //     } else {
+        //         clearInvalid(this);
+        //         lnpts.push({'tahun' : tahun, 'purata': markah});
+        //     }
+        // });
         if(!$('.tatatertib2').is(':checked')) {
             valid = false;
             addInvalid('.tatatertib2', 'Sila berikan pengesahan');

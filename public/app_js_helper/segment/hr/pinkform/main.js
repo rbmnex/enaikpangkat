@@ -11,7 +11,7 @@ $(document).on('click', '.update-pinkform', function(){
 
 $(document).on('click', '.download-pinkform', function(){
     let id = $(this).closest('tr').attr('data-pemohon-id');
-    window.open(getUrl() + '/hr2/pinkform/download-pink/'+pemohon_id,'blank');
+    window.open(getUrl() + '/hr2/pinkform/download-pink/'+id,'blank');
 });
 
 $(document).on('click', '#pinkform-hantar', function(){
