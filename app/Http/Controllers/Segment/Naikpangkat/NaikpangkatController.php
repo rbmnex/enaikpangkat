@@ -374,7 +374,10 @@ class NaikpangkatController extends Controller
                 'jawatan' => $pemohon->jawatan,
                 'nokp' => $formdata->nokp_baru,
                 'nama' => $formdata->nama,
-                'reason' => $pemohon->alasan
+                'reason' => $pemohon->alasan,
+                'naik_gred' => $pemohon->pemohonPermohonan->gred,
+                'alamat' => $pemohon->alamat_pejabat,
+                'tarikh' => \Carbon\Carbon::parse(Date::now())->format('d-m-Y')
             ];
 
             Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){

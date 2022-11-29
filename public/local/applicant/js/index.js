@@ -1,4 +1,4 @@
-$(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict, .view-lnpt',function() {
+$(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict, .view-full',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('view-form')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
@@ -8,6 +8,7 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
         window.open(getUrl() + '/urussetia/appl/main/','_self');
     } else if(selectedClass.hasClass('verdict-applicant')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
+
         $('.pemohon-id-modal').val(pemohon_id);
         $.ajax({
             type:'GET',
@@ -38,6 +39,8 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
                         $('#radio-verdict-2').removeAttr('checked');
                         $('#radio-verdict-3').attr('checked','checked');
                     }
+                    $('#verdict-meeting').val(parseData.bil);
+                    $('#verdict-date').val(parseData.tkh);
 
                     $('.verdict-modal').modal('show');
                 }
@@ -47,10 +50,22 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
         let pemohon_id =   $('.pemohon-id-modal').val();
         var data = new FormData;
         var verdict = $('.radio-verdict').filter(':checked').val();
+        var bil = $('#verdict-meeting').val();
+        var date = $('#verdict-date').val();
+        if( bil == 0 || bil == '' || bil == undefined) {
+            valid = false;
+            addInvalid('#verdict-meeting', 'Tiada No. Bil. Mesyuarat LKPPA');
+        }
+        if( date == 0 || date == '' || date == undefined) {
+            valid = false;
+            addInvalid('#verdict-date', 'Tiada Tarikh Mesyuarat LKPPA');
+        }
         data.append('_token', getToken());
         data.append('pemohon_id',pemohon_id);
         data.append('verdict',verdict);
         data.append('rank',$('#verdict-rank').val());
+        data.append('bil',$('#verdict-meeting').val());
+        data.append('date',$('#verdict-date').val());
         swalAjax({
             titleText : 'Adakah Anda Pasti?',
             mainText : 'Data akan diubah',
@@ -78,5 +93,8 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
     } else if(selectedClass.hasClass('view-lnpt')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
         window.open(getUrl() + '/form/ukp12/nview/'+pemohon_id+'?view=l','_self');
+    } else if(selectedClass.hasClass('view-full')) {
+        let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
+        window.open(getUrl() + '/form/ukp12/nview/'+pemohon_id+'?view=n','_self');
     }
 });

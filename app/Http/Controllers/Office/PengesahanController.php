@@ -26,6 +26,10 @@ class PengesahanController extends Controller
             $column = 'nokp_ketua_jabatan';
             $role = 'hod';
         }
+
+        // print_r($column.' : '.$role);
+
+        // die();
         $model = Pemohon::where($column,$user->nokp)->where('status',Pemohon::WAITING_VERIFICATION)->get();
 
         return DataTables::of($model)

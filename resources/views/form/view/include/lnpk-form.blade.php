@@ -15,7 +15,13 @@
                                 <tr>
                                     <td class="cell head-cell">Tahun</td>
                                     @foreach($lnpt as $m)
-                                    <td class="cell">{{ $m->tahun }}</td>
+                                    <td class="cell">
+                                        <div class="form-group">
+                                        <input type="number" id="tahun-{{ $loop->iteration }}"  class="markah-lnpt form-control" value="{{ $m->tahun }}">
+                                        <div class="invalid-feedback"></div>
+                                        </div>
+
+                                    </td>
                                     @endforeach
                                 </tr>
                                 <tr>
@@ -23,7 +29,7 @@
                                     @foreach($lnpt as $p)
                                     <td class="cell">
                                         <div class="form-group">
-                                        <input type="number" id="markah-{{ $p->tahun }}" class="markah-lnpt form-control" data-tahun-lnpt="{{ $p->tahun }}" value="{{ $p->purata }}">
+                                        <input type="number" id="markah-{{ $loop->iteration }}" class="markah-lnpt form-control" data-tahun-lnpt="{{ $p->tahun }}" value="{{ $p->purata }}">
                                         <div class="invalid-feedback"></div>
                                         </div>
                                     </td>

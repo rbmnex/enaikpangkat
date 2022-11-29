@@ -1035,6 +1035,62 @@
                                     <table border="1">
                                         <thead>
                                             <th style="text-align: center;" class="width-25">BIL.</th>
+                                            <th style="text-align: center;">SUMBNGAN/JAWATANKUASA TEKNIKAL</th>
+                                            <th style="text-align: center;">TEMPAT</th>
+                                            <th style="text-align: center; width: 50%">TAHUN</th>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($contribution as $sumbangan)
+                                            <tr>
+                                                <td style="height: 30px;" class="width-25">{{ $loop->iteration }}</td>
+                                                <td>{{ $sumbangan->sumbangan }}</td>
+                                                <td>{{ $sumbangan->tempat }}</td>
+                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbangan->tkh_peristiwa)->format('Y') }}</td>
+                                            </tr>
+                                            @endforeach
+                                            @if($contribution->count() == 0)
+                                            <tr>
+                                                <td style="height: 30px;" class="width-25"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="width: 50%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 30px" class="width-25"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="width: 50%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 30px" class="width-25"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="width: 50%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 30px" class="width-25"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="width: 50%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 30px" class="width-25"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="width: 50%"></td>
+                                            </tr>
+                                            <tr>
+                                                <td style="height: 30px" class="width-25"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td style="width: 50%"></td>
+                                            </tr>
+                                            @endif
+                                        </tbody>
+                                    </table>
+                                    {{-- <table border="1">
+                                        <thead>
+                                            <th style="text-align: center;" class="width-25">BIL.</th>
                                             <th style="text-align: center;">JAWATAN</th>
                                             <th style="text-align: center;">NAMA PERTUBUHAN</th>
                                             <th style="text-align: center; width: 50%">TAHUN</th>
@@ -1077,7 +1133,7 @@
                                                 <td style="width: 50%"></td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                    </table> --}}
                                 </td>
 
                             </tr>

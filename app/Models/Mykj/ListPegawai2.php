@@ -204,7 +204,7 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
-                    'kod_peristiwa' => $m->LPeristiwa->peristiwa ?  $m->LPeristiwa->peristiwa : '', 
+                    'kod_peristiwa' => $m->LPeristiwa->peristiwa ?  $m->LPeristiwa->peristiwa : '',
                     'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa : ''
                 ];
             }
@@ -258,7 +258,7 @@ class ListPegawai2 extends Model
                 $data[] = [
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
-                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :'' 
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
                 ];
             }
         }
@@ -413,8 +413,9 @@ class ListPegawai2 extends Model
                 
             }
         }
-        
-        
+
+
+
         return $data;
     }
 

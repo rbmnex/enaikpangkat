@@ -4,6 +4,7 @@
 @include('web.sweet-alert-css')
 @include('web.datatable-css')
 <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/select/select2.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/forms/pickers/form-flat-pickr.css')}}">
 <style>
     input.larger {
       width: 50px;
@@ -70,6 +71,7 @@
 @section('customJs')
 @include('web.datatable-js')
 @include('web.sweet-alert-js')
+<script src="{{ asset('asset/vendors/js/pickers/flatpickr/flatpickr.min.js') }}"></script>
 <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('app_js_helper/main/common.js') }}"></script>
 <script src="{{ asset('app_js_helper/inits/datatable/index.js') }}"></script>

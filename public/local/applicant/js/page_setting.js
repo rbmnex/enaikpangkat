@@ -80,11 +80,11 @@ DatatableUI.init({
             render: function (data, type, full, meta) {
                 var btn = '';
                 var status =  full.status
-                if( (status != 'NA') && (status != 'BH')) {
+                if( (status != 'NA') && (status != 'BH') && (status != 'TA') ) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Kemaskini</button>';
-                    // btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-lnpt">'+ feather.icons['file-text'].toSvg() +' LNPT</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light view-full">'+ feather.icons['file'].toSvg() +' Papar</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
 
                 }
                 // if(status == 'Tunggu Keputusan LKPPA') {
@@ -99,3 +99,17 @@ DatatableUI.init({
     order: [[5, 'asc']],
     label: 'Senarai Calon'
 });
+
+$('#verdict-date').flatpickr(
+    {
+        // plugins: [
+        //     new monthSelectPlugin({
+        //       shorthand: true, //defaults to false
+        //       dateFormat: "m.y", //defaults to "F Y"
+        //       altFormat: "F Y", //defaults to "F Y"
+        //       theme: "light" // defaults to "light"
+        //     })
+        // ]
+        dateFormat: 'd-m-Y'
+    }
+);

@@ -111,7 +111,9 @@ class PinkFormController extends Controller{
             if(empty($record->fail_id)) {
                 return view('form.message',['message' => 'Surat Belum Dimuat naik, Sila lakukan dengan segera!']);
             } else {
-                redirect(url('/').'/common/id-download?fileid='.$record->fail_id);
+                $common = new \App\Http\Controllers\Main\CommonController;
+                $request->merge(['fileid' => $record->fail_id]);
+                return $common->download_by_id($request);
             }
         }
     }
