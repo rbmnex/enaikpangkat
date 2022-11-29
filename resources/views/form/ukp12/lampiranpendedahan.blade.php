@@ -11,6 +11,7 @@
             <table class="datatables table -table">
                 <thead>
                     <th>Senarai Kepakaran</th>
+                     <th>Tindakan</th>
                 </thead>
                 <tbody id="tbody-badan-pendedahan">
                 @foreach ($lampiranpendedahan as $org)

@@ -8,6 +8,8 @@ use App\Models\Mykj\Perkhidmatan;
 use App\Models\Mykj\Peribadi;
 use App\Models\Mykj\Markah;
 use App\Models\Mykj\Peristiwa;
+use App\Models\Pink\LampiranBebanKerja;
+
 use DateTime;
 
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,10 @@ class ListPegawai2 extends Model
 
     public function getPerkhidmatan(){
         return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->where('flag', 1)->orderBy('id_perkhidmatan', 'desc');
+    }
+
+    public function getLampiran(){
+        return $this->hasOne(LampiranBebanKerja::class, 'nokp', 'nokp')->orderBy('id', 'desc');
     }
 
     public static function getMaklumatPegawai(Int $no_ic) : array{
@@ -348,7 +354,7 @@ class ListPegawai2 extends Model
 
     public static function pengalamanPengkhususan($ic){
         $data= [];
-        
+
         $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
         // $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->distinct('kod_aktiviti')->orderBy('kod_aktiviti')->get();
@@ -383,28 +389,31 @@ class ListPegawai2 extends Model
             }
         }
 
-        foreach ($data['khusus'] as $key => $value) {
-            $title = $key;
-            if(count($value['data']) > 0){
-                $totalYear = 0;
-                $totalMonth = 0;
-                foreach($value['data'] as $v){
-                    $totalMonth += $v['interval_month'];
-                    $totalYear += $v['interval_year'];
-                }
-
-                if($totalMonth >= 12){
-                    while($totalMonth >= 12){
-                        $totalMonth= $totalMonth - 12;
-                        $totalYear += 1;
+        
+        if(isset($data['khusus'])){
+            foreach ($data['khusus'] as $key => $value) {
+                $title = $key;
+                if(count($value['data']) > 0){
+                    $totalYear = 0;
+                    $totalMonth = 0;
+                    foreach($value['data'] as $v){
+                        $totalMonth += $v['interval_month'];
+                        $totalYear += $v['interval_year'];
                     }
+
+                    if($totalMonth >= 12){
+                        while($totalMonth >= 12){
+                            $totalMonth= $totalMonth - 12;
+                            $totalYear += 1;
+                        }
+                    }
+
+                    $data['khusus'][$key]['jumlah_pengalaman'] = $title.' selama '.$totalYear.' tahun, '.$totalMonth.' bulan';
                 }
-
-                $data['khusus'][$key]['jumlah_pengalaman'] = $title.' selama '.$totalYear.' tahun, '.$totalMonth.' bulan';
+                
             }
-            
         }
-
+        
         
         return $data;
     }
