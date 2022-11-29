@@ -151,7 +151,6 @@ class ResumeController extends Controller
         $nokp = Auth::user();
         $tajuk = $request->input('tajuk');
         $kos = $request->input('kos');
-        $nokp = $request->input('nokp');
         $user = $request->input('user');
 
         $model = new LampiranProjek;
@@ -577,10 +576,7 @@ public function lampiran3($ic)
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
      
 
-        // echo '<pre>';
-        // print_r($model);
-        // echo '</pre>';
-        // die();        
+            
          return view('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
         
@@ -595,14 +591,23 @@ public function lampiran3($ic)
 
 
       public function email(Request $request) {
-         $nokp = $request->input('nokp');
+         $user = Auth::user();
+
+
         //$kod_jawatan = $request->input('kod_jawatan');
 
-         // $pegawais=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
-         //    ->select('np.nokp','np.nama','np.email')
-         //    ->whereIn('np.nokp',$list_nokp)->get();
+  //        $pegawais=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+  //           ->select('np.nokp','np.nama','np.email')
+  //           ->whereIn('np.nokp',$user->nokp)->get();
+         
+
+  // echo '<pre>';
+  //       print_r($pegawais);
+  //       echo '</pre>';
+  //       die();  
+
        $content = [
-                     'link' => url('/')."/urussetia/resume/display/8?kp=".$nokp
+                     'link' => url('/')."/urussetia/resume/display/8?kp=".$user->nokp
 
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) {
