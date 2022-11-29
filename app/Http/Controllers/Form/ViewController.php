@@ -383,9 +383,9 @@ class ViewController extends Controller
                 ];
                 Mail::mailer('smtp')->send('mail.perakui-mail',$content,function($message) use ($ketua_user) {
                     // testing purpose
-                    $message->to('rubmin@vn.net.my',$ketua_user->name);
+                    //',$ketua_user->name);
 
-                    //$message->to($ketua_user->email,$kerani_user->name);
+                    $message->to($ketua_user->email,$ketua_user->name);
                     $message->subject('PERAKUAN KETUA JABATAN UNTUK URUSAN PEMANGKUAN');
 
                 });

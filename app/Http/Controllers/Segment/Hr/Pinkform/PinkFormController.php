@@ -80,9 +80,9 @@ class PinkFormController extends Controller{
         //send email
         Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
             // testing purpose
-            $message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
+            //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
-            //$message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
+            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
             $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
         });

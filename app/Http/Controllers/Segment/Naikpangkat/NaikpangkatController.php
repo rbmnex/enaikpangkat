@@ -343,9 +343,9 @@ class NaikpangkatController extends Controller
             ];
             Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
                 // testing purpose
-                $message->to('rubmin@vn.net.my',$kerani_user->name);
+                //$message->to('rubmin@vn.net.my',$kerani_user->name);
 
-                //$message->to($kerani_user->email,$kerani_user->name);
+                $message->to($kerani_user->email,$kerani_user->name);
                 $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN NAIK PANGKAT');
 
             });
@@ -362,9 +362,9 @@ class NaikpangkatController extends Controller
 
             Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($penyelia_user) {
                 // testing purpose
-                $message->to('rubmin@vn.net.my',$penyelia_user->name);
+                //$message->to('rubmin@vn.net.my',$penyelia_user->name);
 
-                //$message->to($kerani_user->email,$kerani_user->name);
+                $message->to($penyelia_user->email,$penyelia_user->name);
                 $message->subject('PENGESAHAN PERKHIDMATAN PENYELIA UNTUK URUSAN NAIK PANGKAT');
 
             });
@@ -382,8 +382,8 @@ class NaikpangkatController extends Controller
 
             Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
                 // testing purpose
-                $message->to('rubmin@vn.net.my','Urus Setia Kenaik Pangkat');
-                $message->from($formdata->email,$formdata->nama);
+                $message->to('enaikpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
+                //$message->from($formdata->email,$formdata->nama);
 
                 //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
                 $message->subject('MENOLAK TAWARAN PEMANGKUAN');
