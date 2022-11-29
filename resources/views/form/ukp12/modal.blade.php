@@ -206,7 +206,7 @@
             <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                        <div class="col-xl-12 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Kepakaran</label>
                             <input type="textarea" id="modal-post" name="pendedahan-nama" class="form-control" placeholder=""  />
                         </div>
@@ -237,7 +237,7 @@
             <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                        <div class="col-xl-12 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Pencapaian</label>
                             <input type="textarea" id="modal-post" name="pencapaian-nama" class="form-control" placeholder=""  />
                         </div>
