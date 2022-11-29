@@ -54,6 +54,8 @@ Route::prefix('/naikpangkat')->group(function() {
         Route::get('/',[NaikpangkatController::class,'index']);
         Route::get('/get-ukp13-list',[NaikpangkatController::class,'getUkp13List']);
         Route::get('/borang/{id_pemohonan}',[NaikpangkatController::class,'borang']);
+        Route::get('/mohon/{id}',[NaikpangkatController::class,'mohon']);
+        Route::get('/apply/{id}',[NaikpangkatController::class,'apply']);
         Route::post('/borang-submit',[NaikpangkatController::class,'submit_application']);
         Route::get('/download/part',[NaikpangkatController::class,'download_form_part']);
     });

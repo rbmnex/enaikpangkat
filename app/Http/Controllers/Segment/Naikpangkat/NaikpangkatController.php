@@ -63,10 +63,38 @@ class NaikpangkatController extends Controller
             ->make(true);
     }
 
+    public function mohon($encrypted){
+        $id = Crypt::decryptString($encrypted);
+        return $this->apply($id);
+    }
+
+    public function apply($id){
+        $ukpC = new UkpController;
+
+        //$model = Pemohon::where('id_permohonan', $id_pemohonan)->first();
+        $model = Pemohon::find($id);
+
+        if($model->id_peribadi == null){
+            $peribadi = Peribadi::recreate(Auth::user()->id,Auth::user()->nokp);
+            $model->id_peribadi = $peribadi->id;
+            $model->save();
+        }else{
+            $peribadi = Peribadi::find($model->id_peribadi);
+        }
+
+        $maklumat = $ukpC->load_info($peribadi, Auth::user()->nokp,$model);
+
+        return view('segment.naikpangkat.borang.index', [
+            "profile" => $maklumat,
+            "pemohon_id" => $model->id
+        ]);
+    }
+
     public function borang($id_pemohonan){
         $ukpC = new UkpController;
 
         $model = Pemohon::where('id_permohonan', $id_pemohonan)->first();
+        //$model = Pemohon::find($id);
 
         if($model->id_peribadi == null){
             $peribadi = Peribadi::recreate(Auth::user()->id,Auth::user()->nokp);
@@ -410,4 +438,5 @@ class NaikpangkatController extends Controller
         $maklumat = json_encode($ukpC->load_info($profile,$profile->nokp,$pemohon));
         return Ukp13Pdf::print(json_decode($maklumat));
     }
+
 }

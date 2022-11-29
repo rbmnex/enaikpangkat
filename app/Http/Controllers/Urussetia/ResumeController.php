@@ -574,6 +574,8 @@ public function lampiran3($ic)
         $lampiran_projek = LampiranProjek::where('nokp',$ic)->get();
         $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',1)->get();
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
+
+
      
 
             
@@ -582,37 +584,20 @@ public function lampiran3($ic)
         
     }
 
-
-
-
-
-
-
-
-
-      public function email(Request $request) {
-         $user = Auth::user();
-
-
+      public function email(Request $request,$ic) {
+         $nokp = $request->input('nokp');
         //$kod_jawatan = $request->input('kod_jawatan');
 
-  //        $pegawais=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
-  //           ->select('np.nokp','np.nama','np.email')
-  //           ->whereIn('np.nokp',$user->nokp)->get();
-         
-
-  // echo '<pre>';
-  //       print_r($pegawais);
-  //       echo '</pre>';
-  //       die();  
-
+          $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
+             ->select('np.nokp','np.nama','np.email')
+             ->where('np.nokp',$ic)->first();
        $content = [
-                     'link' => url('/')."/urussetia/resume/display/8?kp=".$user->nokp
+                     'link' => url('/urussetia/resume/display/8?kp='.$nokp)
 
                 ];
-                Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) {
+                Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
-                    $message->to('haryana@vn.net.my');
+                    $message->to('munirahj@jkr.gov.my',$pegawai->nama);
 
 
                     $message->subject('KEMASKINI LAMPIRAN');
