@@ -15,20 +15,20 @@
                     <th>Tindakan</th>
                 </thead>
                 <tbody id="tbody-badan-projek">
-                {{-- @foreach ($lampiranprojek as $org)
+                 @foreach ($lampiranprojek as $org)
                     <tr data-projek-id="{{ $org->id }}">
                         <td>{{ $org->nama_projek }}</td>
                         <td> RM{{ number_format($org->kos_projek, 2) }}</td>
                         <td><button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-projek"><i data-feather='trash-2'></i> Hapus</button></td>
                     </tr>
                 @endforeach
-                @if($lampiranprojek->count() == 0) --}}
+                @if($lampiranprojek->count() == 0) 
                 <tr data-projek-id="">
                     <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 
-{{--
-                @endif --}}
+
+                @endif
                 </tbody>
             </table>
         </div>

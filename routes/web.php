@@ -170,6 +170,10 @@ Route::prefix('/form')->group(function() {
         Route::post('/bebankerja',[ResumeController::class,'save_beban']);
          Route::post('/projek',[ResumeController::class,'save_projek']);
          Route::post('/projek/del',[ResumeController::class,'delete_projek']);
+        Route::post('/pendedahan',[ResumeController::class,'save_pendedahan']);
+         Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']); 
+         Route::post('/pencapaian',[ResumeController::class,'save_pencapaian']);
+         Route::post('/pencapaian/del',[ResumeController::class,'delete_pencapaian']);
          Route::post('/property/save',[UkpController::class,'save_harta']);
         Route::post('/loan/save',[UkpController::class,'save_loan']);
         Route::post('/submit',[UkpController::class,'submit_application']);
@@ -194,6 +198,7 @@ Route::prefix('/user')->group(function() {
     Route::get('/form/list',[PermohonanController::class,'load_list']);
     Route::get('/form/pink/{id}',[PermohonanController::class,'downlaod_pink']);
     Route::get('/resume/lampiran',[ResumeController::class,'open_lampiran'])->middleware(['auth']);
+    Route::get('/resume/download', [ResumeController::class, 'download'])->middleware(['auth']);;
 });
 
 //Common Controller

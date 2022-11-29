@@ -194,12 +194,11 @@
 </div>
 
 
-
 <div class="modal fade text-left modal-primary batch-modal" id="modal-pendedahan" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel160">Tambah Kursus</h5>
+                <h5 class="modal-title" id="myModalLabel160">Tambah Kepakaran</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -208,29 +207,15 @@
 
                     <div class="row">
                         <div class="col-xl-4 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="">Tajuk</label>
-                            <input type="textarea" id="modal-tajuk" name="kursus-tajuk" class="form-control" placeholder=""  />
+                            <label class="form-label" for="">Kepakaran</label>
+                            <input type="textarea" id="modal-post" name="pendedahan-nama" class="form-control" placeholder=""  />
                         </div>
-                        <div class="col-xl-4 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="">Tarikh Mula</label>
-                             <input type="text" id="fp-default" name="kursus-mula" class="form-control flatpickr-basic tkh_mula" placeholder="YYYY-MM-DD" />
-                        </div>
-                        <div class="col-xl-4 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="">Tarikh Tamat</label>
-                             <input type="text" id="fp-default" name="kursus-tamat" class="form-control flatpickr-basic tkh_tamat" placeholder="YYYY-MM-DD" />
-                        </div>
-                         <div class="col-xl-4 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="">Tempat</label>
-                            <input type="text" id="modal-title" name="kursus-tempat" class="form-control" placeholder=""  />
-                        </div>
-
-
-
+                        
                     </div>
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
-                        <button type="button" class="btn btn-success add-kursus">Tambah</button>
+                        <button type="button" class="btn btn-success add-pendedahan">Tambah</button>
                     </div>
 
             </div>
@@ -239,6 +224,39 @@
 
     </div>
 </div>
+
+<div class="modal fade text-left modal-primary batch-modal" id="modal-pencapaian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel160">Tambah Pencapaian</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                            <label class="form-label" for="">Pencapaian</label>
+                            <input type="textarea" id="modal-post" name="pencapaian-nama" class="form-control" placeholder=""  />
+                        </div>
+                        
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-success add-pencapaian">Tambah</button>
+                    </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
 
 <div class="modal fade text-left modal-primary batch-modal" id="modal-akademik" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">

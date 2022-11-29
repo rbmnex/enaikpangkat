@@ -195,6 +195,14 @@
                             </a>
                     </li>
                 </ul>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/user/resume/download') }}">
+                            <i data-feather='file-text'></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Muat Turun</span>
+                            </a>
+                    </li>
+                </ul>
             </li>
             @endrole
             @role(['clerk'])

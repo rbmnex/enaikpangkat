@@ -8,6 +8,8 @@ use App\Models\Mykj\Perkhidmatan;
 use App\Models\Mykj\Peribadi;
 use App\Models\Mykj\Markah;
 use App\Models\Mykj\Peristiwa;
+use App\Models\Pink\LampiranBebanKerja;
+
 use DateTime;
 
 use Illuminate\Database\Eloquent\Model;
@@ -21,6 +23,10 @@ class ListPegawai2 extends Model
 
     public function getPerkhidmatan(){
         return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->where('flag', 1)->orderBy('id_perkhidmatan', 'desc');
+    }
+
+    public function getLampiran(){
+        return $this->hasOne(LampiranBebanKerja::class, 'nokp', 'nokp')->orderBy('id', 'desc');
     }
 
     public static function getMaklumatPegawai(Int $no_ic) : array{
@@ -43,6 +49,8 @@ class ListPegawai2 extends Model
             $data['waran_name'] = ListPegawai2::split_kod_waran_name($data['waran_split']);
             $data['pengalaman'] = ListPegawai2::pengalaman($no_ic);
             $data['kelayakan'] = ListPegawai2::kelayakan($no_ic);
+            $data['tempatan'] = ListPegawai2::tempatan($no_ic);
+            $data['antarabangsa'] = ListPegawai2::antarabangsa($no_ic);
             $data['perkhidmatan'] = ListPegawai2::perkhidmatan($no_ic);
             $data['peribadi'] = ListPegawai2::peribadi($no_ic);
             $data['markah'] = ListPegawai2::markah($no_ic);
@@ -79,6 +87,80 @@ class ListPegawai2 extends Model
         return $data;
     }
 
+
+    public static function professional($ic){
+        $data= [];
+
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '=',[8])->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'kod_gred' => $m->kod_gred,
+                    'kod_jawatan' => $m->kod_jawatan,
+                    'taraf'=> $m->PerkhidmatanTaraf ?$m->PerkhidmatanTaraf->perkhidmatan:'',
+                    // 'skim' => $m->LKumpulan->kumpulan ? $m->LKumpulan->kumpulan : '',
+                    'gred_hakiki' =>$m->kod_gred,
+                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik ? $m->tkh_lantik:'',
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                     'no_daftar' => $m->no_pendaftaran,
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
+                ];
+            }
+        }
+
+        return $data;
+    }
+
+ public static function tempatan($ic){
+        $data= [];
+
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '=',[9])->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'kod_gred' => $m->kod_gred,
+                    'kod_jawatan' => $m->kod_jawatan,
+                    'taraf'=> $m->PerkhidmatanTaraf ?$m->PerkhidmatanTaraf->perkhidmatan:'',
+                    // 'skim' => $m->LKumpulan->kumpulan ? $m->LKumpulan->kumpulan : '',
+                    'gred_hakiki' =>$m->kod_gred,
+                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik ? $m->tkh_lantik:'',
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                     'no_daftar' => $m->no_pendaftaran,
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
+                ];
+            }
+        }
+
+        return $data;
+    }
+ public static function antarabangsa($ic){
+        $data= [];
+
+        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '=',[10])->get();
+
+        if($model){
+            foreach($model as $m){
+                $data[] = [
+                    'kod_gred' => $m->kod_gred,
+                    'kod_jawatan' => $m->kod_jawatan,
+                    'taraf'=> $m->PerkhidmatanTaraf ?$m->PerkhidmatanTaraf->perkhidmatan:'',
+                    // 'skim' => $m->LKumpulan->kumpulan ? $m->LKumpulan->kumpulan : '',
+                    'gred_hakiki' =>$m->kod_gred,
+                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik ? $m->tkh_lantik:'',
+                    'nama_kelulusan' => $m->nama_kelulusan,
+                    'institusi' => $m->institusi,
+                     'no_daftar' => $m->no_pendaftaran,
+                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
+                ];
+            }
+        }
+
+        return $data;
+    }
 
 
    public static function isytiharHarta($ic){
@@ -289,7 +371,7 @@ class ListPegawai2 extends Model
                     }else{
                         $interval = '';
                     }
-
+                    
 
                     $data['khusus'][$m->LAktiviti->aktiviti]['data'][] = [
                         'tempat' => $m->tempat,
@@ -303,11 +385,12 @@ class ListPegawai2 extends Model
 
                     ];
                 }
-
+                
             }
         }
 
-        if(isset($data['khusus'])) {
+        
+        if(isset($data['khusus'])){
             foreach ($data['khusus'] as $key => $value) {
                 $title = $key;
                 if(count($value['data']) > 0){
@@ -327,7 +410,7 @@ class ListPegawai2 extends Model
 
                     $data['khusus'][$key]['jumlah_pengalaman'] = $title.' selama '.$totalYear.' tahun, '.$totalMonth.' bulan';
                 }
-
+                
             }
         }
 
@@ -341,30 +424,6 @@ class ListPegawai2 extends Model
 
 
 
-    public static function professional($ic){
-        $data= [];
-
-        $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '=',[8])->get();
-
-        if($model){
-            foreach($model as $m){
-                $data[] = [
-                    'kod_gred' => $m->kod_gred,
-                    'kod_jawatan' => $m->kod_jawatan,
-                    'taraf'=> $m->PerkhidmatanTaraf ?$m->PerkhidmatanTaraf->perkhidmatan:'',
-                    // 'skim' => $m->LKumpulan->kumpulan ? $m->LKumpulan->kumpulan : '',
-                    'gred_hakiki' =>$m->kod_gred,
-                    'tkh_mula_gred_hakiki' =>$m->tkh_lantik ? $m->tkh_lantik:'',
-                    'nama_kelulusan' => $m->nama_kelulusan,
-                    'institusi' => $m->institusi,
-                     'no_daftar' => $m->no_pendaftaran,
-                    'tkh_kelulusan' => $m->tkh_kelulusan ? $m->tkh_kelulusan :''
-                ];
-            }
-        }
-
-        return $data;
-    }
 
     public static function perkhidmatan($ic){
         $data= [];
