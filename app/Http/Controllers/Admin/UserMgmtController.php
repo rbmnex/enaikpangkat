@@ -45,8 +45,18 @@ class UserMgmtController extends Controller
                 ->addColumn('lokasi', function($data) {
                     return strtoupper($data->unit).", ".strtoupper($data->bahagian).", ".strtoupper($data->cawangan).", ".strtoupper($data->pejabat);
                 })
+                ->addColumn('peranan', function($data) {
+                    return $this->list_user_role($data->user_id);
+                })
                 ->rawColumns(['aksi'])
                 ->make(true);
+    }
+
+    private function list_user_role($user_id) {
+        $user = User::find($user_id);
+        $roles = $user->roles->pluck('display_name');
+
+        return $roles->all();
     }
 
     public function carian_pengguna(Request $request){

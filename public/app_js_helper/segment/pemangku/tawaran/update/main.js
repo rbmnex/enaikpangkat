@@ -1,5 +1,6 @@
 $(document).on('click', '#simpan-tawaran', function(){
    let validate = new Validation();
+   let dt = new FormData();
 
     let v = validate.checkEmpty(
         validate.getValue('#tawaran-rujukan', 'mix', 'No. Rujukan', 'tawaran_rujukan'),
@@ -13,6 +14,7 @@ $(document).on('click', '#simpan-tawaran', function(){
 
     let start = $('#tawaran-tkh-tangguh-start').val();
     let end = $('#tawaran-tkh-tangguh-end').val();
+    let choice = $('#tawaran-setuju').val();
 
     let pass = true;
 
@@ -43,14 +45,18 @@ $(document).on('click', '#simpan-tawaran', function(){
         v.append('tawaran_tkh_tangguh_start', start);
         v.append('tawaran_tkh_tangguh_end', end);
     }else{
-        return false;
+        if(choice != 'PL') {
+            return false;
+        }
     }
 
     v.append('pemohon_id', $('#pemohon_id').val());
 
+    dt = v;
+
     TawaranUpdateController.hantarForm({
         url: 'pemangku/tawaran/update/process',
-        data: v,
+        data: dt,
     });
 });
 

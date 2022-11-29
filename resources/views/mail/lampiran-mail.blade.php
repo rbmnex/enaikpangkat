@@ -1,4 +1,4 @@
-<style type="text/css">
+{{-- <style type="text/css">
 <!--
 body { font-family: Arial; font-size: 16.2px }
 .pos { position: absolute; z-index: 0; left: 0px; top: 0px }
@@ -6,8 +6,8 @@ body { font-family: Arial; font-size: 16.2px }
 </style>
 
 <div class="container">
-    
- <body>
+
+
 <nobr><nowrap>
 <div class="pos" id="_0:0" style="top:0">
 <div class="pos" id="_100:100" style="top:100;left:100">
@@ -93,7 +93,7 @@ pangkat dengan menekan pautan di bawah :-</span>
 </div>
 <div class="pos" id="_149:576" style="top:576;left:149">
 <span id="_18.6" style="font-weight:bold; font-family:Times New Roman; font-size:18.6px; color:#000000">
-http://localhost:8000/user/resume/lampiran</span>
+{{ $link }}</span>
 </div>
 <div class="pos" id="_150:614" style="top:614;left:150">
 <span id="_16.3" style=" font-family:Times New Roman; font-size:16.3px; color:#000000">
@@ -158,7 +158,49 @@ Tel. No. : 03-2618 8639</span>
 Email : <U>N</U><U>o</U><U>r</U><U>_</U><U>E</U><U>z</U><U>a</U><U>t</U><U>i</U><U>@</U><U>j</U><U>k</U><U>r</U><U>.</U><U>g</U><U>o</U><U>v</U><U>.</U><U>m</U><U>y</U></span>
 </div>
 </nowrap></nobr>
-</body>  
-                  </div>
 
-              
+                  </div> --}}
+
+                  <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header"></div>
+                                  <div class="card-body">
+                                        <p>Assalamualaikum WBT & Salam Sejahtera,</p>
+                                        <p>YBhg. Dato'/ Datuk/ Datin/ YBrs. Ir./ Ar./Sr/ Dr./ Tuan/ Puan,</p>
+                                        <p><strong>PERKARA : MOHON KEMASKINI DAN SALINAN BUKU PERKHIDMATAN, RESUME DAN LAMPIRAN E (PERISYTIHARAN HARTA).</strong></p>
+                                        <p>Dengan hormatnya saya diarah merujuk kepada perkara di atas.</p>
+                                        <p>2.		Mohon jasa baik YBhg. Dato'/ Datuk/ Datin/ YBrs. Ir./ Ar./Sr/ Dr./ Tuan/ Puan untuk mengemukakan maklumat seperti berikut:</p>
+                                        <p>
+                                                    i. Salinan Buku Perkhidmatan  (Ke alamat seperti berikut)  :<br/>
+                                                        Bahagian Pengurusan Sumber Manusia<br/>
+                                                        Cawangan Dasar dan Pengurusan Korporat<br/>
+                                                        Ibu Pejabat JKR Malaysia, Tingkat 29, Blok G<br/>
+                                                        Jalan Sultan Salahuddin 50480 Kuala Lumpur<br/>
+                                                        <strong>(u.p. : Ir. RAHAYU BINTI MD. DIAH)</strong>
+                                        </p>
+                                        <p>
+                                                    ii. Kemaskini Resume terkini (Mohon kemaskini data di dalam sistem My-KJ dan isi lampiran 2, lampiran 3 dan lampiran 4 di dalam sistem e-Naik Pangkat dengan menekan pautan di bawah : <br/>
+                                                    {{ $link }}
+                                        </p>
+                                        <p>3.		Sila kemukakan semua maklumat-maklumat diperlukan sperti diatas dengan segera untuk tindakan kami selanjutnya.</p>
+                                        <p><strong>"WAWASAN KEMAKMURAN BERSAMA 2030"</strong></p>
+                                        <p><strong>"BERKHIDMAT UNTUK NEGARA"</strong></p>
+                                        <p>Saya yang menjalankan amanah,</p>
+                                        <p>
+                                            <strong>Ir. NOR EZATI BINTI BAHRIN</strong><br/>
+                                            Jurutera Awam (J44)<br/>
+                                            <strong>BAHAGIAN PENGURUSAN SUMBER MANUSIA (BPSM)</strong><br/>
+                                            Cawangan Dasar Dan Pengurusan Korporat<br/>
+                                            Ibu Pejabat JKR Malaysia<br/>
+                                            Tel. No. : 03-2618 8639<br/>
+                                            Email : <u>Nor_Ezati@jkr.gov.my</u>
+                                        </p>
+                                  </div>
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+                </div>
+
