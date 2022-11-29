@@ -80,6 +80,7 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
                         let parseData = data.data;
                         if(success == 1) {
                             toasting('Data sudah berjaya disimpan', 'success');
+                            window.history.go(-1);
                         } else if(success == 0) {
                             toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                         }
@@ -115,6 +116,7 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
                         let parseData = data.data;
                         if(success == 1) {
                             toasting('Data sudah berjaya disimpan', 'success');
+                            window.history.go(-1);
                         } else if(success == 0) {
                             toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                         }
@@ -151,6 +153,7 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
                         let parseData = data.data;
                         if(success == 1) {
                             toasting('Data sudah berjaya disimpan', 'success');
+                            window.history.go(-1);
                         } else if(success == 0) {
                             toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                         }
