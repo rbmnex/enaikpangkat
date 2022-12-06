@@ -57,7 +57,7 @@
         <div class="form-group col-md-12 div-loan-7">
             <div class="file btn btn-success">
                 <i data-feather='upload'></i> Muat Naik
-                <input class="form-control file-input penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran"/>
+                <input class="form-control file-input penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran" onchange="upload_pinjam();"/>
             </div>
             <span class="col-form-label loan-file">{{ $profile['loan'] ? ($profile['loan']->file ? $profile['loan']->file->filename : '' ) : '' }}</span>
             <div class="invalid-feedback"></div>

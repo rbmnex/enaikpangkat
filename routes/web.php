@@ -12,9 +12,11 @@ use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Http\Controllers\User\PermohonanController;
+use App\Models\Role;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Routing\RouteRegistrar;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,8 +103,8 @@ Route::prefix('/urussetia')->group(function() {
         Route::post('/tambah',[BatchMgmtController::class,'tambah_calon'])->middleware(['auth']);
         Route::post('/padam',[BatchMgmtController::class,'delete_batch'])->middleware(['auth']);
         Route::post('/mel',[BatchMgmtController::class,'email_batch'])->middleware(['auth']);
-
-
+        Route::get('/calon_status',[BatchMgmtController::class,'senarai_calon_status']);
+        Route::post('/resend',[BatchMgmtController::class,'resend_email']);
     });
 
     Route::prefix('/resume')->group(function() {
@@ -171,7 +173,7 @@ Route::prefix('/form')->group(function() {
          Route::post('/projek',[ResumeController::class,'save_projek']);
          Route::post('/projek/del',[ResumeController::class,'delete_projek']);
         Route::post('/pendedahan',[ResumeController::class,'save_pendedahan']);
-         Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']); 
+         Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']);
          Route::post('/pencapaian',[ResumeController::class,'save_pencapaian']);
          Route::post('/pencapaian/del',[ResumeController::class,'delete_pencapaian']);
          Route::post('/property/save',[UkpController::class,'save_harta']);
@@ -188,8 +190,10 @@ Route::prefix('/form')->group(function() {
 
 Route::prefix('/validate')->group(function() {
     Route::prefix('/senarai')->group(function() {
-        Route::get('/',[PengesahanController::class,'index']);
-        Route::get('/pemohon',[PengesahanController::class,'applicant_list']);
+        Route::get('/hod',[PengesahanController::class,'index_hod']);
+        Route::get('/pemohon/hod',[PengesahanController::class,'applicant_list_hod']);
+        Route::get('/hos',[PengesahanController::class,'index_hos']);
+        Route::get('/pemohon/hos',[PengesahanController::class,'applicant_list_hos']);
     });
 });
 

@@ -151,7 +151,7 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Pemangku</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pemangkuan</span>
                 </a>
                 <ul class="menu-content">
                     <li>
@@ -213,7 +213,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai') }}">
+                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai/hos') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
                         </a>
@@ -236,7 +236,7 @@
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai') }}">
+                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai/hod') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
                         </a>

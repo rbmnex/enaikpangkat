@@ -43,7 +43,7 @@ Route::middleware('auth')->group(function () {
 Route::prefix('/pemangku')->group(function() {
     Route::prefix('/tawaran')->group(function() {
         Route::get('/',[PemangkuTawaranController::class,'index']);
-        Route::get('/update/{id}',[PemangkuTawaranController::class,'updateTawaran']);
+        Route::get('/update/{id}',[PemangkuTawaranController::class,'updateTawaran'])->middleware(['auth']);
         Route::post('/update/process',[PemangkuTawaranController::class,'updateTawaranPost']);
         Route::get('/preview-pdf/{id}',[PemangkuTawaranController::class,'preview_pdf']);
     });

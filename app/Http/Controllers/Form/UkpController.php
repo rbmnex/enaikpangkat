@@ -1241,7 +1241,8 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $gaji = Gaji::where('nokp',$nokp)->where('flag',1)->first();
         //$agama = LAgama::all();
         //$bangsa = LBangsa::all();
-        $tkh_istihar = Harta::where('nokp',$nokp)->max('tkh_istihar');
+        //$tkh_istihar = Harta::where('nokp',$nokp)->max('tkh_istihar');
+        $tkh_istihar = Peristiwa::where('nokp',$nokp)->where('kod_peristiwa','L8')->max('tkh_mula_peristiwa');
 
         //Carbon::parse('2000-01-01 12:00')->floatDiffInDays('2000-02-11 06:00');
         $isValidDate = 0;

@@ -47,7 +47,7 @@ class BatchMgmtController extends Controller
         //     ->limit(100)->get();
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan')
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan', 'np.tkh_lantik')
             ->orderBy('np.kod_kanan','asc')
             ->limit(100)->get();
 
@@ -63,7 +63,11 @@ class BatchMgmtController extends Controller
             //     return $unit.$bahagian.$cawagan;
             // })
             ->addColumn('tkh_lantikan',function($data) {
-                return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
+                if($data->kod_gred == 'J41')
+                    return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
+                else {
+                    return \Carbon\Carbon::parse($data->tkh_lantik)->format('d-m-Y');
+                }
             })
             ->make(true);
     }
@@ -79,7 +83,7 @@ class BatchMgmtController extends Controller
 
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan');
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan', 'np.tkh_lantik');
 
         if(!empty($tahun)) {
             $model = $model->where(DB::raw('extract(year from np.tkh_sah_perkhidmatan)'),$tahun);
@@ -104,13 +108,18 @@ class BatchMgmtController extends Controller
             //     return $unit.$bahagian.$cawagan;
             // })
             ->addColumn('tkh_lantikan',function($data) {
-                return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
+                if($data->kod_gred == 'J41')
+                    return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
+                else {
+                    return \Carbon\Carbon::parse($data->tkh_lantik)->format('d-m-Y');
+                }
             })
             ->make(true);
     }
 
     public function save_batch(Request $request) {
         $nama = $request->input('nama');
+
         $staff_list = json_decode($request->input('staff_list'));
         $batch_id = $request->input('batch_id');
         $model = new Kumpulan;
@@ -119,6 +128,21 @@ class BatchMgmtController extends Controller
             $model = new Kumpulan;
             $new = true;
             $model->created_by = Auth::user()->nokp;
+
+            $jurusan = $request->input('jurusan');
+            $gred = $request->input('gred');
+            $tahun = $request->input('tahun');
+            if(empty($jurusan) || $jurusan != 'undefined') {
+                $jurusan = LJurusan::where('kod_jurusan',$jurusan)->first();
+                $model->kod_jurusan = $jurusan->kod_jurusan;
+                $model->jurusan = $jurusan->jurusan;
+            }
+            if(empty($gred) || $gred != 'undefine') {
+                $model->gred = $gred;
+            }
+            if(empty($tahun) || $tahun != 'undefine') {
+                $model->tahun = $tahun;
+            }
         } else {
             $model = Kumpulan::find($batch_id);
             $new = false;
@@ -126,6 +150,7 @@ class BatchMgmtController extends Controller
         $model->name = $nama;
         $model->flag = 1;
         $model->delete_id = 0;
+
 
         $model->updated_by = Auth::user()->nokp;
         $model->status = "NEW";
@@ -235,15 +260,22 @@ class BatchMgmtController extends Controller
                     'gred' => $kod_gred,
                     'end_date' => Carbon::now()->addDays(14)->format('d M Y')
                 ];
-                Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
-                    // testing purpose
-                    //$message->to('rubmin@vn.net.my',$calon->nama);
-                    //$message->to('munirahj@jkr.gov.my',$calon->nama);
+                try {
+                    Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
+                        // testing purpose
+                        //$message->to('rubmin@vn.net.my',$calon->nama);
+                        //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                    $message->to($calon->email,$calon->nama);
-                    $message->subject('URUSAN PEMANGKUAN KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                        $message->to($calon->email,$calon->nama);
+                        $message->subject('URUSAN PEMANGKUAN KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
-                });
+                    });
+                    Calon::where('kumpulan_id', $batch_id)->where('nokp', $calon->nokp)
+                        ->update(['status' => 'SUCCESSED']);
+                } catch(\Exception $e) {
+                    Calon::where('kumpulan_id', $batch_id)->where('nokp', $calon->nokp)
+                        ->update(['status' => 'FAILED']);
+                }
 
             }
 
@@ -268,10 +300,52 @@ class BatchMgmtController extends Controller
         ]);
     }
 
+    public function senarai_calon_status(Request $request) {
+        $batch_id = $request->input('batch_id');
+        $calons = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->get();
+        $list_nokp = $calons->pluck('nokp')->all();
+
+        $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+            ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan','np.tkh_lantik')
+            ->whereIn('np.nokp',$list_nokp)
+            ->orderBy('np.kod_kanan','asc')
+            ->get();
+
+        $model->each(function ($item, $key) use($calons) {
+            $c = $calons->filter(function ($e, $key) use($item) {
+                return $e->nokp == $item->nokp;
+            });
+            $item->status = $c[0]->status;
+        });
+            return DataTables::of($model)
+            ->setRowAttr([
+                'data-calon-id' => function($data) {
+                    return $data->nokp;
+                },
+                'data-batch-id' => $batch_id,
+            ])
+            // ->addColumn('tempat',function($data) {
+            //     $unit = empty($data->unit) ? '' : strtoupper($data->unit).', ';
+            //     $bahagian = empty($data->bah) ? '' : strtoupper($data->bah).', ';
+            //     $cawagan = empty($data->caw) ? '' : strtoupper($data->caw);
+            //     return $unit.$bahagian.$cawagan;
+            // })
+            ->addColumn('tkh_lantikan',function($data) {
+                if($data->kod_gred == 'J41')
+                    return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
+                else {
+                    return \Carbon\Carbon::parse($data->tkh_lantik)->format('d-m-Y');
+                }
+            })
+            ->rawColumns(['aksi'])
+            ->make(true);
+    }
+
     public function senarai_calon(Request $request) {
         $batch_id = $request->input('batch_id');
-
-        $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
+        $calons = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->get();
+        $list_nokp = $calons->pluck('nokp')->all();
 
         // $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
         //     ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
@@ -282,7 +356,7 @@ class BatchMgmtController extends Controller
 
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan')
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan','np.tkh_lantik')
             ->whereIn('np.nokp',$list_nokp)
             ->orderBy('np.kod_kanan','asc')
             ->get();
@@ -301,7 +375,11 @@ class BatchMgmtController extends Controller
             //     return $unit.$bahagian.$cawagan;
             // })
             ->addColumn('tkh_lantikan',function($data) {
-                return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
+                if($data->kod_gred == 'J41')
+                    return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
+                else {
+                    return \Carbon\Carbon::parse($data->tkh_lantik)->format('d-m-Y');
+                }
             })
             ->rawColumns(['aksi'])
             ->make(true);
@@ -398,13 +476,19 @@ class BatchMgmtController extends Controller
 
         $calon = DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
         ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','no_kanan')
+        ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan','np.tkh_lantik')
         ->where('nokp', $nokp)->first();
 
         if($calon) {
             // $unit = empty($calon->unit) ? '' : strtoupper($calon->unit).', ';
             //     $bahagian = empty($calon->bah) ? '' : strtoupper($calon->bah).', ';
             //     $cawagan = empty($calon->caw) ? '' : strtoupper($calon->caw);
+            $tkh_sah = '';
+            if($calon->kod_gred == 'J41')
+                    $tkh_sah =  \Carbon\Carbon::parse($calon->tkh_sah_perkhidmatan)->format('d-m-Y');
+                else {
+                    $tkh_sah =  \Carbon\Carbon::parse($calon->tkh_lantik)->format('d-m-Y');
+                }
 
             return response()->json([
                 'success' => 1,
@@ -414,7 +498,7 @@ class BatchMgmtController extends Controller
                     'jawatan' => $calon->jawatan,
                     'gred' => $calon->kod_gred,
                     //'tempat' => $unit.$bahagian.$cawagan,
-                    'tkh_sah' => $calon->tkh_sah_perkhidmatan,
+                    'tkh_sah' =>  $tkh_sah,
                     'jurusan' => $calon->jurusan
                 ]
             ]);
@@ -426,5 +510,40 @@ class BatchMgmtController extends Controller
                 ]
             ]);
         }
+    }
+
+    public function resend_email(Request $request) {
+        $batch_id = $request->input('batch_id');
+        $nokp = $request->input('nokp');
+
+        $kumpulan = Kumpulan::find($batch_id);
+        $model = Calon::where('kumpulan_id',$batch_id)->where('nokp',$nokp)->first();
+        $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
+            ->select('np.nokp','np.nama','np.email')
+            ->where('np.nokp',$nokp)->get();
+        $kod_gred = $kumpulan->permohonan->gred;
+            $secure_link = Crypt::encryptString($batch_id.'?kp='.$nokp);
+            $content = [
+                //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
+                'link' => url('/')."/form/ukp12/apply/".$secure_link,
+                'gred' => $kumpulan->permohonan->gred,
+                'end_date' => Carbon::now()->addDays(14)->format('d M Y')
+            ];
+            try {
+                Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
+                    // testing purpose
+                    //$message->to('rubmin@vn.net.my',$calon->nama);
+                    //$message->to('munirahj@jkr.gov.my',$calon->nama);
+
+                    $message->to($pegawai->email,$pegawai->nama);
+                    $message->subject('URUSAN PEMANGKUAN KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+
+                });
+                $model->status = 'SUCCESSED';
+                $model->save();
+            } catch(\Exception $e) {
+                $model->status = 'FAILED';
+                $model->save();
+            }
     }
 }

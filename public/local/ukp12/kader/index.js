@@ -400,4 +400,36 @@ $(document).on('change', '.pegawai-carian', function(){
     });
 });
 
+function upload_pinjam() {
+    let data = new FormData();
+        var file = $('.penyata_bayaran')[0].files[0];
+        data.append('_token', getToken());
+        data.append('status',$('.pinjam-status').val());
+        data.append('nama',$('.nama_tabung').val());
+        data.append('jumlah',$('.jumlah_pinjaman').val());
+        data.append('mula',$('.mula_pinjam').val());
+        data.append('akhir',$('.akhir_pinjam').val());
+        data.append('bayar',$('.bayar_mula').val());
+        data.append('selesai',$('.selesai_bayar').val());
+        data.append('penyata_bayaran',file);
+        data.append('formdata',$('._formid').val());
+        $('.loan-file').html(file.name);
+        $.ajax({
+            type:'POST',
+            url: getUrl() + '/form/api/loan/save',
+            data:data,
+            processData: false,
+            contentType: false,
+            context: this,
+            success: function(resp) {
+                let d = resp.success;
+                if(d == 1) {
+                    toasting('Dokumen berjaya sudah dimuat naik', 'success');
+                } else {
+                    toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
+                }
+            }
+        });
+}
+
 

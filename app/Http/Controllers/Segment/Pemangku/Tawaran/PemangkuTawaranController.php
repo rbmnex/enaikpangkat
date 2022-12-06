@@ -93,6 +93,8 @@ class PemangkuTawaranController extends Controller{
     }
 
     public function updateTawaran($id){
+        $user = Auth::user();
+
         $pemohon = Pemohon::with('pemohonPeribadi', 'pemohonPink', 'pemohonPermohonan')->where('id', $id)->first();
         return view('segment.pemangku.tawaran.tawaran_update', [
             'data' => $pemohon,

@@ -1,4 +1,4 @@
-$(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict, .view-full',function() {
+$(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict, .view-full, .ukp11-view',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('view-form')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
@@ -96,5 +96,8 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
     } else if(selectedClass.hasClass('view-full')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
         window.open(getUrl() + '/form/ukp12/nview/'+pemohon_id+'?view=n','_self');
+    } else if(selectedClass.hasClass('ukp11-view')) {
+        let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
+        window.open(getUrl() + '/pemangku/tawaran/preview-pdf/'+pemohon_id,'_blank');
     }
 });

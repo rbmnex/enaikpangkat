@@ -161,18 +161,22 @@ class ApplicationController extends Controller
     public function applicant_list(Request $request) {
         $permohonan_id = $request->input('id');
         $batch = Kumpulan::where('permohonan_id',$permohonan_id)->first();
-        $candidates = $batch->calons;
-        $candidates->each(function ($item, $key) use ($batch) {
-            $info = $this->get_info($item->nokp,$batch->permohonan_id);
-            $item->nama = $info['name'];
-            $item->jawatan = $info['jawatan'];
-            $item->gred = $info['gred'];
-            $item->status = $info['status'];
-            $item->pemohon_id = $info['pemohon_id'];
-            $item->colour = $info['colour'];
-            $item->rank = $info['rank'];
-        });
-        $model = $candidates->sortBy('rank');
+        if(empty($batch->calons)) {
+            $model =  collect();
+        } else {
+            $candidates = $batch->calons;
+            $candidates->each(function ($item, $key) use ($batch) {
+                $info = $this->get_info($item->nokp,$batch->permohonan_id);
+                $item->nama = $info['name'];
+                $item->jawatan = $info['jawatan'];
+                $item->gred = $info['gred'];
+                $item->status = $info['status'];
+                $item->pemohon_id = $info['pemohon_id'];
+                $item->colour = $info['colour'];
+                $item->rank = $info['rank'];
+            });
+            $model = $candidates->sortBy('rank');
+        }
 
         // print_r($model->values()->all());
 
@@ -254,9 +258,9 @@ class ApplicationController extends Controller
 
         } else {
             $pegawai = ListPegawai2::where('nokp',$nokp)->first();
-            $info['name'] = $pegawai->nama;
-            $info['jawatan'] = $pegawai->jawatan;
-            $info['gred'] = $pegawai->kod_gred;
+            $info['name'] = empty($pegawai->nama) ? '' : $pegawai->nama;
+            $info['jawatan'] = empty($pegawai->jawatan) ? '' : $pegawai->jawatan;
+            $info['gred'] = empty($pegawai->kod_gred) ? '' : $pegawai->kod_gred;
             $info['status'] = 'NA';
             $info['pemohon_id'] = 0;
             $info['colour'] = 'danger';

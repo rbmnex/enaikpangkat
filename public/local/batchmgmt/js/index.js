@@ -4,6 +4,7 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
         postEmptyFields([
             ['.kump-nama','text']
         ]);
+        clearInvalid('.kump-nama');
         $('.batch-modal').modal('show');
         load_staff();
     } else if(selectedClass.hasClass('get-carian-staff')) {
@@ -16,6 +17,7 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
         postEmptyFields([
             ['.kump-nama-1','text']
         ]);
+        clearInvalid('.kump-nama-1');
         $.ajax({
             type:'GET',
             url: getUrl() + '/urussetia/kumpulan/papar?batch_id='+batch_id,
@@ -82,36 +84,82 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
     } else if(selectedClass.hasClass('post-send-email')) {
         batch_id = $('.hidden-batch-id').val();
         var data = new FormData;
+        var gred = $('.dropdown-gred-2').val();
+        var valid = true;
         data.append('_token', getToken());
         data.append('batch_id',batch_id);
         //data.append('kod_jawatan',$('.dropdown-jawatan').val());
-        data.append('kod_gred',$('.dropdown-gred-2').val());
+        data.append('kod_gred',gred);
         data.append('kod_jurusan',$('.dropdown-jurusan-2').val());
+        if(gred == '' || gred == undefined) {
+            valid = false;
+            addInvalid('.dropdown-gred-2', 'Sila pilih gred baru');
+        }
+        if(valid) {
 
-        swalAjax({
-            titleText : 'Adakah Anda Pasti?',
-            mainText : 'Emel akan dihantar kepada semua calon',
-            icon: 'info',
-            confirmButtonText: 'Hantar',
-            postData: {
-                url : '/urussetia/kumpulan/mel',
-                data: data,
-                postfunc: function(data) {
-                    let success = data.success;
-                    let parseData = data.data;
-                    if(success == 1) {
-                        //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
-                        toasting('Emel sudah berjaya dihantar', 'success');
-                    } else if(success == 0) {
-                        //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
-                        toasting('Ralat telah berlaku, Emel telah gagal dihantar', 'error');
-                    }
-                    $('.email-modal').modal('hide');
-                    $('.table-kumpulan').DataTable().ajax.reload(null, false);
-                },
-            }
-        });
+            swalAjax({
+                titleText : 'Adakah Anda Pasti?',
+                mainText : 'Emel akan dihantar kepada semua calon',
+                icon: 'info',
+                confirmButtonText: 'Hantar',
+                postData: {
+                    url : '/urussetia/kumpulan/mel',
+                    data: data,
+                    postfunc: function(data) {
+                        let success = data.success;
+                        let parseData = data.data;
+                        if(success == 1) {
+                            //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
+                            toasting('Emel sudah berjaya dihantar', 'success');
+                        } else if(success == 0) {
+                            //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
+                            toasting('Ralat telah berlaku, Emel telah gagal dihantar', 'error');
+                        }
+                        $('.email-modal').modal('hide');
+                        $('.table-kumpulan').DataTable().ajax.reload(null, false);
+                    },
+                }
+            });
+        }
     }
+});
+
+$('.open-status').click(function() {
+    let batch_id = $(this).closest('tr').attr('data-batch-id');
+    $('.hidden-batch-id').val(batch_id);
+    $('.status-modal').modal('show');
+    display_staff_status(batch_id);
+});
+
+$('.calon-resend').click(function() {
+    let nokp = $(this).closest('tr').attr('data-calon-id');
+    let batch_id = $(this).closest('tr').attr('data-batch-id');
+    var data = new FormData;
+        data.append('_token', getToken());
+        data.append('nokp',nokp);
+        data.append('batch_id', batch_id);
+    swalAjax({
+        titleText : 'Adakah Anda Pasti?',
+        mainText : 'Emel akan dihantar semula kepada calon',
+        icon: 'info',
+        confirmButtonText: 'Hantar',
+        postData: {
+            url : '/urussetia/kumpulan/resend',
+            data: data,
+            postfunc: function(data) {
+                let success = data.success;
+                let parseData = data.data;
+                if(success == 1) {
+                    //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
+                    toasting('Emel sudah berjaya dihantar', 'success');
+                } else if(success == 0) {
+                    //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
+                    toasting('Ralat telah berlaku, Emel telah gagal dihantar', 'error');
+                }
+                display_staff_status(batch_id);
+            },
+        }
+    });
 });
 
 $(document).on('click','.post-add-batch, .post-update-batch',function() {
@@ -120,53 +168,72 @@ $(document).on('click','.post-add-batch, .post-update-batch',function() {
     let nokp_list = new Array();
     var data = new FormData;
     data.append('_token', getToken());
+    let valid = true;
 
     if(selectedClass.hasClass('post-add-batch')) {
         let rows_selected = staff_table.column(0).checkboxes.selected();
         let nama = $('.kump-nama').val();
+        let tahun = $('.dropdown-tahun').val();
+        let gred = $('.dropdown-gred').val();
+        let jurusan = $('.dropdown-jurusan').val();
         data.append('nama', nama);
+        if(nama == '' || nama == undefined) {
+            addInvalid('.kump-nama', 'Sila Isi Nama Kumpulan');
+            valid = false;
+        }
         $.each(rows_selected, function(index, rowId) {
             nokp_list.push(rowId);
          });
          data.append('staff_list', JSON.stringify(nokp_list));
+         data.append('tahun',tahun);
+         data.append('gred',gred);
+         data.append('jurusan',jurusan)
     } else if(selectedClass.hasClass('post-update-batch')) {
         let rows_selected = staff2_table.column(0).checkboxes.selected();
         let nama = $('.kump-nama-1').val();
         data.append('nama', nama);
+
+        if(nama == '' || nama == undefined) {
+            addInvalid('.kump-nama-1', 'Sila Isi Nama Kumpulan');
+            valid = false;
+        }
         $.each(rows_selected, function(index, rowId) {
             nokp_list.push(rowId);
          });
          data.append('staff_list', JSON.stringify(nokp_list));
          data.append('batch_id',$('.hidden-batch-id').val());
     }
+        if(valid) {
 
-    swalAjax({
-        titleText : 'Adakah Anda Pasti?',
-        mainText : 'Data akan disimpan',
-        icon: 'info',
-        confirmButtonText: 'Simpan',
-        postData: {
-            url : '/urussetia/kumpulan/simpan',
-            data: data,
-            postfunc: function(data) {
-                let success = data.success;
-                let parseData = data.data;
-                if(success == 1) {
-                    if(parseData.flag) {
-                        $('.batch-modal').modal('hide');
-                    } else {
-                        $('.calon-modal').modal('hide');
-                    }
-                    //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
-                    toasting('Data sudah berjaya disimpan', 'success');
-                } else if(success == 0) {
-                    //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
-                    toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+            swalAjax({
+                titleText : 'Adakah Anda Pasti?',
+                mainText : 'Data akan disimpan',
+                icon: 'info',
+                confirmButtonText: 'Simpan',
+                postData: {
+                    url : '/urussetia/kumpulan/simpan',
+                    data: data,
+                    postfunc: function(data) {
+                        let success = data.success;
+                        let parseData = data.data;
+                        if(success == 1) {
+                            if(parseData.flag) {
+                                $('.batch-modal').modal('hide');
+                            } else {
+                                $('.calon-modal').modal('hide');
+                            }
+                            //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
+                            toasting('Data sudah berjaya disimpan', 'success');
+                        } else if(success == 0) {
+                            //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
+                            toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                        }
+                        $('.table-kumpulan').DataTable().ajax.reload(null, false);
+                    },
                 }
-                $('.table-kumpulan').DataTable().ajax.reload(null, false);
-            },
+            });
         }
-    });
+
 
 });
 
@@ -239,7 +306,7 @@ $(document).on('click','.calon-delete, .tambah-calon', function() {
     }
 });
 
-$(document).on('change', '.calon-carian', function(){
+$('.calon-carian').change(function() {
     let no_ic = $(this).val();
     let data = new FormData;
     data.append('nokp', no_ic);
@@ -268,3 +335,33 @@ $(document).on('change', '.calon-carian', function(){
         }
     });
 });
+
+// $(document).on('change', '.calon-carian', function(){
+//     let no_ic = $(this).val();
+//     let data = new FormData;
+//     data.append('nokp', no_ic);
+//     //data.append('_token', getToken());
+//     // load calon info here
+//     $.ajax({
+//         type:'GET',
+//         url: getUrl() + '/urussetia/kumpulan/info?nokp='+no_ic,
+//         dataType: "json",
+//         processData: false,
+//         contentType: false,
+//         context: this,
+//         success: function(data) {
+//             let result = data.success;
+//             let info = data.data;
+
+//             if(result == 1) {
+//                 $('.calon-nama').val(info.nama);
+//                 $('.calon-nokp').val(info.nokp);
+//                 $('.calon-jawatan').val(info.jawatan);
+//                 $('.calon-gred').val(info.gred);
+//                 $('.calon-jurusan').val(info.jurusan);
+//                 $('.calon-tkh-sah').val(info.tkh_sah);
+//                 //$('.calon-tempat').val(info.tempat);
+//             }
+//         }
+//     });
+// });

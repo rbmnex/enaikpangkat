@@ -22,7 +22,7 @@ $('.table-kumpulan').DataTable({
             orderable: true,
             render: function (data, type, full, meta) {
                 let nama = full.name;
-                return nama.toUpperCase();
+                return nama ? nama.toUpperCase() : '';
             }
         },
         {
@@ -57,6 +57,8 @@ $('.table-kumpulan').DataTable({
                     '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light batch-edit">'+ feather.icons['user'].toSvg() +' Kemaskini</button>' +
                      '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light batch-delete">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>' +
                      btn;
+                } else {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light open-status">'+ feather.icons['list'].toSvg() +' Senarai Calon</button>'
                 }
                 return (
                      btn
@@ -383,3 +385,103 @@ function display_staff(batch) {
         destroy: true,
     });
 }
+
+function display_staff_status(batch) {
+    staff2_table_status = $('.table-staff-status').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: getUrl() + '/urussetia/kumpulan/calon_status?batch_id='+batch,
+        lengthChange:true,
+        columns: [
+            {data: 'nokp'},
+            {data: 'nama'},
+            {data: 'jawatan'},
+            // {data: 'kod_gred'},
+            // {data: 'jurusan'},
+            // {data: 'tempat'},
+            {data: 'tkh_lantikan'},
+            {data: 'kod_kanan'},
+            {data: 'status'},
+            {data: 'aksi'},
+        ],
+        createdRow: function( row, data, dataIndex ) {
+            $(row).addClass('batch-row');
+        },
+        columnDefs: [
+            // {
+            //     'targets': 0,
+            //     'checkboxes': {
+            //        'selectRow': true
+            //     }
+            //  },
+             {
+                // Actions
+                targets: -1,
+                title: 'Tindakan',
+                orderable: false,
+                render: function (data, type, full, meta) {
+                    if(full.status == "FAILED") {
+                        return (
+                            '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light calon-resend">'+ feather.icons['mail'].toSvg() +' Hantar</button>'
+                        );
+
+                    } else {
+                        return('');
+                    }
+                }
+            }
+        ],
+        dom:
+            '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-right"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
+        lengthMenu: [10, 15, 25, 50, 75, 100],
+        buttons: [,
+
+        ],
+        responsive: {
+            details: {
+                display: $.fn.dataTable.Responsive.display.modal({
+                    header: function (row) {
+                        var data = row.data();
+                        return 'Details of ' + data['full_name'];
+                    }
+                }),
+                type: 'column',
+                renderer: function (api, rowIdx, columns) {
+                    var data = $.map(columns, function (col, i) {
+                        return col.title !== '' // ? Do not show row in modal popup if title is blank (for check box)
+                            ? '<tr data-dt-row="' +
+                            col.rowIndex +
+                            '" data-dt-column="' +
+                            col.columnIndex +
+                            '">' +
+                            '<td>' +
+                            col.title +
+                            ':' +
+                            '</td> ' +
+                            '<td>' +
+                            col.data +
+                            '</td>' +
+                            '</tr>'
+                            : '';
+                    }).join('');
+
+                    return data ? $('<table class="table"/>').append(data) : false;
+                }
+            }
+        },
+        language: {
+            paginate: {
+                // remove previous & next text from pagination
+                previous: '&nbsp;',
+                next: '&nbsp;',
+                loadingRecords: 'Sedang Muat Turun'
+            }
+        },
+        select: {
+            'style': 'multi'
+        },
+        destroy: true,
+    });
+}
+
+

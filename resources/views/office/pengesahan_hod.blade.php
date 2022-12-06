@@ -38,10 +38,12 @@
                             <th>nama</th>
                             <th>jawatan</th>
                             <th>borang</th>
+                            <th>status</th>
                             <th>tindakan</th>
                         </tr>
                     </thead>
                 </table>
+                <input type="hidden" value="hod" id="hdn_role" />
             </div>
         </div>
     </div>
