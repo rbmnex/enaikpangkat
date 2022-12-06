@@ -1605,7 +1605,7 @@
         </tbody>
     </table>
     <div class="page-break"></div>
-    <table>
+    {{-- <table>
         <tbody>
             <tr>
                 <td></td>
@@ -1838,7 +1838,7 @@
                 <td colspan="6" style="height: 20px" class=""></td>
             </tr>
         </tbody>
-    </table>
+    </table> --}}
     </div>
   </body>
 </html>

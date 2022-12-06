@@ -685,8 +685,8 @@
                                 <i data-feather='upload'></i> Muat Naik
                                 <input class="form-control file-input penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran"/>
                             </div> --}}
-                            <span class="col-form-label loan-file"></span>
-                            <button class="btn btn-warning btn-download">
+                            <span class="col-form-label loan-file">{{ $akuan_pinjaman->file->filename }}</span>
+                            <button class="btn btn-warning btn-download" data-file-id="{{ $akuan_pinjaman->surat_perakuan }}">
                                 <span class="align-middle d-sm-inline-block d-none">Muat Turun</span>
                                 <i data-feather="download" class="align-middle ml-sm-25 ml-0"></i>
                             </button>

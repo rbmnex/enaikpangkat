@@ -48,6 +48,14 @@ class PinkFormController extends Controller{
     }
 
     public function hantar(Request $request){
+        $pinks = SuratPink::where('id_pemohon')->get();
+        if($pinks->count() > 0) {
+            foreach($pinks as $p){
+                $p->delete_id = 1;
+                $p->flag = 0;
+                $p->save();
+            }
+        }
         $pink = CommonController::getModel(SuratPink::class, 0);
         $pink->id_pemohon = $request->input('pemohon_id');
         $pink->no_surat = $request->input('pinkform_name');
@@ -75,7 +83,8 @@ class PinkFormController extends Controller{
         $pemohon->loadMissing('pemohonPeribadi');
         $content = [
             'link' => url('/').'/pemangku/tawaran/update/'.$pemohon->id,
-            'pink' => url('/').'/common/id-download?fileid='.$file->id
+            'pink' => url('/').'/common/id-download?fileid='.$file->id,
+            'jawatan' => $pemohon->jawatan
         ];
         //send email
         Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
@@ -83,7 +92,7 @@ class PinkFormController extends Controller{
             //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
 //            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
-            $message->to('munirahj@jkr.gov.my',$pemohon->pemohonPeribadi->nama);
+            $message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
             $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
         });

@@ -29,7 +29,8 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 use Laratrust\LaratrustFacade as Laratrust;
-use Barryvdh\DomPDF\Facade\Pdf;
+//use Barryvdh\DomPDF\Facade\Pdf;
+use PDF;
 use stdClass;
 
 class ViewController extends Controller

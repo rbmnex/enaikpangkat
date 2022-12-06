@@ -8,7 +8,7 @@ $('.table-user').DataTable({
         {data: 'name'},
         {data: 'jawatan'},
         {data: 'lokasi'},
-        {data: 'email'},
+        // {data: 'email'},
         {data: 'peranan'},
         {data: 'aksi'},
     ],
