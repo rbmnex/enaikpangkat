@@ -107,11 +107,13 @@ Route::prefix('/urussetia')->group(function() {
 
     Route::prefix('/resume')->group(function() {
         Route::get('/', function() { return view('mockup4'); });
+        Route::get('/terpilih', [ResumeController::class,'terpilih']);
         Route::post('/mockup4', [ResumeController::class,'mockup4']);
         Route::get('/lampiran',[ResumeController::class,'lampiran']);
         Route::get('/display/{id}',[ResumeController::class,'open']);
         Route::get('/senarai',[ResumeController::class,'senarai']);
         Route::get('/senarairesume',[ResumeController::class,'senarai_pengguna']);
+        Route::get('/senaraiterpilih',[ResumeController::class,'senarai_terpilih']);
         Route::get('/staff',[ResumeController::class,'senarai_pegawai']);
         Route::get('/carian',[ResumeController::class,'carian_pegawai']);
         Route::post('/list', [ResumeController::class,'list']);

@@ -27,6 +27,7 @@ use App\Models\Pink\LampiranKursus;
 use App\Models\Pink\LampiranProjek;
 use App\Models\Pink\LampiranBebanKerja;
 use App\Models\Pink\LampiranPendedahan;
+use App\Models\Pink\Resume;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Carbon;
@@ -52,13 +53,191 @@ class ResumeController extends Controller
         return view('mockup4')->with('roles',$model);
     }
 
-        public function lampiran(Request $request){
-
+    public function lampiran(Request $request){
 
         return view('urussetia.lampiran.lampiran',[
 
         ]);
     }
+
+     public function terpilih(Request $request){
+ // $model = Role::all();
+        return view('urussetia.resume.senaraiterpilih');
+    }
+
+
+     public function senarai_pengguna(Request $request) {
+        // echo '<pre>';
+        // print_r($request->all()['search']['value']);
+        // echo '</pre>';
+        // die();
+
+        $search = $request->all()['search']['value'];
+
+
+        $model = ListPegawai2::with('getLampiran')->limit(10);
+
+        if($search){
+            $model->where('nokp', 'ilike', '%'.$search.'%')
+            ->orWhereRaw("LOWER(nama) ilike '%".$search."%'")->limit(10)->get();
+        }else{
+            $model->get();
+        }
+
+                  return DataTables::of($model)
+                ->setRowAttr([
+                    'data-nama' => function($data) {
+                        return $data->nama;
+                    },
+                    'data-kod_gred' => function($data) {
+                        return $data->kod_gred;
+                    },
+                    'data-jawatan' => function($data) {
+                        return $data->jawatan;
+                    },
+                    'data-nokp' => function($data) {
+                        return $data->nokp;
+                    },
+                ])
+                ->addColumn('nokp', function($data) {
+                    // echo '<pre>';
+                    // print_r($data);
+                    // echo '</pre>';
+                    // die();
+                    return $data->nokp;
+                })
+                ->addColumn('nama', function($data) {
+                    return $data->nama;
+                })
+                ->addColumn('kod_gred', function($data) {
+                    return $data->kod_gred;
+                })
+                ->addColumn('jawatan', function($data) {
+                    return $data->jawatan;
+                })
+                ->addColumn('status', function($data) {
+                    $lbk = LampiranBebanKerja::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                    $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                    $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+
+                    if($lbk && $lk && $lp){
+                        return '<div class="badge badge-primary">Lengkap</div>';
+                    }else{
+                        return '<div class="badge badge-danger">Tidak Lengkap</div>';
+                    }
+                })
+                ->addColumn('aksi', function($data) {
+                    return 1;
+                })
+                ->rawColumns([ 'status'])
+                ->make(true);
+    }
+
+      public function senarai_terpilih(Request $request) {
+      
+        $search = $request->all()['search']['value'];
+       
+        $model = DB::table('resume');
+
+        if($search){
+            $model->where('nokp', 'ilike', '%'.$search.'%')
+            ->orWhereRaw("LOWER(nama) ilike '%".$search."%'")->limit(10)->get();
+        }else{
+            // echo $model;
+            // die();
+            $model->get();
+        }
+
+                  return DataTables::of($model)
+                ->setRowAttr([
+                    'data-nama' => function($data) {
+                        return $data->nama;
+                    },
+                    'data-kod_gred' => function($data) {
+                        return $data->kod_gred;
+                    },
+                    'data-jawatan' => function($data) {
+                        return $data->jawatan;
+                    },
+                    'data-nokp' => function($data) {
+                        return $data->nokp;
+                    },
+                ])
+                ->addColumn('nokp', function($data) {
+                    // echo '<pre>';
+                    // print_r($data);
+                    // echo '</pre>';
+                    // die();
+                    return $data->nokp;
+                })
+                ->addColumn('nama', function($data) {
+                    return $data->nama;
+                })
+                ->addColumn('kod_gred', function($data) {
+                    return $data->kod_gred;
+                })
+                ->addColumn('jawatan', function($data) {
+                    return $data->jawatan;
+                })
+                ->addColumn('status', function($data) {
+                    $lbk = LampiranBebanKerja::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                    $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                    $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+
+                    if($lbk && $lk && $lp){
+                        return '<div class="badge badge-primary">Lengkap</div>';
+                    }else{
+                        return '<div class="badge badge-danger">Tidak Lengkap</div>';
+                    }
+                })
+                ->addColumn('aksi', function($data) {
+                    return 1;
+                })
+                ->rawColumns([ 'status'])
+                ->make(true);
+    }
+
+    public function carian_pengguna(Request $request){
+        $data = [];
+        $search_term = $request->input('q');
+        $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai2 as p')->select('p.*')->where('nokp', 'ilike', '%'.$search_term.'%')
+            ->orWhereRaw("LOWER(nama) ilike '%".$search_term."%'")->limit(20)->get();
+
+        if(count($peribadi) != 0){
+            foreach($peribadi as $p){
+                $data[] = array(
+                    'id' => $p->nokp,
+                    'text' => $p->nama.' - '.$p->nokp
+                );
+            }
+        }
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+     public function carian_terpilih(Request $request){
+        $data = [];
+        $search_term = $request->input('q');
+        $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai2 as p')->select('p.*')->where('nokp', 'ilike', '%'.$search_term.'%')
+            ->orWhereRaw("LOWER(nama) ilike '%".$search_term."%'")->limit(20)->get();
+
+        if(count($peribadi) != 0){
+            foreach($peribadi as $p){
+                $data[] = array(
+                    'id' => $p->nokp,
+                    'text' => $p->nama.' - '.$p->nokp
+                );
+            }
+        }
+
+        return response()->json([
+            'data' => $data
+        ]);
+    }
+
+
 
     public function open_lampiran(Request $request) {
         $user = Auth::user();
@@ -335,112 +514,6 @@ class ResumeController extends Controller
 
 
 
-    public function senarai_pengguna(Request $request) {
-        // echo '<pre>';
-        // print_r($request->all()['search']['value']);
-        // echo '</pre>';
-        // die();
-
-        $search = $request->all()['search']['value'];
-
-
-        $model = ListPegawai2::with('getLampiran')->limit(10);
-
-        if($search){
-            $model->where('nokp','ilike', '%'.$search.'%')->orWhere('nama', 'ilike', '"%'.$search.'%"')->get();
-        }else{
-            $model->get();
-        }
-
-                  return DataTables::of($model)
-                ->setRowAttr([
-                    'data-nama' => function($data) {
-                        return $data->nama;
-                    },
-                    'data-kod_gred' => function($data) {
-                        return $data->kod_gred;
-                    },
-                    'data-jawatan' => function($data) {
-                        return $data->jawatan;
-                    },
-                    'data-nokp' => function($data) {
-                        return $data->nokp;
-                    },
-                ])
-                ->addColumn('nokp', function($data) {
-                    // echo '<pre>';
-                    // print_r($data);
-                    // echo '</pre>';
-                    // die();
-                    return $data->nokp;
-                })
-                ->addColumn('nama', function($data) {
-                    return $data->nama;
-                })
-                ->addColumn('kod_gred', function($data) {
-                    return $data->kod_gred;
-                })
-                ->addColumn('jawatan', function($data) {
-                    return $data->jawatan;
-                })
-                ->addColumn('status', function($data) {
-                    $lbk = LampiranBebanKerja::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
-                    $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
-                    $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
-
-                    if($lbk && $lk && $lp){
-                        return '<div class="badge badge-primary">Lengkap</div>';
-                    }else{
-                        return '<div class="badge badge-danger">Tidak Lengkap</div>';
-                    }
-                })
-                ->addColumn('aksi', function($data) {
-                    return 1;
-                })
-                ->rawColumns([ 'status'])
-                ->make(true);
-    }
-
-    public function carian_pengguna(Request $request){
-        $data = [];
-        $search_term = $request->input('q');
-        $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai2 as p')->select('p.*')->where('nokp', 'ilike', '%'.$search_term.'%')
-            ->orWhereRaw("LOWER(nama) ilike '%".$search_term."%'")->limit(20)->get();
-
-        if(count($peribadi) != 0){
-            foreach($peribadi as $p){
-                $data[] = array(
-                    'id' => $p->nokp,
-                    'text' => $p->nama.' - '.$p->nokp
-                );
-            }
-        }
-
-        return response()->json([
-            'data' => $data
-        ]);
-    }
-
-   public function mockup4_b(Request $request
-    ){
-        $model= [];
-
-        if($request->input('nokp')){
-            $model=ListPegawai2::getMaklumatPegawai($request->input('nokp'));
-           // $tmp = Perkhidmatan::where('nokp', $ic)->where('kod_gred','J41')->first();
-            // echo '<pre>';
-            // print_r($model);
-            // echo '</pre>';            // die();
-        }
-
-
-
-        return view('mockup4_b', [
-            'user' => $model
-        ]);
-    }
-
-
      public function senarai(Request $request,$id) {
          $model = Role::all();
         return view('mockup4')->with('roles',$model);
@@ -586,38 +659,37 @@ public function lampiran3($ic)
 
 
 
-
-
-
-
-      public function email(Request $request) {
-         $user = Auth::user();
-
-
-        //$kod_jawatan = $request->input('kod_jawatan');
-
-  //        $pegawais=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
-  //           ->select('np.nokp','np.nama','np.email')
-  //           ->whereIn('np.nokp',$user->nokp)->get();
-         
-
-  // echo '<pre>';
-  //       print_r($pegawais);
-  //       echo '</pre>';
-  //       die();  
-
+      public function email(Request $request,$ic) {
+         $nokp = $request->input('nokp');
+        $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
+             ->select('np.nokp','np.nama','np.email','np.kod_gred','np.jawatan')
+             ->where('np.nokp',$ic)->first();
        $content = [
-                     'link' => url('/')."/urussetia/resume/display/8?kp=".$user->nokp
+                     'link' => url('/urussetia/resume/display/8?kp='.$ic)
 
                 ];
-                Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) {
+                Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
-                    $message->to('haryana@vn.net.my');
+                  $message->to('haryana@vn.net.my',$pegawai->nama);
 
 
-                    $message->subject('KEMASKINI LAMPIRAN');
+                    $message->subject('KEMASKINI RESUME');
 
                 });
+
+               
+        $model = new Resume;
+        $model->flag = 1;
+        $model->status = 1;
+        $model->created_by = $pegawai->nokp;
+        $model->nokp = $pegawai->nokp;
+        $model->nama = $pegawai->nama;
+        $model->kod_gred = $pegawai->kod_gred;
+        $model->jawatan = $pegawai->jawatan;
+        $model->created_by = $pegawai->nokp;
+        $model->updated_by = $pegawai->nokp;
+         $model->save();
+
 
         return response()->json([
             'success' => 1,
