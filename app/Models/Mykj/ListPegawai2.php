@@ -9,6 +9,8 @@ use App\Models\Mykj\Peribadi;
 use App\Models\Mykj\Markah;
 use App\Models\Mykj\Peristiwa;
 use App\Models\Pink\LampiranBebanKerja;
+use App\Models\Pink\Resume;
+
 
 use DateTime;
 
@@ -22,11 +24,16 @@ class ListPegawai2 extends Model
 //    public $timestamps = false;
 
     public function getPerkhidmatan(){
-        return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->where('flag', 1)->orderBy('id_perkhidmatan', 'desc');
+        return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->where('flag',1)->orderBy('id_perkhidmatan', 'desc');
     }
 
     public function getLampiran(){
         return $this->hasOne(LampiranBebanKerja::class, 'nokp', 'nokp')->orderBy('id', 'desc');
+    }
+
+
+    public function getResume(){
+        return $this->hasOne(Resume::class, 'nokp', 'nokp')->where('status',1)->orderBy('id', 'desc');
     }
 
     public static function getMaklumatPegawai(Int $no_ic) : array{

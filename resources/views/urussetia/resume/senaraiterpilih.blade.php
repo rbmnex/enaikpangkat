@@ -1,0 +1,64 @@
+@extends('layouts.main')
+
+@section('customCss')
+@include('web.datatable-css')
+@include('web.sweet-alert-css')
+
+<link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/select/select2.min.css')}}">
+@endsection
+
+@section('content')
+<div class="content-header row">
+    <div class="content-header-left col-md-9 col-12 mb-2">
+        <div class="row breadcrumbs-top">
+            <div class="col-12">
+                <h2 class="content-header-title float-left mb-0">Senarai Pegawai Terpilih</h2>
+                <div class="breadcrumb-wrapper">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/dashboard">Laman Utama</a>
+                        </li>
+                        <li class="breadcrumb-item">Admin
+                        </li>
+                        <li class="breadcrumb-item active"><a href="#">Senarai Pegawai Terpilih </a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="content-body">
+    <section id="basic-datatable">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <table class="datatables table table-terpilih">
+                    <thead>
+                        <tr>
+                            <th>NOKP</th>
+                            <th>Nama</th>
+                            <th>Gred</th>
+                            <th>Jawatan</th>
+                            <th>Status</th>
+                            <th>Tindakan</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+    </section>
+</div>
+<input type="hidden" id="_token" class="_token" name="_token" value="{{csrf_token()}}">
+
+@endsection
+
+@section('customJs')
+@include('web.datatable-js')
+@include('web.sweet-alert-js')
+<script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
+<script src="{{asset('local/resume/js/page_setting.js')}}"></script>
+<script src="{{asset('local/resume/js/datatable.js')}}"></script>
+<script src="{{asset('local/resume/js/index.js')}}"></script>
+<script src="{{asset('local/resume/js/ajax.js')}}"></script>
+@endsection
