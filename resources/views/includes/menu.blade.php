@@ -51,12 +51,12 @@
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Kumpulan</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="d-flex align-items-center" href="{{ url('/urussetia/appl/main/') }}">
                             <i data-feather="inbox"></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">senarai <br/> Permohonan</span>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Permohonan</span>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li>
                         <a class="d-flex align-items-center" href="/urussetia/resume/lampiran/">
                             <i data-feather='link-2'></i>
@@ -157,18 +157,18 @@
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/user/form/') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai Permohonan</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="d-flex align-items-center" href="{{ url('/pemangku/tawaran/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
-            <li class=" nav-item">
+            {{-- <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Naik Pangkat</span>
@@ -181,7 +181,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
@@ -215,7 +215,7 @@
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/validate/senarai/hos') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Ketua Bahagian Perkhidmatan</span>
                         </a>
                     </li>
                     <li>
@@ -238,7 +238,7 @@
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/validate/senarai/hod') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Ketua Jabatan</span>
                         </a>
                     </li>
                     <li>

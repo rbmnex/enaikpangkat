@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Urussetia;
 
 use App\Http\Controllers\Controller;
 use App\Models\Mykj\LJurusan;
+use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PermohonanUkp12;
+use App\Models\Profail\Peribadi;
 use App\Models\Urussetia\Calon;
 use App\Models\Urussetia\Kumpulan;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +37,13 @@ class BatchMgmtController extends Controller
             ->setRowAttr([
                 'data-batch-id' => function($data) {
                     return $data->id;
+                },
+                'data-appl-id' => function($data) {
+                    if(empty($data->permohonan)) {
+                        return 0;
+                    } else {
+                        return $data->permohonan->id;
+                    }
                 }
             ])->rawColumns(['aktif','aksi'])
             ->make(true);
@@ -132,15 +142,15 @@ class BatchMgmtController extends Controller
             $jurusan = $request->input('jurusan');
             $gred = $request->input('gred');
             $tahun = $request->input('tahun');
-            if(empty($jurusan) || $jurusan != 'undefined') {
+            if(!empty($jurusan) || $jurusan != 'undefined') {
                 $jurusan = LJurusan::where('kod_jurusan',$jurusan)->first();
                 $model->kod_jurusan = $jurusan->kod_jurusan;
                 $model->jurusan = $jurusan->jurusan;
             }
-            if(empty($gred) || $gred != 'undefine') {
+            if(!empty($gred) || $gred != 'undefine') {
                 $model->gred = $gred;
             }
-            if(empty($tahun) || $tahun != 'undefine') {
+            if(!empty($tahun) || $tahun != 'undefine') {
                 $model->tahun = $tahun;
             }
         } else {
@@ -247,8 +257,32 @@ class BatchMgmtController extends Controller
 
             $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
 
+            foreach($list_nokp as $kp) {
+
+                User::upsert($kp);
+                $user = User::where('nokp',$kp)->first();
+                if(!$user->hasRole('user')) {
+                    $user->attachRole('user');
+                }
+                $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
+
+                if(empty($profile)) {
+                    $profile = $profile = Peribadi::recreate($user->id,$kp);
+                }
+                $pemohon = new Pemohon();
+                $pemohon->flag = 1;
+                $pemohon->delete_id = 0;
+                $pemohon->id_permohonan = $model->id;
+                $pemohon->id_peribadi = $profile->id;
+                $pemohon->created_by = Auth::user()->nokp;
+                $pemohon->updated_by = $kp;
+                $pemohon->status = 'NA';
+                $pemohon->user_id = $user->id;
+                $pemohon->save();
+            }
+
             $pegawais=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
-            ->select('np.nokp','np.nama','np.email')
+            ->select('np.nokp','np.nama','np.email','np.jawatan','np.kod_gred')
             ->whereIn('np.nokp',$list_nokp)->get();
 
             foreach($pegawais as $calon) {
@@ -263,11 +297,11 @@ class BatchMgmtController extends Controller
                 try {
                     Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
                         // testing purpose
-                        //$message->to('rubmin@vn.net.my',$calon->nama);
+                        $message->to('rubmin@vn.net.my',$calon->nama);
                         //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                        $message->to($calon->email,$calon->nama);
-                        $message->subject('URUSAN PEMANGKUAN KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                        //$message->to($calon->email,$calon->nama);
+                        $message->subject('URUSAN PEMANGKUAN'.$calon->jawatan.' GRED '.$calon->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                     });
                     Calon::where('kumpulan_id', $batch_id)->where('nokp', $calon->nokp)
@@ -313,10 +347,14 @@ class BatchMgmtController extends Controller
             ->get();
 
         $model->each(function ($item, $key) use($calons) {
-            $c = $calons->filter(function ($e, $key) use($item) {
-                return $e->nokp == $item->nokp;
-            });
-            $item->status = $c[0]->status;
+            $status = 'UNKNOW';
+            foreach($calons as $c) {
+                if($c->nokp == $item->nokp) {
+                    $status = empty($c->status) ? 'UNKNOWN' : $c->status;
+                    break;
+                }
+            }
+            $item->status = $status;
         });
             return DataTables::of($model)
             ->setRowAttr([
@@ -403,7 +441,9 @@ class BatchMgmtController extends Controller
         } else {
             return response()->json([
                 'success' => 0,
-                'data' => []
+                'data' => [
+
+                ]
             ]);
         }
 
@@ -518,11 +558,11 @@ class BatchMgmtController extends Controller
 
         $kumpulan = Kumpulan::find($batch_id);
         $model = Calon::where('kumpulan_id',$batch_id)->where('nokp',$nokp)->first();
-        $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
-            ->select('np.nokp','np.nama','np.email')
+        $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+            ->select('np.nokp','np.nama','np.email','np.jawatan','np.kod_gred')
             ->where('np.nokp',$nokp)->get();
         $kod_gred = $kumpulan->permohonan->gred;
-            $secure_link = Crypt::encryptString($batch_id.'?kp='.$nokp);
+            $secure_link = Crypt::encryptString($kumpulan->permohonan->id.'?kp='.$nokp);
             $content = [
                 //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                 'link' => url('/')."/form/ukp12/apply/".$secure_link,
@@ -532,18 +572,32 @@ class BatchMgmtController extends Controller
             try {
                 Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
                     // testing purpose
-                    //$message->to('rubmin@vn.net.my',$calon->nama);
+                    $message->to('rubmin@vn.net.my',$pegawai[0]->nama);
                     //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                    $message->to($pegawai->email,$pegawai->nama);
-                    $message->subject('URUSAN PEMANGKUAN KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                    //$message->to($pegawai->email,$pegawai->nama);
+                    $message->subject('URUSAN PEMANGKUAN '.$pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                 });
                 $model->status = 'SUCCESSED';
                 $model->save();
+
+                return response()->json([
+                    'success' => 1,
+                    'data' => [
+                        'message' => 'Success'
+                    ]
+                ]);
             } catch(\Exception $e) {
                 $model->status = 'FAILED';
                 $model->save();
+
+                return response()->json([
+                    'success' => 0,
+                    'data' => [
+                        'message' => $e->getMessage()
+                    ]
+                ]);
             }
     }
 }

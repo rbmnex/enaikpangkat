@@ -167,6 +167,7 @@ class ApplicationController extends Controller
             $candidates = $batch->calons;
             $candidates->each(function ($item, $key) use ($batch) {
                 $info = $this->get_info($item->nokp,$batch->permohonan_id);
+                $item->email_status = empty($item->status) ? 'UNKNOWN' : $item->status;
                 $item->nama = $info['name'];
                 $item->jawatan = $info['jawatan'];
                 $item->gred = $info['gred'];
@@ -174,6 +175,9 @@ class ApplicationController extends Controller
                 $item->pemohon_id = $info['pemohon_id'];
                 $item->colour = $info['colour'];
                 $item->rank = $info['rank'];
+                $item->batch_id = $batch->id;
+                $item->pengesahan_hos = $info['pengesahan_hos'];
+                $item->pengesahan_hod = $info['pengesahan_hod'];
             });
             $model = $candidates->sortBy('rank');
         }
@@ -188,6 +192,9 @@ class ApplicationController extends Controller
                 },
                 'data-pemohon-id' => function($data) {
                     return $data->pemohon_id;
+                },
+                'data-batch-id' => function($data) {
+                    return $data->batch_id;
                 }
             ])->rawColumns(['aksi'])
             ->make(true);
@@ -211,8 +218,9 @@ class ApplicationController extends Controller
                 $info['gred'] = $pemohon->gred;
                 $info['rank'] = empty($pemohon->ranking) ? 99 : $pemohon->ranking;
                 $info['status'] = $pemohon->status;
+                $info['pengesahan_hos'] = empty($pemohon->pengesahan_perkhidmatan) ? 'NOT' : 'DONE';
+                $info['pengesahan_hod'] = empty($pemohon->perakuan_ketua_jabatan) ? 'NOT' : 'DONE';
                 if($pemohon->status == Pemohon::NOT_SUBMITTED) {
-
                     $info['colour'] = 'warning';
                 } else if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
 
@@ -254,6 +262,8 @@ class ApplicationController extends Controller
                     $info['colour'] = 'danger';
                     $info['pemohon_id'] = 0;
                     $info['rank'] = 99;
+                    $info['pengesahan_hos'] = 'NOT';
+                    $info['pengesahan_hod'] = 'NOT';
             }
 
         } else {
@@ -265,6 +275,8 @@ class ApplicationController extends Controller
             $info['pemohon_id'] = 0;
             $info['colour'] = 'danger';
             $info['rank'] = 99;
+            $info['pengesahan_hos'] = 'NOT';
+            $info['pengesahan_hod'] = 'NOT';
         }
 
         return $info;
@@ -274,6 +286,7 @@ class ApplicationController extends Controller
     public function send_promotion(Request $request,$id) {
 
         $pemohon = Pemohon::find($id);
+
         //
         $application =  new PermohonanUkp12();
         $application->jenis = 'UKP13';
@@ -304,21 +317,22 @@ class ApplicationController extends Controller
 
             if($applicant->save()) {
                 //send email
-                $secure_link = Crypt::encryptString();
+                $secure_link = Crypt::encryptString($applicant->id);
 
                 $content = [
                     //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                     'link' => url('/')."/naikpangkat/ukp13/mohon/".$secure_link,
                     'gred' => $application->gred,
-                    'date' => Carbon::now()->addDays(14)->format('d M Y')
+                    'date' => Carbon::now()->addDays(14)->format('d M Y'),
+                    'title' => 'URUSAN KENAIKAN PANGKAT '.$pemohon->jawatan.' KE GRED '.$application->gred.' DI JABATAN KERJA RAYA MALAYSIA'
                 ];
-                Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($application,$user1) {
+                Mail::mailer('smtp')->send('mail.naikpangkat-mail',$content,function($message) use ($application,$user1,$pemohon) {
                     // testing purpose
-                    //$message->to('rubmin@vn.net.my',$calon->nama);
+                    $message->to('rubmin@vn.net.my',$user1->nama);
                     //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                    $message->to($user1->email,$user1->name);
-                    $message->subject('URUSAN KENAIKAN PANGKAT JURUTERA ELEKTRIK KE GRED '.$application->gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                    //$message->to($user1->email,$user1->name);
+                    $message->subject('URUSAN KENAIKAN PANGKAT '.$pemohon->jawatan.' KE GRED '.$application->gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                 });
 

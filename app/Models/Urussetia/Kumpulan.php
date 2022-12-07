@@ -13,10 +13,10 @@ class Kumpulan extends Model
     protected $connection = 'pgsql';
 
     public function calons() {
-        return $this->hasMany(Calon::class,'kumpulan_id','id');
+        return $this->hasMany(Calon::class,'kumpulan_id','id')->where('flag',1)->where('delete_id',0);
     }
 
     public function permohonan() {
-        return $this->hasOne(PermohonanUkp12::class,'permohonan_id','id');
+        return $this->hasOne(PermohonanUkp12::class,'id','permohonan_id');
     }
 }
