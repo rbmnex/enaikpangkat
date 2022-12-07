@@ -51,7 +51,6 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
 
         $('.email-modal').modal('show');
 
-
     } else if(selectedClass.hasClass('batch-delete')) {
         let batch_id = selectedClass.closest('tr').attr('data-batch-id');
         var data = new FormData;
@@ -124,43 +123,57 @@ $(document).on('click','.add-kumpulan, .get-carian-staff, .batch-edit, .batch-em
     }
 });
 
-$('.open-status').click(function() {
-    let batch_id = $(this).closest('tr').attr('data-batch-id');
-    $('.hidden-batch-id').val(batch_id);
-    $('.status-modal').modal('show');
-    display_staff_status(batch_id);
+$(document).on('click','.open-status, .calon-resend',function() {
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('open-status')) {
+        // let batch_id = $(this).closest('tr').attr('data-batch-id');
+        // $('.hidden-batch-id').val(batch_id);
+        // $('.status-modal').modal('show');
+        // display_staff_status(batch_id);
+        let application_id = selectedClass.closest('tr').attr('data-appl-id');
+        window.open(getUrl() + '/urussetia/appl/calon/main/'+application_id,'_self');
+    } else if(selectedClass.hasClass('calon-resend')) {
+        let nokp = $(this).closest('tr').attr('data-calon-id');
+        let batch_id = $(this).closest('tr').attr('data-batch-id');
+        var data = new FormData;
+            data.append('_token', getToken());
+            data.append('nokp',nokp);
+            data.append('batch_id', batch_id);
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Emel akan dihantar semula kepada calon',
+            icon: 'info',
+            confirmButtonText: 'Hantar',
+            postData: {
+                url : '/urussetia/kumpulan/resend',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
+                        toasting('Emel sudah berjaya dihantar', 'success');
+                    } else if(success == 0) {
+                        //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
+                        toasting('Ralat telah berlaku, Emel telah gagal dihantar', 'error');
+                    }
+                    display_staff_status(batch_id);
+                },
+            }
+        });
+    }
 });
 
-$('.calon-resend').click(function() {
-    let nokp = $(this).closest('tr').attr('data-calon-id');
-    let batch_id = $(this).closest('tr').attr('data-batch-id');
-    var data = new FormData;
-        data.append('_token', getToken());
-        data.append('nokp',nokp);
-        data.append('batch_id', batch_id);
-    swalAjax({
-        titleText : 'Adakah Anda Pasti?',
-        mainText : 'Emel akan dihantar semula kepada calon',
-        icon: 'info',
-        confirmButtonText: 'Hantar',
-        postData: {
-            url : '/urussetia/kumpulan/resend',
-            data: data,
-            postfunc: function(data) {
-                let success = data.success;
-                let parseData = data.data;
-                if(success == 1) {
-                    //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
-                    toasting('Emel sudah berjaya dihantar', 'success');
-                } else if(success == 0) {
-                    //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
-                    toasting('Ralat telah berlaku, Emel telah gagal dihantar', 'error');
-                }
-                display_staff_status(batch_id);
-            },
-        }
-    });
-});
+// $('.open-status').click(function() {
+//     let batch_id = $(this).closest('tr').attr('data-batch-id');
+//     $('.hidden-batch-id').val(batch_id);
+//     $('.status-modal').modal('show');
+//     display_staff_status(batch_id);
+// });
+
+// $('.calon-resend').click(function() {
+
+// });
 
 $(document).on('click','.post-add-batch, .post-update-batch',function() {
     let selectedClass = $(this);

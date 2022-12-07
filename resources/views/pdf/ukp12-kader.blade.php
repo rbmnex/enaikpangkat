@@ -939,16 +939,19 @@
                                             <th style="text-align: center; width: 60%">TAHUN BERKHIDMAT</th>
                                         </thead>
                                         <tbody>
+                                        @php
+                                            $iteration = 0
+                                        @endphp
+                                        <tbody>
                                             @foreach ($perkhidmatans as $pengalaman)
                                             <tr>
-                                                <td style="height: 30px; width: 25%; text-align: center;">{{ $loop->iteration }}</td>
-                                                <td>{{ $pengalaman->jawatan ?? '' }}</td>
-                                                <td>{{ $pengalaman->penempatan }}</td>
-                                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman->tkh_mula_berkhidmat)->format('Y') }}</td>
+                                                <td style="height: 30px; width: 25%; text-align: center;">{{ ++$iteration }}</td>
+                                                <td>{{ $pengalaman['jawatan'] ?? '' }}</td>
+                                                <td>{{ $pengalaman['penempatan'] }}</td>
+                                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
-                                            @if($perkhidmatans->count() == 0)
-
+                                            @if(count($perkhidmatans) == 0)
                                             <tr>
                                                 <td style="height: 30px ; width: 25%;"></td>
                                                 <td></td>
@@ -1008,15 +1011,19 @@
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </thead>
                                         <tbody>
+                                            @php
+                                            $iteration = 0
+                                        @endphp
+                                        <tbody>
                                             @foreach ($contribution as $sumbangan)
                                             <tr>
-                                                <td style="height: 30px;" class="width-25">{{ $loop->iteration }}</td>
-                                                <td>{{ $sumbangan->sumbangan }}</td>
-                                                <td>{{ $sumbangan->tempat }}</td>
-                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbangan->tkh_peristiwa)->format('Y') }}</td>
+                                                <td style="height: 30px;" class="width-25">{{ ++$iteration }}</td>
+                                                <td>{{ $sumbangan['sumbangan'] }}</td>
+                                                <td>{{ $sumbangan['tempat'] }}</td>
+                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbangan['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
-                                            @if($contribution->count() == 0)
+                                            @if(count($contribution) == 0)
                                             <tr>
                                                 <td style="height: 30px;" class="width-25"></td>
                                                 <td></td>
@@ -1130,17 +1137,21 @@
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </tr>
                                         <tbody>
+                                            @php
+                                            $iteration = 0
+                                        @endphp
+                                        <tbody>
                                             @foreach ($akademiks as $a)
                                                 <tr>
                                                     <td style="height: 30px; text-align:center;" class="width-25">
-                                                        {{ $loop->iteration }}
+                                                        {{ ++$iteration }}
                                                     </td>
-                                                    <td>{{ $a->nama_sijil }}</td>
-                                                    <td style="width: 75%">{{ $a->nama_insititusi }}</td>
-                                                    <td style="width: 50%">{{ empty($a->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($a->tkh_kelulusan)->format('Y') }}</td>
+                                                    <td>{{ $a['nama_sijil'] }}</td>
+                                                    <td style="width: 75%">{{ $a['nama_insititusi'] }}</td>
+                                                    <td style="width: 50%">{{ empty($a['tkh_kelulusan']) ? '' : \Carbon\Carbon::parse($a['tkh_kelulusan'])->format('Y') }}</td>
                                                 </tr>
                                             @endforeach
-                                            @if($akademiks->count() == 0)
+                                            @if(count($akademiks) == 0)
                                             <tr>
                                                 <td style="height: 30px; text-align:center;" class="width-25"></td>
                                                 <td></td>

@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\UserMgmtController;
+use App\Http\Controllers\Admin\UserMgmtController;
 use App\Http\Controllers\Form\UkpController;
 use App\Http\Controllers\Form\ViewController;
 use App\Http\Controllers\HR\PinkFormController;
@@ -162,6 +162,10 @@ Route::prefix('/form')->group(function() {
         Route::get('/eview/{encryted}',[ViewController::class,'secure_view'])->middleware(['auth']);
         Route::get('/nview/{id}',[ViewController::class,'view_form'])->middleware(['auth']);
         Route::get('/download/view',[ViewController::class,'download_form_full']);
+    });
+
+    Route::prefix('/ukp13')->group(function() {
+        Route::get('/send/promotion/{id}',[ApplicationController::class,'send_promotion']);
     });
 
     Route::prefix('/api')->group(function() {

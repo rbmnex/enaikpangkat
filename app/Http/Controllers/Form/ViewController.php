@@ -385,8 +385,8 @@ class ViewController extends Controller
                 Mail::mailer('smtp')->send('mail.perakui-mail',$content,function($message) use ($ketua_user) {
                     // testing purpose
                     //',$ketua_user->name);
-
-                    $message->to($ketua_user->email,$ketua_user->name);
+                    $message->to('munirahj@jkr.gov.my',$ketua_user->name);
+                    //$message->to($ketua_user->email,$ketua_user->name);
                     $message->subject('PERAKUAN KETUA JABATAN UNTUK URUSAN PEMANGKUAN');
 
                 });
@@ -444,9 +444,9 @@ class ViewController extends Controller
         $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();
         $harta = Harta::where('id_pemohon',$pemohon->id)->first();
         $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
-        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get();
-        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
-        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get();
+        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get()->toArray();
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get()->toArray();
+        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get()->toArray();
         $profesional = Professional::where('id_pemohon',$pemohon->id)->get();
         $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->get();
         $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();

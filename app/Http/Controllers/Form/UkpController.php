@@ -177,6 +177,7 @@ class UkpController extends Controller
     public function apply(Request $request,$encrypted) {
         $content = Crypt::decryptString($encrypted);
         $values = explode('?',$content);
+
         $formId =  $values[0];
         $nokp = substr($values[1],3);
 
@@ -1112,8 +1113,8 @@ class UkpController extends Controller
                         // testing purpose
                         //$message->to('rubmin@vn.net.my',$kerani_user->name);
 
-
-                        $message->to($kerani_user->email,$kerani_user->name);
+                        $message->to('munirahj@jkr.gov.my',$kerani_user->name);
+                        //$message->to($kerani_user->email,$kerani_user->name);
                         $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
                     });

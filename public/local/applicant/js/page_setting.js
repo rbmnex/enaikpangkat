@@ -30,12 +30,19 @@ DatatableUI.init({
             searchable: false,
             render: function (data, type, full, meta) {
                 var status =  full.status;
+                var status_hos = full.pengesahan_hos;
+                var status_hod = full.pengesahan_hod;
                 var text = '';
 
                 if(status == "BH") {
                     text = 'Belum Siap';
                 } else if(status == "TA") {
                     text = 'Tunggu Pengesahan';
+                    if(status_hos == "NOT" && status_hod == "NOT")  {
+                        text += ' Ketua Bahagian Perkhidmatan';
+                    } else if(status_hos == "DONE" && status_hod == "NOT") {
+                        text += ' Ketua Jabatan';
+                    }
                 } else if(status == "PT") {
                     text = 'Tolak Tawaran';
                 } else if(status == "SP") {
@@ -90,6 +97,10 @@ DatatableUI.init({
 
                 if( (status == "MJ") || (status == "PL") || (status == "TL") ) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light ukp11-view">'+ feather.icons['download'].toSvg() +' UKP 11</button>';
+                }
+
+                if(full.email_status == "FAILED" || full.email_status == "UNKNOWN") {
+                    btn +='<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light calon-resend">'+ feather.icons['mail'].toSvg() +' Hantar Semula</button>';
                 }
 
 

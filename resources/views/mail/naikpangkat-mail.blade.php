@@ -7,7 +7,7 @@
                     <p>Assalammualaikum & Selamat Sejahtera</p>
                     <p>YBrs. Ir./Tuan/Puan,</p>
                     <p>
-                    <strong>PERKARA: URUSAN KENAIKAN PANGKAT JURUTERA ELEKTRIK KE GRED {{ $gred }} DI JABATAN KERJA RAYA MALAYSIA</strong>
+                    <strong>PERKARA: {{ $title }}</strong>
                     </p>
                     <p>
                     Dengan segala hormatnya perkara di atas adalah dirujuk.
