@@ -123,7 +123,7 @@
               https://docs.jpa.gov.my/docs/myppsm/PA/Rasianalisasi/)</a></li>
           </ul>   </p>
       </div>
-      <div class="col-12" style="text-align: justify;text-justify: inter-word;text-align: center; background-color: #ccffff; font-size: ;">
+      <div class="col-12" style="text-align: justify;text-justify: inter-word;text-align: center; background-color: #b3ecff; font-size: ;">
           <p>  HUBUNGI KAMI</p>
           <p>URUS SETIA KENAIKAN PANGKAT</p>
           <p>BAHAGIAN PENGURUSAN SUMBER MANUSIA, CAWANGAN DASAR DAN PENGURUSAN KORPORAT, <BR/>
