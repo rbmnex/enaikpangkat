@@ -46,7 +46,7 @@ class PermohonanController extends Controller
             if(empty($record->fail_id)) {
                 return view('form.message',['message' => 'Tiada Lagi Surat Pink Dikeluarkan, Diharap Bersabar']);
             } else {
-                redirect(url('/').'/common/id-download?fileid='.$record->fail_id);
+                return redirect(url('/').'/common/id-download?fileid='.$record->fail_id);
             }
         }
 
