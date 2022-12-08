@@ -86,17 +86,18 @@ let dt = DatatableUI.init({
             searchable: false,
             render: function (data, type, full, meta) {
                 var status =  full.status;
+                var jenis =  full.jenis;
                 var btn = '';
                 if(status == "BH") {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-update">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
                 }
 
-                if(status == "HT" || status == "TL" || status == "PL") {
+                if((status == "HT" || status == "TL" || status == "PL" || status == "MJ") && jenis == "UKP12") {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-offer">'+ feather.icons['file-text'].toSvg() +' Surat Pink</button>';
                 }
 
-                if(status == "LL") {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-reportin">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                if(status == "LL" || status == "MJ") {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-reportin">'+ feather.icons['edit'].toSvg() +' Lapor Diri</button>';
                 }
 
 

@@ -165,21 +165,21 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Berkuatkuasa Pemangkuan <br> (berdasarkan ‘pink form’):</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-kuatkuasa-baru" readonly/>
+                            <input type="text" class="form-control" value="{{ empty($data->pemohonPink->tkh_lapor_diri) ? '' : \Carbon\Carbon::parse($data->pemohonPink->tkh_lapor_diri)->format('d-m-Y') }}" id="tawaran-tkh-kuatkuasa-baru" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Melaporkan Diri:</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-lapor-diri" readonly/>
+                            <input type="text" class="form-control" value="{{ empty($data->pemohonPink->tkh_lapor_diri) ? '' : \Carbon\Carbon::parse($data->pemohonPink->tkh_lapor_diri)->format('d-m-Y') }}"  id="tawaran-tkh-lapor-diri" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Mula Bertugas:</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-mula-tugas" readonly/>
+                            <input type="text" class="form-control" id="tawaran-tkh-mula-tugas" value="{{ empty($data->pemohonPink->tkh_lapor_diri) ? '' : \Carbon\Carbon::parse($data->pemohonPink->tkh_lapor_diri)->format('d-m-Y') }}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
