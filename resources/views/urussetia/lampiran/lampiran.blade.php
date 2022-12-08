@@ -129,7 +129,7 @@
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">5</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Senarai Pencapaian Tertinggi</span>
+                                        <span class="bs-stepper-title">Senarai Pencapaian <br/>Tertinggi</span>
                                         <span class="bs-stepper-subtitle"></span>
                                     </span>
                                 </button>
