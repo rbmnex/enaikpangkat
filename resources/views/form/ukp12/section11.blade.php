@@ -1,7 +1,7 @@
 <div id="iktiraf-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 10 - Pengiktirafan</h5>
-        <small class="text-notice">Sila kemas kini di bahagian PERISTIWA di portal MyKj jika ada perubahan </small>
+        <small class="text-notice">Sila kemas kini di modul PERISTIWA di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         {{-- <div class="form-group col-md-12">

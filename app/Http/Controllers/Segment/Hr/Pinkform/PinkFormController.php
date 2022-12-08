@@ -49,14 +49,17 @@ class PinkFormController extends Controller{
 
     public function hantar(Request $request){
         $pinks = SuratPink::where('id_pemohon')->get();
-        if($pinks->count() > 0) {
+        $id = 0;
+        if($pinks->count() > 1) {
             foreach($pinks as $p){
-                $p->delete_id = 1;
-                $p->flag = 0;
-                $p->save();
+                $p->delete();
             }
+        } else if($pinks->count() == 1) {
+            $id = $pinks[0]->id;
+        } if($pinks->count() == 0) {
+            $id = 0;
         }
-        $pink = CommonController::getModel(SuratPink::class, 0);
+        $pink = CommonController::getModel(SuratPink::class, $id);
         $pink->id_pemohon = $request->input('pemohon_id');
         $pink->no_surat = $request->input('pinkform_name');
         $pink->tkh_lapor_diri = CommonController::dateAugment($request->input('pinkform_tkh'));

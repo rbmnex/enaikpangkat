@@ -88,15 +88,19 @@ let dt = DatatableUI.init({
                 var status =  full.status;
                 var jenis =  full.jenis;
                 var btn = '';
-                if(status == "BH") {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-update">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                if(status == "BH" || status == "NA") {
+                    if(jenis == "UKP12") {
+                        btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-update">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                    } else if(jenis == "UKP13") {
+                        btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light form-promotion">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                    }
                 }
 
                 if((status == "HT" || status == "TL" || status == "PL" || status == "MJ") && jenis == "UKP12") {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-offer">'+ feather.icons['file-text'].toSvg() +' Surat Pink</button>';
                 }
 
-                if(status == "LL" || status == "MJ") {
+                if((status == "LL" || status == "MJ") && jenis == "UKP12") {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-reportin">'+ feather.icons['edit'].toSvg() +' Lapor Diri</button>';
                 }
 

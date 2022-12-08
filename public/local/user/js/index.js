@@ -1,4 +1,6 @@
-$(document).on('click','.open-update, .open-offer, .open-reportin',function() {
+$(document).on('click',
+'.open-update, .open-offer, .open-reportin, .form-promotion',
+function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('open-update')) {
         let formId = selectedClass.closest('tr').attr('data-permohonan-id');
@@ -10,5 +12,8 @@ $(document).on('click','.open-update, .open-offer, .open-reportin',function() {
     } else if(selectedClass.hasClass('open-reportin')) {
         let pemohon_id = selectedClass.closest('tr').attr('data-pemohon-id');
         window.open(getUrl() + '/pemangku/tawaran/update/'+pemohon_id,'_blank');
+    } else if(selectedClass.hasClass('form-promotion')) {
+        let pemohon_id = selectedClass.closest('tr').attr('data-pemohon-id');
+        window.open(getUrl() + '/naikpangkat/ukp13/apply/'+pemohon_id,'_blank');
     }
 });

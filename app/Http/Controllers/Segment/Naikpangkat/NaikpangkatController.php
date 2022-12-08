@@ -73,13 +73,25 @@ class NaikpangkatController extends Controller
 
         //$model = Pemohon::where('id_permohonan', $id_pemohonan)->first();
         $model = Pemohon::find($id);
+        $loggedUser = Auth::user();
+        $applicant = User::find($model->user_id);
+
+        if($loggedUser->nokp != $applicant->nokp) {
+            return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
+        } else if(($model->status != Pemohon::NOT_SUBMITTED) && ($model->status != "NA")) {
+            return view('form.message',['message' => 'Anda Sudah Menghantar Pemohonan Ini Dan Sedang Diproses, Diharap bersabar!']);
+        }
 
         if($model->id_peribadi == null){
             $peribadi = Peribadi::recreate(Auth::user()->id,Auth::user()->nokp);
             $model->id_peribadi = $peribadi->id;
+            $model->status = Pemohon::NOT_SUBMITTED;
             $model->save();
         }else{
             $peribadi = Peribadi::find($model->id_peribadi);
+            Peribadi::update_peribadi($peribadi,$peribadi->nokp);
+            $model->status = Pemohon::NOT_SUBMITTED;
+            $model->save();
         }
 
         $maklumat = $ukpC->load_info($peribadi, Auth::user()->nokp,$model);

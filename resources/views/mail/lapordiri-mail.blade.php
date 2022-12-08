@@ -16,9 +16,11 @@
 
                   <p>3.        Sila ambil tindakan berikut :.</p>
                   <p>
-                  <span>             i.   Sahkan penerimaan pemberitahuan ini melalui emel penempatan@jkr.gov.my atau telefon seperti di bawah.</span><br/>
+                  <span>             i.   Sahkan penerimaan pemberitahuan ini melalui pautan seperti di bawah.</span><br/>
+                  <span>                    Pautan Link  :   {{ $link }}</span><br/>
 
                   <span>             ii.   Tuan/puan boleh menggunakan salinan surat yang dilampirkan untuk tujuan melapor diri.</span><br/>
+                  <span>Pautan Pink Form  :   {{ $pink }}</span><br/>
 
                   <span>             iii.  Sila ambil surat asal di Tingkat 30 Blok G, Ibu Pejabat JKR Kuala Lumpur</span>
                   </p>
@@ -37,8 +39,7 @@
                     <span>No.6, Jalan Sultan Salahuddin</span><br/>
                     <span>50480 KUALA LUMPUR</span><br/>
                   </p>
-                        <p>Pautan Link  :   {{ $link }}</p>
-                        <p>Pautan Pink Form  :   {{ $pink }}</p>
+                        <p></p>
 
                   </div>
                </div>

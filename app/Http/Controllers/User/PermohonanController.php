@@ -18,7 +18,7 @@ class PermohonanController extends Controller
 
     public function load_list(Request $request) {
         $user = Auth::user();
-        $model = Pemohon::where('user_id',$user->id)->get();
+        $model = Pemohon::with('pemohonPeribadi','pemohonPermohonan')->where('user_id',$user->id)->get();
         return DataTables::of($model)
             ->setRowAttr([
                 'data-pemohon-id' => function($data) {
@@ -28,7 +28,7 @@ class PermohonanController extends Controller
                     return $data->id_permohonan;
                 },
                 'data-pemohon-nokp' => function($data) {
-                    return $data->pemohonPeribadi->nokp;
+                    return empty($data->pemohonPeribadi) ? '' : $data->pemohonPeribadi->nokp;
                 }
             ])
             ->addColumn('jenis', function($data){
@@ -39,7 +39,7 @@ class PermohonanController extends Controller
     }
 
     public function downlaod_pink(Request $request,$id) {
-        $record = SuratPink::where('id_pemohon',$id)->first();
+        $record = SuratPink::where('id_pemohon',$id)->where('flag',1)->where('delete_id',0)->first();
         if(empty($record)) {
             return view('form.message',['message' => 'Tiada Lagi Surat Pink Dikeluarkan, Diharap Bersabar']);
         } else {

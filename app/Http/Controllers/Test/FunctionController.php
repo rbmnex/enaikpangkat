@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Test;
 
 use App\Http\Controllers\Controller;
+use App\Models\File;
 use App\Models\Profail\Penempatan;
 use App\Models\Profail\Peribadi;
 use Illuminate\Http\Request;
@@ -136,5 +137,14 @@ class FunctionController extends Controller
     public function encrypt(Request $request) {
         $encrypt = Crypt::encryptString($request->input('input'));
         return $encrypt;
+    }
+
+    public function downloadBase64($id) {
+        $file = File::find($id);
+        if($file) {
+            return 'data:image/'.$file->ext.';base64,'.$file->content_bytes;
+        } else {
+            return 'Empty File lol !!!';
+        }
     }
 }
