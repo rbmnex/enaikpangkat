@@ -91,8 +91,10 @@ DatatableUI.init({
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Kemaskini</button>';
                     btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light view-full">'+ feather.icons['file'].toSvg() +' Papar</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
-                    btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
 
+                }
+                if((status != 'NA') && (status != 'BH') && (status != 'TA') && (status != "SP") && (status != "PT")) {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
                 }
 
                 if( (status == "MJ") || (status == "PL") || (status == "TL") ) {

@@ -133,4 +133,18 @@ class CommonController extends Controller
         ]);
 
     }
+
+    public function file_info_url($url) {
+        $file_info = array();
+        $urlParts = pathinfo($url);
+        $image = file_get_contents($url);
+
+        if ($image !== false){
+            $file_info['filename'] = $urlParts['basename'];
+            $file_info['extension'] = $urlParts['extension'];
+            $file_info['content'] =  base64_encode($image);
+        }
+
+        return $file_info;
+    }
 }

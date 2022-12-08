@@ -135,6 +135,8 @@ class ViewController extends Controller
             } else if($view == 'l') {
                 if(Laratrust::hasRole('secretariat')) {
                     array_push($includes, ViewController::LNPK_FORM);
+                    array_push($includes, ViewController::HOS_VIEW);
+                    array_push($includes, ViewController::HOD_VIEW);
                 } else {
                     if($pemohon->jenis_penempatan != 2) {
                         array_push($includes, ViewController::LNPK_VIEW);

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Form;
 
 use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Main\CommonController as MainCommonController;
 use App\Models\File;
 use App\Models\Mykj\Cuti;
 use App\Models\Mykj\Gaji;
@@ -131,11 +132,12 @@ class UkpController extends Controller
             $pemohon->save();
         } else {
             $pemohon = Pemohon::where('id_permohonan', $id)->where('user_id',$user->id)->first();
-
+            $pemohon->status = Pemohon::NOT_SUBMITTED;
+            $pemohon->save();
             if($pemohon) {
                 $profile = Peribadi::find($pemohon->id_peribadi);
 
-                if($pemohon->status == Pemohon::NOT_SUBMITTED) {
+                if($pemohon->status == Pemohon::NOT_SUBMITTED || $pemohon->status == 'NA') {
                     $profile = Peribadi::update_peribadi($profile,$nokp);
                 } else {
                     return view('form.message',['message' => 'Anda Sudah Menghantar Pemohonan Ini Dan Sedang Diproses, Diharap Sabar Menunggu Keputusan!']);
@@ -620,6 +622,7 @@ class UkpController extends Controller
             PermohonanCuti::where('id_pemohon',$formdata->pemohon_id)->delete();
         }
 
+        $common = new CommonController;
         foreach($formdata->cuti as $cuti) {
             $rekoc_cuti =  new PermohonanCuti;
             $rekoc_cuti->jenis = $cuti->jenis_cuti;
@@ -631,6 +634,21 @@ class UkpController extends Controller
             $rekoc_cuti->delete_id = 0;
             $rekoc_cuti->created_by = Auth::user()->nokp;
             $rekoc_cuti->updated_by = Auth::user()->nokp;
+
+            // file saving
+            if($cuti->item_fm) {
+                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_cuti/'.$formdata->nokp_baru.'/'.$cuti->item_fm;
+                $file_info = $common->file_info_url($urlPath);
+                if(!empty($file_info)) {
+                    $newFile = new File();
+                    $newFile->content_bytes = $file_info['content'];
+                    $newFile->ext = $file_info['extension'];
+                    $newFile->filename = $file_info['filename'];
+                    if($newFile->save()) {
+                        $rekoc_cuti->surat_kelulusan = $newFile->id;
+                    }
+                }
+            }
 
             $rekoc_cuti->save();
         }
@@ -920,6 +938,7 @@ class UkpController extends Controller
         $pemohon->save();
 
         $cuti_records = PermohonanCuti::where('id_pemohon',$formdata->pemohon_id)->get();
+        $common = new CommonController;
         if($cuti_records->count() == 0) {
             //cuti
             foreach($formdata->cuti as $cuti) {
@@ -933,6 +952,20 @@ class UkpController extends Controller
                 $rekoc_cuti->delete_id = 0;
                 $rekoc_cuti->created_by = Auth::user()->nokp;
                 $rekoc_cuti->updated_by = Auth::user()->nokp;
+
+                if($cuti->item_fm) {
+                    $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_cuti/'.$formdata->nokp_baru.'/'.$cuti->item_fm;
+                    $file_info = $common->file_info_url($urlPath);
+                    if(!empty($file_info)) {
+                        $newFile = new File();
+                        $newFile->content_bytes = $file_info['content'];
+                        $newFile->ext = $file_info['extension'];
+                        $newFile->filename = $file_info['filename'];
+                        if($newFile->save()) {
+                            $rekoc_cuti->surat_kelulusan = $newFile->id;
+                        }
+                    }
+                }
 
                 $rekoc_cuti->save();
             }

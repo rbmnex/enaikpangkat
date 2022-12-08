@@ -111,19 +111,34 @@ class ApplicationController extends Controller
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
-                    'year' => \Carbon\Carbon::parse($form->bil_mesyuarat)->format('Y-m-d'),
-                    'tarikh' => \Carbon\Carbon::parse($form->bil_mesyuarat)->format('Y'),
+                    'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y-m-d'),
+                    'tarikh' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
                 ];
-                Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($record) {
-                    // testing purpose
-                    //$message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
-                    //
-                    $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+                try {
+                    Mail::mailer('smtp')->send('mail.simpanan-mail',$content,function($message) use ($record) {
+                        // testing purpose
+                        //$message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
+                        //
+                        $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
 
-                    //$message->to($kerani_user->email,$kerani_user->name);
-                    $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
+                        //$message->to($kerani_user->email,$kerani_user->name);
+                        $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
 
-                });
+                    });
+                    return response()->json([
+                        'success' => 1,
+                        'data' => [
+                            'message' => 'Failed to email (email calon simpanan)'
+                        ]
+                    ]);
+                } catch( \Exception $e) {
+                    return response()->json([
+                        'success' => 0,
+                        'data' => [
+                            'message' => 'Success to email (email calon simpanan)'
+                        ]
+                    ]);
+                }
             } else if($record->status == Pemohon::FAILED) {
                 $content = [
                     'title' => 'KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
@@ -131,29 +146,43 @@ class ApplicationController extends Controller
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
-                    'year' => \Carbon\Carbon::parse($form->bil_mesyuarat)->format('Y-m-d'),
-                    'tarikh' => \Carbon\Carbon::parse($form->bil_mesyuarat)->format('Y'),
+                    'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y-m-d'),
+                    'tarikh' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
 
                 ];
-                Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record) {
-                    // testing purpose
-                    //$message->to('enaikpangkat@jkr.gov.my',$record->pemohonPeribadi->nama);
-                    //
-                     $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+                try {
+                    Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record) {
+                        // testing purpose
+                        //$message->to('enaikpangkat@jkr.gov.my',$record->pemohonPeribadi->nama);
+                        //
+                         $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
 
-                    //$message->to($kerani_user->email,$kerani_user->name);
-                    $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
+                        //$message->to($kerani_user->email,$kerani_user->name);
+                        $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
 
-                });
+                    });
+                    return response()->json([
+                        'success' => 1,
+                        'data' => [
+                            'message' => 'Success to email (email calon gagal)'
+                        ]
+                    ]);
+
+                } catch( \Exception $e) {
+                    return response()->json([
+                        'success' => 0,
+                        'data' => [
+                            'message' => 'Failed to email (email calon gagal)'
+                        ]
+                    ]);
+                }
             }
-            return response()->json([
-                'success' => 1,
-                'data' => []
-            ]);
         } else {
             return response()->json([
                 'success' => 0,
-                'data' => []
+                'data' => [
+                    'message' => 'Failed to save'
+                ]
             ]);
         }
     }
@@ -173,7 +202,7 @@ class ApplicationController extends Controller
                 $item->gred = $info['gred'];
                 $item->status = $info['status'];
                 $item->pemohon_id = $info['pemohon_id'];
-                $item->colour = $info['colour'];
+                $item->colour = $info['colour'] ?? 'danger';
                 $item->rank = $info['rank'];
                 $item->batch_id = $batch->id;
                 $item->pengesahan_hos = $info['pengesahan_hos'];
@@ -312,6 +341,7 @@ class ApplicationController extends Controller
             $applicant->kod_jawatan = $pemohon->kod_jawatan;
             $applicant->gred = $pemohon->gred;
             $applicant->user_id = $pemohon->user_id;
+            $applicant->status = 'NA';
 
             $user1 =  User::find($pemohon->user_id);
 

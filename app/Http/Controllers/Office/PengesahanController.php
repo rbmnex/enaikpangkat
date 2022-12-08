@@ -31,7 +31,10 @@ class PengesahanController extends Controller
         // print_r($column.' : '.$role);
 
         // die();
-        $model = Pemohon::where($column,$user->nokp)->where('status',Pemohon::WAITING_VERIFICATION)->get();
+        $model = Pemohon::where($column,$user->nokp)
+            ->whereNotIn('status',['NA',Pemohon::NOT_SUBMITTED])
+            ->where('pengesahan_perkhidmatan',1)
+            ->get();
 
         return DataTables::of($model)
             ->setRowAttr([
@@ -65,7 +68,9 @@ class PengesahanController extends Controller
         // print_r($column.' : '.$role);
 
         // die();
-        $model = Pemohon::where($column,$user->nokp)->where('status',Pemohon::WAITING_VERIFICATION)->get();
+        $model = Pemohon::where($column,$user->nokp)
+            ->whereNotIn('status',['NA',Pemohon::NOT_SUBMITTED])
+            ->get();
 
         return DataTables::of($model)
             ->setRowAttr([

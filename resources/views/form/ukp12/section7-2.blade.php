@@ -1,7 +1,7 @@
 <div id="pertubuhan-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 6 - Jawatan Yang Dipegang Dalam Pertubuhan/Lain-Lain </h5>
-        <small class="text-notice">Sila kemas kini di bahagian KELULUSAN / KOMPETENSI/ SUMBANGAN di portal MyKj jika ada perubahan </small>
+        <small class="text-notice">Sila kemas kini di modul KELULUSAN / KOMPETENSI/ SUMBANGAN di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         {{-- <div class="form-group col-md-12">

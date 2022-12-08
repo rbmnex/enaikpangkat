@@ -1,7 +1,7 @@
 <div id="penempatan-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 3 - Pengesahan Butiran Perkhidmatan</h5>
-        <small class="text-notice">Sila kemas kini di bahagian di portal MyKj jika ada perubahan </small>
+        <small class="text-notice">Sila kemas kini di modul di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         <div class="col-form-group col-md-12">
