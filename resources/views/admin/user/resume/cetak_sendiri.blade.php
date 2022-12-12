@@ -364,7 +364,7 @@ div{
 													@endforeach
 
 													@else
-													<tr><td class="boxpengalaman" colspan="5">tiada rekod</td> </tr>
+													<tr><td colspan="6" class="boxpengalaman" >tiada rekod</td> </tr>
 													@endif 	
 													@endif
 
@@ -447,7 +447,7 @@ div{
 																	<?php $i++; ?>
 																	@endforeach
 																	@else
-																	<tr><td class="boxpengalaman" colspan="3">tiada rekod</td> </tr>
+																	<tr><td class="boxpengalaman" colspan="5">tiada rekod</td> </tr>
 																	@endif  
 																	<tr class="grey"><td colspan="5"><center><b>PINGAT</center></b></td></tr>
 																	<tr>
@@ -460,7 +460,7 @@ div{
 
 																	@foreach($model['pingat'] as $pingat)
 																	<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-																		<td class="boxpengalaman"colspan="4">{{ strtoupper($pingat['kod_peristiwa']) }}</td>
+																		<td class="boxpengalaman"colspan="3">{{ strtoupper($pingat['kod_peristiwa']) }}</td>
 																		<td class="boxpengalaman">{{date('Y', strtotime($pingat['tkh_mula_peristiwa']))  }}</td></tr>
 																		<?php $i++; ?>
 																		@endforeach
@@ -470,7 +470,7 @@ div{
 																		<tr class="grey"><td colspan="5"><center><b>ANUGERAH UMUM</center></b></td></tr> 
 																		<tr>
 																			<th class="boxpengalaman">No</th>
-																			<th class="boxpengalaman">Anugerah Umum</th>
+																			<th class="boxpengalaman" colspan="3">Anugerah Umum</th>
 																			<th class="boxpengalaman">Tahun</th>
 																		</tr>
 																		@if(count($model['anugerahUmum']) != 0)
@@ -478,7 +478,7 @@ div{
 
 																		@foreach($model['anugerahUmum'] as $anugerahUmum)
 																		<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-																			<td class="boxpengalaman"colspan="3">{{ strtoupper($anugerahUmum['kod_peristiwa']) }}</td>
+																			<td class="boxpengalaman" colspan="3">{{ strtoupper($anugerahUmum['kod_peristiwa']) }}</td>
 																			<td class="boxpengalaman">{{date('Y', strtotime($anugerahUmum['tkh_mula_peristiwa']))  }}</td></tr>
 																			<?php $i++; ?>
 																			@endforeach
