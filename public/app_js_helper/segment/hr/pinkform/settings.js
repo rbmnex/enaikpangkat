@@ -61,7 +61,6 @@ DatatableUI.init({
 
             }
         },
-        ,
         {
             targets: -2,
             title: 'Email',

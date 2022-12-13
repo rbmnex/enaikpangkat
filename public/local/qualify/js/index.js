@@ -1,4 +1,4 @@
-$(document).on('click','#btn btn-primary',function() {
+$(document).on('click','#hantar-calon-berjaya',function() {
     var list = $(".table-qualify").DataTable().column(0).checkboxes.selected();
 
     if(list.length == 0) {

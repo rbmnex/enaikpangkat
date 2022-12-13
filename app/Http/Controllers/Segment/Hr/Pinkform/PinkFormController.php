@@ -22,12 +22,15 @@ class PinkFormController extends Controller{
         $model = DB::connection('pgsql')->table('pemohon as p')
         ->join('peribadi as b','p.id_peribadi','b.id')
         ->join('permohonan_ukp12 as u','p.id_permohonan','u.id')
-        ->leftJoin('surak_pink as pk','p.id','pk.id_pemohon')
+        ->leftJoin('surat_pink as pk','p.id','pk.id_pemohon')
         ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status','pk.email_status')
         ->whereIn('p.status', array(Pemohon::WAITING_OFFER, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED, Pemohon::REFUSED))
         ->where('p.flag',1)
         ->where('jenis','UKP12')
         ->where('p.delete_id',0)
+        ->where('p.flag',1)
+        ->where('pk.delete_id',0)
+        ->where('pk.flag',1)
         ->get();
 
         // $model->each(function($item,$key){
@@ -58,10 +61,13 @@ class PinkFormController extends Controller{
             foreach($pinks as $p){
                 $p->delete();
             }
+            $pink = CommonController::getModel(SuratPink::class, $id);
         } else if($pinks->count() == 1) {
             $id = $pinks[0]->id;
+            $pink = CommonController::getModel(SuratPink::class, 1, $id);
         } else if($pinks->count() == 0) {
             $id = 0;
+            $pink = CommonController::getModel(SuratPink::class, $id);
         }
         $pink = CommonController::getModel(SuratPink::class, $id);
         $pink->id_pemohon = $request->input('pemohon_id');
@@ -71,7 +77,11 @@ class PinkFormController extends Controller{
 
         if($request->file('pinkform_borang')){
             $upload = CommonController::base64_upload($request->file('pinkform_borang'));
-            $file = new File;
+            if($pink->fail_id) {
+                $file = File::find($pink->fail_id);
+            } else {
+                $file = new File;
+            }
             $file->content_bytes = $upload['base64'];
             $file->ext = $upload['ext'];
             $file->filename = $pink->id.'.'.$upload['ext'];
@@ -80,7 +90,21 @@ class PinkFormController extends Controller{
         $pink->fail_id = $file->id;
         $pink->save();
 
-        $ukp11 = CommonController::getModel(PenerimaanUkp11::class, 0);
+        $ukp11s = PenerimaanUkp11::where('id_surat_pink', $pink->id)->get();
+        if($ukp11s->count() > 1) {
+            foreach($ukp11s as $u){
+                $u->delete();
+            }
+            $ukp11 = CommonController::getModel(PenerimaanUkp11::class, 0);
+        } else if($ukp11s->count() == 1) {
+            $idp = $ukp11s[0]->id;
+            $ukp11 = CommonController::getModel(PenerimaanUkp11::class, 1, $idp);
+        } else if($pinks->count() == 0) {
+
+            $ukp11 = CommonController::getModel(PenerimaanUkp11::class, 0);
+        }
+        //$ukp11 = CommonController::getModel(PenerimaanUkp11::class, 0);
+        $ukp11->id_surat_pink = $pink->id;
         $ukp11->id_pemohon = $pink->id_pemohon;
         $ukp11->save();
 

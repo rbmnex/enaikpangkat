@@ -42,77 +42,93 @@
     <!-- Dashboard Ecommerce Starts -->
     <section id="dashboard-ecommerce">
         <div class="container-fluid">
-  <div class="col-12 bg-light"style="text-align: justify;text-justify: inter-word;text-align: center; background-color: #b3ecff; "><h2>SELAMAT DATANG KE</h2><br>
-  <h1 class="text-warning">e-naikpangkat</h1></div>
+        <div class="row">
+            <div class="col-2 bg-light">
+                <img src="{{ asset('images/enp.png') }}" />
+            </div>
+            <div class="col-10 bg-light"style="text-align: justify;text-justify: inter-word;text-align: center; background-color: #b3ecff; ">
+                <h2>SELAMAT DATANG KE</h2><br>
+                <h1 class="text-warning">e-naikpangkat</h1>
+                <br>
+                <p style=" text-align: justify;">Dasar dan peraturan pemangkuan dan kenaikan pangkat dalam perkhidmatan awam adalah berasaskan Peraturan-Peraturan Pegawai Awam (Pelantikan, Kenaikan Pangkat dan Penamatan Perkhidmatan) 2005 [P.U(A) 176/2005], Peraturan Peraturan Lembaga Kenaikan Pangkat Perkhidmatan Pelajaran, 2010 [P.U(A) 24/2010]</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2 bg-light">
+                <img src="{{ asset('images/definasi.png') }}" />
+            </div>
+
+                    <div class="col-5 bg-light" style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN</h2><br/>
+                        <p><b>Pelaksanaan tugas secara sepenuh masa, suatu jawatan lain yang lebih tinggi grednya darioada gred hakiki</b> dalam skim perkhidmatan yang sema dengan kelulusan Lembaga Kenaikan Pangkat;</p>
+                    </div>
+                    <div class="col-5 bg-light" style=" text-align: justify;"><h2 class="text-primary">NAIK PANGKAT</h2><br/>
+                        <p><b>Peningkatan secara hakiki dari satu gred ke suatu gred yang lebih tiggi</b> dalam skim perkhidmatan yang sama dengan kelulusan Lembaga Kenaikan Pangkat;</p></div>
+                    {{-- <div class="col-4 bg-light"><h2 class="text-primary">RESUME</h2></div> --}}
+
+
+        </div>
+  <br>
   <div class="row">
-    <div class="col-12 bg-light" style=" text-align: justify;"><p>Dasar dan peraturan pemangkuan dan kenaikan pangkat dalam perkhidmatan awam adalah berasaskan Peraturan-Peraturan Pegawai Awam (Pelantikan, Kenaikan Pangkat dan Penamatan Perkhidmatan) 2005 [P.U(A) 176/2005], Peraturan Peraturan Lembaga Kenaikan Pangkat Perkhidmatan Pelajaran, 2010 [P.U(A) 24/2010]</p></div>
+    <div class="col-2 bg-light">
+        <img src="{{ asset('images/kriteria.png') }}" />
+    </div>
+    <div class="col-10 bg-light">
+        <div class="col-12 bg-light " style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN DAN KENAIKAN PANGKAT</h2></div>
+        <div class="row">
+            <div class="col-3 bg-grey">
+                 <div class="row">
+                    <div class="col-2 bg-grey"style="font-size:40px;">1</div>
+                    <div class="col-10 bg-grey" style="font-size:9px;"><p>DISAHKAN <br/>DALAM <br/>PERKHIDMATAN</p></div>
+                </div>
+            </div>
+            <div class="col-3 bg-light">
+                 <div class="row">
+                    <div class="col-2 bg-light" style="font-size:40px;">3</div>
+                    <div class="col-10 bg-light" style="font-size:9px;"><p>DIPERAKU OLEH<br/>KETUA JABATAN/ <br/>KETUA PERKHIIDMATAN</p></div>
+                </div>
+            </div>
+            <div class="col-3 bg-light">
+                <div class="row">
+                    <div class="col-2 bg-light" style="font-size:40px;">5</div>
+                    <div class="col-10 bg-light" style="font-size:9px;"><p>ISYTIHAR <br/>HARTA <br/></p></div>
+                </div>
+            </div>
+            <div class="col-3 bg-light">
+                 <div class="row">
+                    <div class="col-2 bg-light" style="font-size:40px;">7</div>
+                    <div class="col-10 bg-light" style="font-size:9px;"><p>BEBAS DARIPADA DISENARAIKAN <br/>PEMINJAMAN PENDIDIKAN<BR/> TEGAR DARIPADA<BR/> INSTITUSI PINJAMAN <br/> PENDIDIKAN</p></div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-3 bg-light">
+                    <div class="row">
+                   <div class="col-2 bg-light" style="font-size:40px;">2</div>
+                   <div class="col-10 bg-light"style="font-size:9px;"><p>CAPAI TAHAP <br>PRESTASI YANG <br/>DITETAPKAN <br/>>80%</p></div>
+               </div>
+               </div>
+            <div class="col-3 bg-light">
+                    <div class="row">
+                   <div class="col-2 bg-light" style="font-size:40px;">4</div>
+                   <div class="col-10 bg-light" style="font-size:9px;"><p>BEBAS DARI <br/>HUKUMAN <br/>TATATERTIB</p></div>
+               </div>
+               </div>
+       <div class="col-3 bg-light">
+                    <div class="row">
+                   <div class="col-2 bg-light" style="font-size:40px;">6</div>
+                   <div class="col-10 bg-light" style="font-size:9px;"><p>LULUS TAPISAN <br/>KEUTUHAN <br/>SPRM</p></div>
+               </div>
+               </div>
+       <div class="col-3 bg-light">
+            <div class="row">
+                   <div class="col-2 bg-light" style="font-size:40px;">8</div>
+                   <div class="col-10 bg-light" style="font-size:9px;"><p>SYARAT LAIN YANG <br/>DITETAPKAN OLEH <br/>LEMBAGA</p></div>
+               </div>
+        </div>
+
+    </div>
   </div>
 
-  <br>
-  <div class="row">
-    <div class="col-4 bg-light" style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN</h2><br/>
-        <p><b>Pelaksanaan tugas secara sepenuh masa, suatu jawatan lain yang lebih tinggi grednya darioada gred hakiki</b> dalam skim perkhidmatan yang sema dengan kelulusan Lembaga Kenaikan Pangkat;</p>
-    </div>
-    <div class="col-4 bg-light" style=" text-align: justify;"><h2 class="text-primary">NAIK PANGKAT</h2><br/>
-        <p><b>Peningkatan secara hakiki dari satu gred ke suatu gred yang lebih tiggi</b> dalam skim perkhidmatan yang sama dengan kelulusan Lembaga Kenaikan Pangkat;</p></div>
-    <div class="col-4 bg-light"><h2 class="text-primary">RESUME</h2></div>
-  </div>
-  <br>
-  <div>
-    <div class="col-12 bg-light " style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN DAN KENAIKAN PANGKAT</h2></div>
-     <div class="row"> 
-        <div class="col-3 bg-grey">
-             <div class="row"> 
-            <div class="col-2 bg-grey"style="font-size:40px;">1</div>
-            <div class="col-8 bg-grey" style="font-size:9px;"><p>DISAHKAN <br/>DALAM <br/>PERKHIDMATAN</p></div>
-        </div>
-        </div>
-        <div class="col-3 bg-light">
-             <div class="row"> 
-            <div class="col-2 bg-light" style="font-size:40px;">3</div>
-            <div class="col-8 bg-light" style="font-size:9px;"><p>DIPERAKU OLEH<br/>KETUA JABATAN/ <br/>KETUA PERKHIIDMATAN</p></div>
-        </div>
-        </div>
-        <div class="col-3 bg-light">
-             <div class="row"> 
-            <div class="col-2 bg-light" style="font-size:40px;">5<</div>
-            <div class="col-8 bg-light" style="font-size:9px;"><p>ISYTIHAR <br/>HARTA <br/></p></div>
-        </div>
-        </div>
-        <div class="col-3 bg-light">
-             <div class="row"> 
-            <div class="col-2 bg-light" style="font-size:40px;">7</div>
-            <div class="col-8 bg-light" style="font-size:9px;"><p>BEBAS DARIPADA <br/>DISENARAIKAN <br/>PEMINJAMAN PENDIDIKAN<BR/> TEGAR DARIPADA<BR/> INSTITUSI PINJAMAN <br/> PENDIDIKAN</p></div>
-        </div>
-        </div>
-    </div>
-    <div class="row">
-     <div class="col-3 bg-light">
-             <div class="row"> 
-            <div class="col-2 bg-light" style="font-size:40px;">2</div>
-            <div class="col-8 bg-light"style="font-size:9px;"><p>CAPAI TAHAP <br>PRESTASI YANG <br/>DITETAPKAN <br/>>80%</p></div>
-        </div>
-        </div>
-     <div class="col-3 bg-light">
-             <div class="row"> 
-            <div class="col-2 bg-light" style="font-size:40px;">4</div>
-            <div class="col-8 bg-light" style="font-size:9px;"><p>BEBAS DARI <br/>HUKUMAN <br/>TATATERTIB</p></div>
-        </div>
-        </div>
-<div class="col-3 bg-light">
-             <div class="row"> 
-            <div class="col-2 bg-light" style="font-size:40px;">6</div>
-            <div class="col-8 bg-light" style="font-size:9px;"><p>LULUS TAPISAN <br/>KEUTUHAN <br/>SPRM</p></div>
-        </div>
-        </div>
-<div class="col-3 bg-light">
-             <div class="row"> 
-            <div class="col-2 bg-light" style="font-size:40px;">8</div>
-            <div class="col-8 bg-light" style="font-size:9px;"><p>SYARAT LAIN YANG <br/>DITETAPKAN OLEH <br/>LEMBAGA</p></div>
-        </div>
-        </div>
- </div>
-  </div>
   <div>
       <div class="col-6 bg-light">
           <p>Dasar dan peraturan berhubung urusan pemangkuan dan kenaikan pangkat dalam perkhidmatan awam:

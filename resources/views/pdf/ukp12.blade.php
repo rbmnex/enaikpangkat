@@ -1039,7 +1039,7 @@
                                     <table border="1">
                                         <thead>
                                             <th style="text-align: center;" class="width-25">BIL.</th>
-                                            <th style="text-align: center;">SUMBNGAN/JAWATANKUASA TEKNIKAL</th>
+                                            <th style="text-align: center;">SUMBANGAN/JAWATANKUASA TEKNIKAL</th>
                                             {{-- <th style="text-align: center;">TEMPAT</th>--}}
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </thead>

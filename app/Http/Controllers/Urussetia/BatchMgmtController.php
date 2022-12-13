@@ -91,20 +91,20 @@ class BatchMgmtController extends Controller
         //     ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
         //     ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.unit','np.bah','np.caw','np.tkh_sah_perkhidmatan','np.kod_kanan');
 
-        $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
-            ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan', 'np.tkh_lantik');
+        $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat')
+            ->leftJoin('l_jurusan','list_pegawai_naikpangkat.kod_jurusan','l_jurusan.kod_jurusan')
+            ->select('list_pegawai_naikpangkat.nokp','list_pegawai_naikpangkat.nama','list_pegawai_naikpangkat.kod_gred','list_pegawai_naikpangkat.jawatan','l_jurusan.jurusan','list_pegawai_naikpangkat.tkh_sah_perkhidmatan','list_pegawai_naikpangkat.kod_kanan', 'list_pegawai_naikpangkat.tkh_lantik');
 
         if(!empty($tahun)) {
-            $model = $model->where(DB::raw('extract(year from np.tkh_sah_perkhidmatan)'),$tahun);
+            $model = $model->where(DB::raw('extract(year from list_pegawai_naikpangkat.tkh_sah_perkhidmatan)'),$tahun);
         }
         if(!empty($jurusan)) {
-            $model = $model->where('lj.kod_jurusan',$jurusan);
+            $model = $model->where('l_jurusan.kod_jurusan',$jurusan);
         }
         if(!empty($gred)) {
-            $model = $model->where('np.kod_gred',$gred);
+            $model = $model->where('list_pegawai_naikpangkat.kod_gred',$gred);
         }
-        $model->orderBy('np.kod_kanan','asc')->get();
+        $model->orderBy('list_pegawai_naikpangkat.kod_kanan','asc')->get();
 
         return DataTables::of($model)
             ->setRowAttr([
@@ -297,7 +297,7 @@ class BatchMgmtController extends Controller
                 try {
                     Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
                         // testing purpose
-                        $message->to('rubmin@vn.net.my',$calon->nama);
+                        $message->to('munirahj@jkr.gov.my',$calon->nama);
                         //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
                         //$message->to($calon->email,$calon->nama);
@@ -572,7 +572,7 @@ class BatchMgmtController extends Controller
             try {
                 Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
                     // testing purpose
-                    $message->to('rubmin@vn.net.my',$pegawai[0]->nama);
+                    $message->to('munirahj@jkr.gov.my',$pegawai[0]->nama);
                     //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
                     //$message->to($pegawai->email,$pegawai->nama);

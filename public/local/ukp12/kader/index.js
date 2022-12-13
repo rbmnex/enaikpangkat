@@ -254,7 +254,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         $('.harta-file').html(file.name);
         $.ajax({
             type:'POST',
-            url: '/form/api/property/save',
+            url: getUrl() + '/form/api/property/save',
             data:data,
             processData: false,
             contentType: false,

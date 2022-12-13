@@ -1,5 +1,5 @@
 let dt = DatatableUI.init({
-    selector: '.table-personal',
+    selector: '.table-qualify',
     columnList: [
         {data: 'id'},
         {data: 'nokp'},

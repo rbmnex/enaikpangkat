@@ -627,7 +627,7 @@ class UkpController extends Controller
             $rekoc_cuti =  new PermohonanCuti;
             $rekoc_cuti->jenis = $cuti->jenis_cuti;
             $rekoc_cuti->tkh_mula = $cuti->tkh_mula;
-            $rekoc_cuti->tkh_akhir = $cuti->tkh_akhir;
+            $rekoc_cuti->tkh_akhir = $cuti->tkh_tamat;
             //$rekoc_cuti->surat_kelulusan
             $rekoc_cuti->id_pemohon = $formdata->pemohon_id;
             $rekoc_cuti->flag = 1;
@@ -755,6 +755,19 @@ class UkpController extends Controller
             $rekod_professional->flag = 1;
             $rekod_professional->delete_id = 0;
             $rekod_professional->tkh_kelulusan = $pro->tkh_kelulusan;
+            if($pro->item_fm) {
+                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$formdata->nokp_baru.'/'.$pro->item_fm;
+                $file_info = $common->file_info_url($urlPath);
+                if(!empty($file_info)) {
+                    $newFile = new File();
+                    $newFile->content_bytes = $file_info['content'];
+                    $newFile->ext = $file_info['extension'];
+                    $newFile->filename = $file_info['filename'];
+                    if($newFile->save()) {
+                        $rekod_professional->file_id = $newFile->id;
+                    }
+                }
+            }
             $rekod_professional->save();
         }
 
@@ -945,7 +958,7 @@ class UkpController extends Controller
                 $rekoc_cuti =  new PermohonanCuti;
                 $rekoc_cuti->jenis = $cuti->jenis_cuti;
                 $rekoc_cuti->tkh_mula = $cuti->tkh_mula;
-                $rekoc_cuti->tkh_akhir = $cuti->tkh_akhir;
+                $rekoc_cuti->tkh_akhir = $cuti->tkh_tamat;
                 //$rekoc_cuti->surat_kelulusan
                 $rekoc_cuti->id_pemohon = $formdata->pemohon_id;
                 $rekoc_cuti->flag = 1;
@@ -1053,7 +1066,24 @@ class UkpController extends Controller
             $rekod_professional->flag = 1;
             $rekod_professional->delete_id = 0;
             $rekod_professional->tkh_kelulusan = $pro->tkh_kelulusan;
+
+            if($pro->item_fm) {
+                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$formdata->nokp_baru.'/'.$pro->item_fm;
+                $file_info = $common->file_info_url($urlPath);
+                if(!empty($file_info)) {
+                    $newFile = new File();
+                    $newFile->content_bytes = $file_info['content'];
+                    $newFile->ext = $file_info['extension'];
+                    $newFile->filename = $file_info['filename'];
+                    if($newFile->save()) {
+                        $rekod_professional->file_id = $newFile->id;
+                    }
+                }
+            }
+
             $rekod_professional->save();
+
+
         }
 
         //Kompetensi
@@ -1359,7 +1389,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $maklumat['loan'] = $loan;
         $maklumat['gred_memangku'] = $pemohon->pemohonPermohonan ? $pemohon->pemohonPermohonan->gred : '';
         $maklumat['sumbangan'] = $sumbangan;
-        $maklumat['jenis_penempatan'] = empty($penempatanX) ? 1 : $penempatanX->jenis_penempatan;
+        $maklumat['jenis_penempatan'] = empty($penempatanX) ? 1 : $penempatanX->kod_kategori_penempatan;
         $maklumat['istihar_sah'] = $isValidDate;
 
         $pemohon->jawatan =$maklumat['jawatan'] ;
@@ -1369,7 +1399,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $pemohon->tkh_lantikan = $maklumat['tkh_lantikan'];
         $pemohon->tkh_sah_perkhidmatan = $maklumat['tkh_sah'];
         $pemohon->alamat_pejabat = $maklumat['alamat_pejabat'];
-        $pemohon->jenis_penempatan = empty($penempatanX) ? 1 : $penempatanX->jenis_penempatan;
+        $pemohon->jenis_penempatan = empty($penempatanX) ? 1 : $penempatanX->kod_kategori_penempatan;
         $pemohon->save();
 
         return $maklumat;

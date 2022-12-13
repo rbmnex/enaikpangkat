@@ -141,8 +141,9 @@ Route::prefix('/urussetia')->group(function() {
             Route::get('/load/list',[ApplicationController::class,'applicant_list']);
             Route::get('/info',[ApplicationController::class,'applicant_info']);
             Route::post('/verdict',[ApplicationController::class,'applicant_verdict']);
+            Route::get('/success/view',[QualifyController::class,'load_page']);
             Route::get('/list/success',[QualifyController::class,'load_list']);
-            Route::get('/process',[QualifyController::class,'proceed']);
+            Route::post('/process',[QualifyController::class,'proceed']);
         });
     });
 });
