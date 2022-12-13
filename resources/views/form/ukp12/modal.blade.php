@@ -159,6 +159,35 @@
 </div>
 
 
+<div class="modal fade text-left modal-primary batch-modal" id="modal-selesai" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="myModalLabel160">Kursus Disimpan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-xl-12col-md-6 col-12 mb-1">
+                           <label class="form-label" for="">Semua Maklumat telah disimpan. Resume boleh dimuat turun pada sub-menu Muat Turun</label>
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Selesai</button>
+                      
+                    </div>
+
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
 <div class="modal fade text-left modal-primary batch-modal" id="modal-projek" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
