@@ -42,7 +42,7 @@
     <!-- Dashboard Ecommerce Starts -->
     <section id="dashboard-ecommerce">
         <div class="container-fluid">
-  <div class="col-12 bg-light"style="text-align: justify;text-justify: inter-word;text-align: center;background-color: #ccffff;"><h2>SELAMAT DATANG KE</h2><br>
+  <div class="col-12 bg-light"style="text-align: justify;text-justify: inter-word;text-align: center; background-color: #b3ecff; "><h2>SELAMAT DATANG KE</h2><br>
   <h1 class="text-warning">e-naikpangkat</h1></div>
   <div class="row">
     <div class="col-12 bg-light" style=" text-align: justify;"><p>Dasar dan peraturan pemangkuan dan kenaikan pangkat dalam perkhidmatan awam adalah berasaskan Peraturan-Peraturan Pegawai Awam (Pelantikan, Kenaikan Pangkat dan Penamatan Perkhidmatan) 2005 [P.U(A) 176/2005], Peraturan Peraturan Lembaga Kenaikan Pangkat Perkhidmatan Pelajaran, 2010 [P.U(A) 24/2010]</p></div>
