@@ -67,30 +67,32 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
         data.append('rank',$('#verdict-rank').val());
         data.append('bil',$('#verdict-meeting').val());
         data.append('date',$('#verdict-date').val());
-        swalAjax({
-            titleText : 'Adakah Anda Pasti?',
-            mainText : 'Data akan diubah',
-            icon: 'info',
-            confirmButtonText: 'Simpan',
-            postData: {
-                url : '/urussetia/appl/calon/verdict',
-                data: data,
-                postfunc: function(data) {
-                    let success = data.success;
-                    let parseData = data.data;
-                    if(success == 1) {
-                        //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
-                        toasting('Data sudah berjaya disimpan', 'success');
-                    } else if(success == 0) {
-                        //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
-                        toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
-                    }
+        if(valid) {
+            swalAjax({
+                titleText : 'Adakah Anda Pasti?',
+                mainText : 'Data akan diubah',
+                icon: 'info',
+                confirmButtonText: 'Simpan',
+                postData: {
+                    url : '/urussetia/appl/calon/verdict',
+                    data: data,
+                    postfunc: function(data) {
+                        let success = data.success;
+                        let parseData = data.data;
+                        if(success == 1) {
+                            //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
+                            toasting('Data sudah berjaya disimpan', 'success');
+                        } else if(success == 0) {
+                            //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
+                            toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                        }
 
-                    $('.verdict-modal').modal('hide');
-                    DatatableUI.reloadTable('.table-pemohon');
-                },
-            }
-        });
+                        $('.verdict-modal').modal('hide');
+                        DatatableUI.reloadTable('.table-pemohon');
+                    },
+                }
+            });
+        }
     } else if(selectedClass.hasClass('view-lnpt')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
         window.open(getUrl() + '/form/ukp12/nview/'+pemohon_id+'?view=l','_self');

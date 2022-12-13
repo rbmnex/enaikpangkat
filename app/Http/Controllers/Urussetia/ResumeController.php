@@ -134,9 +134,9 @@ class ResumeController extends Controller
     }
 
       public function senarai_terpilih(Request $request) {
-      
+
         $search = $request->all()['search']['value'];
-       
+
         $model = DB::table('resume');
 
         if($search){
@@ -649,12 +649,12 @@ public function lampiran3($ic)
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
 
 
-     
 
-            
+
+
          return view('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
-        
+
     }
 
 
@@ -672,14 +672,14 @@ public function lampiran3($ic)
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
-                  $message->to('haryana@vn.net.my',$pegawai->nama);
+                  $message->to('munirahj@jkr.gov.my',$pegawai->nama);
 
 
                     $message->subject('KEMASKINI RESUME');
 
                 });
 
-               
+
         $model = new Resume;
         $model->flag = 1;
         $model->status = 1;

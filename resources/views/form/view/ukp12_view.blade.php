@@ -523,6 +523,7 @@
                                         <th>Badan Profesional Yang Diiktiraf</th>
                                         <th>No. Pendaftaran</th>
                                         <th>Tahun</th>
+                                        <th>Dokumen</th>
                                     </thead>
                                     <tbody id="tbody-profesional">
                                     @foreach ($profesionals as $pro)
@@ -532,6 +533,16 @@
                                             <td>{{ $pro->badan_professional }}</td>
                                             <td>{{ $pro->no_pendaftaran }}</td>
                                             <td>{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
+                                            <td>
+                                                @if($pro->file_id)
+                                                <button class="btn btn-outline-success btn-download" data-file-id="{{ $pro->file_id }}">
+                                                    <span class="align-middle d-sm-inline-block d-none"></span>
+                                                    <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                                </button>
+                                                @else
+                                                Tiada Dokumen
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                     @if($profesionals->count() == 0)

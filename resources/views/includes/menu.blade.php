@@ -1,7 +1,7 @@
   <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/rtl/vertical-menu-template-bordered/index.html"><span class="brand-logo">
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="{{ url('/dashboard') }}"><span class="brand-logo">
                 <img src="{{ asset('images/jkr_logo.png') }}" height="30px" width="200px"/>
                         </span>
                     <h2 class="brand-text">JKR</h2>
@@ -51,6 +51,12 @@
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Kumpulan</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/appl/calon/success/view') }}">
+                            <i data-feather='file-text'></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Calon Berjaya</span>
+                            </a>
+                    </li>
                     {{-- <li>
                         <a class="d-flex align-items-center" href="{{ url('/urussetia/appl/main/') }}">
                             <i data-feather="inbox"></i>
@@ -69,7 +75,7 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Resume</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pengurusan<br/>Resume</span>
                 </a>
                 <ul class="menu-content">
                     <li>

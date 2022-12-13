@@ -57,6 +57,9 @@ let dt = DatatableUI.init({
                 } else if(status == "NA") {
                     text = 'Tiada Tindakan';
                     color = 'danger';
+                }  else if(status == "MT") {
+                    text = 'Menunggu Tindakan BPSK';
+                    color = 'info';
                 }
                 return '<div class="badge badge-'+color+'">'+text+'</div>';
             }

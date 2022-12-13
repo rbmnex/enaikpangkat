@@ -17,6 +17,7 @@
                     <th>Badan Profesional Yang Diiktiraf</th>
                     <th>No. Pendaftaran</th>
                     <th>Tahun</th>
+                    <th>Dokumen</th>
                 </thead>
                 <tbody id="tbody-profesional">
                 @foreach ($profile['profesional'] as $pro)
@@ -26,11 +27,12 @@
                         <td>{{ $pro->institusi }}</td>
                         <td>{{ $pro->no_pendaftaran }}</td>
                         <td>{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
+                        <td>@if(!empty($cuti->item_fm))<a class="btn btn-outline-success" href="{{ env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$profile['nokp_baru'].'/'.$cuti->item_fm }}"><i data-feather='file'></i></a>@else{{ 'Tiada Dokumen' }}@endif</td>
                     </tr>
                 @endforeach
                 @if($profile['profesional']->count() == 0)
                 <tr data-profesional-id="">
-                    <td colspan="5" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                    <td colspan="6" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 
 

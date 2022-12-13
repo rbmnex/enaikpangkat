@@ -63,6 +63,8 @@ DatatableUI.init({
                     text = 'Calon Simpanan';
                 } else if(status == "NA") {
                     text = 'Tiada Tindakan';
+                } else if(status == "MT") {
+                    text = 'Menunggu Tindakan BPSK';
                 }
                 return '<div class="badge badge-'+full.colour+'">'+text+'</div>';
             }

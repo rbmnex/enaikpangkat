@@ -8,7 +8,7 @@
             <label class="col-form-label" for="tarikhAkhir_harta">Tarikh Akhir Pengisytiharan Harta Terkini:</label>
             <input type="text" readonly class="form-control @if($profile['istihar_sah']) {{ 'is-invalid' }} @endif" value="{{ $profile['tkh_istihar'] == 0 ? $profile['tkh_istihar'] : \Carbon\Carbon::parse($profile['tkh_istihar'])->format('d-m-Y') }}" id="tarikhAkhir_harta" name="harta_tkh_akhir_pengisytiharan">
             <div class="invalid-feedback" @if($profile['istihar_sah']) {{ 'style="display:block;"' }} @endif>@if($profile['istihar_sah']) {{ 'Sila kemaskini semula Tarikh Akhir Pengisytiharan Harta yang baru' }} @endif</div>
-            <
+
         </div>
         <div class="form-group col-md-12">
             {{-- <form id="upload_harta" width="100%"> --}}

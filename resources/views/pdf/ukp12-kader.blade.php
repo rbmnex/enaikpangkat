@@ -531,14 +531,14 @@
                 <td colspan="8">
                     <table border="1" style="padding-right: 5px;">
                         @php
-                        $year = \Carbon\Carbon::parse(Date::now())->format('Y');
+                         //$year = \Carbon\Carbon::parse(Date::now())->format('Y');
                         @endphp
                         <tbody>
                             <tr style="text-align: center;">
                                 <td>Tahun</td>
-                                <td>{{ $year-1 }}</td>
-                                <td>{{ $year-2 }}</td>
-                                <td>{{ $year-3 }}</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                             <tr style="text-align: center;">
                                 <td>Markah</td>
@@ -591,7 +591,7 @@
                     <span class="normal-size" style="padding-left: 5px;">Jenis Hukuman (Jika Ada) : </span>
                 </td>
                 <td colspan="8">
-                    <span class="normal-size" style="">Tiada</span>
+                    <span class="normal-size" style=""></span>
                 </td>
             </tr>
             <tr class="side-border">
@@ -599,7 +599,7 @@
                     <span class="normal-size" style="padding-left: 5px;">Tarikh Hukuman : </span>
                 </td>
                 <td colspan="8">
-                    <span class="normal-size" style="">Tiada</span>
+                    <span class="normal-size" style=""></span>
                 </td>
             </tr>
             <tr class="bottom-border">
@@ -1006,7 +1006,7 @@
                                     <table border="1">
                                         <thead>
                                             <th style="text-align: center;" class="width-25">BIL.</th>
-                                            <th style="text-align: center;">SUMBNGAN/JAWATANKUASA TEKNIKAL</th>
+                                            <th style="text-align: center;">SUMBANGAN/JAWATANKUASA TEKNIKAL</th>
                                             {{-- <th style="text-align: center;">TEMPAT</th> --}}
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </thead>
@@ -1027,7 +1027,7 @@
                                             <tr>
                                                 <td style="height: 30px;" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
