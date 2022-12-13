@@ -36,6 +36,7 @@
                             <th>JAWATAN</th>
                             <th>JENIS</th>
                             <th>STATUS</th>
+                            <th>EMAIL</th>
                             <th>TINDAKAN</th>
                         </tr>
                         </thead>

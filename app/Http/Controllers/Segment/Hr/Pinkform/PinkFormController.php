@@ -22,13 +22,17 @@ class PinkFormController extends Controller{
         $model = DB::connection('pgsql')->table('pemohon as p')
         ->join('peribadi as b','p.id_peribadi','b.id')
         ->join('permohonan_ukp12 as u','p.id_permohonan','u.id')
-        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status')
-        ->whereIn('p.status', array(Pemohon::SUCCESSED, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED))
+        ->leftJoin('surak_pink as pk','p.id','pk.id_pemohon')
+        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status','pk.email_status')
+        ->whereIn('p.status', array(Pemohon::WAITING_OFFER, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED, Pemohon::REFUSED))
         ->where('p.flag',1)
         ->where('jenis','UKP12')
         ->where('p.delete_id',0)
         ->get();
 
+        // $model->each(function($item,$key){
+
+        // });
         return DataTables::of($model)
             ->setRowAttr([
                 'data-pemohon-id' => function($data) {
@@ -56,7 +60,7 @@ class PinkFormController extends Controller{
             }
         } else if($pinks->count() == 1) {
             $id = $pinks[0]->id;
-        } if($pinks->count() == 0) {
+        } else if($pinks->count() == 0) {
             $id = 0;
         }
         $pink = CommonController::getModel(SuratPink::class, $id);
@@ -90,19 +94,29 @@ class PinkFormController extends Controller{
             'jawatan' => $pemohon->jawatan
         ];
         //send email
-        Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
-            // testing purpose
-            //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
+        try{
+            Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
+                // testing purpose
+                //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
-//            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
-            $message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
-            $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
+    //            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
+                $message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
+                $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
-        });
+            });
+            $pink->email_status = "SUCCESSED";
+            $pink->save();
+            return response()->json([
+                'success' => 1,
+            ]);
+        } catch (\Exception $e) {
+            $pink->email_status = "FAILED";
+            $pink->save();
+            return response()->json([
+                'success' => 0,
+            ]);
+        }
 
-        return response()->json([
-            'success' => 1,
-        ]);
     }
 
     public function papar(Request $request) {
@@ -129,5 +143,9 @@ class PinkFormController extends Controller{
                 return $common->download_by_id($request);
             }
         }
+    }
+
+    public function resend(Request $request,$id) {
+        $record = SuratPink::where('id_pemohon',$id)->first();
     }
 }

@@ -1,5 +1,5 @@
 class DatatableUI{
-    static init({selector, columnList, columnDef = [], url = '', buttons = [], label = false, columnsSearchable = false}, order = []){
+    static init({selector, columnList, columnDef = [], url = '', buttons = [], label = false, columnsSearchable = false}, order = [], select = {}){
         if(columnsSearchable) {
             $(''+ selector +' thead tr').clone(true).appendTo(''+ selector +' thead');
             $(''+ selector +' thead tr:eq(1) th').each(function (i) {
@@ -32,6 +32,7 @@ class DatatableUI{
                 }
             },
             order: order,
+            select: jQuery.isEmptyObject(select) ? false : select,
             destroy: true
         });
         if(label){
@@ -42,6 +43,7 @@ class DatatableUI{
     static reloadTable(selector){
         $(selector).DataTable().ajax.reload(null, false);
     }
+
 }
 
 

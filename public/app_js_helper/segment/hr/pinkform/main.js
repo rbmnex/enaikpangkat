@@ -9,9 +9,14 @@ $(document).on('click', '.update-pinkform', function(){
     });
 });
 
-$(document).on('click', '.download-pinkform', function(){
+$(document).on('click', '.download-pinkform, .resend-pinkform', function(){
     let id = $(this).closest('tr').attr('data-pemohon-id');
-    window.open(getUrl() + '/hr2/pinkform/download-pink/'+id,'blank');
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('download-pinkform')) {
+        window.open(getUrl() + '/hr2/pinkform/download-pink/'+id,'blank');
+    } else if(selectedClass.hasClass('resend-pinkform')) {
+        // cubaan hantar semula
+    }
 });
 
 $(document).on('click', '#pinkform-hantar', function(){

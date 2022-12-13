@@ -22,6 +22,7 @@ use App\Models\Profail\Peribadi;
 use App\Models\Urussetia\LnptUkp12;
 use App\Models\Urussetia\TatatertibUkp12;
 use App\Models\User;
+use App\Pdf\PdfRender;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -510,6 +511,8 @@ class ViewController extends Controller
 
         $pdf = PDF::loadView('pdf.ukp12', $data, []);
         return $pdf->stream('Borang_UKP12_'.$peribadi->nokp.'.pdf');
+
+        //return PdfRender::render('pdf.ukp12', $data, ['Borang','UKP12',$peribadi->nokp]);
     }
 
 }

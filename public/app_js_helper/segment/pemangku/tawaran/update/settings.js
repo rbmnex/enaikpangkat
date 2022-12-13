@@ -4,3 +4,5 @@ Select2init.initAll();
 
 Select2init.penggunaSearch({selector: '#tawaran-ketua-bahagian'});
 Select2init.penggunaSearch({selector: '#tawaran-ketua-jabatan'});
+
+$('.notis-tolak').hide();

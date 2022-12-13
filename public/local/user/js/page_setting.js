@@ -104,7 +104,9 @@ let dt = DatatableUI.init({
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-reportin">'+ feather.icons['edit'].toSvg() +' Lapor Diri</button>';
                 }
 
-
+                if((status == "LL" || status == "MJ" || status == "LS" || status == "GL" || status == "PL" || status == "TL") && jenis == "UKP12") {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-form12">'+ feather.icons['file'].toSvg() +' Papar</button>';
+                }
                 return btn;
             }
         }

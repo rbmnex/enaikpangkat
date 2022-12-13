@@ -38,6 +38,8 @@ class Pemohon extends Model
     public const RESERVE = "LS";
     // Tawaran Dihantar
     public const OFFERED_SENT = "HT";
+    // Tunggu surat pink
+    public const WAITING_OFFER = "MT";
 
 
     public function  pemohonPeribadi(){
