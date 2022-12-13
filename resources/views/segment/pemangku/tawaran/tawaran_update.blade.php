@@ -108,7 +108,7 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
-                    <div class="form-group row" style="background-color:yellow;margin:1px;outline: 2px dotted red;">
+                    <div class="form-group row notis-tolak" style="background-color:yellow;margin:1px;outline: 2px dotted red;">
                         <label for="" class="col-sm-12 col-form-label">
                             Jika pegawai memilih butang TIDAK BERSETUJU, notifikasi/peringatan dipaparkan kepada pegawai seperti berikut:
 
@@ -258,4 +258,5 @@
     <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/update/settings.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/update/controller.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/update/main.js') }}"></script>
+
 @endsection

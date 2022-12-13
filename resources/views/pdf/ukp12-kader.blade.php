@@ -1007,7 +1007,7 @@
                                         <thead>
                                             <th style="text-align: center;" class="width-25">BIL.</th>
                                             <th style="text-align: center;">SUMBNGAN/JAWATANKUASA TEKNIKAL</th>
-                                            <th style="text-align: center;">TEMPAT</th>
+                                            {{-- <th style="text-align: center;">TEMPAT</th> --}}
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </thead>
                                         <tbody>
@@ -1015,15 +1015,15 @@
                                             $iteration = 0
                                         @endphp
                                         <tbody>
-                                            @foreach ($contribution as $sumbangan)
+                                            @foreach ($sumbangan as $sumbang)
                                             <tr>
-                                                <td style="height: 30px;" class="width-25">{{ ++$iteration }}</td>
-                                                <td>{{ $sumbangan['sumbangan'] }}</td>
-                                                <td>{{ $sumbangan['tempat'] }}</td>
-                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbangan['tkh_peristiwa'])->format('Y') }}</td>
+                                                <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
+                                                <td>{{ $sumbang['sumbangan'] }}</td>
+                                                {{-- <td>{{ $sumbang['tempat'] }}</td> --}}
+                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
-                                            @if(count($contribution) == 0)
+                                            @if(count($sumbangan) == 0)
                                             <tr>
                                                 <td style="height: 30px;" class="width-25"></td>
                                                 <td></td>
@@ -1033,31 +1033,31 @@
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             @endif
@@ -1136,8 +1136,8 @@
                                             <th style="text-align: center; width: 75%">INSTITUT PUSAT PENGAJIAN TINGGI</th>
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </tr>
-                                        <tbody>
-                                            @php
+
+                                        @php
                                             $iteration = 0
                                         @endphp
                                         <tbody>
@@ -1244,14 +1244,7 @@
                                         <tbody>
                                             @foreach ($profesionals as $pro)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 30px;" class="width-25">{{ $loop->iteration }}</td>
+                                                    <td style="height: 30px; text-align: center;" class="width-25">{{ $loop->iteration }}</td>
                                                     <td>{{ $pro->nama_sijil }}</td>
                                                     <td style="width: 75%">{{ $pro->badan_professional }}</td>
                                                     <td style="width: 75%">{{ $pro->no_pendaftaran }}</td>
@@ -1319,7 +1312,7 @@
                                         <tbody>
                                             @foreach ($kompetenans as $k)
                                             <tr>
-                                                <td style="height: 30px; width: 15%">{{ $loop->iteration }}</td>
+                                                <td style="height: 30px; text-align: center; width: 15%">{{ $loop->iteration }}</td>
                                                 <td>{{ $k->nama_sijil }}</td>
                                                 <td class="width-25">{{ $k->tahap }}</td>
                                             </tr>
@@ -1377,12 +1370,7 @@
                                         <tbody>
                                             @foreach ($pengiktirafans as $sijil)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 30px; width: 15%">{{ $loop->iteration }}</td>
+                                                    <td style="height: 30px; width: 15%; text-align: center;">{{ $loop->iteration }}</td>
                                                     <td>{{ $sijil->jenis ?? '' }}</td>
                                                     <td class="width-25">{{ empty($sijil->tkh_mula) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula)->format('Y') }}</td>
                                                 </tr>
@@ -1817,6 +1805,6 @@
             </tr>
         </tbody>
     </table>
-    </div>
+
   </body>
 </html>

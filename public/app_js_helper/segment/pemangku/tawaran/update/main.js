@@ -76,3 +76,12 @@ $(document).on('click', '#padam-tangguh', function(){
     $('#tawaran-tkh-tangguh-end').val('');
     $('.show-surat-tangguh').attr('style', 'display:none');
 });
+
+$(document).on('change', '#tawaran-setuju', function() {
+    let choice = $('#tawaran-setuju').val();
+    if(choice == 'PL') {
+        $('.notis-tolak').show();
+    } else {
+        $('.notis-tolak').hide();
+    }
+});
