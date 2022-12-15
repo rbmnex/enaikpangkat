@@ -16,7 +16,7 @@ body { font-family: Arial; font-size: 16.2px }
                                         <p>YBhg. Dato'/ Datuk/ Datin/ YBrs. Ir./ Ar./Sr/ Dr./ Tuan/ Puan,</p>
                                         <p><strong>Mohon Salinan Buku Perkhidmatan, RESUME dan Lampiran E (PERISYTIHARAN HARTA).</strong></p>
                                         <p>Dengan hormatnya saya diarah merujuk kepada perkara di atas.</p>
-                                        <p>2.		Mohon jasa baik YBhg. Dato'/ Datuk/ Datin/ YBrs. Ir./ Ar./Sr/ Dr./ Tuan/ Puan untuk mengemukakan maklumat seperti berikut selewat-lewatnya untuk tindakan kami selanjutnya.:</p>
+                                        <p>2.		Mohon jasa baik YBhg. Dato'/ Datuk/ Datin/ YBrs. Ir./ Ar./Sr/ Dr./ Tuan/ Puan untuk mengemukakan maklumat seperti berikut selewat-lewatnya 5 hari bekerja dari tarikh ini untuk tindakan kami selanjutnya.:</p>
                                         <p>
                                                     i. <b>Salinan Buku Perkhidmatan  (Ke alamat seperti berikut)  :</b><br/>
                                                         Bahagian Pengurusan Sumber Manusia<br/>

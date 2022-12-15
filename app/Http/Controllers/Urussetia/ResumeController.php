@@ -119,8 +119,9 @@ class ResumeController extends Controller
                     $lbk = LampiranBebanKerja::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                     $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                     $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                    $lpn = LampiranPendedahan::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
 
-                    if($lbk && $lk && $lp){
+                    if($lbk && $lk && $lp && $lpn){
                         return '<div class="badge badge-primary">Lengkap</div>';
                     }else{
                         return '<div class="badge badge-danger">Tidak Lengkap</div>';
@@ -663,23 +664,25 @@ public function lampiran3($ic)
 
       public function email(Request $request,$ic) {
          $nokp = $request->input('nokp');
-        $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
+         $user = DB::connection('pgsql')->table('users as u')
+             ->where('u.nokp',$ic)->first()? true : false;
+         $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
              ->select('np.nokp','np.nama','np.email','np.kod_gred','np.jawatan')
              ->where('np.nokp',$ic)->first();
-       $content = [
+        $content = [
                      'link' => url('/urussetia/resume/display/8?kp='.$ic)
 
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
-                  $message->to('munirahj@jkr.gov.my',$pegawai->nama);
+                  $message->to('haryana@vn.net.my',$pegawai->nama);
 
 
                     $message->subject('KEMASKINI RESUME');
 
                 });
 
-
+         if ($user){      
         $model = new Resume;
         $model->flag = 1;
         $model->status = 1;
@@ -691,6 +694,37 @@ public function lampiran3($ic)
         $model->created_by = $pegawai->nokp;
         $model->updated_by = $pegawai->nokp;
          $model->save();
+} else{
+        $model = new Resume;
+        $model->flag = 1;
+        $model->status = 1;
+        $model->created_by = $pegawai->nokp;
+        $model->nokp = $pegawai->nokp;
+        $model->nama = $pegawai->nama;
+        $model->kod_gred = $pegawai->kod_gred;
+        $model->jawatan = $pegawai->jawatan;
+        $model->created_by = $pegawai->nokp;
+        $model->updated_by = $pegawai->nokp;
+         $model->save();
+
+         $user = new Users;
+         $user->name = $pegawai->nama;
+         $user->nokp = $pegawai->nokp;
+        $user->flag = 1;
+        $user->email = $pegawai->email;
+        $user->password = "$10$ztX7dX0nNz2TyqpRbXtbveL8Kicv3V5yFuX0IqCHPjiHfDvIe1XNy";
+        $user->delete_id = 0;
+        $user->save();
+
+        $userid = new RoleUser;
+        $userid->role_id = 2;
+        $userid->user_id =  $user->id;
+        $userid->user_type = "App\Models\User";
+        $userid->save();
+
+}
+
+
 
 
         return response()->json([
