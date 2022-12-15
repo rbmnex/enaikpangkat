@@ -104,6 +104,8 @@ class ApplicationController extends Controller
             $form->tarikh_mesyuarat = empty($tkh_mesyuarat) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $tkh_mesyuarat)->format('Y-m-d');
             $form->update_by = Auth::user()->nokp;
 
+            $form->save();
+
             if($record->status == Pemohon::RESERVE) {
                 $content = [
                     'title' => 'KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
@@ -128,14 +130,14 @@ class ApplicationController extends Controller
                     return response()->json([
                         'success' => 1,
                         'data' => [
-                            'message' => 'Failed to email (email calon simpanan)'
+                            'message' => 'Success to email (email calon simpanan)'
                         ]
                     ]);
                 } catch( \Exception $e) {
                     return response()->json([
                         'success' => 0,
                         'data' => [
-                            'message' => 'Success to email (email calon simpanan)'
+                            'message' => 'Failed to email (email calon simpanan)'
                         ]
                     ]);
                 }

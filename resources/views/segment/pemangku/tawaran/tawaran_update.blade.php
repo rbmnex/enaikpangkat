@@ -59,7 +59,7 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Pejabat Alamat:</label>
                         <div class="col-sm-5">
-                            <textarea class="form-control" rows="5" id="tawaran-alamat" readonly>{{$data->pemohonPink->alamat}}</textarea>
+                            <textarea class="form-control" rows="5" id="tawaran-alamat">{{$data->pemohonPink->alamat}}</textarea>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -233,7 +233,8 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12" style="width:100%">
-                            <button class="btn btn-success" style="width:100%" id="simpan-tawaran">Simpan</button>
+                            <button class="btn btn-success" style="width:100%" id="simpan-tawaran"><i data-feather='send'></i> Simpan</button><br/>
+                            <button class="btn btn-primary" style="width:100%" id="download-tawaran"><i data-feather='download'></i> Muat Turun</button>
                         </div>
                     </div>
                 </div>

@@ -6,7 +6,7 @@ DatatableUI.init({
         {data: 'nokp', searchable: false},
         {data: 'nama', searchable: false},
         {data: 'jawatan', searchable: false},
-        {data: 'jenis', searchable: false},
+        {data: 'jenis', searchable: false, visible: false},
         {data: 'status', searchable: false},
         {data: 'email_status', searchable: false},
         {data: 'aksi', searchable: false},
@@ -20,6 +20,7 @@ DatatableUI.init({
             target: -4,
             title: 'Jenis',
             orderable: false,
+            visible: false,
             render: function (data, type, full, meta) {
                 let row_type = full.jenis;
                 if(row_type == 'UKP12') {
@@ -91,16 +92,20 @@ DatatableUI.init({
             render: function (data, type, full, meta) {
                 let row_status = full.status;
                 let row_flag = full.email_status;
+                let row_fail = full.fail_id;
                 let btn = '';
                 //if(row_status == 'LL') {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pinkform" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Hantar</button>';
 
 
                     if(row_flag == 'FAILED' || row_flag == 'NULL' || row_flag == 'null') {
-                        btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light resend-pinkform" >'+ feather.icons['email'].toSvg() +'  Hantar Semula</button>';
+                        btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light resend-pinkform" >'+ feather.icons['mail'].toSvg() +'  Hantar Semula</button>';
 
                     }
-                    btn += '<button type="button" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light download-pinkform" >'+ feather.icons['download'].toSvg() +' Muat turun</button>';
+
+                    if(row_fail != null) {
+                        btn += '<button type="button" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light download-pinkform" >'+ feather.icons['download'].toSvg() +' Muat turun</button>';
+                    }
                 //}
                 return btn;
             }

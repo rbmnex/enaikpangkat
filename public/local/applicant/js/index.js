@@ -53,6 +53,7 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
         var verdict = $('.radio-verdict').filter(':checked').val();
         var bil = $('#verdict-meeting').val();
         var date = $('#verdict-date').val();
+        var valid = true;
         if( bil == 0 || bil == '' || bil == undefined) {
             valid = false;
             addInvalid('#verdict-meeting', 'Tiada No. Bil. Mesyuarat LKPPA');

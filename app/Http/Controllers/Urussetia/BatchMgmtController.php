@@ -31,7 +31,7 @@ class BatchMgmtController extends Controller
     }
 
     public function senarai(Request $request) {
-        $model = Kumpulan::where('flag', 1)->where('delete_id',0)->get();
+        $model = Kumpulan::where('flag', 1)->where('delete_id',0)->orderBy('created_at','desc')->get();
 
         return DataTables::of($model)
             ->setRowAttr([
