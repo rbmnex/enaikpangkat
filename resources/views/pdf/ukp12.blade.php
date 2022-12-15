@@ -449,7 +449,7 @@
                     <span class="normal-size" style="padding-left: 5px; ">Bertugas</span>
                 </td>
                 <td colspan="5">
-                    <span class="normal-size ow" style="">{{ $pemohon->alamat_pejabat }}</span>
+                    <span class="normal-size ow" style="">{{ strtoupper($pemohon->alamat_pejabat) }}</span>
                 </td>
                 <td colspan="4"></td>
 
@@ -830,7 +830,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{ $peribadi->alamat_pejabat }}</td>
+                                <td colspan="6">{{ strtoupper($peribadi->alamat_pejabat) }}</td>
 
                                 <td></td>
                                 <td></td>
@@ -848,7 +848,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{  $peribadi->alamat  }}</td>
+                                <td colspan="6">{{  strtoupper($peribadi->alamat)  }}</td>
 
                                 <td></td>
                                 <td></td>
@@ -902,7 +902,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{ $pasangan ? $pasangan->alamat_pejabat : ''}}</td>
+                                <td colspan="6">{{ $pasangan ? (empty($pasangan->alamat_pejabat) ? strtoupper($peribadi->alamat) : strtoupper($pasangan->alamat_pejabat)) :  '' }}</td>
 
                                 <td></td>
                                 <td></td>
@@ -1734,7 +1734,7 @@
                 <td colspan="2">Alamat Pejabat</td>
 
                 <td style="text-align: center;">:</td>
-                <td colspan="8">{{ $peribadi->alamat_pejabat }}</td>
+                <td colspan="8">{{ strtoupper($peribadi->alamat_pejabat) }}</td>
 
             </tr>
             <tr>
@@ -1818,7 +1818,7 @@
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_alamat_pejabat}}</td>
+                <td colspan="8">{{ strtoupper($pemohon->perakuan_ketua_jabatan_alamat_pejabat) }}</td>
             </tr>
 
             <tr class="side-border">

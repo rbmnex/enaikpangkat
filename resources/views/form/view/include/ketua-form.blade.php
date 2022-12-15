@@ -7,11 +7,11 @@
             <div class="form-group col-md-12">
                 <div class="form-check form-check-inline ">
                     <input type="radio" value="1" class="form-check-input medium radio-certified" name="terima_tawaran" id="radiol-1" @if($pemohon->perakuan_ketua_jabatan == 1) checked @endif/>
-                    <label class="col-form-label" for="tatatertib"> Diperakui</label>
+                    <label class="col-form-label" for="tatatertib"> Diperaku</label>
                 </div>
                 <div class="form-check form-check-inline ">
                     <input type="radio" value="0" class="form-check-input medium radio-certified" name="terima_tawaran" id="radiol-2" @if(!empty($pemohon->perakuan_ketua_jabatan) && $pemohon->perakuan_ketua_jabatan == 0) checked @endif/>
-                    <label class="col-form-label" for="tatatertib"> Tidak Diperakui </label>
+                    <label class="col-form-label" for="tatatertib"> Tidak Diperaku </label>
                 </div>
                 <div class="invalid-feedback"></div>
             </div>

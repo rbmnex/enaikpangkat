@@ -67,8 +67,8 @@
                                 <th>nama</th>
                                 <th>jawatan</th>
                                 {{-- <th>gred</th>
-                                <th>jurusan</th>
-                                <th>penempatan</th> --}}
+                                    <th>jurusan</th> --}}
+                                <th>penempatan</th>
                                 <th>tarikh lantikan / naik pangkat</th>
                                 <th>kekananan<th>
                             </tr>
@@ -174,8 +174,8 @@
                                 <th>nama</th>
                                 <th>jawatan</th>
                                 {{-- <th>gred</th>
-                                <th>jurusan</th>
-                                <th>penempatan</th> --}}
+                                <th>jurusan</th>--}}
+                                <th>penempatan</th>
                                 <th>tarikh lantikan / naik pangkat</th>
                                 <th>kekananan</th>
                                 <th>aksi</th>
@@ -212,8 +212,8 @@
                                 <th>nama</th>
                                 <th>jawatan</th>
                                 {{-- <th>gred</th>
-                                <th>jurusan</th>
-                                <th>penempatan</th> --}}
+                                <th>jurusan</th> --}}
+                                <th>penempatan</th>
                                 <th>tarikh lantikan / naik pangkat</th>
                                 <th>kekananan</th>
                                 <th>Status</th>

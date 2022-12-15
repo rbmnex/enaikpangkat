@@ -9,7 +9,7 @@ $(document).on('click', '#simpan-tawaran', function(){
         validate.getValue('#tawaran-tkh-lapor-diri', 'datedashstandard', 'Tarikh Lapor Diri', 'tawaran_tkh_lapor_diri'),
         validate.getValue('#tawaran-tkh-mula-tugas', 'datedashstandard', 'Tarikh Mula Tugas', 'tawaran_tkh_mula_tugas'),
         validate.getValue('#tawaran-ketua-bahagian', 'mix', 'Ketua Bahagian', 'tawaran_ketua_bahagian'),
-        //validate.getValue('#tawaran-alamat', 'string', 'Alamat Pejabat Baru', 'tawaran_alamat'),
+        validate.getValue('#tawaran-alamat', 'string', 'Alamat Pejabat Baru', 'alamat_baru'),
         validate.getValue('#tawaran-ketua-jabatan', 'mix', 'Ketua Jabatan', 'tawaran_ketua_jabatan')
     );
 
@@ -52,7 +52,7 @@ $(document).on('click', '#simpan-tawaran', function(){
     }
 
     v.append('pemohon_id', $('#pemohon_id').val());
-    v.append('alamat_baru', $('#tawaran-alamat').val());
+    //v.append('alamat_baru', $('#tawaran-alamat').val());
     dt = v;
 
     TawaranUpdateController.hantarForm({
@@ -74,7 +74,7 @@ $(document).on('click', '#download-tawaran', function(){
         validate.getValue('#tawaran-tkh-mula-tugas', 'datedashstandard', 'Tarikh Mula Tugas', 'tawaran_tkh_mula_tugas'),
         //validate.getValue('#tawaran-ketua-bahagian', 'mix', 'Ketua Bahagian', 'tawaran_ketua_bahagian'),
         //validate.getValue('#tawaran-ketua-jabatan', 'mix', 'Ketua Jabatan', 'tawaran_ketua_jabatan')
-        //validate.getValue('#tawaran-alamat', 'string', 'Alamat Pejabat Baru', 'tawaran_alamat'),
+        validate.getValue('#tawaran-alamat', 'string', 'Alamat Pejabat Baru', 'alamat_baru'),
     );
 
     let start = $('#tawaran-tkh-tangguh-start').val();
@@ -116,7 +116,7 @@ $(document).on('click', '#download-tawaran', function(){
     }
 
     v.append('pemohon_id', $('#pemohon_id').val());
-    v.append('alamat_baru', $('#tawaran-alamat').val());
+    //v.append('alamat_baru', $('#tawaran-alamat').val());
     dt = v;
 
     TawaranUpdateController.downloadForm({
@@ -151,3 +151,17 @@ $(document).on('change', '#tawaran-setuju', function() {
         $('.notis-tolak').hide();
     }
 });
+
+$(document).on('change', '#tawaran-borang-ukp11', function() {
+    let data = new FormData();
+    let file = $('#tawaran-surat-tangguh')[0].files[0];
+    data.append('_token', getToken());
+    data.append('pemohon_id', $('#pemohon_id').val());
+    data.append('file', file);
+    TawaranUpdateController.downloadForm({
+        url: 'pemangku/tawaran/update/upload',
+        data: data,
+    });
+});
+
+

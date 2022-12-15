@@ -17,7 +17,7 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">BORANG UKP11</h2>
+                    <h2 class="content-header-title float-start mb-0">BORANG UKP 11</h2>
                     <div class="breadcrumb-wrapper">
                     </div>
                 </div>
@@ -57,9 +57,9 @@
                         </div>
                     </div>
                     <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label">Pejabat Alamat:</label>
+                        <label for="" class="col-sm-2 col-form-label">Pejabat Alamat :<br/>(Pejabat Baru)</label>
                         <div class="col-sm-5">
-                            <textarea class="form-control" rows="5" id="tawaran-alamat">{{$data->pemohonPink->alamat}}</textarea>
+                            <textarea class="form-control" rows="5" id="tawaran-alamat">{{$data->pemohonPink->alamat ?? ''}}</textarea>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -84,7 +84,10 @@
                             Cawangan Pengurusan Dasar & Korporat<br>
                             Tingkat 29, Blok G,<br>
                             Ibu Pejabat JKR<br>
-                            <span style="font-weight: bold">50480 KUALA LUMPUR</span><br><br>
+                            <span style="font-weight: bold">50480 KUALA LUMPUR</span><br>
+                            <span style="font-weight: bold">(u.p. : Urusetia Kenaikan Pangkat - emel: urusetiakenaikanpangkat@jkr.gov.my)</span><br>
+                            <span>Fax :03-26188649</span>
+                            <br><br>
 
 
                             Tuan,<br><br>Merujuk  kepada  surat  Pemberitahuan  Pertukaran:</label>
@@ -92,7 +95,7 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Rujukan Surat:</label>
                         <div class="col-sm-5">
-                            <input type="text" class="form-control" id="tawaran-rujukan" value="{{$data->pemohonPink->no_surat}}" readonly/>
+                            <input type="text" class="form-control" id="tawaran-rujukan" value="{{$data->pemohonPink->no_surat ?? ''}}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -228,6 +231,13 @@
                             <select class="form-select form-control" id="tawaran-ketua-jabatan">
                                 <option value="">Please Choose</option>
                             </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="" class="col-sm-2 col-form-label">Muat Naik Borang UKP 11 (Kader):</label>
+                        <div class="col-sm-5">
+                            <input class="form-control" type="file" id="tawaran-borang-ukp11" />
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

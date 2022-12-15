@@ -29,6 +29,12 @@ class PermohonanController extends Controller
                 },
                 'data-pemohon-nokp' => function($data) {
                     return empty($data->pemohonPeribadi) ? '' : $data->pemohonPeribadi->nokp;
+                },
+                'data-jenis-penempatan' => function($data) {
+                    return $data->jenis_penempatan;
+                },
+                'data-file-id' => function($data) {
+                    return $data->form_file;
                 }
             ])
             ->addColumn('jenis', function($data){

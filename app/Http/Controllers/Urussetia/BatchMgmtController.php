@@ -57,7 +57,7 @@ class BatchMgmtController extends Controller
         //     ->limit(100)->get();
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan', 'np.tkh_lantik')
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan', 'np.tkh_lantik', 'np.kod_kategori_penempatan')
             ->orderBy('np.kod_kanan','asc')
             ->limit(100)->get();
 
@@ -93,7 +93,7 @@ class BatchMgmtController extends Controller
 
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat')
             ->leftJoin('l_jurusan','list_pegawai_naikpangkat.kod_jurusan','l_jurusan.kod_jurusan')
-            ->select('list_pegawai_naikpangkat.nokp','list_pegawai_naikpangkat.nama','list_pegawai_naikpangkat.kod_gred','list_pegawai_naikpangkat.jawatan','l_jurusan.jurusan','list_pegawai_naikpangkat.tkh_sah_perkhidmatan','list_pegawai_naikpangkat.kod_kanan', 'list_pegawai_naikpangkat.tkh_lantik');
+            ->select('list_pegawai_naikpangkat.nokp','list_pegawai_naikpangkat.nama','list_pegawai_naikpangkat.kod_gred','list_pegawai_naikpangkat.jawatan','l_jurusan.jurusan','list_pegawai_naikpangkat.tkh_sah_perkhidmatan','list_pegawai_naikpangkat.kod_kanan', 'list_pegawai_naikpangkat.tkh_lantik','list_pegawai_naikpangkat.kod_kategori_penempatan');
 
         if(!empty($tahun)) {
             $model = $model->where(DB::raw('extract(year from list_pegawai_naikpangkat.tkh_sah_perkhidmatan)'),$tahun);
@@ -341,7 +341,7 @@ class BatchMgmtController extends Controller
 
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan','np.tkh_lantik')
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan','np.tkh_lantik','np.kod_kategori_penempatan')
             ->whereIn('np.nokp',$list_nokp)
             ->orderBy('np.kod_kanan','asc')
             ->get();

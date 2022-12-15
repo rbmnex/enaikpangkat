@@ -111,6 +111,7 @@ class PemangkuTawaranController extends Controller{
         $tawaran_ketua_bahagian = $request->input('tawaran_ketua_bahagian');
         $tawaran_ketua_jabatan = $request->input('tawaran_ketua_jabatan');
         $pemohon_id = $request->input('pemohon_id');
+        $alamat_pejabat = $request->input('alamat_baru');
         $tawaran_tkh_tangguh_start = $request->input('tawaran_tkh_tangguh_start');
         $tawaran_tkh_tangguh_end = $request->input('tawaran_tkh_tangguh_end');
         $tawaran_surat_tangguh =  $request->file('tawaran_surat_tangguh');
@@ -125,6 +126,7 @@ class PemangkuTawaranController extends Controller{
         $ukp11->tkh_lapor_diri = date('Y-m-d', strtotime($tawaran_tkh_lapor_diri));
         $ukp11->tkh_kuatkuasa_pemangkuan = date('Y-m-d', strtotime($tawaran_tkh_mula_tugas));
         $ukp11->id_surat_pink = $pemohon->pemohonPink->id;
+        $ukp11->alamat_pejabat = $alamat_pejabat;
 
         if($tawaran_ketua_bahagian) {
             $kerani = ListPegawai2::getMaklumatPegawai($tawaran_ketua_bahagian);
@@ -182,6 +184,29 @@ class PemangkuTawaranController extends Controller{
         $ukp11->save();
         $pemohon->save();
 
+
+        return response()->json([
+            'success' => 1,
+        ]);
+    }
+
+    public function upload_form(Request $request) {
+        $id = $request->input('pemohon_id');
+        $form = $request->input('file');
+
+        $pemohon = Pemohon::find($id);
+        $ukp11= $pemohon->pemohonUkp11;
+
+        $upload = CommonController::base64_upload($form);
+
+        $file = new File;
+        $file->content_bytes = $upload['base64'];
+        $file->ext = $upload['ext'];
+        $file->filename = $upload['filename'];
+        $file->save();
+
+        $ukp11->file_id = $file->id;
+        $ukp11->save();
 
         return response()->json([
             'success' => 1,

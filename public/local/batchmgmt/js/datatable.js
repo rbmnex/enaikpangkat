@@ -145,6 +145,7 @@ function load_staff() {
             // {data: 'kod_gred'},
             // {data: 'jurusan'},
             // {data: 'tempat'},
+            {data: 'kod_kategori_penempatan'},
             {data: 'tkh_lantikan'},
             {data: 'kod_kanan'},
 
@@ -157,6 +158,14 @@ function load_staff() {
                 'targets': 0,
                 'checkboxes': {
                    'selectRow': true
+                }
+             },
+             {
+                'targets' : 4,
+                'searchable' : false,
+                'orderable' : false,
+                'render' : function (data, type, full, meta) {
+                    return (full.kod_kategori_penempatan == 2 ? 'KADER' : 'BUKAN KADER');
                 }
              }
         ],
@@ -234,6 +243,7 @@ function search_staff(tahun,jurusan,gred) {
             // {data: 'kod_gred'},
             // {data: 'jurusan'},
             // {data: 'tempat'},
+            {data: 'kod_kategori_penempatan'},
             {data: 'tkh_lantikan'},
             {data: 'kod_kanan'},
         ],
@@ -245,6 +255,14 @@ function search_staff(tahun,jurusan,gred) {
                 'targets': 0,
                 'checkboxes': {
                    'selectRow': true
+                }
+             },
+             {
+                'targets' : 4,
+                'searchable' : false,
+                'orderable' : false,
+                'render' : function (data, type, full, meta) {
+                    return (full.kod_kategori_penempatan == 2 ? 'KADER' : 'BUKAN KADER');
                 }
              }
         ],
