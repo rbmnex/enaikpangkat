@@ -135,13 +135,13 @@ class ViewController extends Controller
                 }
             } else if($view == 'l') {
                 if(Laratrust::hasRole('secretariat')) {
-                    array_push($includes, ViewController::LNPK_FORM);
                     if($pemohon->jenis_penempatan != 2) {
                         array_push($includes, ViewController::HOS_VIEW);
                         array_push($includes, ViewController::HOD_VIEW);
                     } else {
                         array_push($includes, ViewController::KADER_VIEW);
                     }
+                    array_push($includes, ViewController::LNPK_FORM);
                 } else {
                     if($pemohon->jenis_penempatan != 2) {
                         array_push($includes, ViewController::LNPK_VIEW);
@@ -156,7 +156,12 @@ class ViewController extends Controller
             } else if($view == 'h') {
                 $user = Auth::user();
                 if($user->hasRole('hod') && $user->nokp == $pemohon->nokp_ketua_jabatan) {
-                    array_push($includes, ViewController::HOD_FORM);
+                    array_push($includes, ViewController::HOS_VIEW);
+                    if(empty($pemohon->perakuan_ketua_jabatan_tkh)) {
+                        array_push($includes, ViewController::HOD_FORM);
+                    } else {
+                        array_push($includes, ViewController::HOD_VIEW);
+                    }
                 } else {
                     if($pemohon->jenis_penempatan != 2) {
                         array_push($includes, ViewController::LNPK_VIEW);
@@ -172,7 +177,11 @@ class ViewController extends Controller
             } else if($view == 's') {
                 $user = Auth::user();
                 if($user->hasRole('clerk') && $user->nokp == $pemohon->pengesahan_perkhidmatan_nokp) {
-                    array_push($includes, ViewController::HOS_FORM);
+                    if(empty($pemohon->pengesahan_perkhidmatan_tkh)) {
+                        array_push($includes, ViewController::HOS_FORM);
+                    } else {
+                        array_push($includes, ViewController::HOS_VIEW);
+                    }
                 } else {
                     if($pemohon->jenis_penempatan != 2) {
                         array_push($includes, ViewController::LNPK_VIEW);
@@ -381,7 +390,7 @@ class ViewController extends Controller
         if(!$ketua_user->hasRole('hod')) {
             $ketua_user->attachRole('hod');
         }
-            $secure_link = Crypt::encryptString($pemohon->id);
+                $secure_link = Crypt::encryptString($pemohon->id);
                 $content = [
                     'link' => url('/')."/form/ukp12/eview/".$secure_link."?view=h",
                     'gred' => $pemohon->gred,

@@ -84,7 +84,8 @@
                             Cawangan Pengurusan Dasar & Korporat<br>
                             Tingkat 29, Blok G,<br>
                             Ibu Pejabat JKR<br>
-                            <span style="font-weight: bold">50480 KUALA LUMPUR</span><br><br>
+                            <span style="font-weight: bold">50480 KUALA LUMPUR</span><span style="font-weight: bold">(u.p. : Urusetia Kenaikan Pangkat - emel: urusetiakenaikanpangkat@jkr.gov.my)</span><br>
+                            <span>Fax :03-26188649</span><br><br>
 
 
                             Tuan,<br><br>Merujuk  kepada  surat  Pemberitahuan  Pertukaran:</label>

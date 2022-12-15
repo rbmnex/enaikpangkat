@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-form-group col-md-12">
             <label class="col-form-label" for="alamat_bertugas">Alamat Tempat Bertugas</label>
-            <textarea row=6 readonly id="alamat_bertugas" class="form-control" name="alamat_bertugas" value="" placeholder="">{{ $profile['alamat_pejabat'] }}</textarea>
+            <textarea row=6 readonly id="alamat_bertugas" class="form-control" name="alamat_bertugas" value="" placeholder="">{{ strtoupper($profile['alamat_pejabat']) }}</textarea>
         </div>
         <div class="col-form-group col-md-6">
             <label class="col-form-label" for="no_tel_pejabat">No Telefon Pejabat</label>

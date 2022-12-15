@@ -58,7 +58,8 @@ class CommonController extends Controller
 
         return [
             'base64' => base64_encode(file_get_contents($img)),
-            'ext' => $extension
+            'ext' => $extension,
+            'filename' => $img->getClientOriginalName()
         ];
     }
 

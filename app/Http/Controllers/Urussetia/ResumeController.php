@@ -119,8 +119,9 @@ class ResumeController extends Controller
                     $lbk = LampiranBebanKerja::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                     $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                     $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                    $lpn = LampiranPendedahan::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
 
-                    if($lbk && $lk && $lp){
+                    if($lbk && $lk && $lp && $lpn){
                         return '<div class="badge badge-primary">Lengkap</div>';
                     }else{
                         return '<div class="badge badge-danger">Tidak Lengkap</div>';
@@ -137,7 +138,7 @@ class ResumeController extends Controller
 
         $search = $request->all()['search']['value'];
 
-        $model = DB::table('resume');
+        $model = Resume::with('getLampiran')->limit(10);
 
         if($search){
             $model->where('nokp', 'ilike', '%'.$search.'%')
@@ -183,8 +184,9 @@ class ResumeController extends Controller
                     $lbk = LampiranBebanKerja::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                     $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                     $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                     $lpn = LampiranPendedahan::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
 
-                    if($lbk && $lk && $lp){
+                    if($lbk && $lk && $lp && $lpn){
                         return '<div class="badge badge-primary">Lengkap</div>';
                     }else{
                         return '<div class="badge badge-danger">Tidak Lengkap</div>';
@@ -663,23 +665,25 @@ public function lampiran3($ic)
 
       public function email(Request $request,$ic) {
          $nokp = $request->input('nokp');
-        $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
+         $user = DB::connection('pgsql')->table('users as u')
+             ->where('u.nokp',$ic)->first()? true : false;
+         $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
              ->select('np.nokp','np.nama','np.email','np.kod_gred','np.jawatan')
              ->where('np.nokp',$ic)->first();
-       $content = [
-                     'link' => url('/urussetia/resume/display/8?kp='.$ic)
+        $content = [
+                     'link' => url('user/resume/lampiran')
 
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
-                  $message->to('munirahj@jkr.gov.my',$pegawai->nama);
+                  $message->to('haryana@vn.net.my',$pegawai->nama);
 
 
                     $message->subject('KEMASKINI RESUME');
 
                 });
 
-
+         
         $model = new Resume;
         $model->flag = 1;
         $model->status = 1;
@@ -691,7 +695,6 @@ public function lampiran3($ic)
         $model->created_by = $pegawai->nokp;
         $model->updated_by = $pegawai->nokp;
          $model->save();
-
 
         return response()->json([
             'success' => 1,

@@ -23,7 +23,7 @@ DatatableUI.init({
     columnDef: [
         {
             // Actions
-            targets: 3,
+            targets: 2,
             title: 'Jawatan',
             orderable: false,
             searchable: false,

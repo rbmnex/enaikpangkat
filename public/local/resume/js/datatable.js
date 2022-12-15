@@ -159,7 +159,7 @@ $('.table-terpilih').DataTable({
         // },
         {
             // Actions
-            targets: -1,
+             targets: -1,
             title: 'Tindakan',
             orderable: false,
             render: function (data, type, full, meta) {

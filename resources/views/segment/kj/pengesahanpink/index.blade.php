@@ -38,7 +38,7 @@
                             <th>TINDAKAN</th>
                         </tr>
                         </thead>
-                        <tfoot>
+                        {{-- <tfoot>
                         <tr>
                             <th>NOKP</th>
                             <th>NAMA</th>
@@ -46,7 +46,7 @@
                             <th>STATUS</th>
                             <th>TINDAKAN</th>
                         </tr>
-                        </tfoot>
+                        </tfoot> --}}
                     </table>
                 </div>
             </div>

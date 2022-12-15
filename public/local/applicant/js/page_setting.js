@@ -46,7 +46,7 @@ DatatableUI.init({
                 } else if(status == "PT") {
                     text = 'Tolak Tawaran';
                 } else if(status == "SP") {
-                    text = 'Dalam Proses';
+                    text = 'Menunggu Penilaian LNPT';
                 } else if(status == "LL") {
                     text = 'Calon Berjaya';
                 } else if(status == "GL") {

@@ -44,7 +44,7 @@ DatatableUI.init({
                     );
                 } else if(row_flag == 'MJ'){
                     return (
-                        '<div class="badge badge-warning">Menunggu Jawapan</div>'
+                        '<div class="badge badge-warning">Menunggu Pengesahan Calon</div>'
                     );
                 } else if(row_flag == 'TL'){
                     return (

@@ -24,10 +24,12 @@ class UserMgmtController extends Controller
 
     public function senarai_pengguna(Request $request) {
         $model = DB::connection('pgsql')->table('users as ur')
-            ->leftJoin('peribadi as pr','pr.users_id', 'ur.id')
+            //->leftJoin('peribadi as pr','pr.users_id', 'ur.id')
             ->leftJoin('penempatan as pp', 'pp.user_id', 'ur.id')
-            ->select('ur.name','ur.nokp','pp.jawatan','pp.unit','pp.bahagian','pp.cawangan','pp.pejabat', 'ur.email','ur.id as user_id', 'pr.id as peribadi_id', 'pp.id as penempatan_id', 'ur.flag')
-            ->where('ur.type', 1)->where('pr.flag',1)
+            // ->select('ur.name','ur.nokp','pp.jawatan','pp.unit','pp.bahagian','pp.cawangan','pp.pejabat', 'ur.email','ur.id as user_id', pr.id asperibadi_id,'pp.id as penempatan_id', 'ur.flag')
+            ->select('ur.name','ur.nokp','pp.jawatan','pp.unit','pp.bahagian','pp.cawangan','pp.pejabat', 'ur.email','ur.id as user_id', 'pp.id as penempatan_id', 'ur.flag')
+            //->where('pr.type', 1)
+            ->where('ur.flag',1)
             ->get();
 
             return DataTables::of($model)
@@ -35,9 +37,9 @@ class UserMgmtController extends Controller
                     'data-user-id' => function($data) {
                         return $data->user_id;
                     },
-                    'data-peribadi-id' => function($data) {
-                        return $data->peribadi_id;
-                    },
+                    // 'data-peribadi-id' => function($data) {
+                    //     return $data->peribadi_id;
+                    // },
                     'data-nokp' => function($data) {
                         return $data->nokp;
                     }

@@ -1,6 +1,6 @@
 $(document).on('click', '.semak-pengesahan', function(){
     let pemohon_id = $(this).attr('data-pemohon');
-    window.location.href = window.location.origin + '/kb/pengesahan-pink/update-pengesahan/' + pemohon_id;
+    window.location.href = Common.getUrl() + '/kb/pengesahan-pink/update-pengesahan/' + pemohon_id;
 });
 
 $(document).on('click', '#button-setuju, #button-tidak-setuju', function(){

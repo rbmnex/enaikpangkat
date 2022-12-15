@@ -72,7 +72,7 @@ class ApplicationController extends Controller
                 'status' => $pemohon->status,
                 'rank' => $pemohon->ranking,
                 'bil' => $permohonan->bil_mesyuarat,
-                'tkh' => empty($permohonan->tarikh_mesyuarat) ? '' : \Carbon\Carbon::parse($permohonan->tarikh_mesyuarat)->format('Y-m-d')
+                'tkh' => empty($permohonan->tarikh_mesyuarat) ? '' : \Carbon\Carbon::parse($permohonan->tarikh_mesyuarat)->format('d-M-Y')
             ]
         ]);
     }
@@ -102,7 +102,7 @@ class ApplicationController extends Controller
         if($record->save()) {
             $form->bil_mesyuarat = $bil_mesyuarat;
             $form->tarikh_mesyuarat = empty($tkh_mesyuarat) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $tkh_mesyuarat)->format('Y-m-d');
-            $form->update_by = Auth::user()->nokp;
+            $form->updated_by = Auth::user()->nokp;
 
             $form->save();
 

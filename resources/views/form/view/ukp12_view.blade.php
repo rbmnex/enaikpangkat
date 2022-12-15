@@ -547,7 +547,7 @@
                                     @endforeach
                                     @if($profesionals->count() == 0)
                                     <tr data-profesional-id="">
-                                        <td colspan="5" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="6" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
 
 
