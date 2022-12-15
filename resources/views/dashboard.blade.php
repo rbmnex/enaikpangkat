@@ -30,7 +30,7 @@
                 {{-- <h2 class="content-header-title float-left mb-0">ENaik Pangkat</h2> --}}
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Laman Utama</a>
+                        <li class="breadcrumb-item"><a href="{{ url('/dashboard') }}">Laman Utama</a>
                         </li>
                     </ol>
                 </div>

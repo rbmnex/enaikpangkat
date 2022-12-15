@@ -103,6 +103,7 @@ class PemangkuTawaranController extends Controller{
     }
 
     public function updateTawaranPost(Request $request){
+
         $tawaran_setuju = $request->input('tawaran_setuju');
         $tawaran_tkh_kuatkuasa_baru = $request->input('tawaran_tkh_kuatkuasa_baru');
         $tawaran_tkh_lapor_diri = $request->input('tawaran_tkh_lapor_diri');
@@ -125,54 +126,62 @@ class PemangkuTawaranController extends Controller{
         $ukp11->tkh_kuatkuasa_pemangkuan = date('Y-m-d', strtotime($tawaran_tkh_mula_tugas));
         $ukp11->id_surat_pink = $pemohon->pemohonPink->id;
 
-        $kerani = ListPegawai2::getMaklumatPegawai($tawaran_ketua_bahagian);
-        $ketuaJabatan = ListPegawai2::getMaklumatPegawai($tawaran_ketua_jabatan);
+        if($tawaran_ketua_bahagian) {
+            $kerani = ListPegawai2::getMaklumatPegawai($tawaran_ketua_bahagian);
 
-        $ukp11->nokp_kerani = $tawaran_ketua_bahagian;
-        $ukp11->nama_kerani = $kerani['name'];
-        $ukp11->jawatan = $kerani['jawatan'];
-        $ukp11->cawangan = $kerani['waran_name']['cawangan'];
+            $ukp11->nokp_kerani = $tawaran_ketua_bahagian;
+            $ukp11->nama_kerani = $kerani['name'];
+            $ukp11->jawatan = $kerani['jawatan'];
+            $ukp11->cawangan = $kerani['waran_name']['cawangan'];
 
-        $keraniUser = User::upsert($tawaran_ketua_bahagian);
+            $keraniUser = User::upsert($tawaran_ketua_bahagian);
+            $checkKerani = RoleUser::where('role_id', 5)->where('user_id', $keraniUser->id)->first();
 
-        $ukp11->nokp_ketua_jabatan = $tawaran_ketua_jabatan;
-        $ukp11->nama_ketua_jabatan = $ketuaJabatan['name'];
-        $ukp11->jawatan_ketua_jabatan = $ketuaJabatan['jawatan'];
-        $ukp11->cawangan_ketua_jabatan = $ketuaJabatan['waran_name']['cawangan'];
-
-        $kbUser = User::upsert($tawaran_ketua_jabatan);
-
-        $checkKerani = RoleUser::where('role_id', 5)->where('user_id', $keraniUser->id)->first();
-        $checkKB = RoleUser::where('role_id', 6)->where('user_id', $kbUser->id)->first();
-
-        if(!$checkKerani){
-            DB::table('role_user')->insert([
-                'role_id' => 5,
-                'user_id' => $keraniUser->id,
-                'user_type' => 'App\Models\User',
-            ]);
+            if(!$checkKerani){
+                DB::table('role_user')->insert([
+                    'role_id' => 5,
+                    'user_id' => $keraniUser->id,
+                    'user_type' => 'App\Models\User',
+                ]);
+            }
         }
 
-        if(!$checkKB) {
-            DB::table('role_user')->insert([
-                'role_id' => 6,
-                'user_id' => $kbUser->id,
-                'user_type' => 'App\Models\User',
-            ]);
+        if($tawaran_ketua_jabatan) {
+            $ketuaJabatan = ListPegawai2::getMaklumatPegawai($tawaran_ketua_jabatan);
+
+            $ukp11->nokp_ketua_jabatan = $tawaran_ketua_jabatan;
+            $ukp11->nama_ketua_jabatan = $ketuaJabatan['name'];
+            $ukp11->jawatan_ketua_jabatan = $ketuaJabatan['jawatan'];
+            $ukp11->cawangan_ketua_jabatan = $ketuaJabatan['waran_name']['cawangan'];
+
+            $kbUser = User::upsert($tawaran_ketua_jabatan);
+
+            $checkKB = RoleUser::where('role_id', 6)->where('user_id', $kbUser->id)->first();
+
+            if(!$checkKB) {
+                DB::table('role_user')->insert([
+                    'role_id' => 6,
+                    'user_id' => $kbUser->id,
+                    'user_type' => 'App\Models\User',
+                ]);
+            }
         }
+               if($tawaran_tkh_tangguh_start != '' && $tawaran_tkh_tangguh_end != ''){
+                    $ukp11->tkh_tangguh_mula = date('Y-m-d', strtotime($tawaran_tkh_tangguh_start));
+                    $ukp11->tkh_tangguh_akhir = date('Y-m-d', strtotime($tawaran_tkh_tangguh_end));
+                   if($tawaran_surat_tangguh){
+                       $upload = CommonController::base64_upload($tawaran_surat_tangguh);
+                       $file = new File;
+                       $file->content_bytes = $upload['base64'];
+                       $file->ext = $upload['ext'];
+                       $file->filename = $ukp11->id.'.'.$upload['ext'];
+                       $file->save();
+                   }
+               }
+
         $ukp11->save();
         $pemohon->save();
 
-//        if($tawaran_tkh_tangguh_start == '' && $tawaran_tkh_tangguh_end == ''){
-//            if($tawaran_surat_tangguh){
-//                $upload = CommonController::base64_upload($tawaran_surat_tangguh);
-//                $file = new File;
-//                $file->content_bytes = $upload['base64'];
-//                $file->ext = $upload['ext'];
-//                $file->filename = $ukp11->id.'.'.$upload['ext'];
-//                $file->save();
-//            }
-//        }
 
         return response()->json([
             'success' => 1,

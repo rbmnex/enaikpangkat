@@ -103,7 +103,7 @@ DatatableUI.init({
                     btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light ukp11-view">'+ feather.icons['download'].toSvg() +' UKP 11</button>';
                 }
 
-                if(full.email_status == "FAILED" || full.email_status == "UNKNOWN") {
+                if((full.email_status == "FAILED" || full.email_status == "UNKNOWN") && status == "BH") {
                     btn +='<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light calon-resend">'+ feather.icons['mail'].toSvg() +' Hantar Semula</button>';
                 }
 

@@ -42,7 +42,7 @@ class QualifyController extends Controller
                     return $data->pemohonPeribadi->nama;
                 })
                 ->addColumn('kumpulan',function($data) {
-                    return $data->pemohonPermohonan->title;
+                    return $data->pemohonPermohonan->tajuk;
                 })
                 ->rawColumns(['aksi'])
                 ->make(true);

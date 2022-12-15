@@ -7,6 +7,7 @@ $('.table-kumpulan').DataTable({
     ajax: getUrl() + '/urussetia/kumpulan/senarai',
     lengthChange:true,
     columns: [
+        {data: 'id', visible: false},
         {data: 'name'},
         {data: 'status'},
         {data: 'aksi'},
@@ -16,8 +17,13 @@ $('.table-kumpulan').DataTable({
     },
     columnDefs: [
         {
+            target: 0,
+            visible: false,
+            searchable: false,
+        },
+        {
             // Actions
-            targets: 0,
+            targets: 1,
             title: 'Nama',
             orderable: true,
             render: function (data, type, full, meta) {
@@ -114,6 +120,7 @@ $('.table-kumpulan').DataTable({
             }
         }
     },
+    order: [[0, 'desc']],
     language: {
         paginate: {
             // remove previous & next text from pagination

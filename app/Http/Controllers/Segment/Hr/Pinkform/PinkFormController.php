@@ -23,14 +23,14 @@ class PinkFormController extends Controller{
         ->join('peribadi as b','p.id_peribadi','b.id')
         ->join('permohonan_ukp12 as u','p.id_permohonan','u.id')
         ->leftJoin('surat_pink as pk','p.id','pk.id_pemohon')
-        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status','pk.email_status')
+        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status','pk.email_status', 'pk.fail_id')
         ->whereIn('p.status', array(Pemohon::WAITING_OFFER, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED, Pemohon::REFUSED))
         ->where('p.flag',1)
         ->where('jenis','UKP12')
         ->where('p.delete_id',0)
         ->where('p.flag',1)
-        ->where('pk.delete_id',0)
-        ->where('pk.flag',1)
+        // ->where('pk.delete_id',0)
+        // ->where('pk.flag',1)
         ->get();
 
         // $model->each(function($item,$key){
@@ -57,19 +57,20 @@ class PinkFormController extends Controller{
     public function hantar(Request $request){
         $pinks = SuratPink::where('id_pemohon')->get();
         $id = 0;
-        if($pinks->count() > 1) {
+        $pink = NULL;
+        if($pinks->count() > 0) {
             foreach($pinks as $p){
                 $p->delete();
             }
-            $pink = CommonController::getModel(SuratPink::class, $id);
+            $pink = new SuratPink;
         } else if($pinks->count() == 1) {
             $id = $pinks[0]->id;
-            $pink = CommonController::getModel(SuratPink::class, 1, $id);
+            $pink = SuratPink::find($id);
         } else if($pinks->count() == 0) {
             $id = 0;
-            $pink = CommonController::getModel(SuratPink::class, $id);
+            $pink = new SuratPink;
         }
-        $pink = CommonController::getModel(SuratPink::class, $id);
+
         $pink->id_pemohon = $request->input('pemohon_id');
         $pink->no_surat = $request->input('pinkform_name');
         $pink->tkh_lapor_diri = CommonController::dateAugment($request->input('pinkform_tkh'));
@@ -91,24 +92,23 @@ class PinkFormController extends Controller{
         $pink->save();
 
         $ukp11s = PenerimaanUkp11::where('id_surat_pink', $pink->id)->get();
-        if($ukp11s->count() > 1) {
+        if($ukp11s->count() > 0) {
             foreach($ukp11s as $u){
                 $u->delete();
             }
-            $ukp11 = CommonController::getModel(PenerimaanUkp11::class, 0);
+            $ukp11 = new PenerimaanUkp11;
         } else if($ukp11s->count() == 1) {
             $idp = $ukp11s[0]->id;
-            $ukp11 = CommonController::getModel(PenerimaanUkp11::class, 1, $idp);
+            $ukp11 = PenerimaanUkp11::find($idp);
         } else if($pinks->count() == 0) {
-
-            $ukp11 = CommonController::getModel(PenerimaanUkp11::class, 0);
+            $ukp11 = new PenerimaanUkp11;
         }
         //$ukp11 = CommonController::getModel(PenerimaanUkp11::class, 0);
         $ukp11->id_surat_pink = $pink->id;
         $ukp11->id_pemohon = $pink->id_pemohon;
         $ukp11->save();
 
-        $pemohon = CommonController::getModel(Pemohon::class, 1, $pink->id_pemohon);
+        $pemohon = Pemohon::find($pink->id_pemohon);
         $pemohon->status = Pemohon::WAITING_REPLY;
         $pemohon->save();
         $pemohon->loadMissing('pemohonPeribadi');

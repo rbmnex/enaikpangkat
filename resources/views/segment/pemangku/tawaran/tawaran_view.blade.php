@@ -109,14 +109,14 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
-                    <div class="form-group row" style="background-color:yellow;margin:1px;outline: 2px dotted red;">
+                    {{-- <div class="form-group row" style="background-color:yellow;margin:1px;outline: 2px dotted red;">
                         <label for="" class="col-sm-12 col-form-label">
                             Jika pegawai memilih butang TIDAK BERSETUJU, notifikasi/peringatan dipaparkan kepada pegawai seperti berikut:
 
                             ‘Berdasarkan kepada Pekeliling Perkhidmatan Awam Bil. 7 Tahun 2010: Sekiranya pegawai menolak tawaran pemangkuan, pihak Lembaga Kenaikan Pangkat Perkhidmatan Pegawai (LKPPA) boleh mengenakan penalti dengan tidak menimbangkan pemangkuan pegawai bagi tempoh enam (6) bulan dari tarikh surat penolakan/tarikh melaporkan diri yang ditetapkan atau satu urusan, yang mana terkemudian.
 
                         </label>
-                    </div>
+                    </div> --}}
                     <br><br>
                     <div class="form-group row">
                         <label for="" class="col-sm-4 col-form-label" style="color:red">Ditawarkan pemangkuan ke gred</label>
@@ -214,7 +214,7 @@
                             (Tuan/puan diminta untuk melaporkan diri pada tarikh yang telah ditetapkan. Sekiranya penangguhan/pelepasan tuan/puan melebihi 14 hari (termasuk cuti mingguan dan kelepasan am), tarikh kuat kuasa pemangkuan tuan/puan adalah mulai tarikh tuan/puan kembali melaporkan diri dan melaksanakan tugas sepenuh masa di jawatan yang dipangku. Elaun pemangkuan hanya layak dibayar mulai tarikh tuan/puan menjalankan tugas yang dipangku secara sepenuh masa. Semua  penangguhan/pelepasan hendaklah dipersetujui Ketua Jabatan (yang baru) dan salinan kelulusan penangguhan disertakan bersama)
                         </label>
                     </div>
-                    <div class="form-group row">
+                    {{-- <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Ketua Bahagian Perkhidmatan/ Kerani Perkhidmatan:</label>
                         <div class="col-sm-5">
                             <select class="form-select form-control" id="tawaran-ketua-bahagian">
@@ -231,12 +231,12 @@
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
-                    </div>
-                    <div class="row">
+                    </div> --}}
+                    {{-- <div class="row">
                         <div class="col-md-12" style="width:100%">
                             <button class="btn btn-success" style="width:100%" id="simpan-tawaran">Simpan</button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
         </div>
