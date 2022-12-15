@@ -89,7 +89,7 @@
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/urussetia/resume/terpilih') }}">
                             <i data-feather='file-text'></i>
-                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Pegawai<br/>Terpilih</span>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Perlu<br/>Kemaskini</span>
                             </a>
                     </li>
                 </ul>
