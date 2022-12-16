@@ -297,10 +297,10 @@ class BatchMgmtController extends Controller
                 try {
                     Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
                         // testing purpose
-                        $message->to('munirahj@jkr.gov.my',$calon->nama);
+                        //$message->to('munirahj@jkr.gov.my',$calon->nama);
                         //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                        //$message->to($calon->email,$calon->nama);
+                        $message->to($calon->email,$calon->nama);
                         $message->subject('URUSAN PEMANGKUAN'.$calon->jawatan.' GRED '.$calon->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                     });
@@ -572,10 +572,10 @@ class BatchMgmtController extends Controller
             try {
                 Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
                     // testing purpose
-                    $message->to('munirahj@jkr.gov.my',$pegawai[0]->nama);
+                    //$message->to('munirahj@jkr.gov.my',$pegawai[0]->nama);
                     //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                    //$message->to($pegawai->email,$pegawai->nama);
+                    $message->to($pegawai->email,$pegawai->nama);
                     $message->subject('URUSAN PEMANGKUAN '.$pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                 });

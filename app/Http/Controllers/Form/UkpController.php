@@ -98,11 +98,11 @@ class UkpController extends Controller
     public function open(Request $request,$id) {
         $nokp = $request->input('kp');
 
-        $access = $this->verify_applicant($nokp,$id);
+        // $access = $this->verify_applicant($nokp,$id);
 
-        if(!$access) {
-            return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
-        }
+        // if(!$access) {
+        //     return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
+        // }
 
 
         $profile = NULL;
@@ -856,7 +856,7 @@ class UkpController extends Controller
 
                 Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
                     // testing purpose
-                    $message->to('enaikpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
+                    $message->to('urusetiakenaikanpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
 
                     //$message->from($formdata->email,$formdata->nama);
 
@@ -1176,8 +1176,8 @@ class UkpController extends Controller
                         // testing purpose
                         //$message->to('rubmin@vn.net.my',$kerani_user->name);
 
-                        $message->to('munirahj@jkr.gov.my',$kerani_user->name);
-                        //$message->to($kerani_user->email,$kerani_user->name);
+                        //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
+                        $message->to($kerani_user->email,$kerani_user->name);
                         $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
                     });
@@ -1197,7 +1197,7 @@ class UkpController extends Controller
 
             Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
                 // testing purpose
-                $message->to('enaikpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
+                $message->to('urusetiakenaikanpangkat','Urus Setia Kenaik Pangkat');
                 //$message->from($formdata->email,$formdata->nama);
 
                 //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');

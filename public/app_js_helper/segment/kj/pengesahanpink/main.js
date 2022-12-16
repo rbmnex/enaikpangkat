@@ -6,10 +6,10 @@ $(document).on('click', '.semak-pengesahan', function(){
 $(document).on('click', '#button-setuju, #button-tidak-setuju', function(){
     let pressed_check = $('#pressed-check').val();
 
-    if(pressed_check == 0){
-        alert('Sila Preview Borang Tawaran Terdahulu');
-        return false;
-    }
+    // if(pressed_check == 0){
+    //     alert('Sila Preview Borang Tawaran Terdahulu');
+    //     return false;
+    // }
 });
 
 $(document).on('click', '.semak-pdf', function(){
