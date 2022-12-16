@@ -19,7 +19,7 @@
                         <td>{{ $org->diskripsi }}</td>
                         <td>
                         <button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-pencapaian"><i data-feather='trash-2'></i> Hapus</button><br/>
-                        <button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-pencapaian"><i data-feather='check-square'></i> Kemaskini</button></td>
+                        <!-- <button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-pencapaian"><i data-feather='check-square'></i> Kemaskini</button></td> -->
                     </tr>
                 @endforeach
                 @if($lampiranpencapaian->count() == 0)
