@@ -119,9 +119,9 @@ class ApplicationController extends Controller
                 try {
                     Mail::mailer('smtp')->send('mail.simpanan-mail',$content,function($message) use ($record) {
                         // testing purpose
-                        $message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
+                        //$message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
                         //
-                        //$message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+                        $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
 
                         //$message->to($kerani_user->email,$kerani_user->name);
                         $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
@@ -157,8 +157,8 @@ class ApplicationController extends Controller
                         // testing purpose
                         //$message->to('enaikpangkat@jkr.gov.my',$record->pemohonPeribadi->nama);
                         //
-                        // $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
-                        $message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
+                        $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+                        //$message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
 
                         //$message->to($kerani_user->email,$kerani_user->name);
                         $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');

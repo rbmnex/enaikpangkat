@@ -676,14 +676,14 @@ public function lampiran3($ic)
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
-                  $message->to('haryana@vn.net.my',$pegawai->nama);
+                  $message->to($pegawai->email,$pegawai->nama);
 
 
                     $message->subject('KEMASKINI RESUME');
 
                 });
 
-         
+
         $model = new Resume;
         $model->flag = 1;
         $model->status = 1;

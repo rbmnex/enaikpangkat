@@ -136,8 +136,8 @@ class PinkFormController extends Controller{
                 // testing purpose
                 //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
-    //            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
-                $message->to('munirahj@jkr.gov.my',$pemohon->pemohonPeribadi->nama);
+                $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
+                //$message->to('munirahj@jkr.gov.my',$pemohon->pemohonPeribadi->nama);
                 $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
             });
@@ -200,8 +200,8 @@ class PinkFormController extends Controller{
                 // testing purpose
                 //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
-    //            $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
-                $message->to('munirahj@jkr.gov.my',$pemohon->pemohonPeribadi->nama);
+                $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
+                //$message->to('munirahj@jkr.gov.my',$pemohon->pemohonPeribadi->nama);
                 $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
             });

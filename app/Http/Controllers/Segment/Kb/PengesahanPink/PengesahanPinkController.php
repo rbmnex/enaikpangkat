@@ -14,6 +14,7 @@ use Yajra\DataTables\DataTables;
 use App\Models\File;
 use Pdf;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PengesahanPinkController extends Controller{
     public function index(){
@@ -147,11 +148,33 @@ class PengesahanPinkController extends Controller{
     }
 
     public function setuju($setuju, $pemohon_id){
+        $pemohon = Pemohon::with('pemohonPeribadi', 'pemohonPink', 'pemohonPermohonan')->where('id', $pemohon_id)->first();
         $data = PenerimaanUkp11::where('id_pemohon', $pemohon_id)->first();
         $data->kerani_tkh = $setuju == 1 ? date('Y-m-d') : date('Y-m-d');
         $data->save();
+        $kerani = ListPegawai2::getMaklumatPegawai($data->nokp_ketua_jabatan);
+        try{
 
+            $content = [
+                'link' => url('/')."/kj/pengesahan-pink/",
+                'gred' => $pemohon->gred,
+                'jawatan' => $pemohon->jawatan,
+                'nokp' => $pemohon->pemohonPeribadi->nokp,
+                'nama' => $pemohon->pemohonPeribadi->nama
+            ];
+            Mail::mailer('smtp')->send('mail.pengesahan-lapordiri',$content,function($message) use ($kerani) {
+                // testing purpose
+                //$message->to('rubmin@vn.net.my',$kerani_user->name);
 
+                //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
+                $message->to($kerani['email'],$kerani['name']);
+                $message->subject('PENGESAHAN LAPOR DIRI (BORANG UKP 11) PEGAWAI UNTUK URUSAN PEMANGKUAN');
+
+            });
+
+        } catch(\Exception $e) {
+
+        }
 
         return redirect()->action(
             [PengesahanPinkController::class, 'index']

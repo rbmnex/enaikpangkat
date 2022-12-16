@@ -16,6 +16,7 @@ use App\Models\File;
 use Pdf;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class PemangkuTawaranController extends Controller{
     public function index(){
@@ -116,7 +117,7 @@ class PemangkuTawaranController extends Controller{
         $tawaran_tkh_tangguh_end = $request->input('tawaran_tkh_tangguh_end');
         $tawaran_surat_tangguh =  $request->file('tawaran_surat_tangguh');
 
-        $pemohon = Pemohon::find($pemohon_id);
+        $pemohon = Pemohon::with('pemohonPeribadi')->find($pemohon_id);
         $pemohon->status = $tawaran_setuju;
 
         $ukp11 = PenerimaanUkp11::where('id_pemohon', $pemohon_id)->where('flag',0)->where('delete_id',0)->first();
@@ -145,6 +146,29 @@ class PemangkuTawaranController extends Controller{
                     'user_id' => $keraniUser->id,
                     'user_type' => 'App\Models\User',
                 ]);
+            }
+
+            try{
+
+                $content = [
+                    'link' => url('/')."/kb/pengesahan-pink/",
+                    'gred' => $pemohon->gred,
+                    'jawatan' => $pemohon->jawatan,
+                    'nokp' => $pemohon->pemohonPeribadi->nokp,
+                    'nama' => $pemohon->pemohonPeribadi->nama
+                ];
+                Mail::mailer('smtp')->send('mail.pengesahan-lapordiri',$content,function($message) use ($kerani) {
+                    // testing purpose
+                    //$message->to('rubmin@vn.net.my',$kerani_user->name);
+
+                    //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
+                    $message->to($kerani['email'],$kerani['name']);
+                    $message->subject('PENGESAHAN LAPOR DIRI (BORANG UKP 11) PEGAWAI UNTUK URUSAN PEMANGKUAN');
+
+                });
+
+            } catch(\Exception $e) {
+
             }
         }
 
