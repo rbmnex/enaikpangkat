@@ -1,5 +1,7 @@
 Flatpickrinit.initAll('#pinkform-tkh-lapor-diri');
 
+Select2init.initAll();
+
 DatatableUI.init({
     selector: '.pinkform-table',
     columnList: [
