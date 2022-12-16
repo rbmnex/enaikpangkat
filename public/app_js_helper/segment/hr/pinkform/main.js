@@ -27,7 +27,9 @@ $(document).on('click', '#pinkform-hantar', function(){
     let v = validate.checkEmpty(
         validate.getValue('#pinkform-name', 'mix', 'Nama', 'pinkform_name'),
         validate.getValue('#pinkform-tkh-lapor-diri', 'mix', 'Tarikh Lapor Diri', 'pinkform_tkh'),
-        validate.getValue('#pinkform-borang', 'picture', 'Borang', 'pinkform_borang')
+        validate.getValue('#pinkform-borang', 'picture', 'Borang', 'pinkform_borang'),
+        validate.getValue('#pinkform-alamat-pejabat', 'picture', 'Borang', 'pinkform_alamat'),
+        validate.getValue('#pinkform-jenis-penempatan', 'picture', 'Borang', 'pinkform_jenis')
     );
 
     v.append('pemohon_id', $('#pemohon-id').val());

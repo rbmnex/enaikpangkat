@@ -46,7 +46,7 @@ Route::prefix('/pemangku')->group(function() {
         Route::get('/update/{id}',[PemangkuTawaranController::class,'updateTawaran'])->middleware(['auth']);
         Route::post('/update/process',[PemangkuTawaranController::class,'updateTawaranPost']);
         Route::get('/preview-pdf/{id}',[PemangkuTawaranController::class,'preview_pdf']);
-        Route::post('update/upload',[PemangkuTawaranController::class,'upload_form'])
+        Route::post('update/upload',[PemangkuTawaranController::class,'upload_form']);
     });
 });
 

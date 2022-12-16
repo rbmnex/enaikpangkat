@@ -22,6 +22,24 @@
                     </div>
                     <div class="col-xl-12 col-md-6 col-12">
                         <div class="mb-1 form-group">
+                            <label class="form-label" for="basicInput">Alamat Pejabat Baru</label>
+                            <textarea class="form-control" rows="5" id="pinkform-alamat-pejabat"></textarea>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-md-6 col-12">
+                        <div class="mb-1 form-group">
+                            <label class="form-label" for="basicInput">Jenis Penempatan</label>
+                            <select class="select2 form-select form-control" id="pinkform-jenis-penempatan">
+                                <option value="">-- Sila Pilih --</option>
+                                <option value="2">KADER</option>
+                                <option value="1">BUKAN KADER</option>
+                            </select>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-md-6 col-12">
+                        <div class="mb-1 form-group">
                             <label class="form-label" for="formFile">Muat Naik Borang Pink</label>
                             <input class="form-control" type="file" id="pinkform-borang" />
                             <div class="invalid-feedback"></div>

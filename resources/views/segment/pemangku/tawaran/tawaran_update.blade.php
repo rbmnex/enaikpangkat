@@ -234,6 +234,7 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
+                    @if(!empty($data->pemohonPink->jensi_penempatan) && ($data->pemohonPink->jensi_penempatan == 2))
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Muat Naik Borang UKP 11 (Kader):</label>
                         <div class="col-sm-5">
@@ -241,10 +242,13 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
+                    @endif
                     <div class="row">
                         <div class="col-md-12" style="width:100%">
-                            <button class="btn btn-success" style="width:100%" id="simpan-tawaran"><i data-feather='send'></i> Simpan</button><br/>
+                            <button class="btn btn-success" style="width:100%" id="simpan-tawaran"><i data-feather='send'></i> Simpan</button><br/><br/><br/>
+                            @if(!empty($data->pemohonPink->jensi_penempatan) && ($data->pemohonPink->jensi_penempatan == 2))
                             <button class="btn btn-primary" style="width:100%" id="download-tawaran"><i data-feather='download'></i> Muat Turun</button>
+                            @endif
                         </div>
                     </div>
                 </div>
