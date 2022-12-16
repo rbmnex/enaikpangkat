@@ -25,6 +25,7 @@
         </div>
     </div>
     <div class="content-body">
+        @include('segment.pemangku.tawaran.tawaran_view')
         <div class="row mb-2">
             <div class="col-3"></div>
             <div class="col-6" style="text-align:center">

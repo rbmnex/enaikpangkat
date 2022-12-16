@@ -15,3 +15,8 @@ $(document).on('click', '#button-setuju, #button-tidak-setuju', function(){
 $(document).on('click', '.semak-pdf', function(){
     $('#pressed-check').val(1);
 });
+
+$(document).on('click', '.btn-download', function(){
+    var file_id = $(this).attr('data-file-id');
+    window.open(getUrl() + '/common/id-download?fileid='+file_id,'_blank');
+});
