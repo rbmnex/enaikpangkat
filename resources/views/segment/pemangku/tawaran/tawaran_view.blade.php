@@ -1,4 +1,4 @@
-@extends('layouts.main')
+{{-- @extends('layouts.main')
 
 @section('CSS')
     @include('segment.layouts.custom_view_links.select2.css.index')
@@ -24,9 +24,10 @@
             </div>
         </div>
     </div>
-    <div class="content-body">
+    <div class="content-body"> --}}
         <div id="user-profile">
             <div class="card">
+                <h4 class="card-title">Borang UKP 11</h4>
                 <div class="card-body">
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Nama:</label>
@@ -59,7 +60,7 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Pejabat Alamat:</label>
                         <div class="col-sm-5">
-                            <textarea class="form-control" rows="5" id="tawaran-alamat" readonly>{{$data->pemohonPink->alamat}}</textarea>
+                            <textarea class="form-control" rows="5" id="tawaran-alamat" readonly>{{$data->pemohonUkp11->alamat_pejabat}}</textarea>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -146,7 +147,7 @@
                         <label for="" class="col-sm-12 col-form-label">
                             Nama: {{$data->pemohonPeribadi->nama}} <br>
                             No. Kad Pengenalan: {{$data->pemohonPeribadi->nokp}}  <br><br>
-                            Tarikh: {{date("d-m-Y")}}
+                            Tarikh: {{ empty($data->pemohonUkp11->tkh_status_terima_pemangkuan) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_status_terima_pemangkuan)->format('d-m-Y') }}
                         </label>
                     </div>
                     <div class="form-group row">
@@ -167,24 +168,25 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Berkuatkuasa Pemangkuan <br> (berdasarkan ‘pink form’):</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-kuatkuasa-baru" readonly/>
+                            <input type="text" class="form-control" id="tawaran-tkh-kuatkuasa-baru" value="{{ empty($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan_pinkform) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan_pinkform)->format('d-m-Y') }}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Melaporkan Diri:</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-lapor-diri" readonly/>
+                            <input type="text" class="form-control" id="tawaran-tkh-lapor-diri" value="{{ empty($data->pemohonUkp11->tkh_lapor_diri) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_lapor_diri)->format('d-m-Y') }}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Mula Bertugas:</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-mula-tugas" readonly/>
+                            <input type="text" class="form-control" id="tawaran-tkh-mula-tugas" alue="{{ empty($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan)->format('d-m-Y') }}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
+                    @if( !empty($data->pemohonUkp11->tkh_tangguh_mula) && !empty($data->pemohonUkp11->tkh_tangguh_akhir))
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Penangguhan:</label>
                         <div class="col-sm-3">
@@ -197,17 +199,14 @@
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="col-sm-2">
-                            <button class="btn btn-danger" id="padam-tangguh">Padam</button>
+                            <button class="btn btn-warning btn-download" data-file-id="{{ $data->pemohonUkp11->file_id }}">
+                                <span class="align-middle d-sm-inline-block d-none">Muat Turun Surat Penangguhan</span>
+                                <i data-feather="download" class="align-middle ml-sm-25 ml-0"></i>
+                            </button>
                         </div>
+                    </div>
 
-                    </div>
-                    <div class="form-group row show-surat-tangguh" style="display:none">
-                        <label for="" class="col-sm-3 col-form-label">Surat Penangguhan:</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" type="file" id="tawaran-surat-tangguh" />
-                            <div class="invalid-feedback"></div>
-                        </div>
-                    </div>
+                    @endif
                     <br>
                     <br>
                     <div class="form-group row">
@@ -241,8 +240,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <input type="hidden" id="pemohon_id" value="{{$pemohon_id}}">
+        <input type="hidden" id="pemohon_id" value="{{$pemohon_id}}">
+    {{-- </div>
 @endsection
 
 @section('JS')
@@ -260,4 +259,4 @@
     <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/update/settings.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/update/controller.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/pemangku/tawaran/update/main.js') }}"></script>
-@endsection
+@endsection --}}
