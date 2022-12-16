@@ -66,15 +66,6 @@
                     {{-- <div class="col-4 bg-light"><h2 class="text-primary">RESUME</h2></div> --}}
 
 
-
-  <br>
-  <div class="row">
-    <div class="col-2 bg-light">
-        <img src="{{ asset('images/kriteria.png') }}" />
-    </div>
-    <div class="col-4 bg-light" style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN</h2><br/>
-        <p><b>Pelaksanaan tugas secara sepenuh masa, suatu jawatan lain yang lebih tinggi grednya darioada gred hakiki</b> dalam skim perkhidmatan yang sema dengan kelulusan Lembaga Kenaikan Pangkat;</p>
-    </div>
         </div>
   <br>
   <div class="row">
@@ -99,7 +90,7 @@
             <div class="col-3 bg-light">
                 <div class="row">
                     <div class="col-2 bg-light" style="font-size:40px;">5</div>
-                    <div class="col-10 bg-light" style="font-size:9px;"><b>ISYTIHAR <br/>HARTA <br/></b></div>
+                    <div class="col-10 bg-light" style="font-size:9px; margin-top: 10px;"><b>ISYTIHAR <br/>HARTA <br/></b></div>
                 </div>
             </div>
             <div class="col-3 bg-light">
@@ -130,7 +121,7 @@
                </div>
        <div class="col-3 bg-light">
             <div class="row">
-                   <div class="col-2 bg-light" style="font-size:40px;">8</div>
+                   <div class="col-2 bg-light" style="font-size:40px;  text-align: left;">8</div>
                    <div class="col-10 bg-light" style="font-size:9px;"><b>SYARAT LAIN YANG <br/>DITETAPKAN OLEH <br/>LEMBAGA</b></div>
                </div>
         </div>
@@ -138,7 +129,7 @@
     </div>
   </div>
 
-  <div>
+  <div class="row">
       <div class="col-6 bg-light">
           <p>Dasar dan peraturan berhubung urusan pemangkuan dan kenaikan pangkat dalam perkhidmatan awam:
 
@@ -149,8 +140,8 @@
           </ul>   </p>
       </div>
   </div>
-      <div class="row">
-      <div class="col-9" style="text-align: justify;text-justify: inter-word;text-align: center; background-color: #388196; font-size: 8.5px; font-color:">
+      <div class="row" style="background-color: #388196; ">
+      <div class="col-9" style="text-align: justify;text-justify: inter-word;text-align: center; font-size: 8.5px; width:864px;" >
           <p style="color:white;">  HUBUNGI KAMI</p>
           <p style="color:white;">URUS SETIA KENAIKAN PANGKAT</p>
           <p style="color:white;">BAHAGIAN PENGURUSAN SUMBER MANUSIA, CAWANGAN DASAR DAN PENGURUSAN KORPORAT, <BR/>
@@ -161,9 +152,7 @@
 
         <p style="color:white;">Awam - 03-26188622/8413/8624 <br/> Arkitek,Ukur Bahan & Ukur Bangunan - 03-26188631/8477/8624<br/>Mekanikal & Elektrik - 03-26188623/8477/8624 <br/> JUSA - 03-26188639/8629/8626/8624</p>
       </div>
-      <div class="col-3">
-          <img width="200" height="150" src="{{ asset('images/jkr_logo.png') }}" />
-      </div>
+      <div class="col-3" style="margin-top: 70px;"><img src="{{ asset('images/jkr_logo.png') }}"  width="150" height="150" /></div>
 
   </div>
   </div>
