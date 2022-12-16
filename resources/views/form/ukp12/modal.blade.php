@@ -201,13 +201,19 @@
 
                     <div class="row">
                         <div class="col-xl-4 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="">Nama Projek</label>
+                            <label class="form-label" for="">Nama Projek edrttdr sdsd</label>
                             <input type="text" id="modal-post" name="projek-nama" class="form-control" placeholder=""  />
                         </div>
                         <div class="col-xl-4 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Kos</label>
-                            <input type="text" id="modal-title" name="projek-kos" class="form-control" placeholder=""  />
+                            <input type="text" id="modal-title" name="projek-kos" class="form-control" placeholder="cth: 40000000"  />
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                            <label class="form-label" for="" style="color:red; font-size=5px;">Masukkan nombor sahaja pada ruangan kos cth: 40000000</label>
+                        </div>
+
                     </div>
 
                     <div class="modal-footer">
