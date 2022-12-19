@@ -107,7 +107,7 @@
                                 <option value="TL">Setuju</option>
                                 <option value="PL">Tidak Setuju</option>
                             </select> --}}
-                            <input type="text" class="form-control" id="tawaran-rujukan" value="{{ empty($ukp11->status_terima_pemangkuan) ? '' : ($ukp11->status_terima_pemangkuan == 1 ? 'SETUJU' : 'TOLAK')}}" readonly/>
+                            <input type="text" class="form-control" id="tawaran-rujukan" value="{{ empty($data->pemohonUkp11->status_terima_pemangkuan) ? '' : ($data->pemohonUkp11->status_terima_pemangkuan == 1 ? 'SETUJU' : 'TOLAK')}}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -182,7 +182,7 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Mula Bertugas:</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-mula-tugas" alue="{{ empty($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan)->format('d-m-Y') }}" readonly/>
+                            <input type="text" class="form-control" id="tawaran-tkh-mula-tugas" value="{{ empty($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan)->format('d-m-Y') }}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

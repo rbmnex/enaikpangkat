@@ -120,7 +120,7 @@ class PemangkuTawaranController extends Controller{
         $pemohon = Pemohon::with('pemohonPeribadi')->find($pemohon_id);
         $pemohon->status = $tawaran_setuju;
 
-        $ukp11 = PenerimaanUkp11::where('id_pemohon', $pemohon_id)->where('flag',0)->where('delete_id',0)->first();
+        $ukp11 = PenerimaanUkp11::where('id_pemohon', $pemohon_id)->where('flag',1)->where('delete_id',0)->first();
         $ukp11->status_terima_pemangkuan = $tawaran_setuju == 'TL' ? 1 : 0;
         $ukp11->tkh_status_terima_pemangkuan = date('Y-m-d');
         $ukp11->tkh_kuatkuasa_pemangkuan_pinkform = date('Y-m-d', strtotime($pemohon->pemohonPink->tkh_lapor_diri));
@@ -146,6 +146,7 @@ class PemangkuTawaranController extends Controller{
                     'user_id' => $keraniUser->id,
                     'user_type' => 'App\Models\User',
                 ]);
+
             }
 
             try{

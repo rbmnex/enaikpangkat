@@ -139,6 +139,16 @@ class FunctionController extends Controller
         return $encrypt;
     }
 
+    public function decrypt(Request $request) {
+        $decrypted = '';
+        try {
+            $decrypted = Crypt::decryptString($request->input('input'));
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+
+        };
+        return $decrypted;
+    }
+
     public function downloadBase64($id) {
         $file = File::find($id);
         if($file) {
