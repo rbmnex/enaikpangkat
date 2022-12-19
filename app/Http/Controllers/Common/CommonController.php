@@ -138,7 +138,8 @@ class CommonController extends Controller
     public function file_info_url($url) {
         $file_info = array();
         $urlParts = pathinfo($url);
-        $image = file_get_contents($url);
+        $modifyUrl = preg_replace('/\s+/', '%20', $url);
+        $image = file_get_contents($modifyUrl);
 
         if ($image !== false){
             $file_info['filename'] = $urlParts['basename'];

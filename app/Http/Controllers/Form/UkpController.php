@@ -10,6 +10,9 @@ use App\Models\Mykj\Cuti;
 use App\Models\Mykj\Gaji;
 use App\Models\Mykj\Harta;
 use App\Models\Mykj\Kelayakan;
+use App\Models\Mykj\LKompetenanAnt;
+use App\Models\Mykj\LKompetenanPro;
+use App\Models\Mykj\LKompetenanTemp;
 use App\Models\Mykj\Pengalaman;
 use App\Models\Mykj\Peristiwa;
 use App\Models\Mykj\Waris;
@@ -226,7 +229,7 @@ class UkpController extends Controller
             if($pemohon) {
                 $profile = Peribadi::find($pemohon->id_peribadi);
 
-                if($pemohon->status == Pemohon::NOT_SUBMITTED) {
+                if($pemohon->status == Pemohon::NOT_SUBMITTED || $pemohon->status == 'NA') {
                     $profile = Peribadi::update_peribadi($profile,$nokp);
                 } else {
                     return view('form.message',['message' => 'Anda Sudah Menghantar Pemohonan Ini Dan Sedang Diproses, Diharap Sabar Menunggu Keputusan!']);
@@ -853,17 +856,20 @@ class UkpController extends Controller
                     'alamat' => $pemohon->alamat_pejabat,
                     'tarikh' => \Carbon\Carbon::parse(Date::now())->format('d-m-Y')
                 ];
+                try {
+                    Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
+                        // testing purpose
+                        $message->to('urusetiakenaikanpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
 
-                Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
-                    // testing purpose
-                    $message->to('urusetiakenaikanpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
+                        //$message->from($formdata->email,$formdata->nama);
 
-                    //$message->from($formdata->email,$formdata->nama);
+                        //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
+                        $message->subject('MENOLAK TAWARAN PEMANGKUAN');
 
-                    //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
-                    $message->subject('MENOLAK TAWARAN PEMANGKUAN');
+                    });
+                } catch(\Exception $e) {
 
-                });
+                }
             }
         }
 
@@ -935,10 +941,12 @@ class UkpController extends Controller
         // $pemohon->pengesahan_perkhidmatan_cawangan
         // $pemohon->pengesahan_perkhidmatan_tkh
 
-        if($alldata['accept']) {
-            $pemohon->status = Pemohon::WAITING_VERIFICATION;
-        } else {
-            $pemohon->status = Pemohon::REJECTED_APPLICATION;
+        if(!empty($alldata['accept'])) {
+            if($alldata['accept']) {
+                $pemohon->status = Pemohon::WAITING_VERIFICATION;
+            } else {
+                $pemohon->status = Pemohon::REJECTED_APPLICATION;
+            }
         }
         $pemohon->alasan = $alldata['alasan'];
         $pemohon->updated_by = Auth::user()->nokp;
@@ -1010,6 +1018,7 @@ class UkpController extends Controller
         $rekod_pasangan->save();
 
         // Perkhidmatan
+        Perkhidmatan::where('id_pemohon',$pemohon->id)->delete();
         foreach($formdata->pengalaman as $pengalaman) {
             $rekod_khidmat = new Perkhidmatan;
             $rekod_khidmat->jawatan = $pengalaman->gelaran_jawatan ? $pengalaman->gelaran_jawatan->gelaran_jawatan : '';
@@ -1027,6 +1036,7 @@ class UkpController extends Controller
         }
 
         //sumbangan
+        Sumbangan::where('pemohon_id',$pemohon->id)->delete();
         foreach($formdata->sumbangan as $contribute) {
             $rekod_sumbangan = new Sumbangan();
             $rekod_sumbangan->sumbangan = $contribute->nama_kelulusan;
@@ -1041,6 +1051,7 @@ class UkpController extends Controller
         }
 
         //Akademik
+        Akademik::where('id_pemohon',$pemohon->id)->delete();
         foreach($formdata->akademik as $academic) {
             $rekod_akademik = new Akademik;
             $rekod_akademik->nama_sijil = $academic->nama_kelulusan;
@@ -1055,6 +1066,7 @@ class UkpController extends Controller
         }
 
         //Profesional
+        Professional::where('id_pemohon',$pemohon->id)->delete();
         foreach($formdata->profesional as $pro) {
             $rekod_professional = new Professional;
             $rekod_professional->nama_sijil = $pro->nama_kelulusan;
@@ -1087,6 +1099,7 @@ class UkpController extends Controller
         }
 
         //Kompetensi
+        Kompetensi::where('id_pemohon',$pemohon->id)->delete();
         foreach($formdata->kompeten as $komp) {
             $rekod_kompeten = new Kompetensi;
             $rekod_kompeten->nama_sijil = $komp->nama_kelulusan;
@@ -1100,6 +1113,7 @@ class UkpController extends Controller
         }
 
         //pengiktirafan
+        Pengiktirafan::where('id_pemohon',$pemohon->id)->delete();
         foreach($formdata->pengiktirafan as $iktiraf) {
             $rekod_iktiraf = new Pengiktirafan;
             $rekod_iktiraf->jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
@@ -1172,15 +1186,20 @@ class UkpController extends Controller
                         'nokp' => $formdata->nokp_baru,
                         'nama' => $formdata->nama
                     ];
-                    Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
-                        // testing purpose
-                        //$message->to('rubmin@vn.net.my',$kerani_user->name);
+                    try {
 
-                        //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
-                        $message->to($kerani_user->email,$kerani_user->name);
-                        $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
+                        Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
+                            // testing purpose
+                            //$message->to('rubmin@vn.net.my',$kerani_user->name);
 
-                    });
+                            //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
+                            $message->to($kerani_user->email,$kerani_user->name);
+                            $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
+
+                        });
+                    } catch(\Exception $e) {
+
+                    }
 
 
         } else {
@@ -1195,15 +1214,20 @@ class UkpController extends Controller
                 'tarikh' => \Carbon\Carbon::parse(Date::now())->format('d-m-Y')
             ];
 
-            Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
-                // testing purpose
-                $message->to('urusetiakenaikanpangkat','Urus Setia Kenaik Pangkat');
-                //$message->from($formdata->email,$formdata->nama);
+            try {
+                Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
+                    // testing purpose
+                    $message->to('urusetiakenaikanpangkat','Urus Setia Kenaik Pangkat');
+                    //$message->from($formdata->email,$formdata->nama);
 
-                //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
-                $message->subject('MENOLAK TAWARAN PEMANGKUAN');
+                    //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
+                    $message->subject('MENOLAK TAWARAN PEMANGKUAN');
 
-            });
+                });
+
+            } catch(\Exception $e) {
+
+            }
         }
 
 
@@ -1332,9 +1356,20 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
 
         // });
             //21,22,23]
+        $innerSelf = new UkpController();
         $akademik = Kelayakan::where('nokp',$nokp)->whereNotIn('kod_kelulusan',[8,9,10,21,22,23])->get();
         $profesional = Kelayakan::where('nokp',$nokp)->where('kod_kelulusan',8)->get();
+        $profesional->each(function($item,$key) use ($innerSelf) {
+            $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
+            $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+        });
+
         $kompeten = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[9,10])->get();
+        $kompeten->each(function($item,$key) use ($innerSelf) {
+            $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
+            $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+        });
+
 
         $iktiraf = Peristiwa::where('nokp',$nokp)->whereIn('kod_peristiwa',['P8','A1','P10','A4'])->get();
         $sumbangan = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[21,22,23])->get();
@@ -1403,6 +1438,18 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $pemohon->save();
 
         return $maklumat;
+    }
+
+    private function findKompentesi($jenis,$kod) {
+        $record = NULL;
+        if($jenis == 9) {
+            $record = LKompetenanTemp::where('kod_kompetenan',$kod)->first();
+        } else if($jenis == 10) {
+            $record = LKompetenanAnt::where('kod_kompetenan',$kod)->first();
+        } else if($jenis == 8) {
+            $record = LKompetenanPro::where('kod_kompetenan',$kod)->first();
+        }
+        return $record;
     }
 
     private function search_jawatan($nokp,$year) {

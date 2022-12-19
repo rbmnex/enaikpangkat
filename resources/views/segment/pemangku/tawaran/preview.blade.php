@@ -106,7 +106,7 @@
                 </td>
                 <td style="vertical-align: top;">:</td>
                 <td colspan="9" style="font-size:16px; vertical-align: top;">
-                    <span style="text-decoration: underline">{{ empty($data->pemohonUkp11->alamat_pejabat) ?strtoupper($data->alamat_pejabat) ? strtoupper($data->pemohonUkp11->alamat_pejabat)}}</span>
+                    <span style="text-decoration: underline">{{ empty($data->pemohonUkp11->alamat_pejabat) ?strtoupper(empty($data->pemohonPink) ? '' : $data->pemohonPink->alamat) : strtoupper($data->pemohonUkp11->alamat_pejabat)}}</span>
                 </td>
             </tr>
             <tr class="word-line">
@@ -215,15 +215,15 @@
             </tr>
             <tr style="font-size:16px">
                 <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br>(berdasarkan 'pink form')<br><br></td>
-                <td colspan="3">: {{ $data->pemohonPink->tkh_lapor_diri ? date('d-m-y', strtotime($data->pemohonPink->tkh_lapor_diri)) : '' }}<br><br></td>
+                <td colspan="3">: {{ $data->pemohonPink->tkh_lapor_diri ? date('d-m-Y', strtotime($data->pemohonPink->tkh_lapor_diri)) : '' }}<br><br></td>
             </tr>
             <tr style="font-size:16px">
                 <td colspan="2">Tarikh Melaporkan Diri<br><br></td>
-                <td colspan="3">: {{ empty($data->pemohonUkp11->tkh_lapor_diri) ? '' : date('d-m-y', strtotime($data->pemohonUkp11->tkh_lapor_diri)) }}<br><br></td>
+                <td colspan="3">: {{ empty($data->pemohonUkp11->tkh_lapor_diri) ? '' : date('d-m-Y', strtotime($data->pemohonUkp11->tkh_lapor_diri)) }}<br><br></td>
             </tr>
             <tr style="font-size:16px">
                 <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br><br></td>
-                <td colspan="3">: {{ empty($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan) ? '' : date('d-m-y', strtotime($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan)) }}<br><br></td>
+                <td colspan="3">: {{ empty($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan) ? '' : date('d-m-Y', strtotime($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan)) }}<br><br></td>
             </tr>
             <tr style="font-size:16px">
                 <td colspan="5">(Tuan/puan diminta untuk melaporkan diri pada tarikh yang telah ditetapkan. Sekiranya penangguhan/pelepasan tuan/puan melebihi 14 hari (termasuk cuti mingguan dan kelepasan am), tarikh kuat kuasa pemangkuan tuan/puan adalah mulai tarikh tuan/puan kembali melaporkan diri dan melaksanakan tugas sepenuh masa di jawatan yang dipangku. Elaun pemangkuan hanya layak dibayar mulai tarikh tuan/puan menjalankan tugas yang dipangku secara sepenuh masa. Semua  penangguhan/pelepasan hendaklah dipersetujui Ketua Jabatan (yang baru) dan salinan kelulusan penangguhan disertakan bersama)<br><br></td>

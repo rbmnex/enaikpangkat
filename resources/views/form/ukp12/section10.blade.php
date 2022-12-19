@@ -19,9 +19,11 @@
                 </thead>
                 <tbody id="tbody-kompeten">
                 @foreach ($profile['kompeten'] as $k)
+                <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $k->nama_kelulusan }}</td>
                 <td>{{ $k->tahap }}</td>
+                </tr>
                 @endforeach
                 @if($profile['kompeten']->count() == 0)
                 <tr data-kompeten-id="">

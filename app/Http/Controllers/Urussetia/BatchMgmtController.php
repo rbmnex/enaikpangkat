@@ -143,9 +143,11 @@ class BatchMgmtController extends Controller
             $gred = $request->input('gred');
             $tahun = $request->input('tahun');
             if(!empty($jurusan) || $jurusan != 'undefined') {
-                $jurusan = LJurusan::where('kod_jurusan',$jurusan)->first();
-                $model->kod_jurusan = $jurusan->kod_jurusan;
-                $model->jurusan = $jurusan->jurusan;
+                $jurusanT = LJurusan::where('kod_jurusan',$jurusan)->first();
+                if(!empty($jurusanT)) {
+                    $model->kod_jurusan = $jurusanT->kod_jurusan;
+                    $model->jurusan = $jurusanT->jurusan;
+                }
             }
             if(!empty($gred) || $gred != 'undefine') {
                 $model->gred = $gred;

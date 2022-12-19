@@ -229,6 +229,7 @@ Route::get('/api/test/mail',[FunctionController::class, 'mail']);
 Route::post('/api/test/upload',[FunctionController::class,'upload']);
 Route::post('/api/test/download',[FunctionController::class,'download']);
 Route::get('/api/test/encrypt',[FunctionController::class,'encrypt']);
+Route::get('/api/test/decrypt',[FunctionController::class,'decrypt']);
 Route::get('/test/form',function() {
     return view('form.ukp12');
 });
