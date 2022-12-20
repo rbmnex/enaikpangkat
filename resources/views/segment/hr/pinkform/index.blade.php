@@ -64,6 +64,7 @@
     @include('segment.layouts.custom_view_links.modals.js.index')
     @include('segment.layouts.custom_view_links.swal.js.index')
     @include('segment.layouts.custom_view_links.datepicker.flatpickr.js.index')
+    @include('segment.layouts.custom_view_links.select2.js.index')
 @endsection
 
 @section('customJs')

@@ -22,24 +22,25 @@ class PinkFormController extends Controller{
         $model = DB::connection('pgsql')->table('pemohon as p')
         ->join('peribadi as b','p.id_peribadi','b.id')
         ->join('permohonan_ukp12 as u','p.id_permohonan','u.id')
-        ->leftJoin('surat_pink as pk',function($join) {
-            $join->on('p.id','=','pk.id_pemohon');
-            $join->on('pk.flag','=',1);
-            $join->on('pk.delete_id','=',0);
-        })
-        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status','pk.email_status', 'pk.fail_id')
+        // ->leftJoin('surat_pink as pk',function($join) {
+        //     $join->on('p.id','=','pk.id_pemohon');
+        //     $join->on('pk.flag','=',1);
+        //     $join->on('pk.delete_id','=',0);
+        // })
+        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status')
         ->whereIn('p.status', array(Pemohon::WAITING_OFFER, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED, Pemohon::REFUSED))
-        ->where('p.flag',1)
         ->where('jenis','UKP12')
         ->where('p.delete_id',0)
         ->where('p.flag',1)
         // ->where('pk.delete_id',0)
         // ->where('pk.flag',1)
         ->get();
-
-        // $model->each(function($item,$key){
-
-        // });
+        $parent = new PinkFormController();
+        $model->each(function($item,$key) use ($parent){
+            $record = $parent->getPink($item->id);
+            $item->email_status = empty($record) ? 'NOT' : $record->email_status;
+            $item->fail_id = empty($record) ? NULL : $record->fail_id;
+        });
         return DataTables::of($model)
             ->setRowAttr([
                 'data-pemohon-id' => function($data) {
@@ -56,6 +57,11 @@ class PinkFormController extends Controller{
             })
             ->rawColumns(['action'])
             ->make(true);
+    }
+
+    private function getPink($id) {
+        $r = SuratPink::where('id_pemohon',$id)->where('flag',1)->where('delete_id',0)->first();
+        return $r;
     }
 
     public function hantar(Request $request){
