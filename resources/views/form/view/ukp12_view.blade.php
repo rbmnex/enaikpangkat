@@ -151,10 +151,14 @@
                                         {{-- <td><input class="form-control cuti-upload" type="file" id="cuti_{{ $cuti->id_cuti }}" name="cuti_{{ $cuti->id_cuti }}" /></td> --}}
                                         <td>
                                             @if($cuti->surat_kelulusan)
-                                            <button class="btn btn-outline-success btn-download" data-file-id="{{ $cuti->surat_kelulusan }}">
+                                            {{-- <button class="btn btn-outline-success btn-download" data-file-id="{{ $cuti->surat_kelulusan }}">
                                                 <span class="align-middle d-sm-inline-block d-none"></span>
                                                 <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
-                                            </button>
+                                            </button> --}}
+                                            <a href="http://10.8.80.68/upload_cuti/{{ $cuti->file->filename }}" class="btn btn-outline-success">
+                                                <span class="align-middle d-sm-inline-block d-none"></span>
+                                                <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                            </a>
                                             @else
                                             Tiada Dokumen
                                             @endif
@@ -535,10 +539,14 @@
                                             <td>{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
                                             <td>
                                                 @if($pro->file_id)
-                                                <button class="btn btn-outline-success btn-download" data-file-id="{{ $pro->file_id }}">
+                                                {{-- <button class="btn btn-outline-success btn-download" data-file-id="{{ $pro->file_id }}">
                                                     <span class="align-middle d-sm-inline-block d-none"></span>
                                                     <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
-                                                </button>
+                                                </button> --}}
+                                                <a href="http://10.8.80.68/upload_kelayakan/{{ $pro->file->filename }}" class="btn btn-outline-success">
+                                                    <span class="align-middle d-sm-inline-block d-none"></span>
+                                                    <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                                </a>
                                                 @else
                                                 Tiada Dokumen
                                                 @endif

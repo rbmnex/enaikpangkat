@@ -96,9 +96,10 @@ DatatableUI.init({
                 let row_flag = full.email_status;
                 let row_fail = full.fail_id;
                 let btn = '';
-                //if(row_status == 'LL') {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pinkform" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Hantar</button>';
 
+                if(row_status != "TL" || row_status != "PL") {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pinkform" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Hantar</button>';
+                }
 
                     if(row_flag == 'FAILED' || row_flag == 'NULL' || row_flag == 'null') {
                         btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light resend-pinkform" >'+ feather.icons['mail'].toSvg() +'  Hantar Semula</button>';

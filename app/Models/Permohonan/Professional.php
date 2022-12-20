@@ -10,4 +10,8 @@ class Professional extends Model
     use HasFactory;
     protected $table = "professional";
     protected $connection = 'pgsql';
+
+    public function file() {
+        return $this->hasOne(File::class, 'id', 'file_id');
+    }
 }

@@ -72,7 +72,7 @@ class ApplicationController extends Controller
                 'status' => $pemohon->status,
                 'rank' => $pemohon->ranking,
                 'bil' => $permohonan->bil_mesyuarat,
-                'tkh' => empty($permohonan->tarikh_mesyuarat) ? '' : \Carbon\Carbon::parse($permohonan->tarikh_mesyuarat)->format('d-M-Y')
+                'tkh' => empty($permohonan->tarikh_mesyuarat) ? '' : \Carbon\Carbon::parse($permohonan->tarikh_mesyuarat)->format('d-m-Y')
             ]
         ]);
     }
@@ -179,6 +179,13 @@ class ApplicationController extends Controller
                         ]
                     ]);
                 }
+            } else {
+                return response()->json([
+                    'success' => 1,
+                    'data' => [
+                        'message' => 'Success to save'
+                    ]
+                ]);
             }
         } else {
             return response()->json([
