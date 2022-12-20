@@ -42,87 +42,87 @@
     <!-- Dashboard Ecommerce Starts -->
     <section id="dashboard-ecommerce">
         <div class="container-fluid">
-        <div class="row">
-            <div class="col-2 bg-light">
+        <div class="row" style="background-color:#d9d9d9;">
+            <div class="col-2" style="width:200px">
                 <img src="{{ asset('images/enp.png') }}" />
             </div>
-            <div class="col-10 bg-light"style="text-align: justify;text-justify: inter-word;text-align: center; background-color:#d9d9d9; ">
+            <div class="col-10"style="text-align: justify;text-justify: inter-word;text-align: center; background-color:#d9d9d9; ">
+                <br/>
                 <h2>SELAMAT DATANG KE</h2><br>
-                <h1 class="text-warning">e-naikpangkat</h1>
+                <h1 style="color:#f8f938;font: 40px Arial, sans-serif,bold;"><b>e-naikpangkat</b></h1>
                 <br>
                 <p style=" text-align: justify;">Dasar dan peraturan pemangkuan dan kenaikan pangkat dalam perkhidmatan awam adalah berasaskan Peraturan-Peraturan Pegawai Awam (Pelantikan, Kenaikan Pangkat dan Penamatan Perkhidmatan) 2005 [P.U(A) 176/2005], Peraturan Peraturan Lembaga Kenaikan Pangkat Perkhidmatan Pelajaran, 2010 [P.U(A) 24/2010]</p>
             </div>
         </div>
         <div class="row" style="background-color:#d9d9d9;">
-            <div class="col-2 bg-light">
+            <div class="col-2" style="width:200px">
                 <img src="{{ asset('images/definasi.png') }}" />
             </div>
 
-                    <div class="col-5 bg-light" style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN</h2><br/>
+                    <div class="col-5" style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN</h2>
                         <p><b>Pelaksanaan tugas secara sepenuh masa, suatu jawatan lain yang lebih tinggi grednya daripada gred hakiki</b> dalam skim perkhidmatan yang sema dengan kelulusan Lembaga Kenaikan Pangkat;</p>
                     </div>
-                    <div class="col-5 bg-light" style=" text-align: justify;"><h2 class="text-primary">NAIK PANGKAT</h2><br/>
+                    <div class="col-5" style=" text-align: justify;"><h2 class="text-primary">NAIK PANGKAT</h2>
                         <p><b>Peningkatan secara hakiki dari satu gred ke suatu gred yang lebih tinggi</b> dalam skim perkhidmatan yang sama dengan kelulusan Lembaga Kenaikan Pangkat;</p></div>
-                    {{-- <div class="col-4 bg-light"><h2 class="text-primary">RESUME</h2></div> --}}
+                    {{-- <div class="col-4 "><h2 class="text-primary">RESUME</h2></div> --}}
 
 
         </div>
-  <br>
-  <div class="row">
-    <div class="col-2 bg-light">
+  <div class="row" style="background-color:#d9d9d9;">
+    <div class="col-2">
         <img src="{{ asset('images/kriteria.png') }}" />
     </div>
-    <div class="col-10 bg-light">
-        <div class="col-12 bg-light " style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN DAN KENAIKAN PANGKAT</h2></div>
+    <div class="col-10 ">
+        <div class="col-12" style=" text-align: justify;"><h2 class="text-primary">PEMANGKUAN DAN KENAIKAN PANGKAT</h2></div>
         <div class="row">
             <div class="col-3 bg-grey">
                  <div class="row">
                     <div class="col-2 bg-grey"style="font-size:40px;">1</div>
-                    <div class="col-10 bg-grey" style="font-size:9px;"><b>DISAHKAN <br/>DALAM <br/>PERKHIDMATAN</b></div>
+                    <div class="col-10 bg-grey" style="font-size:9px;"><br/><b>DISAHKAN <br/>DALAM <br/>PERKHIDMATAN</b></div>
                 </div>
             </div>
-            <div class="col-3 bg-light">
+            <div class="col-3 ">
                  <div class="row">
-                    <div class="col-2 bg-light" style="font-size:40px;">3</div>
-                    <div class="col-10 bg-light" style="font-size:9px;"><b>DIPERAKU OLEH<br/>KETUA JABATAN/ <br/>KETUA PERKHIIDMATAN</b></div>
+                    <div class="col-2 " style="font-size:40px;">3</div>
+                    <div class="col-10 " style="font-size:9px;"><br/><b>DIPERAKU OLEH<br/>KETUA JABATAN/ <br/>KETUA PERKHIIDMATAN</b></div>
                 </div>
             </div>
-            <div class="col-3 bg-light">
+            <div class="col-3 ">
                 <div class="row">
-                    <div class="col-2 bg-light" style="font-size:40px;">5</div>
-                    <div class="col-10 bg-light" style="font-size:9px; margin-top: 10px;"><b>ISYTIHAR <br/>HARTA <br/></b></div>
+                    <div class="col-2 " style="font-size:40px;">5</div>
+                    <div class="col-10 " style="font-size:9px; margin-top: 10px;"><br/><b>ISYTIHAR <br/>HARTA <br/></b></div>
                 </div>
             </div>
-            <div class="col-3 bg-light">
+            <div class="col-3 ">
                  <div class="row">
-                    <div class="col-2 bg-light" style="font-size:40px;">7</div>
-                    <div class="col-10 bg-light" style="font-size:9px;"><b>BEBAS DARIPADA DISENARAIKAN <br/>PEMINJAMAN PENDIDIKAN<BR/> TEGAR DARIPADA<BR/> INSTITUSI PINJAMAN <br/> PENDIDIKAN</b></div>
+                    <div class="col-2 " style="font-size:40px;">7</div>
+                    <div class="col-10 " style="font-size:9px;"><br/><b>BEBAS DARIPADA DISENARAIKAN <br/>PEMINJAMAN PENDIDIKAN<BR/> TEGAR DARIPADA<BR/> INSTITUSI PINJAMAN <br/> PENDIDIKAN</b></div>
                 </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-3 bg-light">
+            <div class="col-3 ">
                     <div class="row">
-                   <div class="col-2 bg-light" style="font-size:40px;">2</div>
-                   <div class="col-10 bg-light"style="font-size:9px;"><b>CAPAI TAHAP <br>PRESTASI YANG <br/>DITETAPKAN <br/>>80%</b></div>
+                   <div class="col-2 " style="font-size:40px;">2</div>
+                   <div class="col-10 "style="font-size:9px;"><br/><b>CAPAI TAHAP <br>PRESTASI YANG <br/>DITETAPKAN <br/>>80%</b></div>
                </div>
                </div>
-            <div class="col-3 bg-light">
+            <div class="col-3 ">
                     <div class="row">
-                   <div class="col-2 bg-light" style="font-size:40px;">4</div>
-                   <div class="col-10 bg-light" style="font-size:9px;"><b>BEBAS DARI <br/>HUKUMAN <br/>TATATERTIB</b></div>
+                   <div class="col-2 " style="font-size:40px;">4</div>
+                   <div class="col-10 " style="font-size:9px;"><br/><b>BEBAS DARI <br/>HUKUMAN <br/>TATATERTIB</b></div>
                </div>
                </div>
-       <div class="col-3 bg-light">
+       <div class="col-3 ">
                     <div class="row">
-                   <div class="col-2 bg-light" style="font-size:40px;">6</div>
-                   <div class="col-10 bg-light" style="font-size:9px;"><b>LULUS TAPISAN <br/>KEUTUHAN <br/>SPRM</b></div>
+                   <div class="col-2 " style="font-size:40px;">6</div>
+                   <div class="col-10 " style="font-size:9px;"><br/><b>LULUS TAPISAN <br/>KEUTUHAN <br/>SPRM</b></div>
                </div>
                </div>
-       <div class="col-3 bg-light">
+       <div class="col-3 ">
             <div class="row">
-                   <div class="col-2 bg-light" style="font-size:40px;  text-align: left;">8</div>
-                   <div class="col-10 bg-light" style="font-size:9px;"><b>SYARAT LAIN YANG <br/>DITETAPKAN OLEH <br/>LEMBAGA</b></div>
+                   <div class="col-2 " style="font-size:40px;  text-align: left;">8</div>
+                   <div class="col-10 " style="font-size:9px;"><br/><b>SYARAT LAIN YANG <br/>DITETAPKAN OLEH <br/>LEMBAGA</b></div>
                </div>
         </div>
 
@@ -130,7 +130,8 @@
   </div>
 
   <div class="row">
-      <div class="col-6 bg-light">
+     <div class="col-2" style="background-color: #ffffff;"></div>
+      <div class="col-5"><br/><br/><br/>
           <p>Dasar dan peraturan berhubung urusan pemangkuan dan kenaikan pangkat dalam perkhidmatan awam:
 
           <ul>
@@ -139,9 +140,23 @@
               https://docs.jpa.gov.my/docs/myppsm/PA/Rasionalisasi/)</a></li>
           </ul>   </p>
       </div>
+       <div class="col-5 ">><br/><br/><br/>
+          <p>INFO SEMASA</p>
+          <p>
+
+          <ul style="font-size: 8.5px;">
+              <li>URUSAN PEMANGKUAN JURUTERA MEKANIKAL GRED J52 KE GRED J54 DI JABATAN KERJA RAYA MALAYSIA BIL 1/2023-<i style="color:red;" >dateline</i></li>
+               <li>URUSAN PEMANGKUAN JURUTERA AWAM GRED J52 KE GRED J54 DI JABATAN KERJA RAYA MALAYSIA BIL 1/2023-<i style="color:red;" >dateline</i></li>
+                <li>URUSAN PEMANGKUAN ARKITEK GRED J52 KE GRED J54 DI JABATAN KERJA RAYA MALAYSIA BIL 1/2023-<i style="color:red;" >dateline</i></li>
+          </ul>   
+
+      ......selanjutnya</p>
+      </div>
+
   </div>
-      <div class="row" style="background-color: #388196; ">
-      <div class="col-9" style="text-align: justify;text-justify: inter-word;text-align: center; font-size: 8.5px; width:864px;" >
+      <div class="row">
+          <div class="col-2" style="background-color: #ffffff;">@include('hr.pinkform.counter')</div>
+      <div class="col-7" style="background-color: #388196; text-align: justify;text-justify: inter-word;text-align: center; font-size: 8.5px; width:850px;" >
           <p style="color:white;">  HUBUNGI KAMI</p>
           <p style="color:white;">URUS SETIA KENAIKAN PANGKAT</p>
           <p style="color:white;">BAHAGIAN PENGURUSAN SUMBER MANUSIA, CAWANGAN DASAR DAN PENGURUSAN KORPORAT, <BR/>
@@ -152,7 +167,7 @@
 
         <p style="color:white;">Awam - 03-26188622/8413/8624 <br/> Arkitek,Ukur Bahan & Ukur Bangunan - 03-26188631/8477/8624<br/>Mekanikal & Elektrik - 03-26188623/8477/8624 <br/> JUSA - 03-26188639/8629/8626/8624</p>
       </div>
-      <div class="col-3" style="margin-top: 70px;"><img src="{{ asset('images/jkr_logo.png') }}"  width="150" height="150" /></div>
+      <div class="col-3" style="background-color: #388196; padding=50px"><div style="background-color: #388196; padding=50px"> <br/><br/><br/><br/></div><img src="{{ asset('images/jkr_logo.png') }}"width="150" height="150" /></div>
 
   </div>
   </div>
