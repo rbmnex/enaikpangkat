@@ -26,11 +26,11 @@ body { font-family: Arial; font-size: 16.2px }
                                                         <strong>(u.p. : Ir. RAHAYU BINTI MD. DIAH)</strong>
                                         </p>
                                         <p>
-                                                    ii. Resume terkini (Mohon kemaskini data di dalam sistem My-KJ dan isi lampiran 2, lampiran 3 dan lampiran 4 di dalam sistem e-naik pangkat dengan menekan pautan di bawah : <br/>
+                                                   ii. Resume terkini (Mohon kemaskini data di dalam sistem My-KJ dan isi Lampiran 2, Lampiran 3, Lampiran 4 dan Lampiran 5 di dalam sistem e-naikpangkat dengan menekan pautan di bawah : <br/>
                                                     {{ $link }}
                                         </p>
                                         <p>Sekian, terima kasih.</p>
-                                        <p><strong>"WAWASAN KEMAKMURAN BERSAMA 2030"</strong></p>
+                                       
                                         <p><strong>"BERKHIDMAT UNTUK NEGARA"</strong></p>
                                         <p>Saya yang menjalankan amanah,</p>
                                         <p>
