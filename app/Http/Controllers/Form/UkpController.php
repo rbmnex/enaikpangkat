@@ -1283,7 +1283,7 @@ class UkpController extends Controller
             'borang' => $permohonan
         ];
 
-        $pdf = PDF::loadView('pdf.ukp12-kader', $data, []);
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdf.ukp12-kader', $data, []);
         return $pdf->stream('Borang_UKP12_'.$peribadi->nokp.'.pdf');
     }
 

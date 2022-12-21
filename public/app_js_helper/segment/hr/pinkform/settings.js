@@ -1,6 +1,16 @@
 Flatpickrinit.initAll('#pinkform-tkh-lapor-diri');
 
-Select2init.initAll();
+//Select2init.initAll();
+
+// $('.select2').each(function () {
+//     var $this = $(this);
+//     $this.wrap('<div class="position-relative"></div>');
+//     $this.select2({
+//         dropdownAutoWidth: true,
+//         width: '100%',
+//         dropdownParent: $this.parent()
+//     });
+// });
 
 DatatableUI.init({
     selector: '.pinkform-table',
@@ -97,11 +107,11 @@ DatatableUI.init({
                 let row_fail = full.fail_id;
                 let btn = '';
 
-                if(row_status != "TL" || row_status != "PL") {
+                if(row_status == "MJ" || row_status == "LL" || row_status == "MT") {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pinkform" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Hantar</button>';
                 }
 
-                    if(row_flag == 'FAILED' || row_flag == 'NULL' || row_flag == 'null') {
+                    if((row_flag == 'FAILED' || row_flag == null) && (row_status == "MJ" || row_status == "LL" || row_status == "MT")) {
                         btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light resend-pinkform" >'+ feather.icons['mail'].toSvg() +'  Hantar Semula</button>';
 
                     }

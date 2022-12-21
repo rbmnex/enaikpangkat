@@ -121,7 +121,7 @@
                 <td></td>
 
                 <td colspan="4" style="text-align: center">
-                    <img src="{{ asset('images/jkr_logo.png') }}" width="70" height="50">
+                    <img src="{{ url('/images/jkr_logo.png') }}" width="70" height="50">
                 </td>
 
 
@@ -1052,7 +1052,7 @@
                                                 <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
                                                 <td>{{ $sumbang['sumbangan'] }}</td>
                                                 {{-- <td>{{ $sumbangan['tempat'] }}</td> --}}
-                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbangan['tkh_peristiwa'])->format('Y') }}</td>
+                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
                                             @if(count($sumbangan) == 0)
