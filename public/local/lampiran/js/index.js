@@ -208,7 +208,7 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
                     if(success == 1) {
                         let row = [];
                         row.push(parseData.tajuk);
-                        row.push(parseData.kos);
+                        row.push("RM"+ parseData.kos.toFixed(2));
                         row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
                         add_row('#tbody-badan-projek',row,'data-projek-id='+parseData.id);
                         $('#modal-projek').modal('hide');

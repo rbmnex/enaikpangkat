@@ -272,11 +272,11 @@ else
 }
 ?>
 <div style=" background-color: #ffffff; ">
-   <div style="border:1px solid #ffffff;padding:2px;width:100%;font-size:80%;font-weight:bold;color:000000;">
+   <div style="border:1px solid #ffffff;padding:2px;width:100%;font-size:80%;font-weight:bold;color:#000000;">
       STATISTIK
    </div>
 
-   <div style="border:1px solid #ffffff;padding:2px;width:100%;font-size:80%;color:000000;">
+   <div style="border:1px solid #ffffff;padding:2px;width:100%;font-size:80%;color:#000000;">
       &raquo;Jumlah Pelawat: <?php echo $all; ?> <br />   
       &raquo;Hari ini: <?php echo $day; ?> <br />  
       &raquo;Hit Minggu Ini: <?php echo $week; ?> <br />
@@ -285,8 +285,8 @@ else
        
    </div>
 
-   <div style="border:1px solid #ffffff;padding:2px;width:100%;font-size:80%;color:000000;">
-      Semenjak:  (<?php echo date("d.m.Y", $record_time) ?>)
+   <div style="border:1px solid #ffffff;padding:2px;width:100%;font-size:80%;color:#000000;">
+      Semenjak:  <?php echo date("d.m.Y", $record_time) ?>
       <div style="font-size:75%;" align="center"></div>
    </div>
 </div>

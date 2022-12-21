@@ -48,8 +48,11 @@ class ResumeController extends Controller
 
 
     public function mockup4(Request $request){
+          $model = Role::all();
+   
+        
 
-        $model = Role::all();
+
         return view('mockup4')->with('roles',$model);
     }
 
@@ -62,6 +65,10 @@ class ResumeController extends Controller
 
      public function terpilih(Request $request){
  // $model = Role::all();
+  $dateline1 = Carbon::now();
+  $dateline =Carbon::parse($dateline1)->addDays(5); 
+ 
+
         return view('urussetia.resume.senaraiterpilih');
     }
 
@@ -664,14 +671,25 @@ public function lampiran3($ic)
 
 
       public function email(Request $request,$ic) {
+       //dd(1);
          $nokp = $request->input('nokp');
          $user = DB::connection('pgsql')->table('users as u')
              ->where('u.nokp',$ic)->first()? true : false;
          $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
              ->select('np.nokp','np.nama','np.email','np.kod_gred','np.jawatan')
              ->where('np.nokp',$ic)->first();
+
+
+             
+
+     $dateline = Carbon::now();
+     $daysToAdd = 5;
+     $dateline = $dateline->addDays($daysToAdd);
+
+
         $content = [
                      'link' => url('user/resume/lampiran')
+
 
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
@@ -702,6 +720,29 @@ public function lampiran3($ic)
                 'nokp' => $nokp,]
         ]);
     }
+
+
+
+    function semakcuti($tarikh)
+    {
+        $year = date("Y");
+        $cuti= Holidays::model()->getCuti($year);
+        $tkh_slabaru=$tarikh;
+        $tkh= Yii::app()->dateFormatter->format("yyyy-MM-dd", strtotime($tarikh));
+        if(date("N", strtotime($tarikh)) == 6 || date("N", strtotime($tarikh)) == 7) //weekend
+        {
+            $tkh_slabaru = Yii::app()->dateFormatter->format("yyyy-MM-dd HH:mm:ss", strtotime($tkh_slabaru . ' +1 day')) ;
+            return($this->semakcuti($tkh_slabaru));
+
+        }
+        elseif (in_array ($tkh, $cuti)){
+         $tkh_slabaru = Yii::app()->dateFormatter->format("yyyy-MM-dd HH:mm:ss", strtotime($tkh_slabaru . ' +1 day')) ;
+         return($this->semakcuti($tkh_slabaru));
+     }
+
+     return $tkh_slabaru;
+
+ }
 
 
 
