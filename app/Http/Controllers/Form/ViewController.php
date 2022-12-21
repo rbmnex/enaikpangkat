@@ -30,8 +30,8 @@ use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 use Laratrust\LaratrustFacade as Laratrust;
-//use Barryvdh\DomPDF\Facade\Pdf;
-use PDF;
+use Barryvdh\DomPDF\Facade\Pdf;
+//use PDF;
 use stdClass;
 
 class ViewController extends Controller
@@ -468,7 +468,7 @@ class ViewController extends Controller
         $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();
         $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
         $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
-        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get();
+        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get()->toArray();
         $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
         $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->orderBy('tahun','desc')->get();
         $markah =  collect([]);
@@ -522,7 +522,7 @@ class ViewController extends Controller
             'tatatertib' => $tatatertib
         ];
 
-        $pdf = PDF::loadView('pdf.ukp12', $data, []);
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdf.ukp12', $data, []);
         return $pdf->stream('Borang_UKP12_'.$peribadi->nokp.'.pdf');
 
         //return PdfRender::render('pdf.ukp12', $data, ['Borang','UKP12',$peribadi->nokp]);

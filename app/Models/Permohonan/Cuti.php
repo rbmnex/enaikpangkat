@@ -2,6 +2,7 @@
 
 namespace App\Models\Permohonan;
 
+use App\Models\File;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

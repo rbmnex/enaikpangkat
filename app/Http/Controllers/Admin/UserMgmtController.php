@@ -195,7 +195,7 @@ class UserMgmtController extends Controller
         // echo '</pre>';
         // die();
 
-        $pdf = Pdf::loadView('admin.user.resume.index', compact('model'));
+        $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('admin.user.resume.index', compact('model'));
         return $pdf->stream("dompdf_out.pdf", array("Attachment" => false));
         exit(0);
     }

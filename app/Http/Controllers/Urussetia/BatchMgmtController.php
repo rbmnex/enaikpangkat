@@ -74,9 +74,10 @@ class BatchMgmtController extends Controller
             // })
             ->addColumn('tkh_lantikan',function($data) {
                 if($data->kod_gred == 'J41')
-                    return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
-                else {
                     return \Carbon\Carbon::parse($data->tkh_lantik)->format('d-m-Y');
+                else {
+
+                    return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
                 }
             })
             ->make(true);
@@ -119,9 +120,9 @@ class BatchMgmtController extends Controller
             // })
             ->addColumn('tkh_lantikan',function($data) {
                 if($data->kod_gred == 'J41')
-                    return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
-                else {
                     return \Carbon\Carbon::parse($data->tkh_lantik)->format('d-m-Y');
+                else {
+                    return \Carbon\Carbon::parse($data->tkh_sah_perkhidmatan)->format('d-m-Y');
                 }
             })
             ->make(true);
@@ -303,7 +304,7 @@ class BatchMgmtController extends Controller
                         //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
                         $message->to($calon->email,$calon->nama);
-                        $message->subject('URUSAN PEMANGKUAN'.$calon->jawatan.' GRED '.$calon->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                        $message->subject('URUSAN PEMANGKUAN '.$calon->jawatan.' GRED '.$calon->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                     });
                     Calon::where('kumpulan_id', $batch_id)->where('nokp', $calon->nokp)

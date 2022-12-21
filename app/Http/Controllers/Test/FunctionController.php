@@ -107,6 +107,22 @@ class FunctionController extends Controller
         ]);
     }
 
+    public function uploadUrl(Request $request) {
+        $url = $request->input('url');
+        $file_info = array();
+        $urlParts = pathinfo($url);
+        $modifyUrl = preg_replace('/\s+/', '%20', $url);
+        $image = file_get_contents($modifyUrl);
+
+        return response()->json([
+            'data' => [
+                'base64' => base64_encode(file_get_contents($modifyUrl)),
+                'ext' => $urlParts['extension'],
+                'image' => $image
+            ]
+        ]);
+    }
+
     public function download(Request $request) {
         $base64 = $request->input('base64');
         $extension = $request->input('ext');

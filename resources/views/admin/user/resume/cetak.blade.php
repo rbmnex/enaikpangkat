@@ -1,5 +1,5 @@
 <?php
-$fileName = 'Lampiran-doc'.".doc";
+$fileName = 'Lampiran-doc'.".docx";
 
 // Headers for download
 header("Content-Disposition: attachment; filename=\"$fileName\"");
@@ -75,10 +75,10 @@ div{
 	<div class="resume">
 		<table class="outerline">
 			<tr  class="grey">
-				<th colspan="6" >RESUME</th>  
+				<th colspan="6" >RESUME</th>
 			</tr>
 			<tr>
-				<td colspan="6"><b>A.BUTIRAN PERIBADI</b></td>	
+				<td colspan="6"><b>A.BUTIRAN PERIBADI</b></td>
 			</tr>
 			<tr>
 				<td colspan="6">
@@ -170,18 +170,18 @@ div{
 					</table>
 
 				</td>
-				
+
 
 			</tr>
 			<tr >
 				<td colspan="2" class="bordertop"><b>B. PRESTASI</b><br>(LNPT 3 tahun terkini)</td>
 				<td colspan="4" class="righttop">
 					<ul>
-						@if(isset($model['markah'])) 
+						@if(isset($model['markah']))
 						@foreach($model['markah'] as $markah)
 						<li>{{ $markah['tahun'] }} - {{ $markah['purata'] }} % </li>
 						@endforeach
-						@endif	
+						@endif
 					</ul>
 				</td>
 			</tr>
@@ -194,8 +194,8 @@ div{
 					</ul></td>
 					<td colspan="5" class="righttop">
 						Pengkhususan
-						@if(isset($model['pengalamanPengkhususan']['khusus'])) 
-						@foreach($model['pengalamanPengkhususan']['khusus'] as $val) 	
+						@if(isset($model['pengalamanPengkhususan']['khusus']))
+						@foreach($model['pengalamanPengkhususan']['khusus'] as $val)
 						<ul>
 							<li>
 								{{ $val['jumlah_pengalaman']}}
@@ -208,7 +208,7 @@ div{
 								tiada
 							</li>
 						</ul>
-						@endif  
+						@endif
 						<br><br>
 
 						<ul>
@@ -218,7 +218,7 @@ div{
 					</td>
 				</tr>
 
-				
+
 				<tr>
 					<td colspan="2"  class="bordertop">
 						<b>D. PENDEDAHAN</b><br><br>
@@ -247,8 +247,8 @@ div{
 								<th class="boxpengalaman">Gelaran Jawatan</th>
 								<th class="boxpengalaman">Tempoh Khidmat</th>
 							</tr>
-							@if(isset($model['pengalaman'])) 
-							@foreach($model['pengalaman'] as $pengalaman) 
+							@if(isset($model['pengalaman']))
+							@foreach($model['pengalaman'] as $pengalaman)
 							<tr>
 								<td class="boxpengalaman">{{ $pengalaman['aktiviti'] }}</td>
 								<td class="boxpengalaman">{{ $pengalaman['tempat'] }}</td>
@@ -265,7 +265,7 @@ div{
 							<b>E. KELAYAKAN AKADEMIK DAN PROFESSIONAL/<br>
 							KELAYAKAN KOMPETENSI TEMPATAN/ <br>
 						KELAYAKAN KOMPETENSI ANTARABANGSA</b></td>
-							<td colspan="4" class="righttop"> 
+							<td colspan="4" class="righttop">
 								<table class="smallbox" >
 									<tr class="grey"><td colspan="5"><b>KELAYAKAN AKADEMIK</b></td></tr>
 									<tr>
@@ -275,7 +275,7 @@ div{
 										<th class="boxpengalaman">Tahun Kelulusan</th>
 									</tr>
 									<?php $i=0; ?>
-									@if(isset($model['kelayakan'])) 
+									@if(isset($model['kelayakan']))
 									@foreach($model['kelayakan'] as $kelayakan)
 									<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
 										<td class="boxpengalaman"colspan="2">{{ strtoupper($kelayakan['nama_kelulusan']) }}</td>
@@ -283,7 +283,7 @@ div{
 										<td class="boxpengalaman">{{ date('Y', strtotime($kelayakan['tkh_kelulusan'])) }}</td></tr>
 										<?php $i++; ?>
 										@endforeach
-										@endif 
+										@endif
 										<tr class="grey"> <td colspan="5"><b>PROFESIONAL</b></td></tr>
 										<tr><th class="boxpengalaman">No</th>
 											<th class="boxpengalaman">Kelayakan Profesional /Pendaftaran Dengan Badan Profesional</th>
@@ -292,7 +292,7 @@ div{
 											<th class="boxpengalaman">Tahun</th>
 										</tr>
 										<?php $i=0; ?>
-										@if(isset($model['professional'])) 
+										@if(isset($model['professional']))
 										@foreach($model['professional'] as $professional)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
 											<td class="boxpengalaman">{{ strtoupper($professional['nama_kelulusan']) }}</td>
@@ -310,7 +310,7 @@ div{
 											<th class="boxpengalaman">Tahun</th>
 										</tr>
 										<?php $i=0; ?>
-										@if(isset($model['tempatan'])) 
+										@if(isset($model['tempatan']))
 										@foreach($model['tempatan'] as $tempatan)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
 											<td class="boxpengalaman">{{ strtoupper($tempatan['nama_kelulusan']) }}</td>
@@ -328,7 +328,7 @@ div{
 											<th class="boxpengalaman">Tahun</th>
 										</tr>
 										<?php $i=0; ?>
-										@if(isset($model['antarabangsa'])) 
+										@if(isset($model['antarabangsa']))
 										@foreach($model['antarabangsa'] as $antarabangsa)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
 											<td class="boxpengalaman">{{ strtoupper($antarabangsa['nama_kelulusan']) }}</td>
@@ -349,7 +349,7 @@ div{
 							<b>E. KELAYAKAN AKADEMIK DAN PROFESSIONAL/<br>
 							KELAYAKAN KOMPETENSI TEMPATAN/ <br>
 						KELAYAKAN KOMPETENSI ANTARABANGSA</b></td>
-							<td colspan="4" class="righttop"> 
+							<td colspan="4" class="righttop">
 								<table class="smallbox" >
 									<tr class="grey"><td colspan="5"><b>KELAYAKAN AKADEMIK</b></td></tr>
 									<tr>
@@ -359,7 +359,7 @@ div{
 										<th class="boxpengalaman">Tahun Kelulusan</th>
 									</tr>
 									<?php $i=0; ?>
-									@if(isset($model['kelayakan'])) 
+									@if(isset($model['kelayakan']))
 									@foreach($model['kelayakan'] as $kelayakan)
 									<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
 										<td class="boxpengalaman"colspan="2">{{ strtoupper($kelayakan['nama_kelulusan']) }}</td>
@@ -367,7 +367,7 @@ div{
 										<td class="boxpengalaman">{{ date('Y', strtotime($kelayakan['tkh_kelulusan'])) }}</td></tr>
 										<?php $i++; ?>
 										@endforeach
-										@endif 
+										@endif
 										<tr class="grey"> <td colspan="5"><b>PROFESIONAL</b></td></tr>
 										<tr><th class="boxpengalaman">No</th>
 											<th class="boxpengalaman">Kelayakan Profesional /Pendaftaran Dengan Badan Profesional</th>
@@ -376,7 +376,7 @@ div{
 											<th class="boxpengalaman">Tahun</th>
 										</tr>
 										<?php $i=0; ?>
-										@if(isset($model['professional'])) 
+										@if(isset($model['professional']))
 										@foreach($model['professional'] as $professional)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
 											<td class="boxpengalaman">{{ strtoupper($professional['nama_kelulusan']) }}</td>
@@ -394,7 +394,7 @@ div{
 											<th class="boxpengalaman">Tahun</th>
 										</tr>
 										<?php $i=0; ?>
-										@if(isset($model['tempatan'])) 
+										@if(isset($model['tempatan']))
 										@foreach($model['tempatan'] as $tempatan)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
 											<td class="boxpengalaman">{{ strtoupper($tempatan['nama_kelulusan']) }}</td>
@@ -412,7 +412,7 @@ div{
 											<th class="boxpengalaman">Tahun</th>
 										</tr>
 										<?php $i=0; ?>
-										@if(isset($model['antarabangsa'])) 
+										@if(isset($model['antarabangsa']))
 										@foreach($model['antarabangsa'] as $antarabangsa)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
 											<td class="boxpengalaman">{{ strtoupper($antarabangsa['nama_kelulusan']) }}</td>
@@ -435,12 +435,12 @@ div{
 											<tr  class="grey">
 												<td colspan="5"><b>JURNAL/BULETIN/KERTAS UTAMA</b></td>
 											</tr>
-											
+
 											<tr><th class="boxpengalaman">No</th>
 												<th class="boxpengalaman" colspan="5">Tajuk</th>
 												<th class="boxpengalaman">Tahun</th>
 											</tr>
-												@if(isset($model['jurnal'])) 
+												@if(isset($model['jurnal']))
 												<?php $i=0; ?>
 												@foreach($model['jurnal'] as $jurnal)
 												<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
@@ -450,7 +450,7 @@ div{
 													<?php $i++; ?>
 													@endforeach
 
-													
+
 													@endif
 
 													<tr  class="grey"><td colspan="5"><b>JAWATAN KUASA TEKNIKAL</b></td></tr>
@@ -467,7 +467,7 @@ div{
 
 														<?php $i++; ?>
 														@endforeach
-													
+
 														<tr class="grey">
 															<td colspan="5"><b>SUMBANGAN DAN KEGIATAN DI DALAM TUGAS RASMI</b>b</td></tr>
 														<tr>
@@ -475,7 +475,7 @@ div{
 															<th class="boxpengalaman" colspan="3">Sumbangan</th>
 															<th class="boxpengalaman">Tahun</th>
 														</tr>
-														
+
 														<?php $i=0; ?>
 
 														@foreach($model['dalamTugasrasmi'] as $dalamTugasrasmi)
@@ -484,7 +484,7 @@ div{
 															<td class="boxpengalaman">{{ date('Y', strtotime($dalamTugasrasmi['tkh_kelulusan'])) }}</td></tr>
 															<?php $i++; ?>
 															@endforeach
-															
+
 															<tr class="grey"><td colspan="5"><b>SUMBANGAN DAN KEGIATAN DI LUAR TUGAS RASMI</b></td></tr>
 															<tr>
 																<th class="boxpengalaman">No</th>
@@ -500,7 +500,7 @@ div{
 																<td class="boxpengalaman">{{ date('Y', strtotime($luarTugasrasmi['tkh_kelulusan'])) }}</td></tr>
 																<?php $i++; ?>
 																@endforeach
-																
+
 
 															</table>
 														</td>
@@ -516,7 +516,7 @@ div{
 																	<th class="boxpengalaman">Tahun</th>
 
 																</tr>
-																
+
 																<?php $i=0; ?>
 
 																@foreach($model['aPC'] as $aPC)
@@ -525,15 +525,15 @@ div{
 																	<td class="boxpengalaman">{{date('Y', strtotime($aPC['tkh_mula_peristiwa']))  }}</td></tr>
 																	<?php $i++; ?>
 																	@endforeach
-																	
-																	@endif  
+
+																	@endif
 																	<tr class="grey"><td colspan="5"><b>PINGAT</b></td></tr>
 																	<tr>
 																		<th class="boxpengalaman">No</th>
 																		<th class="boxpengalaman">Pingat</th>
 																		<th class="boxpengalaman">Tahun</th>
 																	</tr>
-																	
+
 																	<?php $i=0; ?>
 
 																	@foreach($model['pingat'] as $pingat)
@@ -542,14 +542,14 @@ div{
 																		<td >{{date('Y', strtotime($pingat['tkh_mula_peristiwa']))  }}</td></tr>
 																		<?php $i++; ?>
 																		@endforeach
-																		
-																		<tr class="grey"><td colspan="5"><b>ANUGERAH UMUM</b></td></tr> 
+
+																		<tr class="grey"><td colspan="5"><b>ANUGERAH UMUM</b></td></tr>
 																		<tr>
 																			<th class="boxpengalaman">No</th>
 																			<th class="boxpengalaman" colspan="3">Anugerah Umum</th>
 																			<th class="boxpengalaman">Tahun</th>
 																		</tr>
-																		
+
 																		<?php $i=0; ?>
 
 																		@foreach($model['anugerahUmum'] as $anugerahUmum)
@@ -558,7 +558,7 @@ div{
 																			<td class="boxpengalaman">{{date('Y', strtotime($anugerahUmum['tkh_mula_peristiwa']))  }}</td></tr>
 																			<?php $i++; ?>
 																			@endforeach
-																			  
+
 																		</table>
 
 																	</td>
@@ -583,7 +583,7 @@ div{
 																	</tr>
 																	<tr>
 																		<?php $i=0; ?>
-																		@if(isset($lampiran_kursus)) 
+																		@if(isset($lampiran_kursus))
 																		@foreach($lampiran_kursus as $lk)
 																		<tr><td>{{ $i + 1 }}.</td>
 																			<td colspan="5">{{ $lk->nama_kursus }},<br>({{date('d-m-Y', strtotime($lk->tkh_mula))}} - {{date('d-m-Y', strtotime($lk->tkh_tamat))}}) , {{$lk->tempat}}</td>
@@ -598,7 +598,7 @@ div{
 																	<tr>
 																		<td colspan="6" style="text-align:right"><h5>LAMPIRAN 3</h5></td>
 																	</tr>
-																	<?php 
+																	<?php
 																	// A few settings
 																	// $image =url('/').$lampiran_beban->path;
 
@@ -625,7 +625,7 @@ div{
 																</tr>
 																<tr>
 																	<?php $i=0; ?>
-																	@if(isset($lampiran_projek)) 
+																	@if(isset($lampiran_projek))
 																	@foreach($lampiran_projek as $lp)
 																	<tr><td>{{ $i + 1 }}.</td>
 
@@ -646,7 +646,7 @@ div{
 																</tr>
 																<tr>
 																	<?php $i=0; ?>
-																	@if(isset($lampiran_kepakaran)) 
+																	@if(isset($lampiran_kepakaran))
 																	@foreach($lampiran_kepakaran as $lk)
 																	<tr><td>{{ $i + 1 }}.</td>
 																		<td colspan="4">{{ $lk->diskripsi}}</td>
@@ -661,7 +661,7 @@ div{
 																</tr>
 																<tr>
 																	<?php $i=0; ?>
-																	@if(isset($lampiran_pencapaian)) 
+																	@if(isset($lampiran_pencapaian))
 																	@foreach($lampiran_pencapaian as $lpc)
 																	<tr><td>{{ $i + 1 }}.</td>
 

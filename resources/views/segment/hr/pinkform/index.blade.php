@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    @include('segment.pemangku.tawaran.modal.index')
+    @include('segment.hr.pinkform.modal.index')
 @endsection
 
 @section('JS')

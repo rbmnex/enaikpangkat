@@ -192,7 +192,8 @@ class PinkFormController extends Controller{
         }
     }
 
-    public function resend(Request $request,$id) {
+    public function resend(Request $request) {
+        $id = $request->input('pemohon_id');
         $pink = SuratPink::where('id_pemohon',$id)->where('flag',0)->where('delete_id',0)->first();
         $pemohon = Pemohon::find($id);
         $content = [

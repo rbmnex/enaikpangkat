@@ -227,6 +227,7 @@ Route::get('/api/func/test',[FunctionController::class, 'func']);
 Route::get('/api/test/req',[FunctionController::class, 'req']);
 Route::get('/api/test/mail',[FunctionController::class, 'mail']);
 Route::post('/api/test/upload',[FunctionController::class,'upload']);
+Route::get('/api/test/upload_url',[FunctionController::class,'uploadUrl']);
 Route::post('/api/test/download',[FunctionController::class,'download']);
 Route::get('/api/test/encrypt',[FunctionController::class,'encrypt']);
 Route::get('/api/test/decrypt',[FunctionController::class,'decrypt']);

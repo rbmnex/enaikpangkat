@@ -106,7 +106,7 @@ class ApplicationController extends Controller
 
             $form->save();
 
-            if($record->status == Pemohon::RESERVE) {
+            if($verdict == 2) {
                 $content = [
                     'title' => 'KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
                     'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
@@ -141,7 +141,7 @@ class ApplicationController extends Controller
                         ]
                     ]);
                 }
-            } else if($record->status == Pemohon::FAILED) {
+            } else if($verdict == 0) {
                 $content = [
                     'title' => 'KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
                     'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
