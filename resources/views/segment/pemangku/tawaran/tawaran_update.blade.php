@@ -216,7 +216,7 @@
                             (Tuan/puan diminta untuk melaporkan diri pada tarikh yang telah ditetapkan. Sekiranya penangguhan/pelepasan tuan/puan melebihi 14 hari (termasuk cuti mingguan dan kelepasan am), tarikh kuat kuasa pemangkuan tuan/puan adalah mulai tarikh tuan/puan kembali melaporkan diri dan melaksanakan tugas sepenuh masa di jawatan yang dipangku. Elaun pemangkuan hanya layak dibayar mulai tarikh tuan/puan menjalankan tugas yang dipangku secara sepenuh masa. Semua  penangguhan/pelepasan hendaklah dipersetujui Ketua Jabatan (yang baru) dan salinan kelulusan penangguhan disertakan bersama)
                         </label>
                     </div>
-                    @if(empty($data->pemohonPink->jenis_penempatan) || ($data->pemohonPink->jensi_penempatan != 2))
+                    @if(empty($data->pemohonPink->jenis_penempatan) || ($data->pemohonPink->jenis_penempatan == 1))
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Ketua Bahagian Perkhidmatan/ Kerani Perkhidmatan:</label>
                         <div class="col-sm-5">
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     @endif
-                    @if(!empty($data->pemohonPink->jenis_penempatan) && ($data->pemohonPink->jensi_penempatan == 2))
+                    @if(!empty($data->pemohonPink->jenis_penempatan) && ($data->pemohonPink->jenis_penempatan == 2))
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Muat Naik Borang UKP 11 (Kader):</label>
                         <div class="col-sm-5">
@@ -247,10 +247,10 @@
                     @endif
                     <div class="row">
                         <div class="col-md-12" style="width:100%">
-                            <button class="btn btn-success" style="width:100%" id="simpan-tawaran"><i data-feather='send'></i> Simpan</button><br/><br/><br/>
-                            @if(!empty($data->pemohonPink->jensi_penempatan) && ($data->pemohonPink->jenis_penempatan == 2))
-                            <button class="btn btn-primary" style="width:100%" id="download-tawaran"><i data-feather='download'></i> Muat Turun</button>
+                            @if(!empty($data->pemohonPink->jenis_penempatan) && ($data->pemohonPink->jenis_penempatan == 2))
+                            <button class="btn btn-primary" style="width:100%" id="download-tawaran"><i data-feather='download'></i> Muat Turun</button><br/><br/><br/>
                             @endif
+                            <button class="btn btn-success" style="width:100%" id="simpan-tawaran"><i data-feather='send'></i> Simpan</button>
                         </div>
                     </div>
                 </div>

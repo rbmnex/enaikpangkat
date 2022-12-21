@@ -222,7 +222,17 @@
                 <td colspan="3">: {{ empty($data->pemohonUkp11->tkh_lapor_diri) ? '' : date('d-m-Y', strtotime($data->pemohonUkp11->tkh_lapor_diri)) }}<br><br></td>
             </tr>
             <tr style="font-size:16px">
-                <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br><br></td>
+                <td colspan="2">Penangguhan (Sekiranya ada),<br>Tempoh Penangguhan<br><br></td>
+                <td colspan="3">:
+                    @if( !empty($data->pemohonUkp11->tkh_tangguh_mula) && !empty($data->pemohonUkp11->tkh_tangguh_akhir))
+                    {{ empty($data->pemohonUkp11->tkh_tangguh_mula) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_tangguh_mula)->format('d-m-Y').' hingga '.empty($data->pemohonUkp11->tkh_tangguh_akhir) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_tangguh_akhir)->format('d-m-Y') }}
+                    @else
+                    @endif
+                    <br><br>
+                </td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2">Tarikh Mula Bertugas<br><br></td>
                 <td colspan="3">: {{ empty($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan) ? '' : date('d-m-Y', strtotime($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan)) }}<br><br></td>
             </tr>
             <tr style="font-size:16px">

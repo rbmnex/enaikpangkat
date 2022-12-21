@@ -39,9 +39,9 @@ DatatableUI.init({
                 } else if(status == "TA") {
                     text = 'Tunggu Pengesahan';
                     if(status_hos == "NOT" && status_hod == "NOT")  {
-                        text += ' Ketua Bahagian Perkhidmatan';
+                        text += '<br> Ketua Bahagian Perkhidmatan';
                     } else if(status_hos == "DONE" && status_hod == "NOT") {
-                        text += ' Ketua Jabatan';
+                        text += '<br> Ketua Jabatan';
                     }
                 } else if(status == "PT") {
                     text = 'Tolak Tawaran';
@@ -91,7 +91,7 @@ DatatableUI.init({
                 var status =  full.status
                 if( (status != 'NA') && (status != 'BH') && (status != 'TA') ) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Kemaskini</button>';
-                    btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light view-full">'+ feather.icons['file'].toSvg() +' Papar</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light view-full">'+ feather.icons['file'].toSvg() +' UKP 12</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
 
                 }

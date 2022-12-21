@@ -190,22 +190,25 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-3 col-form-label">Tarikh Penangguhan:</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-tangguh-start" readonly/>
+                            <input type="text" class="form-control" id="tawaran-tkh-tangguh-start" value="{{ empty($data->pemohonUkp11->tkh_tangguh_mula) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_tangguh_mula)->format('d-m-Y') }}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
                         <label for="" class="col-sm-1 col-form-label">Hingga</label>
                         <div class="col-sm-3">
-                            <input type="text" class="form-control" id="tawaran-tkh-tangguh-end" readonly/>
+                            <input type="text" class="form-control" id="tawaran-tkh-tangguh-end" value="{{ empty($data->pemohonUkp11->tkh_tangguh_akhir) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_tangguh_akhir)->format('d-m-Y') }}" readonly/>
                             <div class="invalid-feedback"></div>
                         </div>
-                        <div class="col-sm-2">
+
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-3"></div>
+                        <div class="col-sm-9">
                             <button class="btn btn-warning btn-download" data-file-id="{{ $data->pemohonUkp11->file_id }}">
                                 <span class="align-middle d-sm-inline-block d-none">Muat Turun Surat Penangguhan</span>
                                 <i data-feather="download" class="align-middle ml-sm-25 ml-0"></i>
                             </button>
                         </div>
                     </div>
-
                     @endif
                     <br>
                     <br>

@@ -97,7 +97,7 @@ class PinkFormController extends Controller{
             $file = new File;
             $file->content_bytes = $upload['base64'];
             $file->ext = $upload['ext'];
-            $file->filename = $pink->id.'.'.$upload['ext'];
+            $file->filename = $upload['filename'];
             $file->save();
             $pink->fail_id = $file->id;
             $pink->save();

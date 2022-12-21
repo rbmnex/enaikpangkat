@@ -5,6 +5,7 @@ class TawaranUpdateController extends Ajax{
             data: data,
             func: function(success){
                 ToastAlert.toasting('Success', 'Borang Telah Dihantar Kepada Ketua Bahagian Untuk Disahkan', 'success');
+                window.open(Common.getUrl() + '/user/form','_self');
             }
         });
     }
@@ -15,7 +16,7 @@ class TawaranUpdateController extends Ajax{
             data: data,
             func: function(success){
                 //pemangku/tawaran/preview-pdf/{id_pemohon}
-                window.open(this.getUrl() + '/pemangku/tawaran/preview-pdf/'+data.get('pemohon_id'),'_blank');
+                window.open(Common.getUrl() + '/pemangku/tawaran/preview-pdf/'+data.get('pemohon_id'),'_blank');
             }
         });
     }
