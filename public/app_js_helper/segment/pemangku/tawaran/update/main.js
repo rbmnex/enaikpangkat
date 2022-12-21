@@ -9,7 +9,7 @@ $(document).on('click', '#simpan-tawaran', function(){
         validate.getValue('#tawaran-tkh-lapor-diri', 'datedashstandard', 'Tarikh Lapor Diri', 'tawaran_tkh_lapor_diri'),
         validate.getValue('#tawaran-tkh-mula-tugas', 'datedashstandard', 'Tarikh Mula Tugas', 'tawaran_tkh_mula_tugas'),
         validate.getValue('#tawaran-ketua-bahagian', 'mix', 'Ketua Bahagian', 'tawaran_ketua_bahagian'),
-        validate.getValue('#tawaran-alamat', 'string', 'Alamat Pejabat Baru', 'alamat_baru'),
+        validate.getValue('#tawaran-alamat', 'mix', 'Alamat Pejabat Baru', 'alamat_baru'),
         validate.getValue('#tawaran-ketua-jabatan', 'mix', 'Ketua Jabatan', 'tawaran_ketua_jabatan')
     );
 
@@ -74,7 +74,7 @@ $(document).on('click', '#download-tawaran', function(){
         validate.getValue('#tawaran-tkh-mula-tugas', 'datedashstandard', 'Tarikh Mula Tugas', 'tawaran_tkh_mula_tugas'),
         //validate.getValue('#tawaran-ketua-bahagian', 'mix', 'Ketua Bahagian', 'tawaran_ketua_bahagian'),
         //validate.getValue('#tawaran-ketua-jabatan', 'mix', 'Ketua Jabatan', 'tawaran_ketua_jabatan')
-        validate.getValue('#tawaran-alamat', 'string', 'Alamat Pejabat Baru', 'alamat_baru'),
+        validate.getValue('#tawaran-alamat', 'mix', 'Alamat Pejabat Baru', 'alamat_baru'),
     );
 
     let start = $('#tawaran-tkh-tangguh-start').val();

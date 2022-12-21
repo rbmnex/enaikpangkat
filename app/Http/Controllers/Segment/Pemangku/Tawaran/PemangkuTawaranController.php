@@ -201,8 +201,10 @@ class PemangkuTawaranController extends Controller{
                        $file = new File;
                        $file->content_bytes = $upload['base64'];
                        $file->ext = $upload['ext'];
-                       $file->filename = $ukp11->id.'.'.$upload['ext'];
+                       $file->filename = $upload['filename'];
                        $file->save();
+
+                       $ukp11->file_id = $file->id;
                    }
                }
 
