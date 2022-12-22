@@ -4,15 +4,22 @@
     </div>
     <div class="row">
     
-        <div class="form-group col-md-8">
+       <!--  <div class="form-group col-md-8">
             <label>Lampiran Beban Kerja</label>
             <input class="form-control upload-beban" type="file" id="lampiran_beban" name="lampiran_beban" />
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-8">
-            <button class="upload-lampiran btn btn-primary">Upload</button>
-        </div>
-        <div class="form-group col-md-12">
+            <button class="upload-lampiran btn btn-primary">Muat Naik</button>
+        </div> -->
+       
+    <div class="file btn btn-success">
+                <i data-feather='upload'></i>  Muat Naik
+                <input class="form-control file-input upload-lampiran" type="file" id="lampiran_beban" name="lampiran_beban"/>
+            </div>
+            <span class="col-form-label beban-file"></span>
+
+     <div class="form-group col-md-12">
             <label class="col-form-label" style="font-style: italic" for=""><b>* SILA MUAT TURUN LAMPIRAN BEBAN KERJA yang dijana dari HRMIS dan MUAT NAIK DI SINI</b></label>
        
     </div>

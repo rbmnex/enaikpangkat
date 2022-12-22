@@ -174,6 +174,7 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
                         row.push(parseData.tamat);
                         row.push(parseData.tempat);
                         row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
+                        row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
                         add_row('#tbody-badan-kursus',row,'data-kursus-id='+parseData.id);
                         $('#modal-kursus').modal('hide');
                         toasting('Kursus Ditambah', 'success');

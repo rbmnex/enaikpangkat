@@ -5,7 +5,7 @@
     <div class="row">
         <div class="form-group col-md-12">
             <br/>
-            <button type="button" class="btn btn-success tambah-calon" data-toggle="modal" data-target="#modal-pencapaian"><i data-feather='plus'></i>Tambah</button>
+            <button type="button" class="btn btn-success tambah-pencapaian" data-toggle="modal" data-target="#modal-pencapaian"><i data-feather='plus'></i>Tambah</button>
         </div>
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
@@ -18,12 +18,12 @@
                     <tr data-pencapaian-id="{{ $org->id }}">
                         <td>{{ $org->diskripsi }}</td>
                         <td>
-                        <button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-pencapaian"><i data-feather='trash-2'></i> Hapus</button><br/>
-                        <!-- <button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-pencapaian"><i data-feather='check-square'></i> Kemaskini</button></td> -->
+                        <button  title="Hapus" type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-pencapaian"><i data-feather='trash-2'></i></button>
+                        <button  title="Kemaskini" type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-pencapaian"  data-toggle="modal" data-target="#modal-pencapaian"><i data-feather='check-square'></i></button></td>
                     </tr>
                 @endforeach
                 @if($lampiranpencapaian->count() == 0)
-                <tr data-pencapaian-id="">
+                <tr data-pencapaian-id="" class="pencapaian-no-data">
                     <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
                 @endif

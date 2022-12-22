@@ -183,7 +183,7 @@ Route::prefix('/form')->group(function() {
          Route::post('/projek',[ResumeController::class,'save_projek']);
          Route::post('/projek/del',[ResumeController::class,'delete_projek']);
         Route::post('/pendedahan',[ResumeController::class,'save_pendedahan']);
-         Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']);
+         Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']); 
          Route::post('/pencapaian',[ResumeController::class,'save_pencapaian']);
          Route::post('/pencapaian/del',[ResumeController::class,'delete_pencapaian']);
          Route::post('/property/save',[UkpController::class,'save_harta']);
@@ -192,9 +192,11 @@ Route::prefix('/form')->group(function() {
         Route::post('/submit-kader',[UkpController::class,'kader_submission']);
         Route::post('/cuti/upload',[UkpController::class,'upload_pengesahan']);
         Route::post('/form/upload',[UkpController::class,'upload_form']);
-        Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);;
-        Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);;
-        Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);;
+        Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);
+        Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);
+        Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);
+        Route::post('/get-pencapaian',[ResumeController::class,'getPencapaian']);
+        Route::post('/get-kursus',[ResumeController::class,'getKursus']);
     });
 });
 
