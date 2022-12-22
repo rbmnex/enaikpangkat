@@ -21,7 +21,7 @@
                     </tr>
                 @endforeach
                 @if($lampiranpendedahan->count() == 0)
-                <tr data-pendedahan-id="">
+                <tr data-pendedahan-id="" class="pendedahan-no-data">
                     <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 

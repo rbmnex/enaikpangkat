@@ -299,24 +299,29 @@ class ResumeController extends Controller
         $tamat = $request->input('tamat');
         $tempat = $request->input('tempat');
         $user = $request->input('user');
+        $id = $request->input('id');
        //$id = $request->input('pemohonId');
         //$nokp = $request->input('nokp');
-
+        if(!$id){
         $model = new LampiranKursus;
         $model->flag = 1;
         $model->delete_id = 0;
-        $model->nama_kursus = $tajuk;
-        $model->tkh_mula = $mula;
-        $model->tkh_tamat = $tamat;
-        $model->tempat = $tempat;
+       
         $model->nokp = $nokp->nokp;
         $model->user_id = $user;
         $model->created_by = $nokp->nokp;
         $model->updated_by = $nokp->nokp;
+         }else{
+            $model = LampiranKursus::find($id);
+        }
+         $model->nama_kursus = $tajuk;
+        $model->tkh_mula = $mula;
+        $model->tkh_tamat = $tamat;
+        $model->tempat = $tempat;
 
         if($model->save()) {
             return response()->json([
-                'success' => 1,
+                 'success' => !$id ? 1 : 2,
                 'data' => [
                     'tajuk' => $model->nama_kursus,
                     'mula' => $model->tkh_mula,
@@ -401,25 +406,31 @@ class ResumeController extends Controller
         }
     }
 
-         public function save_pencapaian(Request $request) {
+    public function save_pencapaian(Request $request) {
         $nokp = Auth::user();
         $tajuk = $request->input('tajuk');
         $user = $request->input('user');
+        $id = $request->input('id');
 
-        $model = new LampiranPendedahan;
-        $model->flag = 1;
-        $model->kod_kategori = 2;
-        $model->delete_id = 0;
+        if(!$id){
+            $model = new LampiranPendedahan;
+            $model->flag = 1;
+            $model->kod_kategori = 2;
+            $model->delete_id = 0;
+            $model->created_by = $nokp->nokp;
+            $model->nokp = $nokp->nokp;
+            $model->user_id = $user;
+            $model->created_by = $nokp->nokp;
+            $model->updated_by = $nokp->nokp;
+        }else{
+            $model = LampiranPendedahan::find($id);
+        }
+        
         $model->diskripsi = $tajuk;
-        $model->created_by = $nokp->nokp;
-        $model->nokp = $nokp->nokp;
-        $model->user_id = $user;
-        $model->created_by = $nokp->nokp;
-        $model->updated_by = $nokp->nokp;
 
         if($model->save()) {
             return response()->json([
-                'success' => 1,
+                'success' => !$id ? 1 : 2,
                 'data' => [
                     'tajuk' => $model->diskripsi,
                     'id' => $model->id
@@ -508,13 +519,12 @@ class ResumeController extends Controller
 
      public function save_beban(Request $request) {
         $lampiran = $request->file('lampiran_beban');
-        $nokp = $request->input('nokp');
         $model = new LampiranBebanKerja;
         if($lampiran){
             $upload = CommonController::upload_image($lampiran, 'documents');
 
             $model->path = '/documents/'.$upload;
-            $model->nokp =  $nokp;
+            $model->nokp =  Auth::user()->nokp;
             $model->save();
         }
 
@@ -745,6 +755,29 @@ public function lampiran3($ic)
  }
 
 
+ public function getPencapaian(Request $request){
+    $model = LampiranPendedahan::find($request->input('id'));
 
+    return response()->json([
+        'success' => 1,
+        'data' => [
+            'result' => $model->diskripsi
+        ]
+    ]);
+ }
+
+  public function getKursus(Request $request){
+    $model = LampiranKursus::find($request->input('id'));
+
+    return response()->json([
+        'success' => 1,
+        'data' => [
+            'result' => $model->nama_kursus,
+            'mula' => $model->tkh_mula,
+            'tamat' => $model->tkh_tamat,
+            'tempat' => $model->tempat
+        ]
+    ]);
+ }
 
 }
