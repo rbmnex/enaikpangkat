@@ -31,7 +31,7 @@ use Illuminate\Routing\RouteRegistrar;
 */
 
 Route::get('/', function () {
-    return view('landing');
+    return view('layouts.landing');
 });
 
 //test aku untuk vnat, nanti aku delete

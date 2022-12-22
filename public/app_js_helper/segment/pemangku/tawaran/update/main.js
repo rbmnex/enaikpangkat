@@ -1,17 +1,32 @@
 $(document).on('click', '#simpan-tawaran', function(){
    let validate = new Validation();
    let dt = new FormData();
+   let jenis = $('#jenis_penempatan').val();
+   let v = new FormData();
 
-    let v = validate.checkEmpty(
-        validate.getValue('#tawaran-rujukan', 'mix', 'No. Rujukan', 'tawaran_rujukan'),
-        validate.getValue('#tawaran-setuju', 'string', 'Persetujuan Tawaran', 'tawaran_setuju'),
-        validate.getValue('#tawaran-tkh-kuatkuasa-baru', 'datedashstandard', 'Tarikh Kuat Kuasa Baru', 'tawaran_tkh_kuatkuasa_baru'),
-        validate.getValue('#tawaran-tkh-lapor-diri', 'datedashstandard', 'Tarikh Lapor Diri', 'tawaran_tkh_lapor_diri'),
-        validate.getValue('#tawaran-tkh-mula-tugas', 'datedashstandard', 'Tarikh Mula Tugas', 'tawaran_tkh_mula_tugas'),
-        validate.getValue('#tawaran-ketua-bahagian', 'mix', 'Ketua Bahagian', 'tawaran_ketua_bahagian'),
-        validate.getValue('#tawaran-alamat', 'mix', 'Alamat Pejabat Baru', 'alamat_baru'),
-        validate.getValue('#tawaran-ketua-jabatan', 'mix', 'Ketua Jabatan', 'tawaran_ketua_jabatan')
-    );
+   if(jenis == 2) {
+       v = validate.checkEmpty(
+           validate.getValue('#tawaran-rujukan', 'mix', 'No. Rujukan', 'tawaran_rujukan'),
+           validate.getValue('#tawaran-setuju', 'string', 'Persetujuan Tawaran', 'tawaran_setuju'),
+           validate.getValue('#tawaran-tkh-kuatkuasa-baru', 'datedashstandard', 'Tarikh Kuat Kuasa Baru', 'tawaran_tkh_kuatkuasa_baru'),
+           validate.getValue('#tawaran-tkh-lapor-diri', 'datedashstandard', 'Tarikh Lapor Diri', 'tawaran_tkh_lapor_diri'),
+           validate.getValue('#tawaran-tkh-mula-tugas', 'datedashstandard', 'Tarikh Mula Tugas', 'tawaran_tkh_mula_tugas'),
+           validate.getValue('#tawaran-alamat', 'mix', 'Alamat Pejabat Baru', 'alamat_baru')
+       );
+
+   } else {
+        v = validate.checkEmpty(
+            validate.getValue('#tawaran-rujukan', 'mix', 'No. Rujukan', 'tawaran_rujukan'),
+            validate.getValue('#tawaran-setuju', 'string', 'Persetujuan Tawaran', 'tawaran_setuju'),
+            validate.getValue('#tawaran-tkh-kuatkuasa-baru', 'datedashstandard', 'Tarikh Kuat Kuasa Baru', 'tawaran_tkh_kuatkuasa_baru'),
+            validate.getValue('#tawaran-tkh-lapor-diri', 'datedashstandard', 'Tarikh Lapor Diri', 'tawaran_tkh_lapor_diri'),
+            validate.getValue('#tawaran-tkh-mula-tugas', 'datedashstandard', 'Tarikh Mula Tugas', 'tawaran_tkh_mula_tugas'),
+            validate.getValue('#tawaran-alamat', 'mix', 'Alamat Pejabat Baru', 'alamat_baru'),
+            validate.getValue('#tawaran-ketua-bahagian', 'mix', 'Ketua Bahagian', 'tawaran_ketua_bahagian'),
+            validate.getValue('#tawaran-ketua-jabatan', 'mix', 'Ketua Jabatan', 'tawaran_ketua_jabatan')
+        );
+   }
+
 
     let start = $('#tawaran-tkh-tangguh-start').val();
     let end = $('#tawaran-tkh-tangguh-end').val();
@@ -154,11 +169,11 @@ $(document).on('change', '#tawaran-setuju', function() {
 
 $(document).on('change', '#tawaran-borang-ukp11', function() {
     let data = new FormData();
-    let file = $('#tawaran-surat-tangguh')[0].files[0];
+    let file = $('#tawaran-borang-ukp11')[0].files[0];
     data.append('_token', getToken());
     data.append('pemohon_id', $('#pemohon_id').val());
     data.append('file', file);
-    TawaranUpdateController.downloadForm({
+    TawaranUpdateController.uploadForm({
         url: 'pemangku/tawaran/update/upload',
         data: data,
     });

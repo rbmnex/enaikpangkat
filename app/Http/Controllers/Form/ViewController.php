@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Form;
 
 use App\Http\Controllers\Controller;
+use App\Models\File;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Mykj\Markah;
 use App\Models\Permohonan\Akademik;
@@ -59,6 +60,7 @@ class ViewController extends Controller
             $pemohon = Pemohon::find($id);
             $peribadi = Peribadi::find($pemohon->id_peribadi);
             $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();
+            $file_pengesahan = File::find($pemohon->pengesahan_cuti);
             $harta = Harta::where('id_pemohon',$pemohon->id)->first();
             $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
             $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get();
@@ -214,7 +216,8 @@ class ViewController extends Controller
                 'hod' => $hod,
                 'tatatertib' => $tatatertib,
                 'sumbangan' => $contribution,
-                'pages' => $includes
+                'pages' => $includes,
+                'borang_pengesahan' => $file_pengesahan,
             ]);
     }
 
