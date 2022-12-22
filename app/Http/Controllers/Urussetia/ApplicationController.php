@@ -115,15 +115,15 @@ class ApplicationController extends Controller
                     'count' => $form->bil_mesyuarat,
                     'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y-m-d'),
                     'tarikh' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
+                    'nama' => $record->pemohonPeribadi->nama,
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.simpanan-mail',$content,function($message) use ($record) {
                         // testing purpose
                         //$message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
-                        //
-                        $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+                        $message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
+                        //$message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
 
-                        //$message->to($kerani_user->email,$kerani_user->name);
                         $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
 
                     });
@@ -137,7 +137,8 @@ class ApplicationController extends Controller
                     return response()->json([
                         'success' => 0,
                         'data' => [
-                            'message' => 'Failed to email (email calon simpanan)'
+                            'message' => 'Failed to email (email calon simpanan)',
+                            'error' => $e->getMessage()
                         ]
                     ]);
                 }
@@ -150,14 +151,14 @@ class ApplicationController extends Controller
                     'count' => $form->bil_mesyuarat,
                     'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y-m-d'),
                     'tarikh' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
-
+                    'nama' => $record->pemohonPeribadi->nama
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record) {
                         // testing purpose
                         //$message->to('enaikpangkat@jkr.gov.my',$record->pemohonPeribadi->nama);
-                        //
-                        $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+                        $message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
+                        //$message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
                         //$message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
 
                         //$message->to($kerani_user->email,$kerani_user->name);
@@ -168,6 +169,7 @@ class ApplicationController extends Controller
                         'success' => 1,
                         'data' => [
                             'message' => 'Success to email (email calon gagal)'
+
                         ]
                     ]);
 
@@ -175,7 +177,8 @@ class ApplicationController extends Controller
                     return response()->json([
                         'success' => 0,
                         'data' => [
-                            'message' => 'Failed to email (email calon gagal)'
+                            'message' => 'Failed to email (email calon gagal)',
+                            'error' => $e->getMessage()
                         ]
                     ]);
                 }

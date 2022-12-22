@@ -332,6 +332,7 @@ function display_staff(batch) {
             // {data: 'kod_gred'},
             // {data: 'jurusan'},
             // {data: 'tempat'},
+            {data: 'kod_kategori_penempatan'},
             {data: 'tkh_lantikan'},
             {data: 'kod_kanan'},
             {data: 'aksi'},
@@ -356,7 +357,15 @@ function display_staff(batch) {
                         '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light calon-delete">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>'
                     );
                 }
-            }
+            },
+            {
+                'targets' : 3,
+                'searchable' : false,
+                'orderable' : false,
+                'render' : function (data, type, full, meta) {
+                    return (full.kod_kategori_penempatan == 2 ? 'KADER' : 'BUKAN KADER');
+                }
+             }
         ],
         dom:
             '<"card-header border-bottom p-1"<"head-label"><"dt-action-buttons text-right"B>><"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
