@@ -26,8 +26,6 @@
                 <tr data-projek-id="" class="projek-no-data">
                     <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
-
-
                 @endif
                 </tbody>
             </table>

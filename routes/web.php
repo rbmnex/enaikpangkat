@@ -182,9 +182,11 @@ Route::prefix('/form')->group(function() {
         Route::post('/submit-kader',[UkpController::class,'kader_submission']);
         Route::post('/cuti/upload',[UkpController::class,'upload_pengesahan']);
         Route::post('/form/upload',[UkpController::class,'upload_form']);
-        Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);;
-        Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);;
-        Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);;
+        Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);
+        Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);
+        Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);
+        Route::post('/get-pencapaian',[ResumeController::class,'getPencapaian']);
+        Route::post('/get-kursus',[ResumeController::class,'getKursus']);
     });
 });
 
@@ -217,6 +219,7 @@ Route::get('/api/test/mail',[FunctionController::class, 'mail']);
 Route::post('/api/test/upload',[FunctionController::class,'upload']);
 Route::post('/api/test/download',[FunctionController::class,'download']);
 Route::get('/api/test/encrypt',[FunctionController::class,'encrypt']);
+
 Route::get('/test/form',function() {
     return view('form.ukp12');
 });

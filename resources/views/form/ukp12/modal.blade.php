@@ -149,6 +149,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                         <button type="button" class="btn btn-success add-kursus">Tambah</button>
+                         <button type="button" class="btn btn-success post-edit-kursus">Kemaskini</button>
                     </div>
 
             </div>
@@ -163,7 +164,7 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel160">Kursus Disimpan</h5>
+                <h5 class="modal-title" id="myModalLabel160">Maklumat Disimpan</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -201,7 +202,7 @@
 
                     <div class="row">
                         <div class="col-xl-4 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="">Nama Projek edrttdr sdsd</label>
+                            <label class="form-label" for="">Nama Projek</label>
                             <input type="text" id="modal-post" name="projek-nama" class="form-control" placeholder=""  />
                         </div>
                         <div class="col-xl-4 col-md-6 col-12 mb-1">
@@ -274,7 +275,8 @@
                     <div class="row">
                         <div class="col-xl-12 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Pencapaian</label>
-                            <input type="textarea" id="modal-post" name="pencapaian-nama" class="form-control" placeholder=""  />
+                            <textarea rows="6" name="pencapaian-nama" class="form-control"></textarea>
+                            <!-- <input type="textarea" id="modal-post" name="pencapaian-nama" class="form-control" placeholder=""  /> -->
                         </div>
                         
                     </div>
@@ -282,6 +284,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                         <button type="button" class="btn btn-success add-pencapaian">Tambah</button>
+                        <button type="button" class="btn btn-success post-edit-pencapaian">Kemaskini</button>
                     </div>
 
             </div>
@@ -438,3 +441,8 @@
         </div>
     </div>
 </div>
+
+<input type="hidden" id="pencapaian-id" value="">
+<input type="hidden" id="kursus-id" value="">
+<input type="hidden" id="beban-id" value="">
+<input type="hidden" id="projek-id" value="">
