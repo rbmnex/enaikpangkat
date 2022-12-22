@@ -258,6 +258,7 @@
         </div>
     </div>
     <input type="hidden" id="pemohon_id" value="{{$pemohon_id}}">
+    <input type="hidden" id="jenis_penempatan" value="{{ $data->pemohonPink->jenis_penempatan }}">
 @endsection
 
 @section('JS')

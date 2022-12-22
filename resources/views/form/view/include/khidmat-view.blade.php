@@ -13,6 +13,11 @@
                     </div>
                     <div class="invalid-feedback"></div>
                 </div>
+                {{-- <div class="form-group col-md-12">
+                    <iframe src="data:application/pdf;base64,{{ $borang_pengesahan->content_bytes }}" height="100%" width="100%">
+
+                    </iframe>
+                </div> --}}
                 <div class="col-md-12">
                     <div class="form-group row">
                         <div class="col-sm-2 col-form-label">

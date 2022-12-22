@@ -65,8 +65,8 @@ class PinkFormController extends Controller{
     }
 
     public function hantar(Request $request){
-        $pinks = SuratPink::where('id_pemohon')->get();
-        $id = 0;
+        $pinks = SuratPink::where('id_pemohon',$request->input('pemohon_id'))->get();
+        //$id = 0;
         $pink = NULL;
         if($pinks->count() > 0) {
             foreach($pinks as $p) {

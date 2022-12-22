@@ -219,7 +219,7 @@ class PemangkuTawaranController extends Controller{
 
     public function upload_form(Request $request) {
         $id = $request->input('pemohon_id');
-        $form = $request->input('file');
+        $form = $request->file('file');
 
         $pemohon = Pemohon::with('pemohonUkp11')->find($id);
         $ukp11= $pemohon->pemohonUkp11;

@@ -1,4 +1,5 @@
 class TawaranUpdateController extends Ajax{
+
     static hantarForm({url, data, trigger}){
         this.runAjax({
             url : url,
