@@ -89,7 +89,7 @@
     <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalLabel160">Primary Modal</h5>
+                <h5 class="modal-title" id="myModalLabel160">Senarai Calon</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -175,7 +175,7 @@
                                 <th>jawatan</th>
                                 {{-- <th>gred</th>
                                 <th>jurusan</th>--}}
-                                <th>penempatan</th>
+                                <th>penempatan</th>{{--  --}}
                                 <th>tarikh lantikan / naik pangkat</th>
                                 <th>kekananan</th>
                                 <th>aksi</th>

@@ -941,7 +941,7 @@ class UkpController extends Controller
         // $pemohon->pengesahan_perkhidmatan_cawangan
         // $pemohon->pengesahan_perkhidmatan_tkh
 
-        if(!empty($alldata['accept'])) {
+        if(isset($alldata['accept'])) {
             if($alldata['accept']) {
                 $pemohon->status = Pemohon::WAITING_VERIFICATION;
             } else {
@@ -1198,7 +1198,14 @@ class UkpController extends Controller
 
                         });
                     } catch(\Exception $e) {
-
+                        var_dump($e->getMessage());
+                        return response()->json([
+                            'success' => 0,
+                            'data' => [
+                                'message' => 'Failed to email (email pengesahan ketua perkhidmatan)',
+                                'error' => $e->getMessage()
+                            ]
+                        ]);
                     }
 
 
@@ -1217,8 +1224,9 @@ class UkpController extends Controller
             try {
                 Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
                     // testing purpose
-                    $message->to('urusetiakenaikanpangkat','Urus Setia Kenaik Pangkat');
-                    //$message->from($formdata->email,$formdata->nama);
+                    //$message->to('rubmin@vn.net.my','Urusetia e-NaikPangkat');
+                    $message->to('urusetiakenaikanpangkat@jkr@.gov.my','Urus Setia Kenaik Pangkat');
+
 
                     //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
                     $message->subject('MENOLAK TAWARAN PEMANGKUAN');
@@ -1226,7 +1234,14 @@ class UkpController extends Controller
                 });
 
             } catch(\Exception $e) {
-
+                var_dump($e->getMessage());
+                return response()->json([
+                    'success' => 0,
+                    'data' => [
+                        'message' => 'Failed to email (email calon tolak)',
+                        'error' => $e->getMessage()
+                    ]
+                ]);
             }
         }
 
