@@ -2,6 +2,7 @@ Flatpickrinit.initAll('#pinkform-tkh-lapor-diri');
 
 //Select2init.initAll();
 
+
 // $('.select2').each(function () {
 //     var $this = $(this);
 //     $this.wrap('<div class="position-relative"></div>');

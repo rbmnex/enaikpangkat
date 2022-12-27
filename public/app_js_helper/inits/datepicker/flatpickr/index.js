@@ -2,7 +2,8 @@ class Flatpickrinit{
     static initAll(...selector){
         selector.forEach(function(x){
             $(x).flatpickr({
-                dateFormat: 'd-m-Y'
+                dateFormat: 'd-m-Y',
+                static: true
             });
         });
     }
@@ -10,7 +11,8 @@ class Flatpickrinit{
     static initWithTime(selector){
         $(selector).flatpickr({
             dateFormat: 'd-m-Y H:i',
-            enableTime: true
+            enableTime: true,
+            static: true
         });
     }
 }

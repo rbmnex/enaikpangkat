@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Urussetia;
 
+use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
 use App\Models\Mykj\LJurusan;
 use App\Models\Permohonan\Pemohon;
@@ -288,6 +289,8 @@ class BatchMgmtController extends Controller
             ->select('np.nokp','np.nama','np.email','np.jawatan','np.kod_gred')
             ->whereIn('np.nokp',$list_nokp)->get();
 
+            $common = new CommonController();
+
             foreach($pegawais as $calon) {
                 $secure_link = Crypt::encryptString($model->id.'?kp='.$calon->nokp);
 
@@ -295,15 +298,15 @@ class BatchMgmtController extends Controller
                     //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                     'link' => url('/')."/form/ukp12/apply/".$secure_link,
                     'gred' => $kod_gred,
-                    'end_date' => Carbon::now()->addDays(14)->format('d M Y')
+                    'end_date' => $common->translateMonth(Carbon::now()->addDays(14)->format('d M Y'))
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
                         // testing purpose
                         //$message->to('munirahj@jkr.gov.my',$calon->nama);
-                        //$message->to('munirahj@jkr.gov.my',$calon->nama);
+                        $message->to('rubmin@vn.net.my',$calon->nama);
 
-                        $message->to($calon->email,$calon->nama);
+                        //$message->to($calon->email,$calon->nama);
                         $message->subject('URUSAN PEMANGKUAN '.$calon->jawatan.' GRED '.$calon->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                     });
@@ -565,13 +568,15 @@ class BatchMgmtController extends Controller
             ->select('np.nokp','np.nama','np.email','np.jawatan','np.kod_gred')
             ->where('np.nokp',$nokp)->get();
         $kod_gred = $kumpulan->permohonan->gred;
+        $common = new CommonController();
             $secure_link = Crypt::encryptString($kumpulan->permohonan->id.'?kp='.$nokp);
             $content = [
                 //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                 'link' => url('/')."/form/ukp12/apply/".$secure_link,
                 'gred' => $kumpulan->permohonan->gred,
-                'end_date' => Carbon::now()->addDays(14)->format('d M Y')
+                'end_date' => $common->translateMonth(Carbon::now()->addDays(14)->format('d M Y'))
             ];
+
             try {
                 Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
                     // testing purpose
