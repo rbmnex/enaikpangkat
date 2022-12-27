@@ -110,7 +110,7 @@
          </div>
          <div class="form-group col-md-12">
             <label class="col-form-label" for="alamat_bertugas">Alamat Pejabat Pasangan</label>
-            <textarea row=6 readonly id="sect-4-alamat_pejabat_pasangan" class="form-control" name="alamat_pejabat_pasangan" placeholder=""/>@if($profile['taraf_perkahwinan'] == 'KAHWiN') {{ empty($profile['alamat_pasangan']) ? strtoupper($profile['alamat_rumah']) :  strtoupper($profile['alamat_pasangan']) }} @endif</textarea>
+            <textarea row=6 readonly id="sect-4-alamat_pejabat_pasangan" class="form-control" name="alamat_pejabat_pasangan" placeholder=""/>@if($profile['taraf_perkahwinan'] == 'KAHWIN') {{ empty($profile['alamat_pasangan']) ? strtoupper($profile['alamat_rumah']) :  strtoupper($profile['alamat_pasangan']) }} @endif</textarea>
             <div class="invalid-feedback"></div>
         </div>
     </div>

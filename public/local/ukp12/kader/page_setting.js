@@ -420,7 +420,7 @@ function validate_form() {
             valid = false;
             addInvalid('#status_pinjam', 'Sila pilih pengakuan pinjaman pendidikan');
 
-        } else if(status_pinjam != '0' || status_pinjam != 0) {
+        } else if(status_pinjam > 0) {
             var nama_tabung = $('.nama_tabung').val();
             var jumlah_pinjaman = $('.jumlah_pinjaman').val();
             var mula_pinjam = $('.mula_pinjam').val();

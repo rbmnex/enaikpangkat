@@ -149,4 +149,34 @@ class CommonController extends Controller
 
         return $file_info;
     }
+
+    public function translateMonth($date) {
+        if(str_contains($date,'Jan')) {
+            $date = str_replace('Jan','JANUARI',$date);
+        } else if(str_contains($date,'Feb')) {
+            $date = str_replace('Feb','FEBRUARI',$date);
+        } else if(str_contains($date,'Mar')) {
+            $date = str_replace('Mar','MAC',$date);
+        } else if(str_contains($date,'Apr')) {
+            $date = str_replace('Apr','APRIL',$date);
+        } else if(str_contains($date,'May')) {
+            $date = str_replace('May','MEI',$date);
+        } else if(str_contains($date,'Jun')) {
+            $date = str_replace('Jun','JUN',$date);
+        } else if(str_contains($date,'Jul')) {
+            $date = str_replace('Jul','JULAI',$date);
+        } else if(str_contains($date,'Aug')) {
+            $date = str_replace('Aug','OGOS',$date);
+        } else if(str_contains($date,'Sep')) {
+            $date = str_replace('Sep','SEPTEMBER',$date);
+        } else if(str_contains($date,'Oct')) {
+            $date = str_replace('Oct','OKTOBER',$date);
+        } else if(str_contains($date,'Nov')) {
+            $date = str_replace('Nov','NOVEMBER',$date);
+        } else if(str_contains($date,'Dec')) {
+            $date = str_replace('Dec','DISEMBER',$date);
+        }
+
+        return $date;
+    }
 }

@@ -117,5 +117,6 @@ DatatableUI.init({
 });
 
 $('#verdict-date').flatpickr({
-    dateFormat: 'd-m-Y'
+    dateFormat: 'd-m-Y',
+    static: true
 });

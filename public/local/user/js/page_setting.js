@@ -19,6 +19,8 @@ let dt = DatatableUI.init({
             render: function (data, type, full, meta) {
                 //var label;
                 var status =  full.status;
+                //var head = full.perakuan_ketua_jabatan;
+                var service = full.pengesahan_perkhidmatan;
                 var text = '';
                 var color = ''
                 if(status == "BH") {
@@ -26,6 +28,11 @@ let dt = DatatableUI.init({
                     color = 'warning';
                 } else if(status == "TA") {
                     text = 'Tunggu Pengesahan';
+                    if(service == 1)  {
+                        text += '<br> Ketua Jabatan';
+                    } else {
+                        text += '<br> Ketua Bahagian Perkhidmatan';
+                    }
                     color = 'warning';
                 } else if(status == "PT") {
                     text = 'Tolak Tawaran';
