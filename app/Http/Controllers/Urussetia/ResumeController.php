@@ -49,8 +49,8 @@ class ResumeController extends Controller
 
     public function mockup4(Request $request){
           $model = Role::all();
-   
-        
+
+
 
 
         return view('mockup4')->with('roles',$model);
@@ -66,8 +66,8 @@ class ResumeController extends Controller
      public function terpilih(Request $request){
  // $model = Role::all();
   $dateline1 = Carbon::now();
-  $dateline =Carbon::parse($dateline1)->addDays(5); 
- 
+  $dateline =Carbon::parse($dateline1)->addDays(5);
+
 
         return view('urussetia.resume.senaraiterpilih');
     }
@@ -306,7 +306,7 @@ class ResumeController extends Controller
         $model = new LampiranKursus;
         $model->flag = 1;
         $model->delete_id = 0;
-       
+
         $model->nokp = $nokp->nokp;
         $model->user_id = $user;
         $model->created_by = $nokp->nokp;
@@ -315,8 +315,8 @@ class ResumeController extends Controller
             $model = LampiranKursus::find($id);
         }
          $model->nama_kursus = $tajuk;
-        $model->tkh_mula = $mula;
-        $model->tkh_tamat = $tamat;
+        $model->tkh_mula = empty($mula) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $mula)->format('Y-m-d');
+        $model->tkh_tamat = empty($tamat) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $tamat)->format('Y-m-d');
         $model->tempat = $tempat;
 
         if($model->save()) {
@@ -324,8 +324,8 @@ class ResumeController extends Controller
                  'success' => !$id ? 1 : 2,
                 'data' => [
                     'tajuk' => $model->nama_kursus,
-                    'mula' => $model->tkh_mula,
-                    'tamat' => $model->tkh_tamat,
+                    'mula' => date('d-m-Y', strtotime($model->tkh_mula)),
+                    'tamat' => date('d-m-Y', strtotime($model->tkh_tamat)),
                     'tempat' => $model->tempat,
                     'nokp' =>$model->nokp,
                     'id' => $model->id
@@ -425,7 +425,7 @@ class ResumeController extends Controller
         }else{
             $model = LampiranPendedahan::find($id);
         }
-        
+
         $model->diskripsi = $tajuk;
 
         if($model->save()) {
@@ -690,7 +690,7 @@ public function lampiran3($ic)
              ->where('np.nokp',$ic)->first();
 
 
-             
+
 
      $dateline = Carbon::now();
      $daysToAdd = 5;
@@ -773,8 +773,8 @@ public function lampiran3($ic)
         'success' => 1,
         'data' => [
             'result' => $model->nama_kursus,
-            'mula' => $model->tkh_mula,
-            'tamat' => $model->tkh_tamat,
+            'mula' => date('d-m-Y', strtotime($model->tkh_mula)),
+            'tamat' => date('d-m-Y', strtotime($model->tkh_tamat)),
             'tempat' => $model->tempat
         ]
     ]);

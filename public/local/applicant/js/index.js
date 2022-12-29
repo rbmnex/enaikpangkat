@@ -27,7 +27,7 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
                     $('#verdict-jawatan').val(parseData.jawatan);
                     $('#verdict-gred').val(parseData.gred);
                     $('#verdict-rank').val(parseData.rank);
-                    if(parseData.status == 'LL') {
+                    if(parseData.status == 'LL' || parseData.status == 'MT' || parseData.status == 'MJ' || parseData.status == 'TL' || parseData.status == 'PL') {
                         $('#radio-verdict-1').attr('checked','checked');
                         $('#radio-verdict-2').removeAttr('checked');
                         $('#radio-verdict-3').removeAttr('checked');
@@ -99,8 +99,8 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
         window.open(getUrl() + '/form/ukp12/nview/'+pemohon_id+'?view=l','_self');
     } else if(selectedClass.hasClass('view-full')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
-        //window.open(getUrl() + '/form/ukp12/nview/'+pemohon_id+'?view=n','_self');
-        window.open(getUrl() + '/form/ukp12/download/view?dataform='+pemohon_id+'?view=n','_blank');
+        window.open(getUrl() + '/form/ukp12/nview/'+pemohon_id+'?view=n','_self');
+        //window.open(getUrl() + '/form/ukp12/download/view?dataform='+pemohon_id,'_blank');
     } else if(selectedClass.hasClass('ukp11-view')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
         window.open(getUrl() + '/pemangku/tawaran/preview-pdf/'+pemohon_id,'_blank');

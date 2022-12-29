@@ -36,6 +36,11 @@
 
 
     @yield('customCss')
+    <style>
+    .flatpickr-wrapper {
+        display: block !important;
+    }
+    </style>
     </head>
     <body class="vertical-layout vertical-menu-modern  navbar-floating footer-static" data-open="click" data-menu="vertical-menu-modern" data-col="">
         @include('includes.header')

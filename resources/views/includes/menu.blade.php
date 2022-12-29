@@ -235,7 +235,7 @@
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/kb/pengesahan-pink/') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang UKP 11</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang JKR/UKP/11</span>
                         </a>
                     </li>
                 </ul>
@@ -258,7 +258,7 @@
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/kj/pengesahan-pink/') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang UKP 11</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang /JKR/UKP/11</span>
                         </a>
                     </li>
                 </ul>

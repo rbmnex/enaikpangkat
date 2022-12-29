@@ -186,8 +186,8 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
                         row.push(parseData.mula);
                         row.push(parseData.tamat);
                         row.push(parseData.tempat);
-                        var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
-                        btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Kemaskini</button>';
+                        var btn = '<button title="Hapus" type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-kursus">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
+                        btn += '<button  title="Kemaskini" type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-kursus"  data-toggle="modal" data-target="#modal-kursus">'+ feather.icons['check-square'].toSvg() +' Kemaskini</button>';
                         row.push(btn);
                         $('.kursus-no-data').remove();
                         add_row('#tbody-badan-kursus',row,'data-kursus-id='+parseData.id);
@@ -764,11 +764,11 @@ $(document).on('click', '.update-kursus', function(){
         context: this,
         success: function(data) {
             let result = data.data;
-            $('input[name=kursus-nama]').val(result.result);
+            $('input[name=kursus-tajuk]').val(result.result);
              $('input[name=kursus-mula]').val(result.mula);
               $('input[name=kursus-tamat]').val(result.tamat);
                $('input[name=kursus-tempat]').val(result.tempat);
-          
+
         }
     });
 

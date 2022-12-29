@@ -443,7 +443,10 @@ function validate_form() {
                 valid = false;
                 addInvalid('.akhir_pinjam', 'Sila isikan Tarikh Akhir Pinjaman');
             }
-
+            if($('.loan-file').is(':empty')) {
+                valid = false;
+                addInvalid('.selesai_bayar', 'Sila Muat Naik Penyata Pembayaran Pinjaman Terkini atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan');
+            }
             if(status_pinjam == '2' || status_pinjam == 2) {
                 if(bayar_mula == '' || bayar_mula == undefined) {
                     valid = false;
@@ -457,10 +460,7 @@ function validate_form() {
                     addInvalid('.selesai_bayar', 'Sila isikan Tarikh Selesai Pembayaran');
                 }
             }
-            if($('.loan-file').is(':empty')) {
-                valid = false;
-                addInvalid('.selesai_bayar', 'Sila Muat Naik Penyata Pembayaran Pinjaman Terkini atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan');
-            }
+
         }
         if(!valid) {
             verticalStepper.to(11);
@@ -560,7 +560,7 @@ function last_verification() {
 
     if($('.kader-file').is(':empty')) {
         valid = false;
-        addInvalid('.kader-file', 'Sila Muat Naik Borang UKP 12 yang telah disahkan');
+        addInvalid('.kader-file', 'Sila Muat Naik Borang JKR/UKP/12 yang telah disahkan');
     }
 
     if(!valid) {
