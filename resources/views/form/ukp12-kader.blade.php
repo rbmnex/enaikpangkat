@@ -79,7 +79,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                <h4 class="card-title"><span style="font-weight: bold;">Borang Pemangkuan JKR UKP 12 (KADER)</span></h4>
+                <h4 class="card-title"><span style="font-weight: bold;">Borang Pemangkuan JKR/UKP/12 (KADER)</span></h4>
                 <h6 class="card-subtitle" style="font-style: italic; color:red !important;">* Jika berlaku kesilapan maklumat, sila kemas kini maklumat pada portal MyKJ</h6>
                 <section class="vertical-wizard">
                     <div class="bs-stepper vertical vertical-wizard-example">

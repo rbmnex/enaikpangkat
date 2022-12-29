@@ -27,7 +27,11 @@ select.each(function () {
   });
 
   if (basicPickr.length) {
-    basicPickr.flatpickr();
+    basicPickr.flatpickr({
+            dateFormat: 'd-m-Y',
+            static: true
+        }
+    );
   }
 
   if (loanPickr.length) {

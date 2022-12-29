@@ -583,7 +583,7 @@ class BatchMgmtController extends Controller
                     //$message->to('munirahj@jkr.gov.my',$pegawai[0]->nama);
                     //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                    $message->to($pegawai->email,$pegawai->nama);
+                    $message->to($pegawai->email,$pegawai[0]->nama);
                     $message->subject('URUSAN PEMANGKUAN '.$pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                 });

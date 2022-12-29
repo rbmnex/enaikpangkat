@@ -35,6 +35,15 @@
         </div>
         <div class="row">
             <div class="col-3"></div>
+            <div class="col-6" style="text-align:center">
+                <div class="form-group">
+                    <span style="color:red">*</span>Saya telah menyemak butir-butir penerimaan pemangkuan pegawai di atas dan disahkan betul
+                </div>
+            </div>
+            <div class="col-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-3"></div>
             <div class="col-3" style="text-align:center">
                 <a style="width:100%;" class="btn btn-success" id="button-setuju" href="{{Request::root()}}/kb/pengesahan-pink/setuju/1/{{$pemohon_id}}">Sah</a>
             </div>

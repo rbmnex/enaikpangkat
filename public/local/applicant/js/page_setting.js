@@ -91,7 +91,7 @@ DatatableUI.init({
                 var status =  full.status
                 if( (status != 'NA') && (status != 'BH') && (status != 'TA') ) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Kemaskini</button>';
-                    btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light view-full">'+ feather.icons['file'].toSvg() +' UKP 12</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light view-full">'+ feather.icons['file'].toSvg() +' JKR/UKP/12</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
 
                 }
@@ -100,7 +100,7 @@ DatatableUI.init({
                 }
 
                 if( (status == "MJ") || (status == "PL") || (status == "TL") ) {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light ukp11-view">'+ feather.icons['download'].toSvg() +' UKP 11</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light ukp11-view">'+ feather.icons['download'].toSvg() +' JKR/UKP/11</button>';
                 }
 
                 if((full.email_status == "FAILED" || full.email_status == "UNKNOWN") && status == "BH") {

@@ -84,7 +84,7 @@ class FunctionController extends Controller
             'content' => $message
           ];
 
-        Mail::mailer('smtp')->send('mail.test-mail', $data, function ($message) use ($data){
+        Mail::mailer('postmark')->send('mail.test-mail', $data, function ($message) use ($data){
 
             $message->to($data['email']);
 

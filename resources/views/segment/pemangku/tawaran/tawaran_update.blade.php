@@ -17,7 +17,7 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">BORANG UKP 11</h2>
+                    <h2 class="content-header-title float-start mb-0">BORANG JKR/UKP/11</h2>
                     <div class="breadcrumb-wrapper">
                     </div>
                 </div>
@@ -238,7 +238,7 @@
                     @endif
                     @if(!empty($data->pemohonPink->jenis_penempatan) && ($data->pemohonPink->jenis_penempatan == 2))
                     <div class="form-group row">
-                        <label for="" class="col-sm-2 col-form-label">Muat Naik Borang UKP 11 (Kader):</label>
+                        <label for="" class="col-sm-2 col-form-label">Muat Naik Borang JKR/UKP/11 (Kader):</label>
                         <div class="col-sm-5">
                             <input class="form-control" type="file" id="tawaran-borang-ukp11" />
                             <div class="invalid-feedback"></div>

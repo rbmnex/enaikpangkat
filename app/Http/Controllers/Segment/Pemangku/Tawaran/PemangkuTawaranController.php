@@ -164,7 +164,7 @@ class PemangkuTawaranController extends Controller{
 
                     //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
                     $message->to($kerani['email'],$kerani['name']);
-                    $message->subject('PENGESAHAN LAPOR DIRI (BORANG UKP 11) PEGAWAI UNTUK URUSAN PEMANGKUAN');
+                    $message->subject('PENGESAHAN LAPOR DIRI (BORANG JKR/UKP/11) PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
                 });
 

@@ -6,7 +6,7 @@
         <div class="row">
             <div class="form-group col-md-12">
                 <a class="btn-form-download">
-                    <span style="color: red; font-size: 0.857rem; !important; font-style: italic;" class="align-middle d-sm-inline-block d-none">* Sila Muat Turun Borang Pemangkuan UKP 12 ini. Selepas mengisi (perlu disahkan oleh Kerani Perkhidmatan dan diperakui oleh Ketua Jabatan), Calon perlu memuat naik semula dokumen yang telah disahkan.</span>
+                    <span style="color: red; font-size: 0.857rem; !important; font-style: italic;" class="align-middle d-sm-inline-block d-none">* Sila Muat Turun Borang Pemangkuan JKR/UKP/12 ini. Selepas mengisi (perlu disahkan oleh Kerani Perkhidmatan dan diperakui oleh Ketua Jabatan), Calon perlu memuat naik semula dokumen yang telah disahkan.</span>
                     <img src="{{ asset('images/pdf_icon_1.png') }}" />
                 </a>
             </div>

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Borang UKP 11</title>
+    <title>Borang JKR/UKP/11</title>
     <style>
         .centerCell {
             text-align: center;

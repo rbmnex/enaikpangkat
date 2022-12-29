@@ -27,7 +27,7 @@
     <div class="content-body"> --}}
         <div id="user-profile">
             <div class="card">
-                <h4 class="card-title">Borang UKP 11</h4>
+                <h4 class="card-title">Borang JKR/UKP/11</h4>
                 <div class="card-body">
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Nama:</label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Urussetia;
 
+use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Permohonan\Pemohon;
@@ -105,6 +106,7 @@ class ApplicationController extends Controller
             $form->updated_by = Auth::user()->nokp;
 
             $form->save();
+            $common = new CommonController();
 
             if($verdict == 2) {
                 $content = [
@@ -113,16 +115,16 @@ class ApplicationController extends Controller
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
-                    'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y-m-d'),
-                    'tarikh' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
+                    'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
+                    'tarikh' => $common->translateMonth(\Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('d M Y')),
                     'nama' => $record->pemohonPeribadi->nama,
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.simpanan-mail',$content,function($message) use ($record) {
                         // testing purpose
                         //$message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
-                        $message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
-                        //$message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+                        //$message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
+                        $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
 
                         $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
 
@@ -149,16 +151,16 @@ class ApplicationController extends Controller
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
-                    'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y-m-d'),
-                    'tarikh' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
+                    'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
+                    'tarikh' => $common->translateMonth(\Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('d M Y')),
                     'nama' => $record->pemohonPeribadi->nama
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record) {
                         // testing purpose
                         //$message->to('enaikpangkat@jkr.gov.my',$record->pemohonPeribadi->nama);
-                        $message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
-                        //$message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
+                        //$message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
+                        $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
                         //$message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
 
                         //$message->to($kerani_user->email,$kerani_user->name);

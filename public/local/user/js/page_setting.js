@@ -115,7 +115,7 @@ let dt = DatatableUI.init({
                 }
 
                 if((status == "SP" || status == "TA" || status == "LL" || status == "MJ" || status == "LS" || status == "GL" || status == "PL" || status == "TL") && jenis == "UKP12") {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-form12">'+ feather.icons['file'].toSvg() +' Borang UKP 12</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-form12">'+ feather.icons['file'].toSvg() +' JKR/UKP/12</button>';
                 }
                 return btn;
             }
