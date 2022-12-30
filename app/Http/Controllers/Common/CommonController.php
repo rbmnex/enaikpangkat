@@ -183,36 +183,28 @@ class CommonController extends Controller
 
     public function calc_DateOnWorkingDays($count,$date = '') {
         $current = '';
-        $holiday_dates = UrussetiaHolidays::where("flag",1)->where("delete_id",0)->get()->pluck('holiday_date')->all();
+        $holidayDates = UrussetiaHolidays::where("flag",1)->where("delete_id",0)->get()->pluck('holiday_date')->all();
 
         if(empty($date)) {
-            $current = \Carbon\Carbon::now();
+            $current = date("Y-m-d H:i:s");
         } else {
-            $current = \Carbon\Carbon::parse($date);
+            $current = date($date);
         }
 
-        $ignore = false;
-
-        for ($i = 1; $i <= $count; $i++) {
-            if($current->isWeekend()) {
-                $ignore = true;
-            } else {
-                foreach($holiday_dates as $hd) {
-                    $dateStr = \Carbon\Carbon::parse($hd)->toDateString();
-                    if($current->toDateString() == $dateStr) {
-                        $ignore = true;
-                        break;
-                    }
-                }
+        $count5WD = 0;
+        $temp = strtotime($current); //example as today is 2016-03-25
+        print_r($temp.' ');
+        while($count5WD<5){
+            $next1WD = strtotime('+1 weekday', $temp);
+            $next1WDDate = date('Y-m-d', $next1WD);
+            if(!in_array($next1WDDate, $holidayDates)){
+                $count5WD++;
             }
-
-            if($ignore) {
-                $i -= 1;
-            }
-
-            $current->addDay();
+            $temp = $next1WD;
         }
 
-        return $current;
+        $next5WD = date("Y-m-d", $temp);
+
+        return \Carbon\Carbon::parse($next5WD);
     }
 }
