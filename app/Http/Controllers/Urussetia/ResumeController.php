@@ -306,7 +306,6 @@ class ResumeController extends Controller
         $model = new LampiranKursus;
         $model->flag = 1;
         $model->delete_id = 0;
-       
         $model->nokp = $nokp->nokp;
         $model->user_id = $user;
         $model->created_by = $nokp->nokp;
@@ -345,21 +344,26 @@ class ResumeController extends Controller
         $tajuk = $request->input('tajuk');
         $kos = $request->input('kos');
         $user = $request->input('user');
+         $id = $request->input('id');
 
+          if(!$id){
         $model = new LampiranProjek;
         $model->flag = 1;
         $model->delete_id = 0;
-        $model->nama_projek = $tajuk;
-        $model->kos_projek = $kos;
         $model->created_by = $nokp->nokp;
         $model->nokp = $nokp->nokp;
         $model->user_id = $user;
         $model->created_by = $nokp->nokp;
         $model->updated_by = $nokp->nokp;
+           }else{
+            $model = LampiranProjek::find($id);
+        }
+        $model->nama_projek = $tajuk;
+        $model->kos_projek = $kos;
 
         if($model->save()) {
             return response()->json([
-                'success' => 1,
+                'success' => !$id ? 1 : 2,
                 'data' => [
                     'tajuk' => $model->nama_projek,
                     'kos' => $model->kos_projek,
@@ -378,21 +382,28 @@ class ResumeController extends Controller
         $nokp = Auth::user();
         $tajuk = $request->input('tajuk');
         $user = $request->input('user');
+        $id = $request->input('id');
 
+       
+        if(!$id){
         $model = new LampiranPendedahan;
         $model->flag = 1;
         $model->kod_kategori = 1;
         $model->delete_id = 0;
-        $model->diskripsi = $tajuk;
         $model->created_by = $nokp->nokp;
         $model->nokp = $nokp->nokp;
         $model->user_id = $user;
         $model->created_by = $nokp->nokp;
         $model->updated_by = $nokp->nokp;
+         }else{
+            $model = LampiranPendedahan::find($id);
+        }
+        
+        $model->diskripsi = $tajuk;
 
         if($model->save()) {
             return response()->json([
-                'success' => 1,
+                'success' => !$id ? 1 : 2,
                 'data' => [
                     'tajuk' => $model->diskripsi,
                     'id' => $model->id
@@ -766,18 +777,43 @@ public function lampiran3($ic)
     ]);
  }
 
+  public function getPendedahan(Request $request){
+    $model = LampiranPendedahan::find($request->input('id'));
+
+    return response()->json([
+        'success' => 1,
+        'data' => [
+            'result' => $model->diskripsi
+        ]
+    ]);
+ }
+
   public function getKursus(Request $request){
     $model = LampiranKursus::find($request->input('id'));
 
     return response()->json([
         'success' => 1,
         'data' => [
-            'result' => $model->nama_kursus,
+            'nama' => $model->nama_kursus,
             'mula' => $model->tkh_mula,
             'tamat' => $model->tkh_tamat,
             'tempat' => $model->tempat
         ]
     ]);
  }
+
+
+   public function getProjek(Request $request){
+    $model = LampiranProjek::find($request->input('id'));
+
+    return response()->json([
+        'success' => 1,
+        'data' => [
+            'nama' => $model->nama_projek,
+            'kos' => $model->kos_projek
+        ]
+    ]);
+ }
+
 
 }

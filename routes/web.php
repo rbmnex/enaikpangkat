@@ -186,6 +186,8 @@ Route::prefix('/form')->group(function() {
         Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);
         Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);
         Route::post('/get-pencapaian',[ResumeController::class,'getPencapaian']);
+        Route::post('/get-pendedahan',[ResumeController::class,'getPendedahan']);
+        Route::post('/get-projek',[ResumeController::class,'getProjek']);
         Route::post('/get-kursus',[ResumeController::class,'getKursus']);
     });
 });

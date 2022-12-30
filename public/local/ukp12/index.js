@@ -88,7 +88,7 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
     }
 });
 
-$(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kursus, .add-projek, .add-pendedahan, .add-pencapaian, .post-edit-pencapaian, .post-edit-kursus',function() {
+$(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kursus, .add-projek, .add-pendedahan, .add-pencapaian, .post-edit-pencapaian, .post-edit-kursus, .post-edit-pendedahan, .post-edit-projek',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('add-cuti')) {
         let row = [];
@@ -186,8 +186,8 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
                         row.push(parseData.mula);
                         row.push(parseData.tamat);
                         row.push(parseData.tempat);
-                        var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
-                        btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Kemaskini</button>';
+                        var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +'</button>';
+                        btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-kursus" data-toggle="modal" data-target="#modal-kursus">'+ feather.icons['check-square'].toSvg() +'</button>';
                         row.push(btn);
                         $('.kursus-no-data').remove();
                         add_row('#tbody-badan-kursus',row,'data-kursus-id='+parseData.id);
@@ -206,9 +206,12 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
                 },
             }
         });
-      } else if(selectedClass.hasClass('add-projek')){
+      } else if(selectedClass.hasClass('add-projek')|| selectedClass.hasClass('post-edit-projek')){
         let tajuk = $('input[name="projek-nama"]').val();
         let kos = $('input[name="projek-kos"]').val();
+
+         $('.add-projek').attr('style', '');
+        $('.post-edit-projek').attr('style', 'display:none');
 
         var data = new FormData;
         data.append('_token', getToken());
@@ -216,6 +219,9 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
         data.append('kos',kos);
         data.append('pemohonId',$('._formid').val());
         data.append('nokp',$('input[name="nokp"]').val());
+         if(selectedClass.hasClass('post-edit-projek')){
+            data.append('id', $('#projek-id').val());
+        }
 
         swalAjax({
             titleText : 'Adakah Anda Pasti?',
@@ -233,26 +239,38 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
 
                         row.push(parseData.tajuk);
                         row.push("RM"+ parseData.kos);
-                        row.push('<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>');
+                        var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +'</button>';
+                        btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-projek" data-toggle="modal" data-target="#modal-projek">'+ feather.icons['check-square'].toSvg() +'</button>';
+                        row.push(btn);
                         $('.projek-no-data').remove();
                         add_row('#tbody-badan-projek',row,'data-projek-id='+parseData.id);
                         $('#modal-projek').modal('hide');
-                        toasting('projek Ditambah', 'success');
+                        toasting('Senarai Kepakaran Ditambah', 'success');
+                    }else if(success == 2) {
+                        $('tr[data-projek-id='+ parseData.id +']').find('td:first-child').html(parseData.tajuk);
+                        $('#modal-projek').modal('hide');
+                        toasting('Senarai Kepakaran Dikemaskini', 'success');
                     } else if(success == 0) {
                         toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                     }
                 },
             }
         });
-    }else if(selectedClass.hasClass('add-pendedahan')){
+    }else if(selectedClass.hasClass('add-pendedahan')|| selectedClass.hasClass('post-edit-pendedahan')){
 
-        let tajuk = $('input[name="pendedahan-nama"]').val();
+        let tajuk = $('textarea[name="pendedahan-nama"]').val();
+
+         $('.add-pendedahan').attr('style', '');
+        $('.post-edit-pendedahan').attr('style', 'display:none');
 
         var data = new FormData;
         data.append('_token', getToken());
         data.append('tajuk',tajuk);
         data.append('pemohonId',$('._formid').val());
         data.append('nokp',$('input[name="nokp"]').val());
+         if(selectedClass.hasClass('post-edit-pendedahan')){
+            data.append('id', $('#pendedahan-id').val());
+        }
 
         swalAjax({
             titleText : 'Adakah Anda Pasti?',
@@ -268,13 +286,17 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
                     if(success == 1) {
                         let row = [];
                         row.push(parseData.tajuk);
-                        var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
-                        btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Kemaskini</button>';
-                        row.push(btn);
+                        var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +'</button>';
+                        btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-pendedahan" data-toggle="modal" data-target="#modal-pendedahan">'+ feather.icons['check-square'].toSvg() +'</button>';
+                      row.push(btn);
                         $('.pendedahan-no-data').remove();
                         add_row('#tbody-badan-pendedahan',row,'data-pendedahan-id='+parseData.id);
                         $('#modal-pendedahan').modal('hide');
                         toasting('Senarai Kepakaran Ditambah', 'success');
+                    }else if(success == 2) {
+                        $('tr[data-pendedahan-id='+ parseData.id +']').find('td:first-child').html(parseData.tajuk);
+                        $('#modal-pendedahan').modal('hide');
+                        toasting('Senarai Kepakaran Dikemaskini', 'success');
                     } else if(success == 0) {
                         toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
                     }
@@ -311,8 +333,8 @@ $(document).on('click','.add-cuti, .add-perkhidmatan, .add-pertubuhan, .add-kurs
                     if(success == 1) {
                         let row = [];
                         row.push(parseData.tajuk);
-                         var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
-                        btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' Kemaskini</button>';
+                         var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +' </button>';
+                        btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-pencapaian" data-toggle="modal" data-target="#modal-pencapaian">'+ feather.icons['check-square'].toSvg() +'</button>';
                         row.push(btn);
                         $('.pencapaian-no-data').remove();
                         add_row('#tbody-badan-pencapaian',row,'data-pencapaian-id='+parseData.id);
@@ -438,16 +460,16 @@ $(document).on('click','.delete-row, .delete-projek',function() {
 });
 
 
-$(document).on('click','.delete-row, .delete-projek',function() {
+$(document).on('click','.delete-row, .delete-pencapaian',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('delete-row')) {
         remove_row(selectedClass);
-    } else if(selectedClass.hasClass('delete-projek')) {
-        let projek_id = selectedClass.closest('tr').attr('data-projek-id');
+    } else if(selectedClass.hasClass('delete-pencapaian')) {
+        let pencapaian_id = selectedClass.closest('tr').attr('data-pencapaian-id');
 
         var data = new FormData;
         data.append('_token', getToken());
-        data.append('id',projek_id);
+        data.append('id',pencapaian_id);
 
         swalAjax({
             titleText : 'Adakah Anda Pasti?',
@@ -455,14 +477,48 @@ $(document).on('click','.delete-row, .delete-projek',function() {
             icon: 'warning',
             confirmButtonText: 'Padam',
             postData: {
-                url : '/form/api/projek/del',
+                url : '/form/api/pencapaian/del',
                 data: data,
                 postfunc: function(data) {
                     let success = data.success;
                     let parseData = data.data;
                     if(success == 1) {
                         remove_row(selectedClass);
-                        toasting('Projek Dipadam', 'success');
+                        toasting('pencapaian Dipadam', 'success');
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Data telah gagal dipadam', 'error');
+                    }
+                },
+            }
+        });
+    }
+});
+
+$(document).on('click','.delete-row, .delete-pendedahan',function() {
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('delete-row')) {
+        remove_row(selectedClass);
+    } else if(selectedClass.hasClass('delete-pendedahan')) {
+        let pendedahan_id = selectedClass.closest('tr').attr('data-pendedahan-id');
+
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('id',pendedahan_id);
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan dipadam',
+            icon: 'warning',
+            confirmButtonText: 'Padam',
+            postData: {
+                url : '/form/api/pendedahan/del',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        remove_row(selectedClass);
+                        toasting('Maklumat Pendedahan Dipadam', 'success');
                     } else if(success == 0) {
                         toasting('Ralat telah berlaku, Data telah gagal dipadam', 'error');
                     }
@@ -663,7 +719,11 @@ $(document).on('change', '.pegawai-carian', function(){
     });
 });
 
-
+$(document).on('click', '.tambah-pendedahan', function(){
+    $('.add-pendedahan').attr('style', '');
+    $('.post-edit-pendedahan').attr('style', 'display:none');
+    $('textarea[name=pendedahan-nama]').val('');
+});
 
 $(document).on('click', '.tambah-pencapaian', function(){
     $('.add-pencapaian').attr('style', '');
@@ -680,6 +740,14 @@ $(document).on('click', '.tambah-kursus', function(){
     $('input[name=kursus-tamat]').val('');
     $('input[name=kursus-tempat]').val('');
 });
+
+$(document).on('click', '.tambah-projek', function(){
+    $('.add-projek').attr('style', '');
+    $('.post-edit-projek').attr('style', 'display:none');
+    $('input[name=projek-nama]').val('');
+    $('input[name=projek-kos]').val('');
+});
+
 $(document).on('click', '.update-pencapaian', function(){
     $('.add-pencapaian').attr('style', 'display:none');
     $('.post-edit-pencapaian').attr('style', '');
@@ -709,6 +777,35 @@ $(document).on('click', '.update-pencapaian', function(){
 });
 
 
+$(document).on('click', '.update-pendedahan', function(){
+    $('.add-pendedahan').attr('style', 'display:none');
+    $('.post-edit-pendedahan').attr('style', '');
+
+    let id = $(this).closest('tr').attr('data-pendedahan-id');
+
+    $('#pendedahan-id').val(id);
+
+    let data = new FormData;
+    data.append('id', id);
+    data.append('_token', getToken());
+
+    $.ajax({
+        type:'POST',
+        url: getUrl() + '/form/api/get-pendedahan',
+        data: data,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        context: this,
+        success: function(data) {
+            let result = data.data;
+            $('textarea[name=pendedahan-nama]').val(result.result);
+        }
+    });
+
+});
+
+
 $(document).on('click', '.update-kursus', function(){
     $('.add-kursus').attr('style', 'display:none');
     $('.post-edit-kursus').attr('style', '');
@@ -731,11 +828,41 @@ $(document).on('click', '.update-kursus', function(){
         context: this,
         success: function(data) {
             let result = data.data;
-            $('input[name=kursus-nama]').val(result.result);
+            $('input[name=kursus-tajuk]').val(result.nama);
              $('input[name=kursus-mula]').val(result.mula);
               $('input[name=kursus-tamat]').val(result.tamat);
                $('input[name=kursus-tempat]').val(result.tempat);
           
+        }
+    });
+
+});
+
+
+$(document).on('click', '.update-projek', function(){
+    $('.add-projek').attr('style', 'display:none');
+    $('.post-edit-projek').attr('style', '');
+
+    let id = $(this).closest('tr').attr('data-projek-id');
+
+    $('#projek-id').val(id);
+
+    let data = new FormData;
+    data.append('id', id);
+    data.append('_token', getToken());
+
+    $.ajax({
+        type:'POST',
+        url: getUrl() + '/form/api/get-projek',
+        data: data,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        context: this,
+        success: function(data) {
+            let result = data.data;
+            $('input[name=projek-nama]').val(result.nama);
+             $('input[name=projek-kos]').val(result.kos);          
         }
     });
 

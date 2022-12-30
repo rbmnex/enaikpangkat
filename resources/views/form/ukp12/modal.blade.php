@@ -212,7 +212,7 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-4 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="" style="color:red; font-size=5px;">Masukkan nombor sahaja pada ruangan kos cth: 40000000</label>
+                            <label class="form-label" for="" style="color:red; font-size=5px;">Masukkan nombor sahaja pada ruangan kos cth: 40000000.10</label>
                         </div>
 
                     </div>
@@ -220,6 +220,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                         <button type="button" class="btn btn-success add-projek">Tambah</button>
+                          <button type="button" class="btn btn-success post-edit-projek">Kemaskini</button>
                     </div>
 
             </div>
@@ -244,7 +245,8 @@
                     <div class="row">
                         <div class="col-xl-12 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Kepakaran</label>
-                            <input type="textarea" id="modal-post" name="pendedahan-nama" class="form-control" placeholder=""  />
+                             <textarea rows="6" name="pendedahan-nama" class="form-control"></textarea>
+                            <!-- <input type="textarea" id="modal-post" name="pendedahan-nama" class="form-control" placeholder=""  /> -->
                         </div>
                         
                     </div>
@@ -252,6 +254,7 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Tutup</button>
                         <button type="button" class="btn btn-success add-pendedahan">Tambah</button>
+                        <button type="button" class="btn btn-success post-edit-pendedahan">Kemaskini</button>
                     </div>
 
             </div>
@@ -446,3 +449,4 @@
 <input type="hidden" id="kursus-id" value="">
 <input type="hidden" id="beban-id" value="">
 <input type="hidden" id="projek-id" value="">
+<input type="hidden" id="pendedahan-id" value="">
