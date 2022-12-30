@@ -9,9 +9,30 @@ $(document).on('click', '.update-pinkform', function(){
     });
 });
 
-$(document).on('click', '.download-pinkform', function(){
+$(document).on('click', '.download-pinkform, .resend-pinkform', function(){
     let id = $(this).closest('tr').attr('data-pemohon-id');
-    window.open(getUrl() + '/hr2/pinkform/download-pink/'+id,'blank');
+    let selectedClass = $(this);
+    if(selectedClass.hasClass('download-pinkform')) {
+        window.open(getUrl() + '/hr2/pinkform/download-pink/'+id,'blank');
+    } else if(selectedClass.hasClass('resend-pinkform')) {
+        // cubaan hantar semula
+        let id = $(this).closest('tr').attr('data-pemohon-id');
+        let v = new FormData;
+        v.append('_token', Common.getToken());
+        v.append('pemohon_id',id);
+        SwalUI.init({
+            title: "Adakah Anda Pasti?",
+            subtitle: "Email akan dihantar",
+            icon: "info",
+            confirmText: "Hantar",
+            callback: function() {
+                PinkFormController.resendEmail({
+                    url: 'hr2/pinkform/resend',
+                    data: v,
+                });
+            }
+        });
+    }
 });
 
 $(document).on('click', '#pinkform-hantar', function(){
@@ -22,15 +43,27 @@ $(document).on('click', '#pinkform-hantar', function(){
     let v = validate.checkEmpty(
         validate.getValue('#pinkform-name', 'mix', 'Nama', 'pinkform_name'),
         validate.getValue('#pinkform-tkh-lapor-diri', 'mix', 'Tarikh Lapor Diri', 'pinkform_tkh'),
-        validate.getValue('#pinkform-borang', 'picture', 'Borang', 'pinkform_borang')
+        validate.getValue('#pinkform-borang', 'picture', 'Borang', 'pinkform_borang'),
+        validate.getValue('#pinkform-alamat-pejabat', 'mix', 'Borang', 'pinkform_alamat'),
+        validate.getValue('#pinkform-jenis-penempatan', 'mix', 'Borang', 'pinkform_jenis')
     );
 
     v.append('pemohon_id', $('#pemohon-id').val());
 
-    PinkFormController.hantarForm({
-        url: 'hr2/pinkform/hantar',
-        data: v,
+    SwalUI.init({
+        title: "Adakah Anda Pasti?",
+        subtitle: "Data akan dihantar",
+        icon: "info",
+        confirmText: "Hantar",
+        callback: function() {
+            PinkFormController.hantarForm({
+                url: 'hr2/pinkform/hantar',
+                data: v,
+            });
+        }
     });
+
+
 });
 
 $(document).on('click', '.fasiliti-activate', function(){

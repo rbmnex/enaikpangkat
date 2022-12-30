@@ -36,6 +36,7 @@
                             <th>JAWATAN</th>
                             <th>JENIS</th>
                             <th>STATUS</th>
+                            <th>EMAIL</th>
                             <th>TINDAKAN</th>
                         </tr>
                         </thead>
@@ -54,7 +55,7 @@
             </div>
         </div>
     </div>
-    @include('segment.pemangku.tawaran.modal.index')
+    @include('segment.hr.pinkform.modal.index')
 @endsection
 
 @section('JS')
@@ -63,6 +64,7 @@
     @include('segment.layouts.custom_view_links.modals.js.index')
     @include('segment.layouts.custom_view_links.swal.js.index')
     @include('segment.layouts.custom_view_links.datepicker.flatpickr.js.index')
+    @include('segment.layouts.custom_view_links.select2.js.index')
 @endsection
 
 @section('customJs')

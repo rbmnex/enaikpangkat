@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Test;
 
 use App\Http\Controllers\Controller;
+use App\Models\File;
 use App\Models\Profail\Penempatan;
 use App\Models\Profail\Peribadi;
 use Illuminate\Http\Request;
@@ -83,7 +84,7 @@ class FunctionController extends Controller
             'content' => $message
           ];
 
-        Mail::mailer('smtp')->send('mail.test-mail', $data, function ($message) use ($data){
+        Mail::mailer('postmark')->send('mail.test-mail', $data, function ($message) use ($data){
 
             $message->to($data['email']);
 
@@ -102,6 +103,22 @@ class FunctionController extends Controller
             'data' => [
                 'base64' => base64_encode(file_get_contents($file)),
                 'ext' => $extension
+            ]
+        ]);
+    }
+
+    public function uploadUrl(Request $request) {
+        $url = $request->input('url');
+        $file_info = array();
+        $urlParts = pathinfo($url);
+        $modifyUrl = preg_replace('/\s+/', '%20', $url);
+        $image = file_get_contents($modifyUrl);
+
+        return response()->json([
+            'data' => [
+                'base64' => base64_encode(file_get_contents($modifyUrl)),
+                'ext' => $urlParts['extension'],
+                'image' => $image
             ]
         ]);
     }
@@ -136,5 +153,24 @@ class FunctionController extends Controller
     public function encrypt(Request $request) {
         $encrypt = Crypt::encryptString($request->input('input'));
         return $encrypt;
+    }
+
+    public function decrypt(Request $request) {
+        $decrypted = '';
+        try {
+            $decrypted = Crypt::decryptString($request->input('input'));
+        } catch (\Illuminate\Contracts\Encryption\DecryptException $e) {
+
+        };
+        return $decrypted;
+    }
+
+    public function downloadBase64($id) {
+        $file = File::find($id);
+        if($file) {
+            return 'data:image/'.$file->ext.';base64,'.$file->content_bytes;
+        } else {
+            return 'Empty File lol !!!';
+        }
     }
 }

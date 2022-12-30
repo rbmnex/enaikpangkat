@@ -1,13 +1,14 @@
 <div id="harta-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 3 -Pengisytiharan Harta</h5>
-        <small class="text-notice">Sila kemas kini di bahagian PERIBADI di portal MyKj jika ada perubahan </small>
+        <small class="text-notice">Sila kemas kini di modul PERIBADI di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         <div class="form-group col-md-12">
             <label class="col-form-label" for="tarikhAkhir_harta">Tarikh Akhir Pengisytiharan Harta Terkini:</label>
             <input type="text" readonly class="form-control @if($profile['istihar_sah']) {{ 'is-invalid' }} @endif" value="{{ $profile['tkh_istihar'] == 0 ? $profile['tkh_istihar'] : \Carbon\Carbon::parse($profile['tkh_istihar'])->format('d-m-Y') }}" id="tarikhAkhir_harta" name="harta_tkh_akhir_pengisytiharan">
             <div class="invalid-feedback" @if($profile['istihar_sah']) {{ 'style="display:block;"' }} @endif>@if($profile['istihar_sah']) {{ 'Sila kemaskini semula Tarikh Akhir Pengisytiharan Harta yang baru' }} @endif</div>
+
         </div>
         <div class="form-group col-md-12">
             {{-- <form id="upload_harta" width="100%"> --}}
@@ -29,6 +30,10 @@
         <div class="form-group col-md-12">
             <label class="col-form-label" style="font-style: italic; font-size: 0.857rem; " for=""><b>* Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir</b></label>
         </div>
+        <div class="form-group col-md-12">
+            <label class="col-form-label" style="font-style: italic; font-size: 0.857rem; " for=""><b>* Sila pastikan tempoh sah laku masih berbaki sekurang-kurangnya 8 bulan dari tarikh emel ini</b></label>
+        </div>
+
     </div>
     <div class="d-flex justify-content-between">
         <button type="button" class="btn btn-primary btn-prev">

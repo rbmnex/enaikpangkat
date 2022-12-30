@@ -66,8 +66,8 @@ class ResumeController extends Controller
      public function terpilih(Request $request){
  // $model = Role::all();
   $dateline1 = Carbon::now();
-  $dateline =Carbon::parse($dateline1)->addDays(5); 
- 
+  $dateline =Carbon::parse($dateline1)->addDays(5);
+
 
         return view('urussetia.resume.senaraiterpilih');
     }
@@ -314,8 +314,8 @@ class ResumeController extends Controller
             $model = LampiranKursus::find($id);
         }
          $model->nama_kursus = $tajuk;
-        $model->tkh_mula = $mula;
-        $model->tkh_tamat = $tamat;
+        $model->tkh_mula = empty($mula) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $mula)->format('Y-m-d');
+        $model->tkh_tamat = empty($tamat) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $tamat)->format('Y-m-d');
         $model->tempat = $tempat;
 
         if($model->save()) {
@@ -323,8 +323,8 @@ class ResumeController extends Controller
                  'success' => !$id ? 1 : 2,
                 'data' => [
                     'tajuk' => $model->nama_kursus,
-                    'mula' => $model->tkh_mula,
-                    'tamat' => $model->tkh_tamat,
+                    'mula' => date('d-m-Y', strtotime($model->tkh_mula)),
+                    'tamat' => date('d-m-Y', strtotime($model->tkh_tamat)),
                     'tempat' => $model->tempat,
                     'nokp' =>$model->nokp,
                     'id' => $model->id
@@ -436,7 +436,7 @@ class ResumeController extends Controller
         }else{
             $model = LampiranPendedahan::find($id);
         }
-        
+
         $model->diskripsi = $tajuk;
 
         if($model->save()) {
@@ -701,28 +701,24 @@ public function lampiran3($ic)
              ->where('np.nokp',$ic)->first();
 
 
-             
 
-     $dateline = Carbon::now();
-     $daysToAdd = 5;
-     $dateline = $dateline->addDays($daysToAdd);
+
+    $common = new CommonController();
+     $dateline = $common->calc_DateOnWorkingDays(5)->format('d M Y');
 
 
         $content = [
-                     'link' => url('user/resume/lampiran')
-
-
+                     'link' => url('user/resume/lampiran'),
+                     'date' => $common->translateMonth($dateline)
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
-                  $message->to('haryana@vn.net.my',$pegawai->nama);
-
-
-                    $message->subject('KEMASKINI RESUME');
+                  $message->to($pegawai->email,$pegawai->nama);
+                  $message->subject('KEMASKINI RESUME');
 
                 });
 
-         
+
         $model = new Resume;
         $model->flag = 1;
         $model->status = 1;
@@ -741,29 +737,6 @@ public function lampiran3($ic)
                 'nokp' => $nokp,]
         ]);
     }
-
-
-
-    function semakcuti($tarikh)
-    {
-        $year = date("Y");
-        $cuti= Holidays::model()->getCuti($year);
-        $tkh_slabaru=$tarikh;
-        $tkh= Yii::app()->dateFormatter->format("yyyy-MM-dd", strtotime($tarikh));
-        if(date("N", strtotime($tarikh)) == 6 || date("N", strtotime($tarikh)) == 7) //weekend
-        {
-            $tkh_slabaru = Yii::app()->dateFormatter->format("yyyy-MM-dd HH:mm:ss", strtotime($tkh_slabaru . ' +1 day')) ;
-            return($this->semakcuti($tkh_slabaru));
-
-        }
-        elseif (in_array ($tkh, $cuti)){
-         $tkh_slabaru = Yii::app()->dateFormatter->format("yyyy-MM-dd HH:mm:ss", strtotime($tkh_slabaru . ' +1 day')) ;
-         return($this->semakcuti($tkh_slabaru));
-     }
-
-     return $tkh_slabaru;
-
- }
 
 
  public function getPencapaian(Request $request){
@@ -794,9 +767,9 @@ public function lampiran3($ic)
     return response()->json([
         'success' => 1,
         'data' => [
-            'nama' => $model->nama_kursus,
-            'mula' => $model->tkh_mula,
-            'tamat' => $model->tkh_tamat,
+            'result' => $model->nama_kursus,
+            'mula' => date('d-m-Y', strtotime($model->tkh_mula)),
+            'tamat' => date('d-m-Y', strtotime($model->tkh_tamat)),
             'tempat' => $model->tempat
         ]
     ]);

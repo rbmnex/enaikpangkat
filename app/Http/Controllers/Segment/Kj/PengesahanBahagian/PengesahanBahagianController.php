@@ -47,8 +47,10 @@ class PengesahanBahagianController extends Controller{
     }
 
     public function semakPinkForm($pemohon_id){
+        $data = Pemohon::with('pemohonPeribadi','pemohonUkp11','pemohonPermohonan','pemohonPink')->find($pemohon_id);
         return view('segment.kj.pengesahanpink.semak', [
-            'pemohon_id' => $pemohon_id
+            'pemohon_id' => $pemohon_id,
+            'data' => $data
         ]);
     }
 

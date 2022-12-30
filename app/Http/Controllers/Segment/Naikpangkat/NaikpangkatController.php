@@ -63,6 +63,46 @@ class NaikpangkatController extends Controller
             ->make(true);
     }
 
+    public function mohon($encrypted){
+        $id = Crypt::decryptString($encrypted);
+        return $this->apply($id);
+    }
+
+    public function apply($id){
+        $ukpC = new UkpController;
+
+        //$model = Pemohon::where('id_permohonan', $id_pemohonan)->first();
+        $model = Pemohon::find($id);
+        $loggedUser = Auth::user();
+        $applicant = User::find($model->user_id);
+
+        if($loggedUser->nokp != $applicant->nokp) {
+            return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
+        } else if(($model->status != Pemohon::NOT_SUBMITTED) && ($model->status != "NA")) {
+            return view('form.message',['message' => 'Anda Sudah Menghantar Pemohonan Ini Dan Sedang Diproses, Diharap bersabar!']);
+        }
+
+        if($model->id_peribadi == null){
+            $peribadi = Peribadi::recreate(Auth::user()->id,Auth::user()->nokp);
+            $model->id_peribadi = $peribadi->id;
+            $model->status = Pemohon::NOT_SUBMITTED;
+            $model->save();
+        }else{
+            $peribadi = Peribadi::find($model->id_peribadi);
+            Peribadi::update_peribadi($peribadi,$peribadi->nokp);
+            $model->status = Pemohon::NOT_SUBMITTED;
+            $model->save();
+        }
+
+        $maklumat = $ukpC->load_info($peribadi, Auth::user()->nokp,$model);
+
+        return view('segment.naikpangkat.borang.index', [
+            "profile" => $maklumat,
+            "pemohon_id" => $model->id
+        ]);
+    }
+
+
     public function borang($id_pemohonan){
         $ukpC = new UkpController;
 
@@ -343,9 +383,9 @@ class NaikpangkatController extends Controller
             ];
             Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
                 // testing purpose
-                //$message->to('rubmin@vn.net.my',$kerani_user->name);
+                $message->to('munirahj@jkr.gov.my',$kerani_user->name);
 
-                $message->to($kerani_user->email,$kerani_user->name);
+                //$message->to($kerani_user->email,$kerani_user->name);
                 $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN NAIK PANGKAT');
 
             });
@@ -362,9 +402,9 @@ class NaikpangkatController extends Controller
 
             Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($penyelia_user) {
                 // testing purpose
-                //$message->to('rubmin@vn.net.my',$penyelia_user->name);
+                $message->to('munirahj@jkr.gov.my',$penyelia_user->name);
 
-                $message->to($penyelia_user->email,$penyelia_user->name);
+                //$message->to($penyelia_user->email,$penyelia_user->name);
                 $message->subject('PENGESAHAN PERKHIDMATAN PENYELIA UNTUK URUSAN NAIK PANGKAT');
 
             });

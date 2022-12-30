@@ -54,7 +54,8 @@
                             <th>nama</th>
                             <th>jawatan</th>
                             <th>penempatan</th>
-                            <th>emel</th>
+                            {{-- <th>emel</th> --}}
+                            <th>peranan</th>
                             <th>Tindakan</th>
                         </tr>
                     </thead>

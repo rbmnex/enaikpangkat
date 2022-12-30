@@ -2,9 +2,9 @@ $(document).on('click','.valid-applicant', function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('valid-applicant')) {
         let pemohon_id = selectedClass.closest('tr').attr('data-pemohon-id');
-        let role = selectedClass.closest('tr').attr('data-role-name');
+        let role = $('#hdn_role').val();
         let view = 'n'
-        if(role == 'clerk')
+        if(role == 'hos')
             view = 's';
         else if(role == 'hod')
             view = 'h';

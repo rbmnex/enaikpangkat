@@ -36,12 +36,12 @@
                     </div>
                     <div class="form-group col-md-6">
                         <label class="col-form-label" for="vertical-username">Bil. Mesyuarat</label>
-                        <input type="number" id="verdict-meeting" name="nama" class="form-control"  value="" placeholder="" />
+                        <input type="text" id="verdict-meeting" name="nama" class="form-control"  value="" placeholder="" />
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group col-md-6">
                         <label class="col-form-label" for="vertical-username">Tarikh Mesyuarat</label>
-                        <input id="verdict-date" name="nama" class="form-control"  value="" placeholder="" />
+                        <input id="verdict-date" type="text" class="form-control"  value="" placeholder="" />
                         <div class="invalid-feedback"></div>
                     </div>
                     <div class="form-group col-md-12">

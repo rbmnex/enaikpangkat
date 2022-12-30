@@ -2,6 +2,7 @@
 
 @section('customCss')
 @include('web.sweet-alert-css')
+@include('segment.layouts.custom_view_links.datepicker.flatpickr.css.index')
 <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/wizard/bs-stepper.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/forms/select/select2.min.css')}}">
 <link rel="stylesheet" type="text/css" href="{{ asset('asset/css/plugins/forms/form-validation.css') }}">
@@ -143,12 +144,12 @@
                         <div class="bs-stepper-content">
                             {{-- <form id="ukp12_form"> --}}
 
-                                 @include('form.ukp12.lampiranbebankerja')
                                 @include('form.ukp12.lampirankursus')
+                                 @include('form.ukp12.lampiranbebankerja')
                                 @include('form.ukp12.lampiranprojek')
                                 @include('form.ukp12.lampiranpendedahan')
                                 @include('form.ukp12.lampiranpencapaian')
-                                 @include('segment.layouts.custom_view_links.datepicker.flatpickr.css.index')
+
                             {{-- </form> --}}
                         </div>
                     </div>

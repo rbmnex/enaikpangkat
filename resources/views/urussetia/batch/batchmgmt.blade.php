@@ -34,6 +34,7 @@
                 <table class="datatables table table-kumpulan">
                     <thead>
                         <tr>
+                            <th>id</th>
                             <th>nama</th>
                             <th>status</th>
                             <th>aksi</th>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Tetapan\Bangunan;
+use App\Models\Urussetia\Holidays as UrussetiaHolidays;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -58,7 +59,8 @@ class CommonController extends Controller
 
         return [
             'base64' => base64_encode(file_get_contents($img)),
-            'ext' => $extension
+            'ext' => $extension,
+            'filename' => $img->getClientOriginalName()
         ];
     }
 
@@ -132,5 +134,85 @@ class CommonController extends Controller
             'data' => str_replace('-', '', $model['tel_bimbit'])
         ]);
 
+    }
+
+    public function file_info_url($url) {
+        $file_info = array();
+        $urlParts = pathinfo($url);
+        $modifyUrl = preg_replace('/\s+/', '%20', $url);
+        $image = file_get_contents($modifyUrl);
+
+        if ($image !== false){
+            $file_info['filename'] = $urlParts['basename'];
+            $file_info['extension'] = $urlParts['extension'];
+            $file_info['content'] =  base64_encode($image);
+        }
+
+        return $file_info;
+    }
+
+    public function translateMonth($date) {
+        if(str_contains($date,'Jan')) {
+            $date = str_replace('Jan','JANUARI',$date);
+        } else if(str_contains($date,'Feb')) {
+            $date = str_replace('Feb','FEBRUARI',$date);
+        } else if(str_contains($date,'Mar')) {
+            $date = str_replace('Mar','MAC',$date);
+        } else if(str_contains($date,'Apr')) {
+            $date = str_replace('Apr','APRIL',$date);
+        } else if(str_contains($date,'May')) {
+            $date = str_replace('May','MEI',$date);
+        } else if(str_contains($date,'Jun')) {
+            $date = str_replace('Jun','JUN',$date);
+        } else if(str_contains($date,'Jul')) {
+            $date = str_replace('Jul','JULAI',$date);
+        } else if(str_contains($date,'Aug')) {
+            $date = str_replace('Aug','OGOS',$date);
+        } else if(str_contains($date,'Sep')) {
+            $date = str_replace('Sep','SEPTEMBER',$date);
+        } else if(str_contains($date,'Oct')) {
+            $date = str_replace('Oct','OKTOBER',$date);
+        } else if(str_contains($date,'Nov')) {
+            $date = str_replace('Nov','NOVEMBER',$date);
+        } else if(str_contains($date,'Dec')) {
+            $date = str_replace('Dec','DISEMBER',$date);
+        }
+
+        return $date;
+    }
+
+    public function calc_DateOnWorkingDays($count,$date = '') {
+        $current = '';
+        $holiday_dates = UrussetiaHolidays::where("flag",1)->where("delete_id",0)->get()->pluck('holiday_date')->all();
+
+        if(empty($date)) {
+            $current = \Carbon\Carbon::now();
+        } else {
+            $current = \Carbon\Carbon::parse($date);
+        }
+
+        $ignore = false;
+
+        for ($i = 1; $i <= $count; $i++) {
+            if($current->isWeekend()) {
+                $ignore = true;
+            } else {
+                foreach($holiday_dates as $hd) {
+                    $dateStr = \Carbon\Carbon::parse($hd)->toDateString();
+                    if($current->toDateString() == $dateStr) {
+                        $ignore = true;
+                        break;
+                    }
+                }
+            }
+
+            if($ignore) {
+                $i -= 1;
+            }
+
+            $current->addDay();
+        }
+
+        return $current;
     }
 }

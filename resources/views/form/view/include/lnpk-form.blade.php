@@ -1,6 +1,6 @@
 
         <div class="col-12">
-            <div class="card" style="background-color: yellow;">
+            <div class="card" style="background-color: #66ec04;">
             <div class="card-header">
                 <h4 class="card-title">UNTUK TINDAKAN URUS SETIA KENAIKAN PANGKAT</h4>
             </div>

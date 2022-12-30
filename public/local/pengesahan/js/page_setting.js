@@ -1,3 +1,11 @@
+let urlPath = '';
+let roleName = $('#hdn_role').val();
+
+if(roleName == 'hos')
+    urlPath = '/validate/senarai/pemohon/hos';
+else if(roleName == 'hod')
+    urlPath = '/validate/senarai/pemohon/hod';
+
 DatatableUI.init({
     selector: '.table-disah',
     columnList: [
@@ -5,16 +13,17 @@ DatatableUI.init({
         {data: 'nama'},
         {data: 'jawatan'},
         {data: 'jenis'},
+        {data: 'status'},
         {data: 'aksi'},
     ],
-    url: '/validate/senarai/pemohon',
+    url: urlPath,
     buttons: [
 
     ],
     columnDef: [
         {
             // Actions
-            targets: 3,
+            targets: 2,
             title: 'Jawatan',
             orderable: false,
             searchable: false,
@@ -26,7 +35,7 @@ DatatableUI.init({
         },
         {
             // Actions
-            targets: -2,
+            targets: -3,
             title: 'Borang',
             orderable: false,
             searchable: false,
@@ -39,6 +48,37 @@ DatatableUI.init({
                     label = 'NAIK PANGKAT';
                 }
                 return label;
+            }
+        },
+        {
+            // Actions
+            targets: -2,
+            title: 'Status',
+            orderable: false,
+            searchable: false,
+            render: function (data, type, full, meta) {
+
+                var label = '';
+                var color = '';
+                if(roleName == 'hos') {
+                    if(full.pengesahan_perkhidmatan == 1) {
+                        label = 'Sudah Disahkan';
+                        color = 'success';
+                    } else {
+                        label = 'Belum Disahkan';
+                        color = 'danger';
+                    }
+                } else if(roleName == 'hod') {
+                    if(full.perakuan_ketua_jabatan == 1) {
+                        label = 'Sudah Disahkan';
+                        color = 'success';
+                    } else {
+                        label = 'Belum Disahkan';
+                        color = 'danger';
+                    }
+                }
+
+                return '<div class="badge badge-'+color+'">'+label+'</div>';
             }
         },
         {

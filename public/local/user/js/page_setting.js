@@ -19,6 +19,8 @@ let dt = DatatableUI.init({
             render: function (data, type, full, meta) {
                 //var label;
                 var status =  full.status;
+                //var head = full.perakuan_ketua_jabatan;
+                var service = full.pengesahan_perkhidmatan;
                 var text = '';
                 var color = ''
                 if(status == "BH") {
@@ -26,6 +28,11 @@ let dt = DatatableUI.init({
                     color = 'warning';
                 } else if(status == "TA") {
                     text = 'Tunggu Pengesahan';
+                    if(service == 1)  {
+                        text += '<br> Ketua Jabatan';
+                    } else {
+                        text += '<br> Ketua Bahagian Perkhidmatan';
+                    }
                     color = 'warning';
                 } else if(status == "PT") {
                     text = 'Tolak Tawaran';
@@ -57,6 +64,9 @@ let dt = DatatableUI.init({
                 } else if(status == "NA") {
                     text = 'Tiada Tindakan';
                     color = 'danger';
+                }  else if(status == "MT") {
+                    text = 'Menunggu Tindakan BPSK';
+                    color = 'info';
                 }
                 return '<div class="badge badge-'+color+'">'+text+'</div>';
             }
@@ -86,20 +96,27 @@ let dt = DatatableUI.init({
             searchable: false,
             render: function (data, type, full, meta) {
                 var status =  full.status;
+                var jenis =  full.jenis;
                 var btn = '';
-                if(status == "BH") {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-update">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                if(status == "BH" || status == "NA") {
+                    if(jenis == "UKP12") {
+                        btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-update">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                    } else if(jenis == "UKP13") {
+                        btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light form-promotion">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                    }
                 }
 
-                if(status == "HT" || status == "TL" || status == "PL") {
+                if((status == "HT" || status == "TL" || status == "PL" || status == "MJ") && jenis == "UKP12") {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-offer">'+ feather.icons['file-text'].toSvg() +' Surat Pink</button>';
                 }
 
-                if(status == "LL") {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-reportin">'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                if((status == "MJ") && jenis == "UKP12") {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-reportin">'+ feather.icons['edit'].toSvg() +' Lapor Diri</button>';
                 }
 
-
+                if((status == "SP" || status == "TA" || status == "LL" || status == "MJ" || status == "LS" || status == "GL" || status == "PL" || status == "TL") && jenis == "UKP12") {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-form12">'+ feather.icons['file'].toSvg() +' JKR/UKP/12</button>';
+                }
                 return btn;
             }
         }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Borang UKP 11</title>
+    <title>Borang JKR/UKP/11</title>
     <style>
         .centerCell {
             text-align: center;
@@ -106,16 +106,7 @@
                 </td>
                 <td style="vertical-align: top;">:</td>
                 <td colspan="9" style="font-size:16px; vertical-align: top;">
-                    <span style="text-decoration: underline">{{ $data->alamat_pejabat }}</span>
-                </td>
-            </tr>
-            <tr class="word-line">
-                <td colspan="2" style="font-size:16px">
-                    Pejabat Baru
-                </td>
-                <td>:</td>
-                <td colspan="9" style="font-size:16px">
-                    <span style="text-decoration: underline">{{ $data->pemohonPink->alamat }}</span>
+                    <span style="text-decoration: underline">{{ empty($data->pemohonUkp11->alamat_pejabat) ?strtoupper(empty($data->pemohonPink) ? '' : $data->pemohonPink->alamat) : strtoupper($data->pemohonUkp11->alamat_pejabat)}}</span>
                 </td>
             </tr>
             <tr class="word-line">
@@ -194,7 +185,7 @@
                     : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nama }}</span><br>
                     : <span style="text-decoration: underline">{{ $data->pemohonPeribadi->nokp }}</span><br>
                     <br>
-                    : <span style="text-decoration: underline">{{ date('Y-m-d') }}</span><br>
+                    : <span style="text-decoration: underline">{{ date('d-m-Y') }}</span><br>
                     <br>
                     <br>
                 </td>
@@ -207,42 +198,141 @@
         </tbody>
     </table>
     <div class="page-break"></div>
-    <table>
-        <tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
-            <td colspan="5" style="font-size:16px">
-                Pengesahan Penerimaan Pemangkuan Oleh Unit / Bahagian Perkhidmatan (pejabat baru)<br><br>
-            </td>
-        </tr>
-        <tr style="font-size:16px">
-            <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br>(berdasarkan 'pink form')<br><br></td>
-            <td>: {{ $data->pemohonUkp11->tkh_kuatkuasa_pemangkuan_pinkform }}<br><br></td>
-        </tr>
-        <tr style="font-size:16px">
-            <td colspan="2">Tarikh Melaporkan Diri<br><br></td>
-            <td>: {{ $data->pemohonUkp11->tkh_lapor_diri }}<br><br></td>
-        </tr>
-        <tr style="font-size:16px">
-            <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br><br></td>
-            <td>: {{ $data->pemohonPink->tkh_lapor_diri }}<br><br></td>
-        </tr>
-        <tr style="font-size:16px">
-            <td colspan="5">(Tuan/puan diminta untuk melaporkan diri pada tarikh yang telah ditetapkan. Sekiranya penangguhan/pelepasan tuan/puan melebihi 14 hari (termasuk cuti mingguan dan kelepasan am), tarikh kuat kuasa pemangkuan tuan/puan adalah mulai tarikh tuan/puan kembali melaporkan diri dan melaksanakan tugas sepenuh masa di jawatan yang dipangku. Elaun pemangkuan hanya layak dibayar mulai tarikh tuan/puan menjalankan tugas yang dipangku secara sepenuh masa. Semua  penangguhan/pelepasan hendaklah dipersetujui Ketua Jabatan (yang baru) dan salinan kelulusan penangguhan disertakan bersama)<br><br></td>
-        </tr>
-        <tr style="font-size:16px">
-            <td colspan="2">Ketua Bahagian Perkhidmatan / Kerani Perkhidmatan<br><br></td>
-            <td>: {{ $data->pemohonUkp11->nokp_kerani }}<br><br></td>
-        </tr>
-        <tr style="font-size:16px">
-            <td colspan="2">Pejabat Baru<br><br></td>
-            <td>: {{ $data->pemohonPink->alamat }}<br><br></td>
-        </tr>
+    <table style="width: 100%">
+        <tbody>
+
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td colspan="5" style="font-size:16px">
+                    <strong>Pengesahan Penerimaan Pemangkuan Oleh Unit / Bahagian Perkhidmatan (pejabat baru)</strong><br><br>
+                </td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2">Tarikh Berkuatkuasa Pemangkuan<br>(berdasarkan 'pink form')<br><br></td>
+                <td colspan="3">: {{ $data->pemohonPink->tkh_lapor_diri ? date('d-m-Y', strtotime($data->pemohonPink->tkh_lapor_diri)) : '' }}<br><br></td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2">Tarikh Melaporkan Diri<br><br></td>
+                <td colspan="3">: {{ empty($data->pemohonUkp11->tkh_lapor_diri) ? '' : date('d-m-Y', strtotime($data->pemohonUkp11->tkh_lapor_diri)) }}<br><br></td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2">Penangguhan (Sekiranya ada),<br>Tempoh Penangguhan<br><br></td>
+                <td colspan="3">:
+                    @if( !empty($data->pemohonUkp11->tkh_tangguh_mula) && !empty($data->pemohonUkp11->tkh_tangguh_akhir))
+                    {{ empty($data->pemohonUkp11->tkh_tangguh_mula) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_tangguh_mula)->format('d-m-Y').' hingga '.empty($data->pemohonUkp11->tkh_tangguh_akhir) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_tangguh_akhir)->format('d-m-Y') }}
+                    @else
+                    @endif
+                    <br><br>
+                </td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2">Tarikh Mula Bertugas<br><br></td>
+                <td colspan="3">: {{ empty($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan) ? '' : date('d-m-Y', strtotime($data->pemohonUkp11->tkh_kuatkuasa_pemangkuan)) }}<br><br></td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="5">(Tuan/puan diminta untuk melaporkan diri pada tarikh yang telah ditetapkan. Sekiranya penangguhan/pelepasan tuan/puan melebihi 14 hari (termasuk cuti mingguan dan kelepasan am), tarikh kuat kuasa pemangkuan tuan/puan adalah mulai tarikh tuan/puan kembali melaporkan diri dan melaksanakan tugas sepenuh masa di jawatan yang dipangku. Elaun pemangkuan hanya layak dibayar mulai tarikh tuan/puan menjalankan tugas yang dipangku secara sepenuh masa. Semua  penangguhan/pelepasan hendaklah dipersetujui Ketua Jabatan (yang baru) dan salinan kelulusan penangguhan disertakan bersama)<br><br></td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="5">Ketua Bahagian Perkhidmatan / Kerani Perkhidmatan<br><br></td>
+            </tr>
+            <tr style="font-size:16px; text-align: right;">
+                <td colspan="5" style="height: 30px;"></td>
+            </tr>
+            @if(empty($data->pemohonUkp11->nokp_kerani))
+            <tr style="font-size:16px; text-align: right;">
+                <td colspan="5">
+                    <span>...........................................................</span><br/>
+                    <span>          (Tandangan dan Cop Ketua Perkhidmatan)</span>
+                </td>
+            </tr>
+            <tr style="font-size:16px; text-align: right;">
+                <td colspan="5" style="height: 30px;"></td>
+            </tr>
+            @else
+            <tr style="font-size:16px">
+                <td colspan="2"></td>
+
+                <td style="text-align: right;">Nama : </td>
+                <td colspan="2">{{ $data->pemohonUkp11->nama_kerani ?? '' }}</td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2"></td>
+                <td style="text-align: right;">Jawatan : </td>
+                <td colspan="2">{{ $data->pemohonUkp11->jawatan ?? '' }}</td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2"></td>
+
+                <td style="text-align: right;">Caw./Jabatan : </td>
+                <td colspan="2">{{ $data->pemohonUkp11->cawangan ?? '' }}</td>
+            </tr>
+            @endif
+            <tr style="font-size:16px">
+                <td colspan="2"></td>
+
+                <td style="text-align: right;">Tarikh : </td>
+                <td colspan="2">{{ empty($data->pemohonUkp11->kerani_tkh) ? '' : date('d-m-Y', strtotime($data->pemohonUkp11->kerani_tkh)) }}</td>
+            </tr>
+            <tr style="font-size:16px; text-align: right;">
+                <td colspan="5" style="height: 30px;"></td>
+            </tr>
+            <tr style="font-size:16px;">
+                <td colspan="5" style="">Perakuan Ketua Jabatan</td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="5">(Pejabat Baru)<br><br></td>
+            </tr>
+            <tr style="font-size:16px; text-align: right;">
+                <td colspan="5" style="height: 30px;"></td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="5">Saya mengesahkan bahawa semua maklumat yang diberikan adalah benar<br><br></td>
+            </tr>
+            <tr style="font-size:16px; text-align: right;">
+                <td colspan="5" style="height: 30px;"></td>
+            </tr>
+            @if(empty($data->pemohonUkp11->nokp_ketua_jabatan))
+            <tr style="font-size:16px; text-align: right;">
+                <td colspan="5">
+                    <span>...........................................................</span><br/>
+                    <span>          (Tandatangan Dan Cop Ketua Jabatan)</span>
+                </td>
+            </tr>
+            <tr style="font-size:16px; text-align: right;">
+                <td colspan="5" style="height: 30px;"></td>
+            </tr>
+            @else
+            <tr style="font-size:16px">
+                <td colspan="2"></td>
+
+                <td style="text-align: right;">Nama : </td>
+                <td colspan="2">{{ $data->pemohonUkp11->nama_ketua_jabatan ?? '' }}</td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2"></td>
+
+                <td style="text-align: right;">Jawatan : </td>
+                <td colspan="2">{{ $data->pemohonUkp11->jawatan_ketua_jabatan ?? '' }}</td>
+            </tr>
+            <tr style="font-size:16px">
+                <td colspan="2"></td>
+
+                <td style="text-align: right;">Caw./Jabatan : </td>
+                <td colspan="2">{{ $data->pemohonUkp11->cawangan_ketua_jabatan ?? '' }}</td>
+            </tr>
+            @endif
+            <tr style="font-size:16px">
+                <td colspan="2"></td>
+                <td style="text-align: right;">Tarikh : </td>
+                <td colspan="2">{{ empty($data->pemohonUkp11->ketua_jabatan_tkh) ? '' : date('d-m-Y', strtotime($data->pemohonUkp11->ketua_jabatan_tkh)) }}</td>
+            </tr>
+        </tbody>
     </table>
 </body>
 </html>

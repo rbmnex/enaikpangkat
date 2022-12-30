@@ -1,7 +1,7 @@
 <div id="utuh-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 4 -  Butiran Calon Untuk Tapisan Keutuhan</h5>
-        <small class="text-notice">Sila kemas kini di bahagian PERIBADI dan WARIS/ANAK di portal MyKj jika ada perubahan </small>
+        <small class="text-notice">Sila kemas kini di modul PERIBADI dan WARIS/ANAK di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         <div class="form-group col-md-6">
@@ -90,12 +90,12 @@
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" for="alamat_bertugas">Alamat Pejabat</label>
-            <textarea row=3 type="text" id="sect-4-alamat_bertugas" readonly class="form-control" name="alamat_pejabat"  placeholder="">{{ $profile['alamat_pejabat'] }}</textarea>
+            <textarea row=3 type="text" id="sect-4-alamat_bertugas" readonly class="form-control" name="alamat_pejabat"  placeholder="">{{ strtoupper($profile['alamat_pejabat']) }}</textarea>
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" for="alamat_bertugas">Alamat Rumah</label>
-            <textarea row=3 type="text" id="sect-4-alamat_rumah" readonly class="form-control" name="alamat_rumah" placeholder="">{{  $profile['alamat_rumah']  }}</textarea>
+            <textarea row=3 type="text" id="sect-4-alamat_rumah" readonly class="form-control" name="alamat_rumah" placeholder="">{{  strtoupper($profile['alamat_rumah'])  }}</textarea>
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
@@ -110,7 +110,7 @@
          </div>
          <div class="form-group col-md-12">
             <label class="col-form-label" for="alamat_bertugas">Alamat Pejabat Pasangan</label>
-            <textarea row=6 readonly id="sect-4-alamat_pejabat_pasangan" class="form-control" name="alamat_pejabat_pasangan" placeholder=""/>{{ $profile['alamat_pasangan'] }}</textarea>
+            <textarea row=6 readonly id="sect-4-alamat_pejabat_pasangan" class="form-control" name="alamat_pejabat_pasangan" placeholder=""/>@if($profile['taraf_perkahwinan'] == 'KAHWIN') {{ empty($profile['alamat_pasangan']) ? strtoupper($profile['alamat_rumah']) :  strtoupper($profile['alamat_pasangan']) }} @endif</textarea>
             <div class="invalid-feedback"></div>
         </div>
     </div>

@@ -131,11 +131,11 @@
                         </div>
                         <div class="col-xl-4 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Tarikh Mula</label>
-                             <input type="text" id="fp-default" name="kursus-mula" class="form-control flatpickr-basic tkh_mula" placeholder="YYYY-MM-DD" />
+                             <input type="text" id="fp-default" name="kursus-mula" class="form-control flatpickr-basic tkh_mula" placeholder="DD-MM-YYYY" />
                         </div>
                         <div class="col-xl-4 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Tarikh Tamat</label>
-                             <input type="text" id="fp-default" name="kursus-tamat" class="form-control flatpickr-basic tkh_tamat" placeholder="YYYY-MM-DD" />
+                             <input type="text" id="fp-default" name="kursus-tamat" class="form-control flatpickr-basic tkh_tamat" placeholder="DD-MM-YYYY" />
                         </div>
                          <div class="col-xl-4 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Tempat</label>
@@ -179,7 +179,7 @@
 
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Selesai</button>
-                      
+
                     </div>
 
             </div>
@@ -248,7 +248,7 @@
                              <textarea rows="6" name="pendedahan-nama" class="form-control"></textarea>
                             <!-- <input type="textarea" id="modal-post" name="pendedahan-nama" class="form-control" placeholder=""  /> -->
                         </div>
-                        
+
                     </div>
 
                     <div class="modal-footer">
@@ -281,7 +281,7 @@
                             <textarea rows="6" name="pencapaian-nama" class="form-control"></textarea>
                             <!-- <input type="textarea" id="modal-post" name="pencapaian-nama" class="form-control" placeholder=""  /> -->
                         </div>
-                        
+
                     </div>
 
                     <div class="modal-footer">

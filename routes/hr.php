@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function () {
             Route::get('/get-pink-form-list',[PinkFormController::class,'getPinkFormList']);
             Route::post('/hantar',[PinkFormController::class,'hantar']);
             Route::get('/download-pink/{id}',[PinkFormController::class,'display_pink']);
+            Route::post('/resend',[PinkFormController::class,'resend']);
         });
     });
 
@@ -43,9 +44,10 @@ Route::middleware('auth')->group(function () {
 Route::prefix('/pemangku')->group(function() {
     Route::prefix('/tawaran')->group(function() {
         Route::get('/',[PemangkuTawaranController::class,'index']);
-        Route::get('/update/{id}',[PemangkuTawaranController::class,'updateTawaran']);
+        Route::get('/update/{id}',[PemangkuTawaranController::class,'updateTawaran'])->middleware(['auth']);
         Route::post('/update/process',[PemangkuTawaranController::class,'updateTawaranPost']);
         Route::get('/preview-pdf/{id}',[PemangkuTawaranController::class,'preview_pdf']);
+        Route::post('update/upload',[PemangkuTawaranController::class,'upload_form']);
     });
 });
 
@@ -54,6 +56,8 @@ Route::prefix('/naikpangkat')->group(function() {
         Route::get('/',[NaikpangkatController::class,'index']);
         Route::get('/get-ukp13-list',[NaikpangkatController::class,'getUkp13List']);
         Route::get('/borang/{id_pemohonan}',[NaikpangkatController::class,'borang']);
+        Route::get('/mohon/{id}',[NaikpangkatController::class,'mohon'])->middleware(['auth']);
+        Route::get('/apply/{id}',[NaikpangkatController::class,'apply'])->middleware(['auth']);
         Route::post('/borang-submit',[NaikpangkatController::class,'submit_application']);
         Route::get('/download/part',[NaikpangkatController::class,'download_form_part']);
     });

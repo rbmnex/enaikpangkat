@@ -121,7 +121,7 @@
                 <td></td>
 
                 <td colspan="4" style="text-align: center">
-                    <img src="{{ asset('images/jkr_logo.png') }}" width="70" height="50">
+                    <img src="{{ url('/images/jkr_logo.png') }}" width="70" height="50">
                 </td>
 
 
@@ -362,61 +362,61 @@
                 </td>
             </tr>
             <tr class="side-border">
-                <td><span class="box-small">{{ $pemohon->pengesahan_perkhidmatan == 1 ? '/' : '' }}</span></td>
+                <td style="text-align: right;"><span  class="box-small">{{ $pemohon->pengesahan_perkhidmatan == 1 ? '/' : '' }}</span></td>
                 <td colspan="11">
                     <span class="normal-size" style="font-style: italic; padding-left: 5px;">Saya telah menyemak butir-butir perkhidmatan pegawai di atas dan disahkan betul</span>
                 </td>
             </tr>
             <tr class="side-border">
-                <td colspan="12" style="height: 30px;"></td>
+                <td colspan="12" style="height: 20px;"></td>
             </tr>
 
             <tr class="side-border">
-                <td colspan="2"></td>
+                <td></td>
                 <td style="normal-size">
                     <span>Nama</span>
                 </td>
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ $pemohon->pengesahan_perkhidmatan_nama}}</td>
+                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_nama}}</td>
             </tr>
 
             <tr class="side-border">
-                <td colspan="2"></td>
+                <td></td>
                 <td style="normal-size">
                     <span>Jawatan</span>
                 </td>
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ $pemohon->pengesahan_perkhidmatan_jawatan}}</td>
+                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_jawatan}}</td>
             </tr>
 
             <tr class="side-border">
-                <td colspan="2"></td>
+                <td></td>
                 <td style="normal-size">
                     <span>Caw./Jabatan</span>
                 </td>
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ $pemohon->pengesahan_perkhidmatan_cawangan}}</td>
+                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_cawangan}}</td>
             </tr>
 
             <tr class="side-border">
-                <td colspan="2"></td>
+                <td></td>
                 <td style="normal-size">
                     <span>Tarikh</span>
                 </td>
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ empty($pemohon->pengesahan_perkhidmatan_tkh) ? '' : \Carbon\Carbon::parse($pemohon->pengesahan_perkhidmatan_tkh)->format('d-m-Y')}}</td>
+                <td colspan="9">{{ empty($pemohon->pengesahan_perkhidmatan_tkh) ? '' : \Carbon\Carbon::parse($pemohon->pengesahan_perkhidmatan_tkh)->format('d-m-Y')}}</td>
             </tr>
 
             <tr class="bottom-border">
-                <td colspan="12" style="height: 50px;"></td>
+                <td colspan="12" style="height: 30px;"></td>
             </tr>
             <tr class="">
                 <td colspan="12">
@@ -449,7 +449,7 @@
                     <span class="normal-size" style="padding-left: 5px; ">Bertugas</span>
                 </td>
                 <td colspan="5">
-                    <span class="normal-size ow" style="">{{ $pemohon->alamat_pejabat }}</span>
+                    <span class="normal-size ow" style="">{{ strtoupper($pemohon->alamat_pejabat) }}</span>
                 </td>
                 <td colspan="4"></td>
 
@@ -555,7 +555,7 @@
                 <td colspan="8">
                     <table border="1" style="padding-right: 5px;">
                         @php
-                        $year = \Carbon\Carbon::parse(Date::now())->format('Y');
+                            $year = \Carbon\Carbon::parse(Date::now())->format('Y');
                         @endphp
                         <tbody>
                             <tr style="text-align: center;">
@@ -605,13 +605,12 @@
                 </td>
                 <td colspan="2">
                     <span class="normal-size" style="padding-right: 5px;">Ada</span>
-                    <span class="normal-size box-small"></span>
+                    <span class="normal-size box-small">@if($tatatertib){{ $tatatertib->pengesahan_tindakan == 1 ? '/' : '' }}@endif</span>
 
                 </td>
                 <td colspan="2">
                     <span class="normal-size" style="padding-right: 5px;">Tiada</span>
-                    <span class="normal-size box-small">
-                    </span>
+                    <span class="normal-size box-small">@if($tatatertib){{ $tatatertib->pengesahan_tindakan == 0 ? '/' : '' }}@endif</span>
                 </td>
                 <td colspan="4"></td>
             </tr>
@@ -623,7 +622,7 @@
                     <span class="normal-size" style="padding-left: 5px;">Jenis Hukuman (Jika Ada) : </span>
                 </td>
                 <td colspan="8">
-                    <span class="normal-size" style="">Tiada</span>
+                    <span class="normal-size" style="">@if($tatatertib){{ $tatatertib->jenis_hukuman }}@endif</span>
                 </td>
             </tr>
             <tr class="side-border">
@@ -631,7 +630,9 @@
                     <span class="normal-size" style="padding-left: 5px;">Tarikh Hukuman : </span>
                 </td>
                 <td colspan="8">
-                    <span class="normal-size" style="">Tiada</span>
+                    <span class="normal-size" style="">
+                        @if($tatatertib){{ empty($tatatertib->tkh_hukuman) ? '' : \Carbon\Carbon::parse($tatatertib->tkh_hukuman)->format('d-m-Y') }}@endif
+                    </span>
                 </td>
             </tr>
             <tr class="bottom-border">
@@ -829,7 +830,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{ $peribadi->alamat_pejabat }}</td>
+                                <td colspan="6">{{ strtoupper($peribadi->alamat_pejabat) }}</td>
 
                                 <td></td>
                                 <td></td>
@@ -847,7 +848,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{  $peribadi->alamat  }}</td>
+                                <td colspan="6">{{  strtoupper($peribadi->alamat)  }}</td>
 
                                 <td></td>
                                 <td></td>
@@ -901,7 +902,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{ $pasangan ? $pasangan->alamat_pejabat : ''}}</td>
+                                <td colspan="6">{{ $pasangan ? (empty($pasangan->alamat_pejabat) ? strtoupper($peribadi->alamat) : strtoupper($pasangan->alamat_pejabat)) :  '' }}</td>
 
                                 <td></td>
                                 <td></td>
@@ -970,16 +971,19 @@
                                             <th style="text-align: center;">PENEMPATAN</th>
                                             <th style="text-align: center; width: 60%">TAHUN BERKHIDMAT</th>
                                         </thead>
+                                        @php
+                                            $iteration = 0
+                                        @endphp
                                         <tbody>
                                             @foreach ($perkhidmatans as $pengalaman)
                                             <tr>
-                                                <td style="height: 30px; width: 25%; text-align: center;">{{ $loop->iteration }}</td>
-                                                <td>{{ $pengalaman->jawatan ?? '' }}</td>
-                                                <td>{{ $pengalaman->penempatan }}</td>
-                                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman->tkh_mula_berkhidmat)->format('Y') }}</td>
+                                                <td style="height: 30px; width: 25%; text-align: center;">{{ ++$iteration }}</td>
+                                                <td>{{ $pengalaman['jawatan'] ?? '' }}</td>
+                                                <td>{{ $pengalaman['penempatan'] }}</td>
+                                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
-                                            @if($perkhidmatans->count() == 0)
+                                            @if(count($perkhidmatans) == 0)
 
                                             <tr>
                                                 <td style="height: 30px ; width: 25%;"></td>
@@ -1035,54 +1039,57 @@
                                     <table border="1">
                                         <thead>
                                             <th style="text-align: center;" class="width-25">BIL.</th>
-                                            <th style="text-align: center;">SUMBNGAN/JAWATANKUASA TEKNIKAL</th>
-                                            <th style="text-align: center;">TEMPAT</th>
+                                            <th style="text-align: center;">SUMBANGAN/JAWATANKUASA TEKNIKAL</th>
+                                            {{-- <th style="text-align: center;">TEMPAT</th>--}}
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </thead>
+                                        @php
+                                            $iteration = 0
+                                        @endphp
                                         <tbody>
-                                            @foreach ($contribution as $sumbangan)
+                                            @foreach ($sumbangan as $sumbang)
                                             <tr>
-                                                <td style="height: 30px;" class="width-25">{{ $loop->iteration }}</td>
-                                                <td>{{ $sumbangan->sumbangan }}</td>
-                                                <td>{{ $sumbangan->tempat }}</td>
-                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbangan->tkh_peristiwa)->format('Y') }}</td>
+                                                <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
+                                                <td>{{ $sumbang['sumbangan'] }}</td>
+                                                {{-- <td>{{ $sumbangan['tempat'] }}</td> --}}
+                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
-                                            @if($contribution->count() == 0)
+                                            @if(count($sumbangan) == 0)
                                             <tr>
                                                 <td style="height: 30px;" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px" class="width-25"></td>
                                                 <td></td>
-                                                <td></td>
+                                                {{-- <td></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             @endif
@@ -1161,18 +1168,21 @@
                                             <th style="text-align: center; width: 75%">INSTITUT PUSAT PENGAJIAN TINGGI</th>
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </tr>
+                                        @php
+                                            $iteration = 0
+                                        @endphp
                                         <tbody>
                                             @foreach ($akademiks as $a)
                                                 <tr>
                                                     <td style="height: 30px; text-align:center;" class="width-25">
-                                                        {{ $loop->iteration }}
+                                                        {{ ++$iteration }}
                                                     </td>
-                                                    <td>{{ $a->nama_sijil }}</td>
-                                                    <td style="width: 75%">{{ $a->nama_insititusi }}</td>
-                                                    <td style="width: 50%">{{ empty($a->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($a->tkh_kelulusan)->format('Y') }}</td>
+                                                    <td>{{ $a['nama_sijil'] }}</td>
+                                                    <td style="width: 75%">{{ $a['nama_insititusi'] }}</td>
+                                                    <td style="width: 50%">{{ empty($a['tkh_kelulusan']) ? '' : \Carbon\Carbon::parse($a['tkh_kelulusan'])->format('Y') }}</td>
                                                 </tr>
                                             @endforeach
-                                            @if($akademiks->count() == 0)
+                                            @if(count($akademiks) == 0)
                                             <tr>
                                                 <td style="height: 30px; text-align:center;" class="width-25"></td>
                                                 <td></td>
@@ -1265,14 +1275,7 @@
                                         <tbody>
                                             @foreach ($profesionals as $pro)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 30px;" class="width-25">{{ $loop->iteration }}</td>
+                                                    <td style="height: 30px; text-align: center;" class="width-25">{{ $loop->iteration }}</td>
                                                     <td>{{ $pro->nama_sijil }}</td>
                                                     <td style="width: 75%">{{ $pro->badan_professional }}</td>
                                                     <td style="width: 75%">{{ $pro->no_pendaftaran }}</td>
@@ -1340,7 +1343,7 @@
                                         <tbody>
                                             @foreach ($kompetenans as $k)
                                             <tr>
-                                                <td style="height: 30px; width: 15%">{{ $loop->iteration }}</td>
+                                                <td style="height: 30px; width: 15%; text-align: center;">{{ $loop->iteration }}</td>
                                                 <td>{{ $k->nama_sijil }}</td>
                                                 <td class="width-25">{{ $k->tahap }}</td>
                                             </tr>
@@ -1398,12 +1401,7 @@
                                         <tbody>
                                             @foreach ($pengiktirafans as $sijil)
                                                 <tr>
-                                                    <td></td>
-                                                    <td></td>
-                                                    <td></td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="height: 30px; width: 15%">{{ $loop->iteration }}</td>
+                                                    <td style="height: 30px; text-align: center; width: 15%">{{ $loop->iteration }}</td>
                                                     <td>{{ $sijil->jenis ?? '' }}</td>
                                                     <td class="width-25">{{ empty($sijil->tkh_mula) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula)->format('Y') }}</td>
                                                 </tr>
@@ -1736,7 +1734,7 @@
                 <td colspan="2">Alamat Pejabat</td>
 
                 <td style="text-align: center;">:</td>
-                <td colspan="8">{{ $peribadi->alamat_pejabat }}</td>
+                <td colspan="8">{{ strtoupper($peribadi->alamat_pejabat) }}</td>
 
             </tr>
             <tr>
@@ -1784,7 +1782,7 @@
             <tr style="" class="normal-size side-border">
                 <td></td>
                 <td colspan="11">
-                    {{ $pemohon->perakuan_ketua_jabatan_ulasan }}
+                    <span style="text-decoration: underline;">{{ $pemohon->perakuan_ketua_jabatan_ulasan }}</span>
                 </td>
             </tr>
             <tr style="" class="normal-size side-border">
@@ -1820,7 +1818,7 @@
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_alamat_pejabat}}</td>
+                <td colspan="8">{{ strtoupper($pemohon->perakuan_ketua_jabatan_alamat_pejabat) }}</td>
             </tr>
 
             <tr class="side-border">
@@ -1839,6 +1837,6 @@
             </tr>
         </tbody>
     </table>
-    </div>
+
   </body>
 </html>

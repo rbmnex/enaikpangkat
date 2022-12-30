@@ -1,7 +1,7 @@
   <div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
     <div class="navbar-header">
         <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/rtl/vertical-menu-template-bordered/index.html"><span class="brand-logo">
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="{{ url('/dashboard') }}"><span class="brand-logo">
                 <img src="{{ asset('images/jkr_logo.png') }}" height="30px" width="200px"/>
                         </span>
                     <h2 class="brand-text">JKR</h2>
@@ -52,11 +52,17 @@
                         </a>
                     </li>
                     <li>
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/appl/calon/success/view') }}">
+                            <i data-feather='file-text'></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Calon Berjaya</span>
+                            </a>
+                    </li>
+                    {{-- <li>
                         <a class="d-flex align-items-center" href="{{ url('/urussetia/appl/main/') }}">
                             <i data-feather="inbox"></i>
-                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">senarai <br/> Permohonan</span>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Permohonan</span>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li>
                         <a class="d-flex align-items-center" href="/urussetia/resume/lampiran/">
                             <i data-feather='link-2'></i>
@@ -69,7 +75,7 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Resume</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pengurusan<br/>Resume</span>
                 </a>
                 <ul class="menu-content">
                     <li>
@@ -107,13 +113,13 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Surat Pink</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pink Form</span>
                 </a>
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/hr2/pinkform/') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai <br/> Surat Pink</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai <br/>Pink Form</span>
                         </a>
                     </li>
                 </ul>
@@ -159,24 +165,24 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Pemangku</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Permohonan</span>
                 </a>
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/user/form/') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Senarai Permohonan</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran Pemangkuan</span>
                         </a>
                     </li>
-                    <li>
+                    {{-- <li>
                         <a class="d-flex align-items-center" href="{{ url('/pemangku/tawaran/') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Tawaran</span>
                         </a>
-                    </li>
+                    </li> --}}
                 </ul>
             </li>
-            <li class=" nav-item">
+            {{-- <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Naik Pangkat</span>
@@ -189,7 +195,7 @@
                         </a>
                     </li>
                 </ul>
-            </li>
+            </li> --}}
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
@@ -217,19 +223,19 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Pengesahan</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pengesahan<br/>Ketua Perkhidmatan</span>
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai') }}">
+                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai/hos') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
                         </a>
                     </li>
                     <li>
-                        <a class="d-flex align-items-center" href="/kb/pengesahan-pink/">
+                        <a class="d-flex align-items-center" href="{{ url('/kb/pengesahan-pink/') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/> Lapor Diri Pegawai</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang JKR/UKP/11</span>
                         </a>
                     </li>
                 </ul>
@@ -240,11 +246,11 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
-                    <span class="menu-title text-truncate" data-i18n="Pages">Pengesahan</span>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pengesahan<br/>Ketua Jabatan</span>
                 </a>
                 <ul class="menu-content">
                     <li>
-                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai') }}">
+                        <a class="d-flex align-items-center" href="{{ url('/validate/senarai/hod') }}">
                             <i data-feather="circle"></i>
                             <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang</span>
                         </a>
@@ -252,7 +258,7 @@
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/kj/pengesahan-pink/') }}">
                             <i data-feather="circle"></i>
-                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/> Lapor Diri Pegawai</span>
+                            <span class="menu-item text-truncate" data-i18n="Surat Pink">Pengesahan <br/>Borang /JKR/UKP/11</span>
                         </a>
                     </li>
                 </ul>

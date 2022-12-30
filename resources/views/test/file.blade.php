@@ -16,8 +16,8 @@
                 <button type="button" id="upload_btn" class="btn btn-success">Upload</button>
             </div>
         </div>
+        <form id="ok" method="POST" action="/enaikpangkat/api/test/download" width="100%">
         <div class="row" width="100%">
-            <form id="ok" method="POST" action="/api/test/download" width="100%">
             @csrf
             <div class="form-group col-6">
                 <label class="form-label" for="">Base 64</label>
@@ -30,8 +30,8 @@
             <div class="form-group col-md-6">
                 <button type="submit" id="download_btn" class="btn btn-success">Download</button>
             </div>
-            </form>
         </div>
+    </form>
         <script src="{{asset('asset/vendors/js/vendors.min.js')}}"></script>
         <script>
 
@@ -41,7 +41,7 @@
                 let data = new FormData(form);
                 $.ajax({
                     type:'POST',
-                    url: '/api/test/upload',
+                    url: '/enaikpangkat/api/test/upload',
                     data:data,
                     processData: false,
                     contentType: false,

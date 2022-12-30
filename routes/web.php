@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\admin\UserMgmtController;
+use App\Http\Controllers\Admin\UserMgmtController;
 use App\Http\Controllers\Form\UkpController;
 use App\Http\Controllers\Form\ViewController;
 use App\Http\Controllers\HR\PinkFormController;
@@ -10,11 +10,14 @@ use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
+use App\Http\Controllers\Urussetia\QualifyController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Http\Controllers\User\PermohonanController;
+use App\Models\Role;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Routing\RouteRegistrar;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,7 +31,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 */
 
 Route::get('/', function () {
-    return view('landing');
+    return view('layouts.landing');
 });
 
 //test aku untuk vnat, nanti aku delete
@@ -101,8 +104,8 @@ Route::prefix('/urussetia')->group(function() {
         Route::post('/tambah',[BatchMgmtController::class,'tambah_calon'])->middleware(['auth']);
         Route::post('/padam',[BatchMgmtController::class,'delete_batch'])->middleware(['auth']);
         Route::post('/mel',[BatchMgmtController::class,'email_batch'])->middleware(['auth']);
-
-
+        Route::get('/calon_status',[BatchMgmtController::class,'senarai_calon_status']);
+        Route::post('/resend',[BatchMgmtController::class,'resend_email']);
     });
 
     Route::prefix('/resume')->group(function() {
@@ -138,6 +141,9 @@ Route::prefix('/urussetia')->group(function() {
             Route::get('/load/list',[ApplicationController::class,'applicant_list']);
             Route::get('/info',[ApplicationController::class,'applicant_info']);
             Route::post('/verdict',[ApplicationController::class,'applicant_verdict']);
+            Route::get('/success/view',[QualifyController::class,'load_page']);
+            Route::get('/list/success',[QualifyController::class,'load_list']);
+            Route::post('/process',[QualifyController::class,'proceed']);
         });
     });
 });
@@ -162,6 +168,10 @@ Route::prefix('/form')->group(function() {
         Route::get('/eview/{encryted}',[ViewController::class,'secure_view'])->middleware(['auth']);
         Route::get('/nview/{id}',[ViewController::class,'view_form'])->middleware(['auth']);
         Route::get('/download/view',[ViewController::class,'download_form_full']);
+    });
+
+    Route::prefix('/ukp13')->group(function() {
+        Route::get('/send/promotion/{id}',[ApplicationController::class,'send_promotion']);
     });
 
     Route::prefix('/api')->group(function() {
@@ -194,8 +204,10 @@ Route::prefix('/form')->group(function() {
 
 Route::prefix('/validate')->group(function() {
     Route::prefix('/senarai')->group(function() {
-        Route::get('/',[PengesahanController::class,'index']);
-        Route::get('/pemohon',[PengesahanController::class,'applicant_list']);
+        Route::get('/hod',[PengesahanController::class,'index_hod']);
+        Route::get('/pemohon/hod',[PengesahanController::class,'applicant_list_hod']);
+        Route::get('/hos',[PengesahanController::class,'index_hos']);
+        Route::get('/pemohon/hos',[PengesahanController::class,'applicant_list_hos']);
     });
 });
 
@@ -219,9 +231,10 @@ Route::get('/api/func/test',[FunctionController::class, 'func']);
 Route::get('/api/test/req',[FunctionController::class, 'req']);
 Route::get('/api/test/mail',[FunctionController::class, 'mail']);
 Route::post('/api/test/upload',[FunctionController::class,'upload']);
+Route::get('/api/test/upload_url',[FunctionController::class,'uploadUrl']);
 Route::post('/api/test/download',[FunctionController::class,'download']);
 Route::get('/api/test/encrypt',[FunctionController::class,'encrypt']);
-
+Route::get('/api/test/decrypt',[FunctionController::class,'decrypt']);
 Route::get('/test/form',function() {
     return view('form.ukp12');
 });

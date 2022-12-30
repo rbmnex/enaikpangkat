@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Form;
 
 use App\Http\Controllers\Controller;
+use App\Models\File;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Mykj\Markah;
 use App\Models\Permohonan\Akademik;
@@ -22,6 +23,7 @@ use App\Models\Profail\Peribadi;
 use App\Models\Urussetia\LnptUkp12;
 use App\Models\Urussetia\TatatertibUkp12;
 use App\Models\User;
+use App\Pdf\PdfRender;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +32,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Mail;
 use Laratrust\LaratrustFacade as Laratrust;
 use Barryvdh\DomPDF\Facade\Pdf;
+//use PDF;
 use stdClass;
 
 class ViewController extends Controller
@@ -57,6 +60,7 @@ class ViewController extends Controller
             $pemohon = Pemohon::find($id);
             $peribadi = Peribadi::find($pemohon->id_peribadi);
             $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();
+            $file_pengesahan = File::find($pemohon->pengesahan_cuti);
             $harta = Harta::where('id_pemohon',$pemohon->id)->first();
             $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
             $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get();
@@ -133,6 +137,12 @@ class ViewController extends Controller
                 }
             } else if($view == 'l') {
                 if(Laratrust::hasRole('secretariat')) {
+                    if($pemohon->jenis_penempatan != 2) {
+                        array_push($includes, ViewController::HOS_VIEW);
+                        array_push($includes, ViewController::HOD_VIEW);
+                    } else {
+                        array_push($includes, ViewController::KADER_VIEW);
+                    }
                     array_push($includes, ViewController::LNPK_FORM);
                 } else {
                     if($pemohon->jenis_penempatan != 2) {
@@ -148,7 +158,12 @@ class ViewController extends Controller
             } else if($view == 'h') {
                 $user = Auth::user();
                 if($user->hasRole('hod') && $user->nokp == $pemohon->nokp_ketua_jabatan) {
-                    array_push($includes, ViewController::HOD_FORM);
+                    array_push($includes, ViewController::HOS_VIEW);
+                    if(empty($pemohon->perakuan_ketua_jabatan_tkh)) {
+                        array_push($includes, ViewController::HOD_FORM);
+                    } else {
+                        array_push($includes, ViewController::HOD_VIEW);
+                    }
                 } else {
                     if($pemohon->jenis_penempatan != 2) {
                         array_push($includes, ViewController::LNPK_VIEW);
@@ -164,7 +179,11 @@ class ViewController extends Controller
             } else if($view == 's') {
                 $user = Auth::user();
                 if($user->hasRole('clerk') && $user->nokp == $pemohon->pengesahan_perkhidmatan_nokp) {
-                    array_push($includes, ViewController::HOS_FORM);
+                    if(empty($pemohon->pengesahan_perkhidmatan_tkh)) {
+                        array_push($includes, ViewController::HOS_FORM);
+                    } else {
+                        array_push($includes, ViewController::HOS_VIEW);
+                    }
                 } else {
                     if($pemohon->jenis_penempatan != 2) {
                         array_push($includes, ViewController::LNPK_VIEW);
@@ -197,7 +216,8 @@ class ViewController extends Controller
                 'hod' => $hod,
                 'tatatertib' => $tatatertib,
                 'sumbangan' => $contribution,
-                'pages' => $includes
+                'pages' => $includes,
+                'borang_pengesahan' => $file_pengesahan,
             ]);
     }
 
@@ -373,7 +393,7 @@ class ViewController extends Controller
         if(!$ketua_user->hasRole('hod')) {
             $ketua_user->attachRole('hod');
         }
-            $secure_link = Crypt::encryptString($pemohon->id);
+                $secure_link = Crypt::encryptString($pemohon->id);
                 $content = [
                     'link' => url('/')."/form/ukp12/eview/".$secure_link."?view=h",
                     'gred' => $pemohon->gred,
@@ -384,7 +404,7 @@ class ViewController extends Controller
                 Mail::mailer('smtp')->send('mail.perakui-mail',$content,function($message) use ($ketua_user) {
                     // testing purpose
                     //',$ketua_user->name);
-
+                    //$message->to('munirahj@jkr.gov.my',$ketua_user->name);
                     $message->to($ketua_user->email,$ketua_user->name);
                     $message->subject('PERAKUAN KETUA JABATAN UNTUK URUSAN PEMANGKUAN');
 
@@ -443,15 +463,15 @@ class ViewController extends Controller
         $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();
         $harta = Harta::where('id_pemohon',$pemohon->id)->first();
         $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
-        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get();
-        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
-        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get();
+        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get()->toArray();
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get()->toArray();
+        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get()->toArray();
         $profesional = Professional::where('id_pemohon',$pemohon->id)->get();
         $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->get();
         $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();
         $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
         $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
-        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get();
+        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get()->toArray();
         $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
         $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->orderBy('tahun','desc')->get();
         $markah =  collect([]);
@@ -505,8 +525,10 @@ class ViewController extends Controller
             'tatatertib' => $tatatertib
         ];
 
-        $pdf = PDF::loadView('pdf.ukp12', $data, []);
+        $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdf.ukp12', $data, []);
         return $pdf->stream('Borang_UKP12_'.$peribadi->nokp.'.pdf');
+
+        //return PdfRender::render('pdf.ukp12', $data, ['Borang','UKP12',$peribadi->nokp]);
     }
 
 }

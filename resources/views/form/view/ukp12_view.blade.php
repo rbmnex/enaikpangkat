@@ -56,7 +56,7 @@
 <div class="content-body">
     <section id="basic-datatable">
     <div class="row">
-        <h4 class=""><span style="font-weight: bold;">Borang Pemangkuan JKR UKP 12</span></h4>
+        <h4 class=""><span style="font-weight: bold;">Borang Pemangkuan JKR/UKP/12</span></h4>
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
@@ -139,7 +139,7 @@
                                     <th>Jenis Cuti</th>
                                     <th>Tarikh Mula</th>
                                     <th>Tarikh Akhir</th>
-                                    {{-- <th>Dokumen</th> --}}
+                                    <th>Dokumen</th>
                                     {{-- <th>Ti</th> --}}
                                 </thead>
                                 <tbody id="tbody-cuti">
@@ -149,11 +149,25 @@
                                         <td>{{ \Carbon\Carbon::parse($cuti->tkh_mula)->format('d-m-Y')  }}</td>
                                         <td>{{ \Carbon\Carbon::parse($cuti->tkh_akhir)->format('d-m-Y')  }}</td>
                                         {{-- <td><input class="form-control cuti-upload" type="file" id="cuti_{{ $cuti->id_cuti }}" name="cuti_{{ $cuti->id_cuti }}" /></td> --}}
+                                        <td>
+                                            @if($cuti->surat_kelulusan)
+                                            {{-- <button class="btn btn-outline-success btn-download" data-file-id="{{ $cuti->surat_kelulusan }}">
+                                                <span class="align-middle d-sm-inline-block d-none"></span>
+                                                <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                            </button> --}}
+                                            <a href="http://10.8.80.68/upload_cuti/{{ $peribadi->nokp }}/{{ $cuti->file->filename }}" target="_blank" class="btn btn-outline-success">
+                                                <span class="align-middle d-sm-inline-block d-none"></span>
+                                                <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                            </a>
+                                            @else
+                                            Tiada Dokumen
+                                            @endif
+                                        </td>
                                     </tr>
                                     @endforeach
                                     @if($cutis->count() == 0)
                                     <tr data-cuti-id="">
-                                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
                                     @endif
                                 </tbody>
@@ -188,6 +202,9 @@
                             <div class="invalid-feedback"></div>
                         </div>
                         @if($pemohon->jenis_penempatan != 2)
+                        <div class="form-group col-md-12">
+                            <h6 class="col-form-label" for="emel">Borang Pengesahan Perkhidmatan</h6>
+                        </div>
                         <div class="form-group col-md-12">
                             <span class="col-form-label cuti-file">{{ $pemohon->file->filename }}</span>
                             <button class="btn btn-warning btn-download" data-file-id="{{ $pemohon->pengesahan_cuti }}">
@@ -231,10 +248,14 @@
 
                         </div> --}}
                         <div class="form-group col-md-12">
+                            <h6 class="col-form-label" for="emel">Lampiran E – Pengisytiharan Harta</h6>
+                        </div>
+                        <div class="form-group col-md-12">
                             {{-- <div class="file btn btn-primary">
                                 <i data-feather='upload'></i> Muat Naik
                                 <input class="file-input upload-harta" type="file" id="lampiran_E" name="harta_surat_kelulusan" />
                             </div> --}}
+
                             <span class="col-form-label harta-file">{{ $harta->file->filename }}</span>
                             <button class="btn btn-warning btn-download" data-file-id="{{ $harta->surat_kelulusan_id }}">
                                 <span class="align-middle d-sm-inline-block d-none">Muat Turun</span>
@@ -391,7 +412,7 @@
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
                                         <td>{{ $pengalaman->jawatan ?? '' }}</td>
-                                        <td>{{ $pengalaman->penempatan }}</td>
+                                        <td>{{ strtoupper($pengalaman->penempatan) }}</td>
                                         <td>{{  \Carbon\Carbon::parse($pengalaman->tkh_mula_berkhidmat)->format('d-m-Y') }}</td>
                                     </tr>
                                     @endforeach
@@ -450,13 +471,13 @@
                                         <tr data-pertubuhan-id="{{ $org->id }}">
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $org->sumbangan }}</td>
-                                            <td>{{ $org->tempat }}</td>
+                                            {{-- <td>{{ $org->tempat }}</td> --}}
                                             <td>{{ $org->tkh_peristiwa ? \Carbon\Carbon::parse($org->tkh_peristiwa)->format('Y') : ''  }}</td>
                                         </tr>
                                     @endforeach
                                     @if($sumbangan->count() == 0)
                                     <tr data-pertubuhan-id="">
-                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
                                     @endif
                                 </table>
@@ -513,6 +534,7 @@
                                         <th>Badan Profesional Yang Diiktiraf</th>
                                         <th>No. Pendaftaran</th>
                                         <th>Tahun</th>
+                                        <th>Dokumen</th>
                                     </thead>
                                     <tbody id="tbody-profesional">
                                     @foreach ($profesionals as $pro)
@@ -522,11 +544,25 @@
                                             <td>{{ $pro->badan_professional }}</td>
                                             <td>{{ $pro->no_pendaftaran }}</td>
                                             <td>{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
+                                            <td>
+                                                @if($pro->file_id)
+                                                {{-- <button class="btn btn-outline-success btn-download" data-file-id="{{ $pro->file_id }}">
+                                                    <span class="align-middle d-sm-inline-block d-none"></span>
+                                                    <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                                </button> --}}
+                                                <a href="http://10.8.80.68/upload_kelayakan/{{ $peribadi->nokp }}/{{ $pro->file->filename }}" target="_blank" class="btn btn-outline-success">
+                                                    <span class="align-middle d-sm-inline-block d-none"></span>
+                                                    <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                                </a>
+                                                @else
+                                                Tiada Dokumen
+                                                @endif
+                                            </td>
                                         </tr>
                                     @endforeach
                                     @if($profesionals->count() == 0)
                                     <tr data-profesional-id="">
-                                        <td colspan="5" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="6" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
 
 
@@ -685,8 +721,8 @@
                                 <i data-feather='upload'></i> Muat Naik
                                 <input class="form-control file-input penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran"/>
                             </div> --}}
-                            <span class="col-form-label loan-file"></span>
-                            <button class="btn btn-warning btn-download">
+                            <span class="col-form-label loan-file">{{ $akuan_pinjaman->file->filename }}</span>
+                            <button class="btn btn-warning btn-download" data-file-id="{{ $akuan_pinjaman->surat_perakuan }}">
                                 <span class="align-middle d-sm-inline-block d-none">Muat Turun</span>
                                 <i data-feather="download" class="align-middle ml-sm-25 ml-0"></i>
                             </button>

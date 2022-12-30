@@ -228,7 +228,7 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 $data[] = [
-                   'kod_peristiwa' => $m->LAktiviti->peristiwa ? $m->LAktiviti->peristiwa :'',
+                   'kod_peristiwa' => $m->LAktiviti ? ($m->LAktiviti->peristiwa ? $m->LAktiviti->peristiwa : '') :'',
                     'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa :''
                 ];
             }
@@ -378,7 +378,7 @@ class ListPegawai2 extends Model
                     }else{
                         $interval = '';
                     }
-                    
+
 
                     $data['khusus'][$m->LAktiviti->aktiviti]['data'][] = [
                         'tempat' => $m->tempat,
@@ -392,11 +392,11 @@ class ListPegawai2 extends Model
 
                     ];
                 }
-                
+
             }
         }
 
-        
+
         if(isset($data['khusus'])){
             foreach ($data['khusus'] as $key => $value) {
                 $title = $key;
@@ -417,7 +417,7 @@ class ListPegawai2 extends Model
 
                     $data['khusus'][$key]['jumlah_pengalaman'] = $title.' selama '.$totalYear.' tahun, '.$totalMonth.' bulan';
                 }
-                
+
             }
         }
 

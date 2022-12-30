@@ -1,7 +1,7 @@
 <div id="cuti-vertical" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 2 - Maklumat Cuti Dan Pengesahan</h5>
-        <small class="text-notice">Sila kemas kini di bahagian CUTI di portal MyKj jika ada perubahan </small>
+        <small class="text-notice">Sila kemas kini di modul CUTI di portal MyKj jika ada perubahan </small>
     </div>
     <div class="row">
         <div class="form-group col-md-12">
@@ -26,7 +26,7 @@
                     <th>Jenis Cuti</th>
                     <th>Tarikh Mula</th>
                     <th>Tarikh Akhir</th>
-                    {{-- <th>Dokumen</th> --}}
+                    <th>Dokumen</th>
                     {{-- <th>Ti</th> --}}
                 </thead>
                 <tbody id="tbody-cuti">
@@ -36,11 +36,12 @@
                         <td>{{ \Carbon\Carbon::parse($cuti->tkh_mula)->format('d-m-Y')  }}</td>
                         <td>{{ \Carbon\Carbon::parse($cuti->tkh_tamat)->format('d-m-Y')  }}</td>
                         {{-- <td><input class="form-control cuti-upload" type="file" id="cuti_{{ $cuti->id_cuti }}" name="cuti_{{ $cuti->id_cuti }}" /></td> --}}
+                        <td>@if(!empty($cuti->item_fm))<a class="btn btn-outline-success" href="{{ env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_cuti/'.$profile['nokp_baru'].'/'.$cuti->item_fm }}"><i data-feather='file'></i></a>@else{{ 'Tiada Dokumen' }}@endif</td>
                     </tr>
                     @endforeach
                     @if($profile['cuti']->count() == 0)
                     <tr data-cuti-id="">
-                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                     </tr>
                     @endif
                 </tbody>

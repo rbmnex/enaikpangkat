@@ -38,6 +38,8 @@ class Pemohon extends Model
     public const RESERVE = "LS";
     // Tawaran Dihantar
     public const OFFERED_SENT = "HT";
+    // Tunggu surat pink
+    public const WAITING_OFFER = "MT";
 
 
     public function  pemohonPeribadi(){
@@ -45,7 +47,7 @@ class Pemohon extends Model
     }
 
     public function  pemohonPink(){
-        return $this->hasOne(SuratPink::class, 'id_pemohon', 'id');
+        return $this->hasOne(SuratPink::class, 'id_pemohon', 'id')->where('flag',1)->where('delete_id',0);
     }
 
     public function  pemohonPermohonan(){
@@ -53,7 +55,7 @@ class Pemohon extends Model
     }
 
     public function  pemohonUkp11(){
-        return $this->hasOne(PenerimaanUkp11::class, 'id_pemohon', 'id');
+        return $this->hasOne(PenerimaanUkp11::class, 'id_pemohon', 'id')->where('flag',1)->where('delete_id',0);
     }
 
     public function file() {
