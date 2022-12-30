@@ -23,18 +23,18 @@
                         <td>{{ date('d-m-Y', strtotime($org->tkh_mula)) }}</td>
                         <td>{{ date('d-m-Y', strtotime($org->tkh_tamat)) }}</td>
                          <td>{{ $org->tempat }}</td>
-                        <td><button title="Hapus" type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-kursus"><i data-feather='trash-2'></i> Hapus</button>
-                        <button  title="Kemaskini" type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-kursus"  data-toggle="modal" data-target="#modal-kursus"><i data-feather='check-square'></i> Kemaskini</button></td>
+                        <td><button title="Hapus" type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-kursus"><i data-feather='trash-2'></i></button>
+                        <button  title="Kemaskini" type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-kursus"  data-toggle="modal" data-target="#modal-kursus"><i data-feather='check-square'></i></button></td>
                     </tr>
                 @endforeach
-                 @if($lampirankursus->count() == 0)
-                <tr data-projek-id="" class="kursus-no-data">
-                    <td colspan="5" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                 @if($lampirankursus->count() == 0) 
+                <tr data-kursus-id="" class="kursus-no-data">
+                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 
 
                 @endif
-
+              
                 </tbody>
             </table>
         </div>
