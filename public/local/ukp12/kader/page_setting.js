@@ -189,6 +189,7 @@ $('.pegawai-carian').wrap('<div class="position-relative"></div>').select2({
 });
 
 function validate_form() {
+    $('.invalid-feedback').attr('style', 'display:none').html('');
     let valid = true;
 
     var tarikh_harta = $('#tarikhAkhir_harta').val();
@@ -402,7 +403,7 @@ function validate_form() {
             addInvalid('#sect-4-alamat_rumah', 'Tiada Alamat Rumah, Sila Kemaskini di MyKj');
         }
 
-        if(taraf == 'KAHWiN') {
+        if(taraf == 'KAHWIN') {
             if( nama_pasangan == 0 || nama_pasangan == '' || nama_pasangan == undefined) {
                 valid = false;
                 addInvalid('#sect-4-nama_pasangan', 'Tiada Nama Pasangan, Sila Kemaskini di MyKj');
@@ -427,26 +428,30 @@ function validate_form() {
             var akhir_pinjam = $('.akhir_pinjam').val();
             var bayar_mula = $('.bayar_mula').val();
             var selesai_bayar = $('.selesai_bayar').val();
-            if(nama_tabung == '' || nama_tabung == undefined) {
-                valid = false;
-                addInvalid('.nama_tabung', 'Sila isikan Nama Institusi/ Tabung Pendidikan');
+            if(status_pinjam == 1 || status_pinjam == "1" || status_pinjam == 2 || status_pinjam == "2" || status_pinjam == 3 || status_pinjam == "3") {
+                if(nama_tabung == '' || nama_tabung == undefined) {
+                    valid = false;
+                    addInvalid('.nama_tabung', 'Sila isikan Nama Institusi/ Tabung Pendidikan');
+                }
+                if(jumlah_pinjaman == '' || jumlah_pinjaman == undefined) {
+                    valid = false;
+                    addInvalid('.jumlah_pinjaman', 'Sila isikan Jumlah Pinjaman');
+                }
+                if(mula_pinjam == '' || mula_pinjam == undefined) {
+                    valid = false;
+                    addInvalid('.mula_pinjam', 'Sila isikan Tarikh Mula Pinjaman');
+                }
+                if(akhir_pinjam == '' || akhir_pinjam == undefined) {
+                    valid = false;
+                    addInvalid('.akhir_pinjam', 'Sila isikan Tarikh Akhir Pinjaman');
+                }
+
+                if($('.loan-file').is(':empty')) {
+                    valid = false;
+                    addInvalid('.selesai_bayar', 'Sila Muat Naik Penyata Pembayaran Pinjaman Terkini atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan');
+                }
             }
-            if(jumlah_pinjaman == '' || jumlah_pinjaman == undefined) {
-                valid = false;
-                addInvalid('.jumlah_pinjaman', 'Sila isikan Jumlah Pinjaman');
-            }
-            if(mula_pinjam == '' || mula_pinjam == undefined) {
-                valid = false;
-                addInvalid('.mula_pinjam', 'Sila isikan Tarikh Mula Pinjaman');
-            }
-            if(akhir_pinjam == '' || akhir_pinjam == undefined) {
-                valid = false;
-                addInvalid('.akhir_pinjam', 'Sila isikan Tarikh Akhir Pinjaman');
-            }
-            if($('.loan-file').is(':empty')) {
-                valid = false;
-                addInvalid('.selesai_bayar', 'Sila Muat Naik Penyata Pembayaran Pinjaman Terkini atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan');
-            }
+
             if(status_pinjam == '2' || status_pinjam == 2) {
                 if(bayar_mula == '' || bayar_mula == undefined) {
                     valid = false;
@@ -487,11 +492,6 @@ function validate_form() {
         if(!$('.akuan_peribadi').is(':checked')) {
             valid = false;
             addInvalid('.akuan_peribadi', 'Sila Tandakan Pengakuan Ini');
-        }
-
-        if($('.loan-file').is(':empty')) {
-            valid = false;
-            addInvalid('.selesai_bayar', 'Sila Muat Naik Penyata Pembayaran Pinjaman Terkini atau Surat Pengesahan Menyelesaikan Pinjaman Pendidikan');
         }
 
         if(!valid) {
@@ -541,7 +541,7 @@ function validate_form() {
 
 function last_verification() {
     let valid = true;
-
+    $('.invalid-feedback').attr('style', 'display:none').html('');
 
     if(!$('.radio-accept').is(':checked')) {
         valid = false;
@@ -692,7 +692,7 @@ function validate_mykj() {
             addInvalid('#sect-4-alamat_rumah', 'Tiada Alamat Rumah, Sila Kemaskini di MyKj');
         }
 
-        if(taraf == 'KAHWiN') {
+        if(taraf == 'KAHWIN') {
             if( nama_pasangan == 0 || nama_pasangan == '' || nama_pasangan == undefined) {
                 addInvalid('#sect-4-nama_pasangan', 'Tiada Nama Pasangan, Sila Kemaskini di MyKj');
             }

@@ -692,22 +692,18 @@ public function lampiran3($ic)
 
 
 
-     $dateline = Carbon::now();
-     $daysToAdd = 5;
-     $dateline = $dateline->addDays($daysToAdd);
+    $common = new CommonController();
+     $dateline = $common->calc_DateOnWorkingDays(5)->format('d M Y');
 
 
         $content = [
-                     'link' => url('user/resume/lampiran')
-
-
+                     'link' => url('user/resume/lampiran'),
+                     'date' => $common->translateMonth($dateline)
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
                   $message->to($pegawai->email,$pegawai->nama);
-
-
-                    $message->subject('KEMASKINI RESUME');
+                  $message->subject('KEMASKINI RESUME');
 
                 });
 
@@ -730,29 +726,6 @@ public function lampiran3($ic)
                 'nokp' => $nokp,]
         ]);
     }
-
-
-
-    function semakcuti($tarikh)
-    {
-        $year = date("Y");
-        $cuti= Holidays::model()->getCuti($year);
-        $tkh_slabaru=$tarikh;
-        $tkh= Yii::app()->dateFormatter->format("yyyy-MM-dd", strtotime($tarikh));
-        if(date("N", strtotime($tarikh)) == 6 || date("N", strtotime($tarikh)) == 7) //weekend
-        {
-            $tkh_slabaru = Yii::app()->dateFormatter->format("yyyy-MM-dd HH:mm:ss", strtotime($tkh_slabaru . ' +1 day')) ;
-            return($this->semakcuti($tkh_slabaru));
-
-        }
-        elseif (in_array ($tkh, $cuti)){
-         $tkh_slabaru = Yii::app()->dateFormatter->format("yyyy-MM-dd HH:mm:ss", strtotime($tkh_slabaru . ' +1 day')) ;
-         return($this->semakcuti($tkh_slabaru));
-     }
-
-     return $tkh_slabaru;
-
- }
 
 
  public function getPencapaian(Request $request){

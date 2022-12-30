@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Common;
 use App\Http\Controllers\Controller;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Tetapan\Bangunan;
+use App\Models\Urussetia\Holidays as UrussetiaHolidays;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -178,5 +179,40 @@ class CommonController extends Controller
         }
 
         return $date;
+    }
+
+    public function calc_DateOnWorkingDays($count,$date = '') {
+        $current = '';
+        $holiday_dates = UrussetiaHolidays::where("flag",1)->where("delete_id",0)->get()->pluck('holiday_date')->all();
+
+        if(empty($date)) {
+            $current = \Carbon\Carbon::now();
+        } else {
+            $current = \Carbon\Carbon::parse($date);
+        }
+
+        $ignore = false;
+
+        for ($i = 1; $i <= $count; $i++) {
+            if($current->isWeekend()) {
+                $ignore = true;
+            } else {
+                foreach($holiday_dates as $hd) {
+                    $dateStr = \Carbon\Carbon::parse($hd)->toDateString();
+                    if($current->toDateString() == $dateStr) {
+                        $ignore = true;
+                        break;
+                    }
+                }
+            }
+
+            if($ignore) {
+                $i -= 1;
+            }
+
+            $current->addDay();
+        }
+
+        return $current;
     }
 }
