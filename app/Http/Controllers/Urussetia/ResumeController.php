@@ -704,12 +704,12 @@ public function lampiran3($ic)
 
 
     $common = new CommonController();
-     $dateline = $common->calc_DateOnWorkingDays(5)->format('d M Y');
+     $dateline = $common->calc_DateOnWorkingDays(5);
 
 
         $content = [
                      'link' => url('user/resume/lampiran'),
-                     'date' => $common->translateMonth($dateline)
+                     'date' => $common->translateMonth($dateline->format('d M Y'))
                 ];
                 Mail::mailer('smtp')->send('mail.lampiran-mail',$content,function($message) use ($pegawai) {
                     // testing purpose
