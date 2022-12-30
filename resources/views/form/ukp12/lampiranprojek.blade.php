@@ -5,7 +5,7 @@
     <div class="row">
         <div class="form-group col-md-12">
             <br/>
-            <button type="button" class="btn btn-success tambah-calon" data-toggle="modal" data-target="#modal-projek"><i data-feather='plus'></i>Tambah</button>
+            <button type="button" class="btn btn-success tambah-projek" data-toggle="modal" data-target="#modal-projek"><i data-feather='plus'></i>Tambah</button>
         </div>
         <div class="table-responsive col-md-12">
             <table class="datatables table -table">
@@ -19,7 +19,8 @@
                     <tr data-projek-id="{{ $org->id }}">
                         <td>{{ $org->nama_projek }}</td>
                         <td> RM{{ number_format($org->kos_projek, 2) }}</td>
-                        <td><button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-projek"><i data-feather='trash-2'></i> Hapus</button></td>
+                        <td><button title="Hapus" type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-projek"><i data-feather='trash-2'></i></button>
+                        <button  title="Kemaskini" type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-projek"  data-toggle="modal" data-target="#modal-projek"><i data-feather='check-square'></i></button></td>
                     </tr>
                 @endforeach
                 @if($lampiranprojek->count() == 0) 
