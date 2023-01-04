@@ -9,6 +9,7 @@ use App\Models\Urussetia\Holidays as UrussetiaHolidays;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class CommonController extends Controller
@@ -193,8 +194,8 @@ class CommonController extends Controller
 
         $count5WD = 0;
         $temp = strtotime($current); //example as today is 2016-03-25
-        print_r($temp.' ');
-        while($count5WD<5){
+        // print_r($temp.' ');
+        while($count5WD<$count){
             $next1WD = strtotime('+1 weekday', $temp);
             $next1WDDate = date('Y-m-d', $next1WD);
             if(!in_array($next1WDDate, $holidayDates)){
@@ -206,5 +207,11 @@ class CommonController extends Controller
         $next5WD = date("Y-m-d", $temp);
 
         return \Carbon\Carbon::parse($next5WD);
+    }
+
+    public function saveImageFromUrl($url) {
+        $contents = file_get_contents($url);
+        $storage_disk = 'web';
+        Storage::disk($storage_disk)->put('foto.jpg', $contents);
     }
 }

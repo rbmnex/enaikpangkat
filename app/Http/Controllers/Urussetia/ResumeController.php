@@ -49,8 +49,8 @@ class ResumeController extends Controller
 
     public function mockup4(Request $request){
           $model = Role::all();
-   
-        
+
+
 
 
         return view('mockup4')->with('roles',$model);
@@ -384,7 +384,7 @@ class ResumeController extends Controller
         $user = $request->input('user');
         $id = $request->input('id');
 
-       
+
         if(!$id){
         $model = new LampiranPendedahan;
         $model->flag = 1;
@@ -398,7 +398,7 @@ class ResumeController extends Controller
          }else{
             $model = LampiranPendedahan::find($id);
         }
-        
+
         $model->diskripsi = $tajuk;
 
         if($model->save()) {
@@ -565,8 +565,9 @@ public function lampiran3($ic)
 
            $model= [];
         $mula_khidmat ='';
-
+        $common = new CommonController();
         $model=ListPegawai2::getMaklumatPegawai($ic->nokp);
+        $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
         $mula_khidmat=Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
         $gred_sekarang = Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
 
@@ -614,22 +615,24 @@ public function lampiran3($ic)
         $lampiran_projek = LampiranProjek::where('nokp',$ic->nokp)->get();
         $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',1)->get();
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',2)->get();
-     
+
 
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('admin.user.resume.cetak_sendiri', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
      }
 
     public function document($ic)
     {
+        $common = new CommonController();
         $model= [];
         $mula_khidmat ='';
-
         $model=ListPegawai2::getMaklumatPegawai($ic);
+        $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
+
         $mula_khidmat=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
         $gred_sekarang = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
 

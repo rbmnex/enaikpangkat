@@ -38,6 +38,7 @@
                             <th>nama</th>
                             <th>jawatan</th>
                             <th>borang</th>
+                            <th>tarikh</th>
                             <th>status</th>
                             <th>tindakan</th>
                         </tr>

@@ -39,6 +39,8 @@ class PermohonanController extends Controller
             ])
             ->addColumn('jenis', function($data){
                 return $data->pemohonPermohonan->jenis;
+            })->addColumn('tarikh', function($data){
+                return \Carbon\Carbon::parse($data->created_at)->format('d-m-Y');
             })
             ->rawColumns(['action'])
             ->make(true);

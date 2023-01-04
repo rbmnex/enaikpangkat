@@ -261,7 +261,13 @@ class BatchMgmtController extends Controller
 
             $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
 
+            $common = new CommonController();
+
             foreach($list_nokp as $kp) {
+
+                $pegawai=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
+                ->select('np.nokp','np.nama','np.email','np.jawatan','np.kod_gred')
+                ->where('np.nokp',$kp)->first();
 
                 User::upsert($kp);
                 $user = User::where('nokp',$kp)->first();
@@ -278,45 +284,40 @@ class BatchMgmtController extends Controller
                 $pemohon->delete_id = 0;
                 $pemohon->id_permohonan = $model->id;
                 $pemohon->id_peribadi = $profile->id;
+                $pemohon->jawatan = $pegawai->jawatan;
+                $pemohon->gred = $pegawai->kod_gred;
                 $pemohon->created_by = Auth::user()->nokp;
                 $pemohon->updated_by = $kp;
                 $pemohon->status = 'NA';
                 $pemohon->user_id = $user->id;
                 $pemohon->save();
-            }
 
-            $pegawais=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
-            ->select('np.nokp','np.nama','np.email','np.jawatan','np.kod_gred')
-            ->whereIn('np.nokp',$list_nokp)->get();
+                $dateline = $common->calc_DateOnWorkingDays(7);
 
-            $common = new CommonController();
-
-            foreach($pegawais as $calon) {
-                $secure_link = Crypt::encryptString($model->id.'?kp='.$calon->nokp);
+                $secure_link = Crypt::encryptString($model->id.'?kp='.$kp);
 
                 $content = [
                     //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                     'link' => url('/')."/form/ukp12/apply/".$secure_link,
                     'gred' => $kod_gred,
-                    'end_date' => $common->translateMonth(Carbon::now()->addDays(14)->format('d M Y'))
+                    'end_date' => $common->translateMonth($dateline->format('d M Y'))
                 ];
                 try {
-                    Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($calon,$kod_gred) {
+                    Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
                         // testing purpose
                         //$message->to('munirahj@jkr.gov.my',$calon->nama);
-                        $message->to('rubmin@vn.net.my',$calon->nama);
+                        $message->to('rubmin@vn.net.my',$pegawai->nama);
 
-                        //$message->to($calon->email,$calon->nama);
-                        $message->subject('URUSAN PEMANGKUAN '.$calon->jawatan.' GRED '.$calon->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                        //$message->to($pegawai->email,$pegawai->nama);
+                        $message->subject('URUSAN PEMANGKUAN '.$pegawai->jawatan.' GRED '.$pegawai->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                     });
-                    Calon::where('kumpulan_id', $batch_id)->where('nokp', $calon->nokp)
+                    Calon::where('kumpulan_id', $batch_id)->where('nokp', $pegawai->nokp)
                         ->update(['status' => 'SUCCESSED']);
                 } catch(\Exception $e) {
-                    Calon::where('kumpulan_id', $batch_id)->where('nokp', $calon->nokp)
+                    Calon::where('kumpulan_id', $batch_id)->where('nokp', $pegawai->nokp)
                         ->update(['status' => 'FAILED']);
                 }
-
             }
 
         }
@@ -569,12 +570,14 @@ class BatchMgmtController extends Controller
             ->where('np.nokp',$nokp)->get();
         $kod_gred = $kumpulan->permohonan->gred;
         $common = new CommonController();
+
+            $dateline = $common->calc_DateOnWorkingDays(7);
             $secure_link = Crypt::encryptString($kumpulan->permohonan->id.'?kp='.$nokp);
             $content = [
                 //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                 'link' => url('/')."/form/ukp12/apply/".$secure_link,
                 'gred' => $kumpulan->permohonan->gred,
-                'end_date' => $common->translateMonth(Carbon::now()->addDays(14)->format('d M Y'))
+                'end_date' => $common->translateMonth($dateline->format('d M Y'))
             ];
 
             try {

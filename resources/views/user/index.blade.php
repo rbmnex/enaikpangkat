@@ -50,6 +50,7 @@
                         <tr>
                             <th>jenis</th>
                             <th>status</th>
+                            <th>tarikh</th>
                             <th>tindakan</th>
                         </tr>
                     </thead>

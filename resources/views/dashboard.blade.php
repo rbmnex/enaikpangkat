@@ -68,12 +68,14 @@
 
 
         </div>
-  <div class="row" style="background-color:#d9d9d9;">
+<div class="row" style="background-color:#d9d9d9;">
     <div class="col-2">
         <img src="{{ asset('images/kriteria.png') }}" />
     </div>
+
     <div class="col-10 ">
-        <div class="col-12" style=" text-align: justify;color:#000000;"><h2 class="text-primary">PEMANGKUAN DAN KENAIKAN PANGKAT</h2></div>
+        <div class="col-12" style=" text-align: justify;color:#000000;"><h2 class="text-primary">PEMANGKUAN DAN KENAIKAN PANGKAT</h2>
+        </div>
         <div class="row">
             <div class="col-3 bg-grey">
                  <div class="row">
@@ -102,33 +104,39 @@
         </div>
         <div class="row">
             <div class="col-3 ">
-                    <div class="row">
+                <div class="row">
                    <div class="col-2 " style="font-size:40px; color:#ffffff;"><b>2</b></div>
                    <div class="col-10 "style="font-size:9px; color:#000000;"><br/><b>CAPAI TAHAP <br>PRESTASI YANG <br/>DITETAPKAN <br/>>80%</b></div>
                </div>
-               </div>
+            </div>
             <div class="col-3 ">
                     <div class="row">
                    <div class="col-2 " style="font-size:40px;color:#ffffff;"><b>4</b></div>
                    <div class="col-10 " style="font-size:9px;color:#000000;"><br/><b>BEBAS DARI <br/>HUKUMAN <br/>TATATERTIB</b></div>
                </div>
-               </div>
-       <div class="col-3 ">
-                    <div class="row">
-                   <div class="col-2 " style="font-size:40px;color:#ffffff;"><b>6</b></div>
-                   <div class="col-10 " style="font-size:9px;color:#000000;"><br/><b>LULUS TAPISAN <br/>KEUTUHAN <br/>SPRM</b></div>
-               </div>
-               </div>
-       <div class="col-3 ">
-            <div class="row">
-                   <div class="col-2 " style="font-size:40px; color:#ffffff; text-align: left;"><b>8</b></div>
-                   <div class="col-10 " style="font-size:9px;color:#000000;"><br/><b>SYARAT LAIN YANG <br/>DITETAPKAN OLEH <br/>LEMBAGA</b></div>
-               </div>
-        </div>
+            </div>
 
+            <div class="col-3 ">
+                    <div class="row">
+                        <div class="col-2 " style="font-size:40px;color:#ffffff;"><b>6</b></div>
+                        <div class="col-10 " style="font-size:9px;color:#000000;"><br/><b>LULUS TAPISAN <br/>KEUTUHAN <br/>SPRM</b></div>
+                    </div>
+                </div>
+            <div class="col-3 ">
+                    <div class="row">
+                        <div class="col-2 " style="font-size:40px; color:#ffffff; text-align: left;"><b>8</b></div>
+                        <div class="col-10 " style="font-size:9px;color:#000000;"><br/><b>SYARAT LAIN YANG <br/>DITETAPKAN OLEH <br/>LEMBAGA</b></div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+  <div class="row" style="background-color:#d9d9d9;">
+    <div class="col-2"></div>
+    <div class="col-10">
+        <a href="{{ url('/files/CARTA_ALIR_PEMANGKUAN1.pdf') }}" target="_blank">Carta Alir Sistem</a>
     </div>
   </div>
-
   <div class="row">
      <div class="col-2" style="background-color: #d9d9d9; color:#000000;"></div>
       <div class="col-5" style="color:#000000;"><br/><br/><br/>
@@ -148,7 +156,7 @@
               <li style="color:#000000;">URUSAN PEMANGKUAN JURUTERA MEKANIKAL GRED J52 KE GRED J54 DI JABATAN KERJA RAYA MALAYSIA BIL 1/2023-<i style="color:red;" >dateline</i></li>
                <li style="color:#000000;">URUSAN PEMANGKUAN JURUTERA AWAM GRED J52 KE GRED J54 DI JABATAN KERJA RAYA MALAYSIA BIL 1/2023-<i style="color:red;" >dateline</i></li>
                 <li style="color:#000000;">URUSAN PEMANGKUAN ARKITEK GRED J52 KE GRED J54 DI JABATAN KERJA RAYA MALAYSIA BIL 1/2023-<i style="color:red;" >dateline</i></li>
-          </ul>   
+          </ul>
 
       ......selanjutnya</p>
       </div>

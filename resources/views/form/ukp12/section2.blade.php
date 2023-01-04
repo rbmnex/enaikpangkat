@@ -81,7 +81,7 @@
             <a class="btn-download">
                 <span style="color: red; font-size: 0.857rem; !important; font-weight: bold;" class="align-middle d-sm-inline-block d-none">* Sila Muat Turun Borang Pengesahan Ini (perlu disahkan oleh Kerani Perkhidmatan). Calon perlu memuat naik semula dokumen yang telah disahkan.</span><br/>
 
-                <img src="{{ asset('images/pdf_icon_1.png') }}" />
+                <img style="width:53px; height:60px" src="{{ asset('images/pdf_download.png') }}" />
             </a>
         </div>
         <div class="form-group col-md-12">
