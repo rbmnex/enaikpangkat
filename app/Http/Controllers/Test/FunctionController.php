@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use PDF;
 
 class FunctionController extends Controller
@@ -67,10 +68,18 @@ class FunctionController extends Controller
     }
 
     public function req(Request $request) {
-        return response()->json([
-            'success' => 1,
-            'data' => []
-        ]);
+        // return response()->json([
+        //     'success' => 1,
+        //     'data' => []
+        // ]);
+
+        $path = $request->input('url');
+        $contents = file_get_contents($path);
+        $storage_disk = 'web';
+        Storage::disk($storage_disk)->put('foto.jpg', $contents);
+        $imagePath = Storage::disk($storage_disk)->url('foto.jpg');
+        return response()->download(public_path($imagePath));
+
     }
 
     public function mail(Request $request) {

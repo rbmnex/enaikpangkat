@@ -3,6 +3,7 @@ let dt = DatatableUI.init({
     columnList: [
         {data: 'jenis'},
         {data: 'status'},
+        {data: 'tarikh'},
         {data: 'aksi'},
     ],
     url: '/user/form/list',

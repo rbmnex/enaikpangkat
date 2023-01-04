@@ -90,7 +90,7 @@ div{
 							<td>:</td>
 							<td>{{$model['gelaran']}} {{ strtoupper($model['name']) }}</td>
 							<td rowspan="7" class="photo">
-							<img src="http://10.8.80.68/{{ $model['peribadi']['gambar'] }}"
+							<img src="../files/foto.jpg"
 							alt="" width="120" height="140" align="top">
 						   </td>
 						</tr>
