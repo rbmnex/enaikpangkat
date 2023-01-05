@@ -401,7 +401,7 @@ class BatchMgmtController extends Controller
 
         $model=DB::connection('pgsqlmykj')->table('list_pegawai_naikpangkat as np')
             ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
-            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan','np.tkh_lantik')
+            ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','np.tkh_sah_perkhidmatan','np.kod_kanan','np.tkh_lantik','np.kod_kategori_penempatan')
             ->whereIn('np.nokp',$list_nokp)
             ->orderBy('np.kod_kanan','asc')
             ->get();

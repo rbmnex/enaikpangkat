@@ -183,7 +183,7 @@ Route::prefix('/form')->group(function() {
          Route::post('/projek',[ResumeController::class,'save_projek']);
          Route::post('/projek/del',[ResumeController::class,'delete_projek']);
         Route::post('/pendedahan',[ResumeController::class,'save_pendedahan']);
-         Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']); 
+         Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']);
          Route::post('/pencapaian',[ResumeController::class,'save_pencapaian']);
          Route::post('/pencapaian/del',[ResumeController::class,'delete_pencapaian']);
          Route::post('/property/save',[UkpController::class,'save_harta']);
@@ -199,6 +199,7 @@ Route::prefix('/form')->group(function() {
         Route::post('/get-pendedahan',[ResumeController::class,'getPendedahan']);
         Route::post('/get-projek',[ResumeController::class,'getProjek']);
         Route::post('/get-kursus',[ResumeController::class,'getKursus']);
+        Route::post('/preview-download',[UkpController::class,'save_form'])->middleware(['auth']);
     });
 });
 
