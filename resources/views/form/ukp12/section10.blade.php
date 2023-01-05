@@ -16,6 +16,7 @@
                     <th>Tahap</th>
                     {{-- <th>Fail</th>
                     <th>Aksi</th> --}}
+                    <th>Dokumen</th>
                 </thead>
                 <tbody id="tbody-kompeten">
                 @foreach ($profile['kompeten'] as $k)
@@ -23,11 +24,12 @@
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $k->nama_kelulusan }}</td>
                 <td>{{ $k->tahap }}</td>
+                <td>@if(!empty($k->item_fm))<a class="btn btn-outline-success" target="_blank" href="{{ env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$profile['nokp_baru'].'/'.$k->item_fm }}"><i data-feather='file'></i></a>@else{{ 'Tiada Dokumen' }}@endif</td>
                 </tr>
                 @endforeach
                 @if($profile['kompeten']->count() == 0)
                 <tr data-kompeten-id="">
-                    <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                    <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                 </tr>
 
 

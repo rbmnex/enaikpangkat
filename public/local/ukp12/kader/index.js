@@ -10,7 +10,9 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-form-dow
             // submit proccess
             var data = new FormData;
             data.append('_token', getToken());
-            data.append('pemohon',$('input[name="_formdata"]').val());
+            let id_pemohon = $('input[name="_formid"]').val();
+            //data.append('pemohon',$('input[name="_formdata"]').val());
+            data.append('pemohon_id',id_pemohon);
             data.append('accept',$('.radio-accept').filter(':checked').val());
             data.append('alasan',$('.alasan_tolak').val());
             data.append('tatatertib',$('.tatatertib').filter(':checked').val());
@@ -71,7 +73,9 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-form-dow
         if(process) {
             var data = new FormData;
             data.append('_token', getToken());
+            let id_pemohon = $('input[name="_formid"]').val();
             data.append('pemohon',$('input[name="_formdata"]').val());
+            data.append('pemohon_id',id_pemohon);
             // data.append('accept',$('.radio-accept').filter(':checked').val());
             data.append('alasan',$('.alasan_tolak').val());
             data.append('tatatertib',$('.tatatertib').filter(':checked').val());
