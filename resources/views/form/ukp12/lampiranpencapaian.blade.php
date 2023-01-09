@@ -33,9 +33,27 @@
             </table>
 
         </div>
+        <div class="form-group col-md-12"> 
+           
+        </div>
         <div class="form-group col-md-12">
             <br/>
+             @if($lampirankursus->count() != 0 && $lampiranbeban->count() != 0 && $lampiranprojek->count() != 0 && $lampiranpendedahan->count() != 0 && $lampiranpencapaian->count() != 0)
             <button type="button" class="btn btn-info selesai-calon" data-toggle="modal" data-target="#modal-selesai"><i data-feather='send'></i>Hantar</button>
+            @else
+             <button type="button" disabled class="btn btn-info selesai-lampiran" data-toggle="modal" data-target="#modal-selesai"><i data-feather='send'></i>Hantar</button><br>
+             @endif
+              @if ($lampirankursus->count() == 0)
+            <span style="color:red;"> * lengkapkan lampiran kursus</span><br>@endif
+            @if ($lampiranbeban->count() == 0)
+             <span> * lengkapkan lampiran beban</span><br>@endif
+             @if ($lampiranprojek->count() == 0)
+             <span> * lengkapkan lampiran projek</span><br>@endif
+             @if ($lampiranpendedahan->count() == 0)
+             <span> * lengkapkan lampiran pendedahan</span><br>@endif
+             @if ($lampiranpencapaian->count() == 0)
+             <span> * lengkapkan lampiran pencapaian</span>
+             @endif
         </div>
 
     </div>

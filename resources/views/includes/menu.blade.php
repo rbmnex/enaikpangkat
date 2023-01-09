@@ -197,26 +197,35 @@
                 </ul>
             </li> --}}
             <li class=" nav-item">
-                <a class="d-flex align-items-center" href="#">
+                <a class="d-flex align-items-center" href="{{ url('/user/resume/dashboard') }}">
                     <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Resume</span>
                 </a>
-                <ul class="menu-content">
+                
+                <!-- <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/user/resume/dashboard') }}">
+                            <i data-feather='file-text'></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Dashboard <br/></span>
+                            </a>
+                    </li>
+                </ul> -->
+               <!--  <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/user/resume/lampiran') }}">
                             <i data-feather='file-text'></i>
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Borang <br/> Lampiran</span>
                             </a>
                     </li>
-                </ul>
-                <ul class="menu-content">
+                </ul> -->
+               <!--  <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/user/resume/download') }}">
                             <i data-feather='file-text'></i>
                                 <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Muat Turun</span>
                             </a>
                     </li>
-                </ul>
+                </ul> -->
             </li>
             @endrole
             @role(['clerk'])

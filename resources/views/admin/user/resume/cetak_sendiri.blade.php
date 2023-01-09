@@ -496,7 +496,7 @@ div{
 
 
 
-
+															@if($resume)
 															<div class="lampiran2">
 																<table class="font">
 																	<tr>
@@ -597,6 +597,6 @@ div{
 																	@endforeach
 																@endif  </tr>
 															</table>
-
+															@endif
 														</body>
 														</html>

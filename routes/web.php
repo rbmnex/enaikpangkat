@@ -123,8 +123,12 @@ Route::prefix('/urussetia')->group(function() {
         //Route::get('/display/{id}',[UkpController::class,'open']);
     //    Route::get('/resume', [ResumeController::class, 'document']);
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
+
         Route::get('/lampiran3/{ic}', [ResumeController::class, 'lampiran3']);
          Route::get('/email/{ic}', [ResumeController::class, 'email']);
+         Route::get('/lampiranlengkap/{ic}', [ResumeController::class, 'lampiranlengkap']);
+         Route::get('/paparanall/{ic}', [ResumeController::class, 'paparanAll']);
+
 
     });
 
@@ -217,7 +221,9 @@ Route::prefix('/user')->group(function() {
     Route::get('/form/list',[PermohonanController::class,'load_list']);
     Route::get('/form/pink/{id}',[PermohonanController::class,'downlaod_pink']);
     Route::get('/resume/lampiran',[ResumeController::class,'open_lampiran'])->middleware(['auth']);
-    Route::get('/resume/download', [ResumeController::class, 'download'])->middleware(['auth']);;
+    Route::get('/resume/download', [ResumeController::class, 'download'])->middleware(['auth']);
+     Route::get('/resume/dashboard', [ResumeController::class, 'resume_dashboard'])->middleware(['auth']);
+     Route::get('/resume/paparan', [ResumeController::class, 'paparan'])->middleware(['auth']);
 });
 
 //Common Controller
