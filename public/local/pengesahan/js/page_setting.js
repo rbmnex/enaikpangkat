@@ -13,6 +13,7 @@ DatatableUI.init({
         {data: 'nama'},
         {data: 'jawatan'},
         {data: 'jenis'},
+        {data: 'tarikh'},
         {data: 'status'},
         {data: 'aksi'},
     ],
@@ -35,7 +36,7 @@ DatatableUI.init({
         },
         {
             // Actions
-            targets: -3,
+            targets: -4,
             title: 'Borang',
             orderable: false,
             searchable: false,

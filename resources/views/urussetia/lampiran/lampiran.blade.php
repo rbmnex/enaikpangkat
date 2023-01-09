@@ -135,6 +135,15 @@
                                     </span>
                                 </button>
                             </div>
+                             <div class="step" data-target="#status-vertical">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">6</span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Status Resume</span>
+                                        <span class="bs-stepper-subtitle"></span>
+                                    </span>
+                                </button>
+                            </div>
 
 
 
@@ -149,6 +158,7 @@
                                 @include('form.ukp12.lampiranprojek')
                                 @include('form.ukp12.lampiranpendedahan')
                                 @include('form.ukp12.lampiranpencapaian')
+                                 @include('form.ukp12.lampiranstatus')
 
                             {{-- </form> --}}
                         </div>

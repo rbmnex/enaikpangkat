@@ -362,7 +362,7 @@
                 </td>
             </tr>
             <tr class="side-border">
-                <td style="text-align: right;"><span  class="box-small">{{ $pemohon->pengesahan_perkhidmatan == 1 ? '/' : '' }}</span></td>
+                <td style="text-align: right;"><span  class="box-small">@if(!empty($pemohon->pengesahan_perkhidmatan)){{ $pemohon->pengesahan_perkhidmatan == 1 ? '/' : '' }}@endif</span></td>
                 <td colspan="11">
                     <span class="normal-size" style="font-style: italic; padding-left: 5px;">Saya telah menyemak butir-butir perkhidmatan pegawai di atas dan disahkan betul</span>
                 </td>
@@ -379,7 +379,7 @@
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_nama}}</td>
+                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_nama ?? ''}}</td>
             </tr>
 
             <tr class="side-border">
@@ -390,7 +390,7 @@
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_jawatan}}</td>
+                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_jawatan ?? ''}}</td>
             </tr>
 
             <tr class="side-border">
@@ -401,7 +401,7 @@
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_cawangan}}</td>
+                <td colspan="9">{{ $pemohon->pengesahan_perkhidmatan_cawangan ?? ''}}</td>
             </tr>
 
             <tr class="side-border">
@@ -563,9 +563,11 @@
                                 @foreach($lnpt as $m)
                                 <td class="">{{ $m->tahun }}</td>
                                 @endforeach
-                                {{-- <td>{{ $year-1 }}</td>
-                                <td>{{ $year-2 }}</td>
-                                <td>{{ $year-3 }}</td> --}}
+                                @if(empty($lnpt))
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                @endif
                             </tr>
                             <tr style="text-align: center;">
                                 <td>Markah</td>
@@ -574,9 +576,11 @@
                                         {{ $p->purata }}
                                     </td>
                                     @endforeach
-                                {{-- <td></td>
-                                <td></td>
-                                <td></td> --}}
+                                    @if(empty($lnpt))
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    @endif
                             </tr>
                         </tbody>
                     </table>
@@ -1782,7 +1786,7 @@
             <tr style="" class="normal-size side-border">
                 <td></td>
                 <td colspan="11">
-                    <span style="text-decoration: underline;">{{ $pemohon->perakuan_ketua_jabatan_ulasan }}</span>
+                    <span style="text-decoration: underline;">{{ $pemohon->perakuan_ketua_jabatan_ulasan ?? '' }}</span>
                 </td>
             </tr>
             <tr style="" class="normal-size side-border">
@@ -1796,7 +1800,7 @@
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_nama}}</td>
+                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_nama ?? ''}}</td>
             </tr>
 
             <tr class="side-border">
@@ -1807,7 +1811,7 @@
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_jawatan}}</td>
+                <td colspan="8">{{ $pemohon->perakuan_ketua_jabatan_jawatan ?? ''}}</td>
             </tr>
 
             <tr class="side-border">
@@ -1818,7 +1822,7 @@
                 <td style="normal-size" style="text-align: center;">
                     <span>:</span>
                 </td>
-                <td colspan="8">{{ strtoupper($pemohon->perakuan_ketua_jabatan_alamat_pejabat) }}</td>
+                <td colspan="8">{{ strtoupper($pemohon->perakuan_ketua_jabatan_alamat_pejabat ?? '') }}</td>
             </tr>
 
             <tr class="side-border">

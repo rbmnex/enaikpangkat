@@ -585,6 +585,7 @@
                                         <th>Bil.</th>
                                         <th>Pensijilan Kekompetenan</th>
                                         <th>Tahap</th>
+                                        <th>Dokumen</th>
                                     </thead>
                                     <tbody id="tbody-kompeten">
                                     @foreach ($kompetenans as $k)
@@ -592,11 +593,25 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $k->nama_sijil }}</td>
                                     <td>{{ $k->tahap }}</td>
+                                    <td>
+                                        @if($k->file_id)
+                                        {{-- <button class="btn btn-outline-success btn-download" data-file-id="{{ $pro->file_id }}">
+                                            <span class="align-middle d-sm-inline-block d-none"></span>
+                                            <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                        </button> --}}
+                                        <a href="http://10.8.80.68/upload_kelayakan/{{ $peribadi->nokp }}/{{ $k->file->filename }}" target="_blank" class="btn btn-outline-success">
+                                            <span class="align-middle d-sm-inline-block d-none"></span>
+                                            <i data-feather="file" class="align-middle ml-sm-25 ml-0"></i>
+                                        </a>
+                                        @else
+                                        Tiada Dokumen
+                                        @endif
+                                    </td>
                                     </tr>
                                     @endforeach
                                     @if($kompetenans->count() == 0)
                                     <tr data-kompeten-id="">
-                                        <td colspan="3" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
+                                        <td colspan="4" style="text-align: center; font-style: italic;">{{ 'Tiada Data' }}</td>
                                     </tr>
                                     @endif
                                     </tbody>

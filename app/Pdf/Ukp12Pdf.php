@@ -289,7 +289,7 @@ class Ukp12Pdf extends Fpdf {
         $pdf->isi($input);
         $pdf->butirPeribadi($input);
         //$pdf->AddPage();
-        $pdf->Output('I','Permohonan_UKP12',true);
+        $pdf->Output('I','Permohonan_UKP12_'.$input->nokp_baru.'.pdf',true);
     }
 
     public static function print_test() {

@@ -53,7 +53,8 @@ $('.table-resume').DataTable({
                     }
                     btn += 
                     '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +' Hantar</button>' +
-                    '<a href="/urussetia/resume/resume/'+nokp+'" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Muat Turun</a>' +
+                    '<a href="/urussetia/resume/paparanall/'+nokp+'" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Papar</a>' +
+                    '<a href="/urussetia/resume/resume/'+nokp+'" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Muat Turun</a>' +
                     lampiran3
 
                
@@ -174,6 +175,7 @@ $('.table-terpilih').DataTable({
                     }
                     btn += 
                     '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +' Hantar</button>' +
+                    '<a href="/urussetia/resume/paparanall/'+nokp+'" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Papar</a>' +
                     '<a href="/urussetia/resume/resume/'+nokp+'" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Muat Turun</a>' +
                     lampiran3
 

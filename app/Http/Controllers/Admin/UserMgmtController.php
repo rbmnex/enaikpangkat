@@ -90,28 +90,17 @@ class UserMgmtController extends Controller
         ->where('ur.nokp', $nokp)
         ->first();
 
+        $info = Peribadi::info_pengguna($nokp);
+
         if($user) {
-            $info = array();
+            //$info = array();
             $info['user_id'] = $user->user_id;
-            $info['nokp'] = $user->nokp;
-            $info['nama'] = $user->name;
-            $info['jawatan'] = $user->jawatan;
-            $info['emel'] = $user->email;
-            $info['unit'] = $user->unit;
-            $info['bahagian'] = $user->bahagian;
-            $info['gred'] = $user->gred;
-            $info['cawangan'] = $user->cawangan;
-            $info['pejabat'] = $user->pejabat;
-
             $roles = Role::user_roles_list($user->user_id);
-
             return response()->json([
                 'data' => $info,
                 'roles' => $roles,
             ]);
         } else {
-            $info = Peribadi::info_pengguna($nokp);
-
             return response()->json([
                 'data' => $info
             ]);

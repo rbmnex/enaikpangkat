@@ -36,7 +36,7 @@
                         <td>{{ \Carbon\Carbon::parse($cuti->tkh_mula)->format('d-m-Y')  }}</td>
                         <td>{{ \Carbon\Carbon::parse($cuti->tkh_tamat)->format('d-m-Y')  }}</td>
                         {{-- <td><input class="form-control cuti-upload" type="file" id="cuti_{{ $cuti->id_cuti }}" name="cuti_{{ $cuti->id_cuti }}" /></td> --}}
-                        <td>@if(!empty($cuti->item_fm))<a class="btn btn-outline-success" href="{{ env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_cuti/'.$profile['nokp_baru'].'/'.$cuti->item_fm }}"><i data-feather='file'></i></a>@else{{ 'Tiada Dokumen' }}@endif</td>
+                        <td>@if(!empty($cuti->item_fm))<a class="btn btn-outline-success" target="_blank" href="{{ env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_cuti/'.$profile['nokp_baru'].'/'.$cuti->item_fm }}"><i data-feather='file'></i></a>@else{{ 'Tiada Dokumen' }}@endif</td>
                     </tr>
                     @endforeach
                     @if($profile['cuti']->count() == 0)
@@ -81,7 +81,7 @@
             <a class="btn-download">
                 <span style="color: red; font-size: 0.857rem; !important; font-weight: bold;" class="align-middle d-sm-inline-block d-none">* Sila Muat Turun Borang Pengesahan Ini (perlu disahkan oleh Kerani Perkhidmatan). Calon perlu memuat naik semula dokumen yang telah disahkan.</span><br/>
 
-                <img src="{{ asset('images/pdf_icon_1.png') }}" />
+                <img style="width:53px; height:60px" src="{{ asset('images/pdf_download.png') }}" />
             </a>
         </div>
         <div class="form-group col-md-12">
