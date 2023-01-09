@@ -257,7 +257,7 @@
                     <div class="col-xl-6 col-md-6 col-12 mb-1">
 
                         <div class="form-group">
-                            <label for="basicInput">Gred</label>
+                            <label for="basicInput">Pemangkuan Ke Gred</label>
                             <select class="select2 form-control form-control-lg dropdown-gred-2">
 
                             </select>

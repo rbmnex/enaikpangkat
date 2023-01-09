@@ -792,7 +792,7 @@ class UkpController extends Controller
             $rekod_kompeten->created_by = Auth::user()->nokp;
             $rekod_kompeten->updated_by = Auth::user()->nokp;
             if($komp->item_fm) {
-                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$formdata->nokp_baru.'/'.$pro->item_fm;
+                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$formdata->nokp_baru.'/'.$komp->item_fm;
                 $file_info = $common->file_info_url($urlPath);
                 if(!empty($file_info)) {
                     $newFile = new File();
@@ -845,7 +845,10 @@ class UkpController extends Controller
                 $loan->id_pemohon = $formdata->pemohon_id;
         $loan->save();
 
-        $pengakuan = new PengakuanPemohon;
+        $pengakuan = PengakuanPemohon::where('id_pemohon',$formdata->pemohon_id)->first();
+        if(empty($pengakuan)) {
+            $pengakuan = new PengakuanPemohon;
+        }
         $pengakuan->tatatertib = $alldata['tatatertib'];
         $pengakuan->isytihar_harta = 1;
         $pengakuan->cuti_tanpa_gaji = $alldata['cuti'];
@@ -1126,7 +1129,7 @@ class UkpController extends Controller
             $rekod_kompeten->created_by = Auth::user()->nokp;
             $rekod_kompeten->updated_by = Auth::user()->nokp;
             if($komp->item_fm) {
-                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$formdata->nokp_baru.'/'.$pro->item_fm;
+                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$formdata->nokp_baru.'/'.$komp->item_fm;
                 $file_info = $common->file_info_url($urlPath);
                 if(!empty($file_info)) {
                     $newFile = new File();
@@ -1175,7 +1178,10 @@ class UkpController extends Controller
                 $loan->id_pemohon = $formdata->pemohon_id;
         $loan->save();
 
-        $pengakuan = new PengakuanPemohon;
+        $pengakuan = PengakuanPemohon::where('id_pemohon',$formdata->pemohon_id)->first();
+        if(empty($pengakuan)) {
+            $pengakuan = new PengakuanPemohon;
+        }
         $pengakuan->tatatertib = $alldata['tatatertib'];
         $pengakuan->isytihar_harta = 1;
         $pengakuan->cuti_tanpa_gaji = $alldata['cuti'];
@@ -1470,7 +1476,7 @@ class UkpController extends Controller
             $rekod_kompeten->created_by = Auth::user()->nokp;
             $rekod_kompeten->updated_by = Auth::user()->nokp;
             if($komp->item_fm) {
-                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$formdata->nokp_baru.'/'.$pro->item_fm;
+                $urlPath = env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$formdata->nokp_baru.'/'.$komp->item_fm;
                 $file_info = $common->file_info_url($urlPath);
                 if(!empty($file_info)) {
                     $newFile = new File();
@@ -1519,7 +1525,10 @@ class UkpController extends Controller
                 $loan->id_pemohon = $formdata->pemohon_id;
         $loan->save();
 
-        $pengakuan = new PengakuanPemohon;
+        $pengakuan = PengakuanPemohon::where('id_pemohon',$formdata->pemohon_id)->first();
+        if(empty($pengakuan)) {
+            $pengakuan = new PengakuanPemohon;
+        }
         $pengakuan->tatatertib = $alldata['tatatertib'];
         $pengakuan->isytihar_harta = 1;
         $pengakuan->cuti_tanpa_gaji = $alldata['cuti'];
@@ -1648,9 +1657,8 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $waris = Waris::where('nokp',$nokp)->where('kod_perhubungan', strtoupper($profile->jantina) == 'L' ? 4 : 3)->first();
         $cuti = Cuti::where('nokp',$nokp)->whereIn('jenis_cuti', array('CUTI TANPA GAJI',
         'CUTI SEPARUH GAJI',
-        'CUTI BELAJAR BERGAJI',
-        'CUTI BELAJAR SEPARUH GAJI',
-        'CUTI BELAJAR TANPA GAJI'))->get();
+        'CUTI BELAJAR BERGAJI PENUH',
+        'CUTI BELAJAR SEPARUH GAJI'))->get();
         $pengalaman = Pengalaman::where('nokp',$nokp)->orderBy('tkh_mula', 'desc')->get();
 
         // $pengalaman->each(function ($item, $key) {
@@ -1661,14 +1669,22 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $akademik = Kelayakan::where('nokp',$nokp)->whereNotIn('kod_kelulusan',[8,9,10,21,22,23])->get();
         $profesional = Kelayakan::where('nokp',$nokp)->where('kod_kelulusan',8)->get();
         $profesional->each(function($item,$key) use ($innerSelf) {
-            $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
-            $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            if($item->nama_kelulusan == '9999') {
+                $item->nama_kelulusan == $item->institusi;
+            } else {
+                $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
+                $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            }
         });
 
         $kompeten = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[9,10])->get();
         $kompeten->each(function($item,$key) use ($innerSelf) {
-            $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
-            $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            if($item->nama_kelulusan == '9999') {
+                $item->nama_kelulusan == $item->institusi;
+            } else {
+                $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
+                $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            }
         });
 
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HolidayMgmtController;
 use App\Http\Controllers\Admin\UserMgmtController;
 use App\Http\Controllers\Form\UkpController;
 use App\Http\Controllers\Form\ViewController;
@@ -68,6 +69,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin']], functio
         Route::get('/mockup2', [UserMgmtController::class,'mockup2']);
         Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
+    });
+
+    Route::prefix('/holiday')->group(function() {
+        Route::get('/', [HolidayMgmtController::class,'index']);
     });
 });
 Route::get('/admin/pengguna/carian',[UserMgmtController::class,'carian_pengguna']);
@@ -198,6 +203,7 @@ Route::prefix('/form')->group(function() {
         Route::post('/form/upload',[UkpController::class,'upload_form']);
         Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);
         Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);
+        Route::post('/kerani/revert',[ViewController::class,'kerani_revert'])->middleware(['auth']);
         Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);
         Route::post('/get-pencapaian',[ResumeController::class,'getPencapaian']);
         Route::post('/get-pendedahan',[ResumeController::class,'getPendedahan']);

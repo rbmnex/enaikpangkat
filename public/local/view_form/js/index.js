@@ -12,7 +12,7 @@ $(document).on('click','.btn-download, .btn-back, .btn-pdf',function() {
     }
 });
 
-$(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
+$(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod, .btn-revert',function() {
     let selectedClass = $(this);
     var pemohon_id = $('.hidden_id').val();
     var data = new FormData;
@@ -162,6 +162,28 @@ $(document).on('click','.btn-bpsm, .btn-kbp, .btn-hod',function() {
                 }
             });
         }
+    } else if(selectedClass.hasClass('btn-revert')) {
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Borang ini akan dikembalikan kepada Calon',
+            icon: 'info',
+            confirmButtonText: 'Hantar',
+            postData: {
+                url : '/form/api/kerani/revert',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        toasting('Borang sudah berjaya dikembalikan', 'success');
+                        window.history.go(-1);
+                    } else if(success == 0) {
+                        toasting('Ralat telah berlaku, Borang telah gagal dihantar', 'error');
+                    }
+
+                },
+            }
+        });
     }
 });
 

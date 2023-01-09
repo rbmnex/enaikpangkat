@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Test;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Form\ViewController;
 use App\Models\File;
 use App\Models\Profail\Penempatan;
 use App\Models\Profail\Peribadi;
@@ -12,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use PDF;
-
+use Barryvdh\DomPDF\Facade\Pdf as DomPDF;
 class FunctionController extends Controller
 {
     //
@@ -73,12 +74,24 @@ class FunctionController extends Controller
         //     'data' => []
         // ]);
 
-        $path = $request->input('url');
-        $contents = file_get_contents($path);
-        $storage_disk = 'web';
-        Storage::disk($storage_disk)->put('foto.jpg', $contents);
-        $imagePath = Storage::disk($storage_disk)->url('foto.jpg');
-        return response()->download(public_path($imagePath));
+        // download image from url and save into storage
+
+        // $path = $request->input('url');
+        // $contents = file_get_contents($path);
+        // $storage_disk = 'web';
+        // Storage::disk($storage_disk)->put('foto.jpg', $contents);
+        // $imagePath = Storage::disk($storage_disk)->url('foto.jpg');
+        // return response()->download(public_path($imagePath));
+
+        // merge pdf by convert base64 to file and combine with other
+        $id = $request->input('id');
+        $files = array();
+        $control =  new ViewController();
+        $data = $control->load_dataform($id);
+        $pdf = DomPDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdf.ukp12', $data, []);
+        $form_filename = 'ukp12_'.$data['peribadi']->nokp.'.pdf';
+        Storage::disk('web')->put($form_filename, $pdf->output());
+        $files[] = 'files/'.$form_filename;
 
     }
 
