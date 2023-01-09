@@ -73,6 +73,30 @@ class ResumeController extends Controller
     }
 
 
+     public function resume_dashboard(Request $request)
+     {
+        $user = Auth::user();
+        //$nokp = $request->input('kp');
+        $resume = Resume::where('nokp',$user->nokp)->first();
+        $lampirankursus = LampiranKursus::where('nokp',$user->nokp)->get();
+        $lampiranbeban = LampiranBebanKerja::where('nokp',$user->nokp)->get();
+        $lampiranprojek = LampiranProjek::where('nokp',$user->nokp)->get();
+        $lampiranpendedahan = LampiranPendedahan::where('nokp',$user->nokp)->where('kod_kategori',1)->get();
+        $lampiranpencapaian = LampiranPendedahan::where('nokp',$user->nokp)->where('kod_kategori',2)->get();
+
+        //$user = User::where('nokp',$nokp)->first();
+
+        return view('user.resume_dashboard',[
+            "nokp"=>$user->nokp,
+            "lampirankursus"=>$lampirankursus,
+            "lampiranbeban"=>$lampiranbeban,
+            "lampiranprojek"=>$lampiranprojek,
+            "lampiranpendedahan"=>$lampiranpendedahan,
+             "lampiranpencapaian"=>$lampiranpencapaian,
+             "resume"=>$resume,
+            "user"=>$user
+        ]);
+    }
      public function senarai_pengguna(Request $request) {
         // echo '<pre>';
         // print_r($request->all()['search']['value']);
@@ -145,7 +169,7 @@ class ResumeController extends Controller
 
         $search = $request->all()['search']['value'];
 
-        $model = Resume::with('getLampiran')->limit(10);
+        $model = Resume::select('nokp','nama','kod_gred','jawatan','status')->distinct('nama')->with('getLampiran')->limit(10);
 
         if($search){
             $model->where('nokp', 'ilike', '%'.$search.'%')
@@ -566,6 +590,7 @@ public function lampiran3($ic)
            $model= [];
         $mula_khidmat ='';
         $common = new CommonController();
+         $resume=Resume::where('nokp',$ic->nokp)->first();
         $model=ListPegawai2::getMaklumatPegawai($ic->nokp);
         $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
         $mula_khidmat=Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
@@ -620,8 +645,8 @@ public function lampiran3($ic)
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();
-         return view('admin.user.resume.cetak_sendiri', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+        // die();        
+         return view('admin.user.resume.cetak_sendiri', compact('model','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
      }
 
@@ -691,6 +716,139 @@ public function lampiran3($ic)
     }
 
 
+    public function paparan()
+    {
+         $ic = Auth::user();
+
+           $model= [];
+        $mula_khidmat ='';
+
+        $model=ListPegawai2::getMaklumatPegawai($ic->nokp);
+        $resume=Resume::where('nokp',$ic->nokp)->first();
+        $mula_khidmat=Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
+        $gred_sekarang = Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
+
+        $mula_gred_hakiki=Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->where('status_perkhidmatan','H')->orderBy('tkh_lantik', 'desc')->first();
+        $modelp = Pengalaman::where('nokp', $ic->nokp)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
+
+        // $mula_p = Pengalaman::where('nokp',$ic)->orderBy('tkh_mula','asc')->groupBy('kod_aktiviti','id_pengalaman')->first();
+        // dd($mula_p);
+        //SEKTOR AWAM
+        $sektor_awam_mula = Perkhidmatan::where('nokp',$ic->nokp)->orderBy('tkh_lantik','asc')->first();
+        $sektor_awam_tamat = Carbon::now();
+        $date2 = new DateTime($sektor_awam_mula->tkh_lantik);
+        $date1 = new DateTime($sektor_awam_tamat);
+        $tempoh_awam = $date1->diff($date2);
+
+         //PNP
+        $pnp = Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan','>=',3)->orderBy('tkh_lantik','asc')->first();
+        $sektor_awam_tamat = Carbon::now();
+        $date2 = new DateTime($pnp->tkh_lantik);
+        $date1 = new DateTime($sektor_awam_tamat);
+        $tempoh_pnp = $date1->diff($date2);
+           // echo '<pre>';
+           //  print_r($tempoh_awam);
+           //  echo '</pre>';
+           //  die();
+        $pengalaman = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
+                                         ->leftJoin('public.l_aktiviti as la','p.kod_aktiviti','la.kod_aktiviti')->select('p.kod_aktiviti','la.aktiviti')
+                                        ->where('p.nokp',$ic->nokp)
+                                        ->where('p.kod_aktiviti','>=',23)
+                                        ->orderBy('p.kod_aktiviti')
+                                        ->groupBy('p.kod_aktiviti','la.aktiviti')
+                                        ->distinct()
+                                        ->get();
+        $pengalaman_mula = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
+                                         ->select('p.kod_aktiviti','p.tkh_mula','p.tkh_tamat')
+                                        ->where('p.nokp',$ic->nokp)
+                                        ->where('p.kod_aktiviti','>=',23)
+                                        ->orderBy('p.kod_aktiviti')
+                                        ->groupBy('p.kod_aktiviti','p.tkh_mula','p.tkh_tamat')
+                                        ->distinct()
+                                        ->get();
+
+        $lampiran_kursus = LampiranKursus::where('nokp',$ic->nokp)->get();
+        $lampiran_beban = LampiranBebanKerja::where('nokp',$ic->nokp)->orderBy('id','desc')->first();
+        $lampiran_projek = LampiranProjek::where('nokp',$ic->nokp)->get();
+        $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',1)->get();
+        $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',2)->get();
+     
+
+        // echo '<pre>';
+        // print_r($model);
+        // echo '</pre>';
+        // die();        
+         return view('paparan_lampiran', compact('model','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+
+
+    }
+
+
+
+        public function paparanAll($ic)
+    {
+        $model= [];
+        $mula_khidmat ='';
+
+        $model=ListPegawai2::getMaklumatPegawai($ic);
+        $resume=Resume::where('nokp',$ic)->first();
+        $mula_khidmat=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
+        $gred_sekarang = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
+
+        $mula_gred_hakiki=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->where('status_perkhidmatan','H')->orderBy('tkh_lantik', 'desc')->first();
+        $modelp = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
+
+        // $mula_p = Pengalaman::where('nokp',$ic)->orderBy('tkh_mula','asc')->groupBy('kod_aktiviti','id_pengalaman')->first();
+        // dd($mula_p);
+        //SEKTOR AWAM
+        $sektor_awam_mula = Perkhidmatan::where('nokp',$ic)->orderBy('tkh_lantik','asc')->first();
+        $sektor_awam_tamat = Carbon::now();
+        $date2 = new DateTime($sektor_awam_mula->tkh_lantik);
+        $date1 = new DateTime($sektor_awam_tamat);
+        $tempoh_awam = $date1->diff($date2);
+
+         //PNP
+        $pnp = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan','>=',3)->orderBy('tkh_lantik','asc')->first();
+        $sektor_awam_tamat = Carbon::now();
+        $date2 = new DateTime($pnp->tkh_lantik);
+        $date1 = new DateTime($sektor_awam_tamat);
+        $tempoh_pnp = $date1->diff($date2);
+           // echo '<pre>';
+           //  print_r($tempoh_awam);
+           //  echo '</pre>';
+           //  die();
+        $pengalaman = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
+                                         ->leftJoin('public.l_aktiviti as la','p.kod_aktiviti','la.kod_aktiviti')->select('p.kod_aktiviti','la.aktiviti')
+                                        ->where('p.nokp',$ic)
+                                        ->where('p.kod_aktiviti','>=',23)
+                                        ->orderBy('p.kod_aktiviti')
+                                        ->groupBy('p.kod_aktiviti','la.aktiviti')
+                                        ->distinct()
+                                        ->get();
+        $pengalaman_mula = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
+                                         ->select('p.kod_aktiviti','p.tkh_mula','p.tkh_tamat')
+                                        ->where('p.nokp',$ic)
+                                        ->where('p.kod_aktiviti','>=',23)
+                                        ->orderBy('p.kod_aktiviti')
+                                        ->groupBy('p.kod_aktiviti','p.tkh_mula','p.tkh_tamat')
+                                        ->distinct()
+                                        ->get();
+
+        $lampiran_kursus = LampiranKursus::where('nokp',$ic)->get();
+        $lampiran_beban = LampiranBebanKerja::where('nokp',$ic)->orderBy('id','desc')->first();
+        $lampiran_projek = LampiranProjek::where('nokp',$ic)->get();
+        $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',1)->get();
+        $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
+     
+
+        // echo '<pre>';
+        // print_r($model);
+        // echo '</pre>';
+        // die();        
+         return view('paparan_lampiran', compact('model','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+
+
+    }
 
 
 
@@ -789,6 +947,31 @@ public function lampiran3($ic)
             'kos' => $model->kos_projek
         ]
     ]);
+ }
+
+ public function getStatus(Request $request){
+    $lampirankursus = LampiranKursus::where('nokp',$ic)->get();
+        $lampiranbeban = LampiranBebanKerja::where('nokp',$ic)->orderBy('id','desc')->first();
+        $lampiranprojek = LampiranProjek::where('nokp',$ic)->get();
+        $lampirankepakaran = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',1)->get();
+        $lampiranpencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
+
+         $lbk = LampiranBebanKerja::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                    $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                    $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                     $lpn = LampiranPendedahan::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+   
+
+
+if($lampirankursus && $lampiranbeban && $lampiranprojek && $lampiranpencapaian && $lampiranpendedahan){
+    return response()->json([
+        'success' => 1,
+        'data' => [
+            'nama' => $model->nama_projek,
+            'kos' => $model->kos_projek
+        ]
+    ]);
+}
  }
 
 

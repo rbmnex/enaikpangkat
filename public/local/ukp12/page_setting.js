@@ -1,5 +1,7 @@
 (function (window, document, $) {
     validate_mykj();
+
+    $('#modal-notice').modal('show');
 }) (window, document, jQuery);
 
 $('.div-loan-1').hide();

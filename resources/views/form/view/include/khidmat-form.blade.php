@@ -1,5 +1,5 @@
 <div class="col-12">
-    <div class="card" style="background-color: greenyellow;">
+    <div class="card" style="background-color: #90DFD6;">
         <div class="card-header">
             <h4 class="card-title">PENGESAHAN KETUA BAHAGIAN PERKHIDMATAN</h4>
         </div>
@@ -59,6 +59,10 @@
                     </div>
                 </div>
                 <div class="col-md-12 d-flex justify-content-between">
+                    <button type="button" class="btn btn-warning btn-prev btn-revert">
+                        <i data-feather='rotate-ccw' class="align-middle mr-sm-25 mr-0"></i>
+                        <span class="align-middle d-sm-inline-block d-none">Pulang</span>
+                    </button>
                     <button type="button" class="btn btn-primary btn-prev btn-kbp">
                         <i data-feather='send' class="align-middle mr-sm-25 mr-0"></i>
                         <span class="align-middle d-sm-inline-block d-none">Hantar</span>

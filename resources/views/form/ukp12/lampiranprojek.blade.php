@@ -1,6 +1,6 @@
 <div id="projek-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 3 - Senarai Projek beserta kos (Minimum 4 projek, <b>Maksimum 10 projek</b>)<br>(sekiranya banyak projek yang diselia,mohon senaraikan yang berprofile tinggi sahaja) </h5>
+        <h5 class="mb-0">Bahagian 3 - Senarai Projek/Program beserta kos (Minimum 4 projek, <b>Maksimum 10 projek</b>)<br>(sekiranya banyak projek yang diselia,mohon senaraikan yang berprofile tinggi sahaja) </h5>
     </div>
     <div class="row">
         <div class="form-group col-md-12">

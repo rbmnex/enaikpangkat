@@ -423,7 +423,7 @@ class ViewController extends Controller
         }
     }
 
-    Public function ketua_submit(Request $request) {
+    public function ketua_submit(Request $request) {
         $pemohon_id = $request->input('pemohon_id');
         $pengesahan = $request->input('pengesahan');
         $nama = $request->input('nama');
@@ -452,6 +452,19 @@ class ViewController extends Controller
                 'data' => []
             ]);
         }
+    }
+
+    public function kerani_revert(Request $request) {
+        $pemohon_id = $request->input('pemohon_id');
+        $pemohon = Pemohon::find($pemohon_id);
+        $pemohon->status = 'BH';
+        $pemohon->updated_by = Auth::user()->nokp;
+        $pemohon->save();
+
+        return response()->json([
+            'success' => 1,
+            'data' => []
+        ]);
     }
 
     public function download_form_full(Request $request) {
@@ -529,6 +542,80 @@ class ViewController extends Controller
         return $pdf->stream('Borang_UKP12_'.$peribadi->nokp.'.pdf');
 
         //return PdfRender::render('pdf.ukp12', $data, ['Borang','UKP12',$peribadi->nokp]);
+    }
+
+    public function load_dataform($id) {
+        $year = Carbon::parse(Date::now())->format('Y');
+        $formdata = $id;
+        $pemohon = Pemohon::find($formdata);
+        $permohonan = $pemohon->pemohonPermohonan;
+        $peribadi = Peribadi::find($pemohon->id_peribadi);
+        $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();
+        $harta = Harta::where('id_pemohon',$pemohon->id)->first();
+        $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
+        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get()->toArray();
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get()->toArray();
+        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get()->toArray();
+        $profesional = Professional::where('id_pemohon',$pemohon->id)->get();
+        $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->get();
+        $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();
+        $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
+        $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
+        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get()->toArray();
+        $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
+        $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->orderBy('tahun','desc')->get();
+        $markah =  collect([]);
+
+        if($rekod_markah->count() == 0) {
+            $first = new stdClass;
+            $first->tahun = $year-1;
+            $first->purata = 0;
+                $markah->push($first);
+            $second = new stdClass;
+            $second->tahun = $year-2;
+            $second->purata = 0;
+                $markah->push($second);
+            $third = new stdClass;
+            $third->tahun = $year-3;
+            $third->purata = 0;
+                $markah->push($third);
+            if(!empty($lnpt)) {
+                $markah->each(function ($item, $key) use ($lnpt) {
+                    foreach($lnpt as $l) {
+                        if($l->tahun == $item->tahun) {
+                            $item->purata = $l->purata;
+                        }
+                    }
+                });
+            }
+        } else {
+            $markah = $rekod_markah;
+            $markah->each(function ($item, $key) {
+                $item->purata = $item->markah;
+            });
+        }
+
+        $data = [
+            'pemohon' => $pemohon,
+            'peribadi' => $peribadi,
+            'cutis' => $cuti,
+            'harta' => $harta,
+            'pasangan' => $pasangan,
+            'perkhidmatans' => $perkhidmatan,
+            'pertubuhans' => $pertubuhan,
+            'akademiks' => $akademik,
+            'profesionals' => $profesional,
+            'kompetenans' => $kompetenan,
+            'pengiktirafans' => $pengiktirafan,
+            'akuan_pinjaman' => $akuan_pinjaman,
+            'akuan_pegawai' => $akuan_pegawai,
+            'sumbangan' => $contribution,
+            'borang' => $permohonan,
+            'lnpt' => $markah,
+            'tatatertib' => $tatatertib
+        ];
+
+        return $data;
     }
 
 }

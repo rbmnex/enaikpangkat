@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\HolidayMgmtController;
 use App\Http\Controllers\Admin\UserMgmtController;
 use App\Http\Controllers\Form\UkpController;
 use App\Http\Controllers\Form\ViewController;
@@ -69,6 +70,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin']], functio
         Route::get('/mockup3', [UserMgmtController::class,'mockup3']);
         Route::get('/mockup1', [UserMgmtController::class,'mockup1']);
     });
+
+    Route::prefix('/holiday')->group(function() {
+        Route::get('/', [HolidayMgmtController::class,'index']);
+    });
 });
 Route::get('/admin/pengguna/carian',[UserMgmtController::class,'carian_pengguna']);
 Route::get('/admin/pengguna/api',[UserMgmtController::class,'maklumat_pengguna']);
@@ -123,8 +128,12 @@ Route::prefix('/urussetia')->group(function() {
         //Route::get('/display/{id}',[UkpController::class,'open']);
     //    Route::get('/resume', [ResumeController::class, 'document']);
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
+
         Route::get('/lampiran3/{ic}', [ResumeController::class, 'lampiran3']);
          Route::get('/email/{ic}', [ResumeController::class, 'email']);
+         Route::get('/lampiranlengkap/{ic}', [ResumeController::class, 'lampiranlengkap']);
+         Route::get('/paparanall/{ic}', [ResumeController::class, 'paparanAll']);
+
 
     });
 
@@ -194,6 +203,7 @@ Route::prefix('/form')->group(function() {
         Route::post('/form/upload',[UkpController::class,'upload_form']);
         Route::post('/urussetia/submit',[ViewController::class,'urussetia_submit'])->middleware(['auth']);
         Route::post('/kerani/submit',[ViewController::class,'kerani_submit'])->middleware(['auth']);
+        Route::post('/kerani/revert',[ViewController::class,'kerani_revert'])->middleware(['auth']);
         Route::post('/ketua/submit',[ViewController::class,'ketua_submit'])->middleware(['auth']);
         Route::post('/get-pencapaian',[ResumeController::class,'getPencapaian']);
         Route::post('/get-pendedahan',[ResumeController::class,'getPendedahan']);
@@ -217,7 +227,9 @@ Route::prefix('/user')->group(function() {
     Route::get('/form/list',[PermohonanController::class,'load_list']);
     Route::get('/form/pink/{id}',[PermohonanController::class,'downlaod_pink']);
     Route::get('/resume/lampiran',[ResumeController::class,'open_lampiran'])->middleware(['auth']);
-    Route::get('/resume/download', [ResumeController::class, 'download'])->middleware(['auth']);;
+    Route::get('/resume/download', [ResumeController::class, 'download'])->middleware(['auth']);
+     Route::get('/resume/dashboard', [ResumeController::class, 'resume_dashboard'])->middleware(['auth']);
+     Route::get('/resume/paparan', [ResumeController::class, 'paparan'])->middleware(['auth']);
 });
 
 //Common Controller

@@ -906,7 +906,7 @@
                 <td colspan="11">
                     <table>
                         <tbody>
-                            <tr>
+                            <tr class="">
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -919,103 +919,228 @@
                                 <td></td>
                                 <td></td>
                                 <td></td>
+
                             </tr>
                             <tr>
                                 <td>15.</td>
-                                <td colspan="11">JAWATAN/PENEMPATAN SEPANJANG PERKHIDMATAN </td>
+                                <td colspan="11">
+                                    JAWATAN/PENEMPATAN SEPANJANG PERKHIDMATAN </td>
+                            </tr>
+                        </tbody>
 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+                    @php
+                        $iteration = 0;
+
+                        //print_r($chunk);
+                    @endphp
+                    @if(count($perkhidmatans) == 0)
+                    <table border="1" style="table-layout:fixed; width:85%; margin-left:110px;">
+                        <thead>
+                            <th style="text-align: center; width: 25%;">BIL.</th>
+                            <th style="text-align: center;">GELARAN JAWATAN</th>
+                            <th style="text-align: center;">PENEMPATAN</th>
+                            <th style="text-align: center; width: 60%">TAHUN BERKHIDMAT</th>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="height: 30px ; width: 25%;"></td>
+                                <td></td>
+                                <td></td>
+                                <td style="width: 60%"></td>
                             </tr>
                             <tr>
-                                <td colspan="12"></td>
+                                <td style="height: 30px ; width: 25%;"></td>
+                                <td></td>
+                                <td></td>
+                                <td style="width: 60%"></td>
+                            </tr>
+                            <tr>
+                                <td style="height: 30px ; width: 25%;"></td>
+                                <td></td>
+                                <td></td>
+                                <td style="width: 60%"></td>
+                            </tr>
+                            <tr>
+                                <td style="height: 30px ; width: 25%;"></td>
+                                <td></td>
+                                <td></td>
+                                <td style="width: 60%"></td>
+                            </tr>
+                            <tr>
+                                <td style="height: 30px ; width: 25%;"></td>
+                                <td></td>
+                                <td></td>
+                                <td style="width: 60%"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    @elseif(count($perkhidmatans) > 15)
+                    @php
+                        $chunk = array_chunk($perkhidmatans->toArray(), 10, false);
+                    @endphp
+                    @foreach ($chunk as $little)
+                    <table border="1" style="table-layout:fixed; width:85%; margin-left:110px;">
+                        <thead>
+                            <th style="text-align: center; width: 25%;">BIL.</th>
+                            <th style="text-align: center;">GELARAN JAWATAN</th>
+                            <th style="text-align: center;">PENEMPATAN</th>
+                            <th style="text-align: center; width: 60%">TAHUN BERKHIDMAT</th>
+                        </thead>
+                        <tbody>
+
+                        <tbody>
+                            @foreach ($little as $pengalaman)
+                            <tr style="font-size: 9px;">
+                                <td style="width: 25%; text-align: center;">{{ ++$iteration }}</td>
+                                <td>{{ $pengalaman['jawatan'] ?? '' }}</td>
+                                <td>{{ $pengalaman['penempatan'] }}</td>
+                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="page-break"></div>
+                    @endforeach
+                    @else
+                    <table border="1" style="table-layout:fixed; width:85%; margin-left:110px;">
+                        <thead>
+                            <th style="text-align: center; width: 25%;">BIL.</th>
+                            <th style="text-align: center;">GELARAN JAWATAN</th>
+                            <th style="text-align: center;">PENEMPATAN</th>
+                            <th style="text-align: center; width: 60%">TAHUN BERKHIDMAT</th>
+                        </thead>
+                        <tbody>
+
+                        <tbody>
+                            @foreach ($perkhidmatans as $pengalaman)
+                            <tr>
+                                <td style="height: 30px; width: 25%; text-align: center;">{{ ++$iteration }}</td>
+                                <td>{{ $pengalaman['jawatan'] ?? '' }}</td>
+                                <td>{{ $pengalaman['penempatan'] }}</td>
+                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @endif
+                    <div style="height: 50px"></div>
+                    <table>
+                        <tbody>
+                            <tr class="">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
                             </tr>
                             <tr>
                                 <td></td>
                                 <td colspan="11">
-                                    <table border="1" style="table-layout:fixed">
-                                        <thead>
-                                            <th style="text-align: center; width: 25%;">BIL.</th>
-                                            <th style="text-align: center;">GELARAN JAWATAN</th>
-                                            <th style="text-align: center;">PENEMPATAN</th>
-                                            <th style="text-align: center; width: 60%">TAHUN BERKHIDMAT</th>
-                                        </thead>
+                                    <table>
                                         <tbody>
-                                        @php
-                                            $iteration = 0
-                                        @endphp
-                                        <tbody>
-                                            @foreach ($perkhidmatans as $pengalaman)
-                                            <tr>
-                                                <td style="height: 30px; width: 25%; text-align: center;">{{ ++$iteration }}</td>
-                                                <td>{{ $pengalaman['jawatan'] ?? '' }}</td>
-                                                <td>{{ $pengalaman['penempatan'] }}</td>
-                                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
-                                            </tr>
-                                            @endforeach
-                                            @if(count($perkhidmatans) == 0)
-                                            <tr>
-                                                <td style="height: 30px ; width: 25%;"></td>
+                                            <tr class="">
                                                 <td></td>
                                                 <td></td>
-                                                <td style="width: 60%"></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+
                                             </tr>
                                             <tr>
-                                                <td style="height: 30px ; width: 25%;"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td style="width: 60%"></td>
+                                                <td>16.</td>
+                                                <td colspan="11">
+                                                    JAWATAN YANG DIPEGANG DALAM PERTUBUHAN/LAIN-LAIN </td>
                                             </tr>
-                                            <tr>
-                                                <td style="height: 30px ; width: 25%;"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td style="width: 60%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="height: 30px ; width: 25%;"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td style="width: 60%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="height: 30px ; width: 25%;"></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td style="width: 60%"></td>
-                                            </tr>
-                                            @endif
                                         </tbody>
-                                    </table>
+
                                 </td>
-
                             </tr>
-                            <tr>
-                                <td style="height: 50px" colspan="12"></td>
-                            </tr>
-
-                            <tr>
-                                <td>16.</td>
-                                <td colspan="11">JAWATAN YANG DIPEGANG DALAM PERTUBUHAN/LAIN-LAIN </td>
-
-                            </tr>
-                            <tr>
-                                <td colspan="12"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td colspan="11">
-                                    <table border="1">
-                                        <thead>
-                                            <th style="text-align: center;" class="width-25">BIL.</th>
-                                            <th style="text-align: center;">SUMBANGAN/JAWATANKUASA TEKNIKAL</th>
-                                            {{-- <th style="text-align: center;">TEMPAT</th> --}}
-                                            <th style="text-align: center; width: 50%">TAHUN</th>
-                                        </thead>
-                                        <tbody>
-                                            @php
-                                            $iteration = 0
-                                        @endphp
-                                        <tbody>
-                                            @foreach ($sumbangan as $sumbang)
+                        </tbody>
+                    </table>
+    @php
+        $iteration = 0;
+        //print_r($chunk);
+    @endphp
+    @if(count($sumbangan) == 0)
+    <table border="1" style="table-layout:fixed; width:85%; margin-left:110px;">
+        <thead>
+            <th style="text-align: center;" class="width-25">BIL.</th>
+            <th style="text-align: center;">SUMBANGAN/JAWATANKUASA TEKNIKAL</th>
+            {{-- <th style="text-align: center;">TEMPAT</th> --}}
+            <th style="text-align: center; width: 50%">TAHUN</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="height: 30px;" class="width-25"></td>
+                <td></td>
+                {{-- <td></td> --}}
+                <td style="width: 50%"></td>
+            </tr>
+            <tr>
+                <td style="height: 30px" class="width-25"></td>
+                <td></td>
+                {{-- <td></td> --}}
+                <td style="width: 50%"></td>
+            </tr>
+            <tr>
+                <td style="height: 30px" class="width-25"></td>
+                <td></td>
+                {{-- <td></td> --}}
+                <td style="width: 50%"></td>
+            </tr>
+            <tr>
+                <td style="height: 30px" class="width-25"></td>
+                <td></td>
+                {{-- <td></td> --}}
+                <td style="width: 50%"></td>
+            </tr>
+            <tr>
+                <td style="height: 30px" class="width-25"></td>
+                <td></td>
+                {{-- <td></td> --}}
+                <td style="width: 50%"></td>
+            </tr>
+            <tr>
+                <td style="height: 30px" class="width-25"></td>
+                <td></td>
+                {{-- <td></td> --}}
+                <td style="width: 50%"></td>
+            </tr>
+        </tbody>
+    </table>
+    @elseif (count($sumbangan) > 15)
+    @php
+                        $chunk = array_chunk($sumbangan->toArray(), 10, false);
+                    @endphp
+    @foreach ($chunk as $little)
+    <table border="1" style="table-layout:fixed; width:85%; margin-left:110px;">
+        <thead>
+            <th style="text-align: center;" class="width-25">BIL.</th>
+            <th style="text-align: center;">SUMBANGAN/JAWATANKUASA TEKNIKAL</th>
+            {{-- <th style="text-align: center;">TEMPAT</th> --}}
+            <th style="text-align: center; width: 50%">TAHUN</th>
+        </thead>
+        <tbody>
+            @foreach ($little as $sumbang)
                                             <tr>
                                                 <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
                                                 <td>{{ $sumbang['sumbangan'] }}</td>
@@ -1023,47 +1148,31 @@
                                                 <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
-                                            @if(count($sumbangan) == 0)
+        </tbody>
+    </table>
+    <div class="page-break"></div>
+    @endforeach
+    @else
+    <table border="1" style="table-layout:fixed; width:85%; margin-left:110px;">
+        <thead>
+            <th style="text-align: center;" class="width-25">BIL.</th>
+            <th style="text-align: center;">SUMBANGAN/JAWATANKUASA TEKNIKAL</th>
+            {{-- <th style="text-align: center;">TEMPAT</th> --}}
+            <th style="text-align: center; width: 50%">TAHUN</th>
+        </thead>
+        <tbody>
+            @foreach ($sumbangan as $sumbang)
                                             <tr>
-                                                <td style="height: 30px;" class="width-25"></td>
-                                                <td></td>
-                                                {{-- <td></td> --}}
-                                                <td style="width: 50%"></td>
+                                                <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
+                                                <td>{{ $sumbang['sumbangan'] }}</td>
+                                                {{-- <td>{{ $sumbang['tempat'] }}</td> --}}
+                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
-                                            <tr>
-                                                <td style="height: 30px" class="width-25"></td>
-                                                <td></td>
-                                                {{-- <td></td> --}}
-                                                <td style="width: 50%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="height: 30px" class="width-25"></td>
-                                                <td></td>
-                                                {{-- <td></td> --}}
-                                                <td style="width: 50%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="height: 30px" class="width-25"></td>
-                                                <td></td>
-                                                {{-- <td></td> --}}
-                                                <td style="width: 50%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="height: 30px" class="width-25"></td>
-                                                <td></td>
-                                                {{-- <td></td> --}}
-                                                <td style="width: 50%"></td>
-                                            </tr>
-                                            <tr>
-                                                <td style="height: 30px" class="width-25"></td>
-                                                <td></td>
-                                                {{-- <td></td> --}}
-                                                <td style="width: 50%"></td>
-                                            </tr>
-                                            @endif
-                                        </tbody>
-                                    </table>
-                                    {{-- <table border="1">
+                                            @endforeach
+        </tbody>
+    </table>
+    @endif
+    {{-- <table border="1">
                                         <thead>
                                             <th style="text-align: center;" class="width-25">BIL.</th>
                                             <th style="text-align: center;">JAWATAN</th>
@@ -1109,25 +1218,55 @@
                                             </tr>
                                         </tbody>
                                     </table> --}}
-                                </td>
+        <div style="height: 50px"></div>
+                                    <table>
+                                        <tbody>
+                                            <tr class="">
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
+                                                <td></td>
 
-                            </tr>
-                            <tr>
-                                <td colspan="12" style="height: 50px"></td>
+                                            </tr>
+                                            <tr>
+                                                <td></td>
+                                                <td colspan="11">
+                                                    <table>
+                                                        <tbody>
+                                                            <tr class="">
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
+                                                                <td></td>
 
-                            </tr>
-                            <tr>
-                                <td>17.</td>
-                                <td colspan="11">REKOD AKADEMIK</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>17.</td>
+                                                                <td colspan="11">REKOD AKADEMIK</td>
+                                                            </tr>
+                                                        </tbody>
 
-                            </tr>
-                            <tr>
-                                <td colspan="12"></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td colspan="11">
-                                    <table border="1" style="table-layout: fixed">
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <table border="1" style="table-layout:fixed; width:85%; margin-left:110px;">
                                         <tr>
                                             <th style="text-align: center;" class="width-25">BIL.</th>
                                             <th style="text-align: center;">KELULUSAN
@@ -1179,14 +1318,6 @@
                                             @endif
                                         </tbody>
                                     </table>
-                                </td>
-
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-        </tbody>
-    </table>
     <div class="page-break"></div>
     <table>
         <tbody>

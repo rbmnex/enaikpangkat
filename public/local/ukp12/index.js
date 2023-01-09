@@ -966,4 +966,35 @@ $(document).on('click', '.update-projek', function(){
 });
 
 
+$(document).on('click', '.selesai-calon', function(){
+    $('.add-projek').attr('style', 'display:none');
+    $('.post-edit-projek').attr('style', '');
+
+    let id = $(this).closest('tr').attr('data-projek-id');
+
+    $('#projek-id').val(id);
+
+    let data = new FormData;
+    data.append('id', id);
+    data.append('_token', getToken());
+
+    $.ajax({
+        type:'POST',
+        url: getUrl() + '/form/api/get-projek',
+        data: data,
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        context: this,
+        success: function(data) {
+            let result = data.data;
+            $('input[name=projek-nama]').val(result.nama);
+             $('input[name=projek-kos]').val(result.kos);          
+        }
+    });
+
+});
+
+
+
 
