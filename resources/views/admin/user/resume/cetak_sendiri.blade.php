@@ -313,7 +313,10 @@ div{
 										@if(isset($model['tempatan']))
 										@foreach($model['tempatan'] as $tempatan)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
+											@if($tempatan['nama_kelulusan'] != 9999)
 											<td class="boxpengalaman">{{ strtoupper($tempatan['nama_kelulusan']) }}</td>
+											@else
+											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
 											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
 											<td class="boxpengalaman">{{strtoupper($tempatan['no_daftar'])}}</td>
 											<td class="boxpengalaman">{{ date('Y', strtotime($tempatan['tkh_kelulusan'])) }}</td></tr>
