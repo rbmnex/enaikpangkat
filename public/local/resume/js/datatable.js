@@ -47,14 +47,14 @@ $('.table-resume').DataTable({
                 let lampiran3= '';
                 let btn = '';
                     if(full.get_lampiran != null){
-                        lampiran3 +='<a href="'+ window.location.origin + full.get_lampiran.path +'" download class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Lampiran 3</a>';
+                        lampiran3 +='<a href="'+ window.location.origin + full.get_lampiran.path +'" download  title="Lampiran 3" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L3</a>';
                     }else{
                         lampiran3 += '';
                     }
                     btn += 
-                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +' Hantar</button>' +
-                    '<a href="/urussetia/resume/paparanall/'+nokp+'" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Papar</a>' +
-                    '<a href="/urussetia/resume/resume/'+nokp+'" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Muat Turun</a>' +
+                    '<button title="Hantar" type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +'</button>' +
+                    '<a href="/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>' +
+                    '<a href="/urussetia/resume/resume/'+nokp+'"  title="Muat Turun"class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['printer'].toSvg() +'</a>' +
                     lampiran3
 
                
@@ -167,16 +167,16 @@ $('.table-terpilih').DataTable({
                 let row_status = full.status;
                 let nokp = full.nokp;
                 let lampiran3= '';
-                let btn = '';
+               let btn = '';
                     if(full.get_lampiran != null){
-                        lampiran3 +='<a href="'+ window.location.origin + full.get_lampiran.path +'" download class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Lampiran 3</a>';
+                        lampiran3 +='<a href="'+ window.location.origin + full.get_lampiran.path +'" download  title="Lampiran 3" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L3</a>';
                     }else{
                         lampiran3 += '';
                     }
                     btn += 
-                    '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +' Hantar</button>' +
-                    '<a href="/urussetia/resume/paparanall/'+nokp+'" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Papar</a>' +
-                    '<a href="/urussetia/resume/resume/'+nokp+'" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['printer'].toSvg() +' Muat Turun</a>' +
+                    '<button title="Hantar" type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +'</button>' +
+                    '<a href="/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>' +
+                    '<a href="/urussetia/resume/resume/'+nokp+'"  title="Muat Turun"class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['printer'].toSvg() +'</a>' +
                     lampiran3
 
                

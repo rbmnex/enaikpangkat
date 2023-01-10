@@ -173,12 +173,12 @@
 
                     <div class="row">
                         <div class="col-xl-12col-md-6 col-12 mb-1">
-                           <label class="form-label" for="">Semua Maklumat telah disimpan. Resume boleh dimuat turun pada sub-menu Muat Turun</label>
+                           <label class="form-label" for="">Semua Maklumat telah disimpan. Resume boleh dimuat turun pada dashboard Resume</label>
                         </div>
                     </div>
 
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Selesai</button>
+                        <button type="button" class="btn btn-danger" onclick="location.href='{{ url('/user/resume/dashboard') }}'">Selesai</button>
 
                     </div>
 
