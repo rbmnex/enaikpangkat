@@ -1,0 +1,396 @@
+<html>
+<head><title>Resume</title>
+	<style>
+		.grey{
+			background-color: #D1D0CE;
+			height: 30px;
+		}
+		.outerline {
+			border: 1px solid black;
+/*			border-collapse: collapse;*/
+			width: 100%;
+			font-family:Tahoma, sans-serif;
+			font-size: 8.5px;
+}
+
+.noline {
+	font-family:Tahoma, sans-serif;
+	font-size: 8.5px;
+}
+
+.smallbox {
+	font-family:Tahoma, sans-serif;
+	font-size: 8.5px;
+
+}
+
+.boxpengalaman{
+	border: 1px solid black;
+	border-collapse: collapse;
+	font-family:Tahoma, sans-serif;
+	font-size: 8.5px;
+}
+
+
+.font{
+	font-family:Arial, sans-serif;
+	font-size: 12px;
+
+}
+
+
+.bordertop{
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+	width: 50px;
+
+}
+
+.righttop{
+	border-top: 1px solid black;
+}
+
+
+.photo{
+	margin-right: 50px;
+	margin-top 100px;
+}
+
+div{
+	page-break-after: always;
+}
+
+</style>
+</head>
+<body bgcolor="white">
+	<div class="resume">
+		<table class="outerline">
+			<tr  class="grey">
+				<th colspan="6" >RESUME</th>
+			</tr>
+			<tr>
+				<td colspan="6"><b>A.BUTIRAN PERIBADI</b></td>
+			</tr>
+			<tr>
+				<td colspan="6">
+					<table class="noline">
+
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>NAMA</td>
+							<td>:</td>
+							<td>Ir. RAHAYU BINTI MD DIAH</td>
+							<td rowspan="7" class="photo">
+							<img src="http://10.8.80.68/foto/820530045278.jpg"
+							alt="" width="120" height="140" align="top">
+						   </td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>JAWATAN</td>
+							<td>:</td>
+							<td>JURUTERA AWAM</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>KAD PENGALAMAN</td>
+							<td>:</td>
+							<td>820530045278</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>TARIKH LAHIR</td>
+							<td>:</td>
+							<td>30-05-1982</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>TEMPAT LAHIR</td>
+							<td>:</td>
+							<td> MELAKA </td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>ALAMAT PEJABAT</td>
+							<td>:</td>
+							<td>BAHAGIAN PENGURUSAN SUMBER MANUSIA
+CAWANGAN DASAR &amp; PENGURUSAN KORPORAT
+TINGKAT 29, BLOK G
+IBU PEJABAT JKR MALAYSIA
+NO. 6, JALAN SULTAN SALAHUDDIN
+50480 KUALA LUMPUR</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>ALAMAT RUMAH</td>
+							<td>:</td>
+							<td>NO. 35, JALAN JAYA 5, TAMAN JAYA, BANDAR TUN RAZAK,56000 CHERAS KUALA LUMPUR</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>TARAF PERKAHWINAN</td>
+							<td>:</td>
+							<td>KAHWIN </td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>NO. TELEFON PEJABAT</td>
+							<td>:</td>
+							<td>03-2618 8624</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>NO. TELEFON BIMBIT</td>
+							<td>:</td>
+							<td>019-6994379</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>NO. FAX</td>
+							<td>:</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>EMEL</td>
+							<td>:</td>
+							<td>rahayuMD@jkr.gov.my</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>TARIKH PENGISYTIHARAN HARTA TERKINI</td>
+							<td>:</td>
+							<td> 26-03-2019</td>
+						</tr>
+
+					</table>
+
+				</td>
+
+
+			</tr>
+			<!-- <tr >
+				<td colspan="2" class="bordertop"><b>B. PRESTASI</b><br>(LNPT 3 tahun terkini)</td>
+				<td colspan="4" class="righttop">
+					<ul>
+																		<li>2021 - 94.99 % </li>
+												<li>2020 - 94.37 % </li>
+												<li>2019 - 93.62 % </li>
+																	</ul>
+				</td>
+			</tr> -->
+			<tr>
+				<td colspan="2"  class="bordertop"><b>C. KEPAKARAN DAN PENGALAMAN</b><br>
+					<ul>
+						<li>Tempoh bidang pengkhususan</li>
+						<li>Tempoh atas gred terakhir</li>
+						<li>Tempoh perkhidmatan</li>
+					</ul></td>
+					<td colspan="4" class="righttop">
+						Pengkhususan
+																		<ul>
+							<li>
+								PENGURUSAN PROJEK selama 4 tahun, 1 bulan
+							</li>
+						</ul>
+												<ul>
+							<li>
+								PENGURUSAN ASET selama 5 tahun, 7 bulan
+							</li>
+						</ul>
+																		<br><br>
+
+						<ul>
+							<li>Tempoh Perkhidmatan Sektor Awam selama 14 tahun</li>
+							<li>Tempoh Perkhidmatan di Gred P&P selama 14 tahun</li>
+						</ul>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td colspan="2"  class="bordertop">
+						<b>D. PENDEDAHAN</b><br><br>
+						<table class="smallbox" >
+							<tr>Majikan :   JABATAN KERJA RAYA MALAYSIA</tr>
+							<tr>Skim Perkhidmatan  :PENGURUSAN DAN PROFESSIONAL</tr>
+							<tr>Tarikh Mula Perkhidmatan    :03-07-2008</tr>
+							<tr>Tarikh Bersara Wajib  : 30-05-2042</tr>
+														<tr>Gred Memangku : J48</tr>
+							<tr>Tarikh Mula Gred Memangku :07-11-2019</tr>
+													</table>
+
+					</td>
+					<td colspan="4" class="righttop">
+						Pengalaman Kerja
+						<table class="boxpengalaman" >
+							<tr class="boxpengalaman">
+								<th class="boxpengalaman">Kategori</th>
+								<th class="boxpengalaman">Penempatan</th>
+								<th class="boxpengalaman">Gred Jawatan</th>
+								<th class="boxpengalaman">Gelaran Jawatan</th>
+								<th class="boxpengalaman">Tempoh Khidmat</th>
+							</tr>
+																					<tr>
+								<td class="boxpengalaman">PENGURUSAN PROJEK</td>
+								<td class="boxpengalaman">Bahagian pengurusan projek selatan, cawangan jalan</td>
+								<td class="boxpengalaman">J41</td>
+								<td class="boxpengalaman">JURUTERA AWAM (J41)</td>
+								<td class="boxpengalaman">01-01-2008 sehingga 31-12-2010 </td></tr>
+															<tr>
+								<td class="boxpengalaman">PENGURUSAN PROJEK</td>
+								<td class="boxpengalaman">bahagian pembangunan, cawangan jalan</td>
+								<td class="boxpengalaman">J41</td>
+								<td class="boxpengalaman">JURUTERA AWAM (J41)</td>
+								<td class="boxpengalaman">01-01-2010 sehingga 01-03-2011 </td></tr>
+															<tr>
+								<td class="boxpengalaman">PENGURUSAN ASET</td>
+								<td class="boxpengalaman">Bahagian kejuruteraan awam (bangunan am) ckas</td>
+								<td class="boxpengalaman">J44</td>
+								<td class="boxpengalaman">JURUTERA AWAM (J44)</td>
+								<td class="boxpengalaman">16-05-2013 sehingga 31-12-2018 </td></tr>
+																							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2"  class="bordertop">
+							<b>E. KELAYAKAN AKADEMIK DAN PROFESSIONAL/<br>
+							KELAYAKAN KOMPETENSI TEMPATAN/ <br>
+						KELAYAKAN KOMPETENSI ANTARABANGSA</b></td>
+							<td colspan="4" class="righttop">
+								<table class="smallbox" >
+									<tr class="grey"><td colspan="5"><center><b>KELAYAKAN AKADEMIK</b></center></td></tr>
+									<tr>
+										<th class="boxpengalaman">No</th>
+										<th class="boxpengalaman" >Tajuk Kelulusan</th>
+										<th class="boxpengalaman"colspan="2">Institusi Pengajian</th>
+										<th class="boxpengalaman">Tahun Kelulusan</th>
+									</tr>
+																																				<tr><td class="boxpengalaman">1</td>
+										<td class="boxpengalaman">IJAZAH SARJANA MUDA KEJURUTERAAN AWAM</td>
+										<td class="boxpengalaman" colspan="2">UNIVERSITI TEKNOLOGI MALAYSIA</td>
+										<td class="boxpengalaman">2005</td></tr>
+																																								<tr class="grey"> <td colspan="5"><center><b>PROFESIONAL<center><b></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman">Kelayakan Profesional /Pendaftaran Dengan Badan Profesional</th>
+											<th class="boxpengalaman">Badan Profesional Yang Diiktiraf</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+																																								<tr><td class="boxpengalaman">1</td>
+											<td class="boxpengalaman">PROFESIONAL</td>
+											<td class="boxpengalaman">JURUTERA PROFESIONAL</td>
+											<td class="boxpengalaman">P119989</td>
+											<td class="boxpengalaman">2022</td></tr>
+																																												<tr class="grey"> <td colspan="5"><center><b>KELAYAKAN KOMPETENSI TEMPATAN<center><b></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman">Pensijilan Kompetensi</th>
+											<th class="boxpengalaman">Tahap</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+																																																				<tr class="grey"> <td colspan="5"><center><b>KELAYAKAN KOMPETENSI ANTARABANGSA<center><b></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman">Pensijilan Kompetensi</th>
+											<th class="boxpengalaman">Tahap</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+																																									
+										</table>
+
+
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="bordertop"><b>F. SUMBANGAN DAN KEGIATAN</b></td>
+									<td colspan="4" class="righttop">
+										<table class="smallbox">
+											<tr  class="grey"><td colspan="5"><center><b>JURNAL/BULETIN/KERTAS UTAMA</center></b></td></tr>
+																						<tr><th class="boxpengalaman" >No</th>
+												<th class="boxpengalaman" colspan="3">Tajuk</th>
+												<th class="boxpengalaman" >Tahun</th></tr>
+																									<tr><td colspan="6" class="boxpengalaman" >tiada rekod</td> </tr>
+																										
+													<tr  class="grey"><td colspan="5"><center><b>JAWATAN KUASA TEKNIKAL</center></b></td></tr>
+													<tr>
+														<th class="boxpengalaman">No</th>
+														<th class="boxpengalaman"colspan="3">Jawatankuasa Teknikal</th>
+														<th class="boxpengalaman">Tahun</th>
+													</tr>
+																											<tr><td class="boxpengalaman"colspan="5">tiada rekod</td> </tr>
+																												<tr class="grey"><td colspan="5"><center><b>SUMBANGAN DAN KEGIATAN DI DALAM TUGAS RASMI</center></b></td></tr>
+														<tr>
+															<th class="boxpengalaman">No</th>
+															<th class="boxpengalaman" colspan="3">Sumbangan</th>
+															<th class="boxpengalaman">Tahun</th>
+														</tr>
+																												
+																												<tr><td class="boxpengalaman">1</td>
+															<td class="boxpengalaman" colspan="3">AHLI JAWATAN KUASA</td>
+															<td class="boxpengalaman" >2022</td></tr>
+																																																												<tr class="grey"><td colspan="5"><center><b>SUMBANGAN DAN KEGIATAN DI LUAR TUGAS RASMI</center></b></td></tr>
+															<tr>
+																<th class="boxpengalaman">No</th>
+																<th class="boxpengalaman"colspan="3">Sumbangan</th>
+																<th class="boxpengalaman">Tahun</th>
+															</tr>
+																														
+																														<tr><td class="boxpengalaman">1</td>
+																<td class="boxpengalaman"colspan="3">SUMBANGAN</td>
+																<td class="boxpengalaman">1970</td></tr>
+																																																
+															</table>
+														</td>
+													</tr>
+													<tr>
+														<td colspan="2" class="bordertop"><center><b>G.PENGIKTIRAFAN</center></b></td>
+														<td colspan="4" class="righttop">
+															<table class="smallbox">
+																<tr class="grey"><td colspan="5"><center><b>APC</b></center></td></tr>
+																<tr>
+																	<th class="boxpengalaman"> No</th>
+																	<th class="boxpengalaman" colspan="3">APC</th>
+																	<th class="boxpengalaman" >Tahun</th>
+
+																</tr>
+																																
+																																<tr><td class="boxpengalaman">1</td>
+																	<td colspan="3">ANUGERAH PERKHIDMATAN CEMERLANG</td>
+																	<td class="boxpengalaman">2011</td></tr>
+																																																		<tr><td class="boxpengalaman">2</td>
+																	<td colspan="3">ANUGERAH PERKHIDMATAN CEMERLANG</td>
+																	<td class="boxpengalaman">2017</td></tr>
+																																																																				<tr class="grey"><td colspan="5"><center><b>PINGAT</center></b></td></tr>
+																	<tr>
+																		<th class="boxpengalaman">No</th>
+																		<th class="boxpengalaman" colspan="3">Pingat</th>
+																		<th class="boxpengalaman" >Tahun</th>
+																	</tr>
+																																		
+																																		<tr><td class="boxpengalaman">1</td>
+																		<td class="boxpengalaman"colspan="3">PENERIMAAN PINGAT</td>
+																		<td class="boxpengalaman">2009</td></tr>
+																																																					<tr><td class="boxpengalaman">2</td>
+																		<td class="boxpengalaman"colspan="3">PENERIMAAN PINGAT</td>
+																		<td class="boxpengalaman">2011</td></tr>
+																																																																								<tr class="grey"><td colspan="5"><center><b>ANUGERAH UMUM</center></b></td></tr>
+																		<tr>
+																			<th class="boxpengalaman">No</th>
+																			<th class="boxpengalaman" colspan="3">Anugerah Umum</th>
+																			<th class="boxpengalaman">Tahun</th>
+																		</tr>
+																																					<tr><td class="boxpengalaman"colspan="5">tiada rekod</td> </tr>
+																																					</table>
+
+																	</td>
+																</tr>
+
+
+
+															</table>
+
+
+
+																													</body>
+														</html>
