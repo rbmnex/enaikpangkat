@@ -569,9 +569,40 @@ class BatchMgmtController extends Controller
             ->select('np.nokp','np.nama','np.email','np.jawatan','np.kod_gred')
             ->where('np.nokp',$nokp)->get();
         $kod_gred = $kumpulan->permohonan->gred;
+
+        User::upsert($nokp);
+                $user = User::where('nokp',$nokp)->first();
+                if(!$user->hasRole('user')) {
+                    $user->attachRole('user');
+                }
+                $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
+
+                if(empty($profile)) {
+                    $profile = $profile = Peribadi::recreate($user->id,$nokp);
+                }
+            $pemohon = Pemohon::where('user_id',$user->id)
+            ->where('id_permohonan',$kumpulan->permohonan->id)->first();
+            if($pemohon) {
+                // nothing
+            } else {
+                $pemohon = new Pemohon();
+                $pemohon->flag = 1;
+                $pemohon->delete_id = 0;
+                $pemohon->id_permohonan = $model->id;
+                $pemohon->id_peribadi = $profile->id;
+                $pemohon->jawatan = $pegawai->jawatan;
+                $pemohon->gred = $pegawai->kod_gred;
+                $pemohon->created_by = Auth::user()->nokp;
+                $pemohon->updated_by = $nokp;
+                $pemohon->status = 'NA';
+                $pemohon->user_id = $user->id;
+                $pemohon->save();
+            }
+
+
         $common = new CommonController();
 
-            $dateline = $common->calc_DateOnWorkingDays(7);
+            $dateline = $common->calc_DateOnWorkingDays(7,\Carbon\Carbon::parse($kumpulan->permohonan->created_at)->format('"Y-m-d H:i:s"'));
             $secure_link = Crypt::encryptString($kumpulan->permohonan->id.'?kp='.$nokp);
             $content = [
                 //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
