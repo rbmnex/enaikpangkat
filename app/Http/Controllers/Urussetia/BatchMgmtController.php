@@ -306,17 +306,17 @@ class BatchMgmtController extends Controller
                     Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
                         // testing purpose
                         //$message->to('munirahj@jkr.gov.my',$calon->nama);
-                        $message->to('rubmin@vn.net.my',$pegawai->nama);
+                        //$message->to('rubmin@vn.net.my',$pegawai->nama);
 
-                        //$message->to($pegawai->email,$pegawai->nama);
+                        $message->to($pegawai->email,$pegawai->nama);
                         $message->subject('URUSAN PEMANGKUAN '.$pegawai->jawatan.' GRED '.$pegawai->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                     });
                     Calon::where('kumpulan_id', $batch_id)->where('nokp', $pegawai->nokp)
-                        ->update(['status' => 'SUCCESSED']);
+                        ->update(['status' => 'SUCCESSED','email' => $pegawai->email]);
                 } catch(\Exception $e) {
                     Calon::where('kumpulan_id', $batch_id)->where('nokp', $pegawai->nokp)
-                        ->update(['status' => 'FAILED']);
+                        ->update(['status' => 'FAILED','email' => $pegawai->email]);
                 }
             }
 

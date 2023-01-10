@@ -15,6 +15,13 @@
                     </div>
                     <div class="col-xl-12 col-md-6 col-12">
                         <div class="mb-1 form-group">
+                            <label class="form-label" for="basicInput">Penerangan Cuti</label>
+                            <input type="text" class="form-control" id="holiday-desc" placeholder=""/>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
+                    <div class="col-xl-12 col-md-6 col-12">
+                        <div class="mb-1 form-group">
                             <label class="form-label" for="basicInput">Tarikh Cuti</label>
                             <input type="text" class="form-control" id="holiday-date" value=""/>
                             <div class="invalid-feedback"></div>
@@ -23,7 +30,7 @@
                     <div class="col-xl-12 col-md-6 col-12">
                         <div class="mb-1 form-group">
                             <label class="form-label" for="basicInput">Tempoh Cuti</label>
-                            <input type="number" class="form-control" id="holiday-date" value="1"/>
+                            <input type="number" class="form-control" id="holiday-length" value="1"/>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>

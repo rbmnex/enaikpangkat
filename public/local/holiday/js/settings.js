@@ -1,9 +1,11 @@
 Flatpickrinit.initAll('#holiday-date');
 
 DatatableUI.init({
-    selector: '.lpnk-table',
+    selector: '.holiday-table',
     columnList: [
-        {data: 'nama', searchable: false},
+        {data: 'holiday_name', searchable: false},
+        {data: 'holiday_date', searchable: false},
+        {data: 'status', searchable: false},
         {data: 'action', searchable: false},
     ],
     url: '/bpsm/question/get-list',

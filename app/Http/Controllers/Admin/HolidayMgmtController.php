@@ -14,7 +14,7 @@ class HolidayMgmtController extends Controller
     }
 
     public function index() {
-
+        return view('admin.holiday.index');
     }
 
     public function list() {

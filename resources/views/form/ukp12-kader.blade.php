@@ -255,7 +255,7 @@
 
 
 </div>
-@include('form.ukp12.modal')
+@include('form.ukp12.notice')
 <input type="hidden" id="_token_alt" class="_token_alt" name="_token_alt" value="{{csrf_token()}}">
 <input type="hidden" id="_formid" class="_formid" name="_formid" value="{{ $pemohon_id }}">
 <input type="hidden" id="_formdata" class="_formdata" name="_formdata" value="{{ json_encode($profile) }}">
