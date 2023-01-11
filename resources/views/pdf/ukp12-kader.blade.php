@@ -207,7 +207,7 @@
                 <td colspan="12">
                     <span class="normal-size" style="padding-left: 5px;">Nama</span>
                     <span class="normal-size"> : </span>
-                    <span class="normal-size">{{ $peribadi->nama }}</span>
+                    <span class="normal-size">{{ strtoupper(htmlspecialchars_decode($peribadi->nama)) }}</span>
                 </td>
             </tr>
             <tr style="border-left-style: solid; border-left-width: 1px; border-right-style: solid; border-right-width: 1px; border-bottom-style: solid; border-bottom-width: 1px;">
@@ -308,7 +308,7 @@
             </tr>
             <tr class="side-border">
                 <td ></td>
-                <td colspan="8">
+                <td colspan="10">
                     <table border="1">
                         <thead style="font-size: 14px; text-align: center;">
                             <th>Cuti</th>
@@ -343,7 +343,7 @@
                         </tbody>
                     </table>
                 </td>
-                <td colspan="3"></td>
+                <td></td>
             </tr>
             <tr class="side-border" style="height: 20px;">
                 <td colspan="12"></td>
@@ -499,6 +499,12 @@
             <tr class="side-border">
                 <td colspan="12" class="word-line">
                     <span class="normal-size" style="font-style: italic; padding-left: 5px; font-weight: bold;">* Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir</span>
+                </td>
+            </tr>
+
+            <tr class="side-border">
+                <td colspan="12" class="word-line">
+                    <span class="normal-size" style="font-style: italic; padding-left: 5px; font-weight: bold;">* Sila pastikan tempoh sah laku masih berbaki sekurang-kurangnya 8 bulan dari tarikh permohonan ini</span>
                 </td>
             </tr>
 
@@ -682,7 +688,7 @@
                                     NAMA
                                 </td>
                                 <td style="text-align: center;">:</td>
-                                <td colspan="8">{{ $peribadi->nama }}</td>
+                                <td colspan="8">{{ strtoupper(htmlspecialchars_decode($peribadi->nama)) }}</td>
                             </tr>
                             <tr>
                                 <td>3.</td>
@@ -833,7 +839,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{ $pasangan ? $pasangan->nama : '' }}</td>
+                                <td colspan="6">{{ $pasangan ?  strtoupper($pasangan->nama) : '' }}</td>
 
                                 <td></td>
                                 <td></td>
@@ -851,7 +857,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{ $pasangan ? $pasangan->pekerjaan : '' }}</td>
+                                <td colspan="6">{{ $pasangan ? strtoupper($pasangan->pekerjaan) : '' }}</td>
 
                                 <td></td>
                                 <td></td>
@@ -996,8 +1002,8 @@
                             @foreach ($little as $pengalaman)
                             <tr style="font-size: 9px;">
                                 <td style="width: 25%; text-align: center;">{{ ++$iteration }}</td>
-                                <td>{{ $pengalaman['jawatan'] ?? '' }}</td>
-                                <td>{{ $pengalaman['penempatan'] }}</td>
+                                <td>{{ $pengalaman['jawatan'] ? strtoupper($pengalaman['jawatan']) : '' }}</td>
+                                <td>{{ strtoupper($pengalaman['penempatan']) }}</td>
                                 <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
                             </tr>
                             @endforeach
@@ -1019,8 +1025,8 @@
                             @foreach ($perkhidmatans as $pengalaman)
                             <tr>
                                 <td style="height: 30px; width: 25%; text-align: center;">{{ ++$iteration }}</td>
-                                <td>{{ $pengalaman['jawatan'] ?? '' }}</td>
-                                <td>{{ $pengalaman['penempatan'] }}</td>
+                                <td>{{ $pengalaman['jawatan'] ? strtoupper($pengalaman['jawatan']) : '' }}</td>
+                                <td>{{ strtoupper($pengalaman['penempatan']) }}</td>
                                 <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
                             </tr>
                             @endforeach
@@ -1143,7 +1149,7 @@
             @foreach ($little as $sumbang)
                                             <tr>
                                                 <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
-                                                <td>{{ $sumbang['sumbangan'] }}</td>
+                                                <td>{{ strtoupper($sumbang['sumbangan']) }}</td>
                                                 {{-- <td>{{ $sumbang['tempat'] }}</td> --}}
                                                 <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
@@ -1164,7 +1170,7 @@
             @foreach ($sumbangan as $sumbang)
                                             <tr>
                                                 <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
-                                                <td>{{ $sumbang['sumbangan'] }}</td>
+                                                <td>{{ strtoupper($sumbang['sumbangan']) }}</td>
                                                 {{-- <td>{{ $sumbang['tempat'] }}</td> --}}
                                                 <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
@@ -1285,8 +1291,8 @@
                                                     <td style="height: 30px; text-align:center;" class="width-25">
                                                         {{ ++$iteration }}
                                                     </td>
-                                                    <td>{{ $a['nama_sijil'] }}</td>
-                                                    <td style="width: 75%">{{ $a['nama_insititusi'] }}</td>
+                                                    <td>{{ strtoupper($a['nama_sijil']) }}</td>
+                                                    <td style="width: 75%">{{ strtoupper($a['nama_insititusi']) }}</td>
                                                     <td style="width: 50%">{{ empty($a['tkh_kelulusan']) ? '' : \Carbon\Carbon::parse($a['tkh_kelulusan'])->format('Y') }}</td>
                                                 </tr>
                                             @endforeach
@@ -1376,9 +1382,9 @@
                                             @foreach ($profesionals as $pro)
                                                 <tr>
                                                     <td style="height: 30px; text-align: center;" class="width-25">{{ $loop->iteration }}</td>
-                                                    <td>{{ $pro->nama_sijil }}</td>
-                                                    <td style="width: 75%">{{ $pro->badan_professional }}</td>
-                                                    <td style="width: 75%">{{ $pro->no_pendaftaran }}</td>
+                                                    <td>{{ strtoupper($pro->nama_sijil) }}</td>
+                                                    <td style="width: 75%">{{ strtoupper($pro->badan_professional) }}</td>
+                                                    <td style="width: 75%">{{ strtoupper($pro->no_pendaftaran) }}</td>
                                                     <td style="width: 50%">{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
                                                 </tr>
                                             @endforeach
@@ -1444,7 +1450,7 @@
                                             @foreach ($kompetenans as $k)
                                             <tr>
                                                 <td style="height: 30px; text-align: center; width: 15%">{{ $loop->iteration }}</td>
-                                                <td>{{ $k->nama_sijil }}</td>
+                                                <td>{{ strtoupper($k->nama_sijil) }}</td>
                                                 <td class="width-25">{{ $k->tahap }}</td>
                                             </tr>
                                             @endforeach
@@ -1502,7 +1508,7 @@
                                             @foreach ($pengiktirafans as $sijil)
                                                 <tr>
                                                     <td style="height: 30px; width: 15%; text-align: center;">{{ $loop->iteration }}</td>
-                                                    <td>{{ $sijil->jenis ?? '' }}</td>
+                                                    <td>{{ $sijil->jenis ?  strtoupper($sijil->jenis) : '' }}</td>
                                                     <td class="width-25">{{ empty($sijil->tkh_mula) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula)->format('Y') }}</td>
                                                 </tr>
                                             @endforeach
@@ -1600,7 +1606,7 @@
                         <tbody>
                             <tr>
                                 <td>Institusi/tabung pendidikan</td>
-                                <td>{{ $akuan_pinjaman->status == 1 ? $akuan_pinjaman->nama_institusi : '' }}</td>
+                                <td>{{ $akuan_pinjaman->status == 1 ? strtoupper($akuan_pinjaman->nama_institusi) : '' }}</td>
                             </tr>
                             <tr>
                                 <td>Tahun Pinjaman</td>
@@ -1634,7 +1640,7 @@
                         <tbody>
                             <tr>
                                 <td>Institusi/tabung pendidikan</td>
-                                <td>{{ $akuan_pinjaman->status == 2 ? $akuan_pinjaman->nama_institusi : '' }}</td>
+                                <td>{{ $akuan_pinjaman->status == 2 ? strtoupper($akuan_pinjaman->nama_institusi) : '' }}</td>
                             </tr>
                             <tr>
                                 <td>Tahun Pinjaman</td>
@@ -1672,7 +1678,7 @@
                         <tbody>
                             <tr>
                                 <td>Institusi/tabung pendidikan</td>
-                                <td>{{ $akuan_pinjaman->status == 3 ? $akuan_pinjaman->nama_institusi : '' }}</td>
+                                <td>{{ $akuan_pinjaman->status == 3 ? strtoupper($akuan_pinjaman->nama_institusi) : '' }}</td>
                             </tr>
                             <tr>
                                 <td>Tahun Pinjaman</td>
@@ -1817,7 +1823,7 @@
                 <td colspan="2">Nama</td>
 
                 <td style="text-align: center;">:</td>
-                <td colspan="8">{{ $peribadi->nama }}</td>
+                <td colspan="8">{{ strtoupper(htmlspecialchars_decode($peribadi->nama)) }}</td>
 
             </tr>
             <tr>

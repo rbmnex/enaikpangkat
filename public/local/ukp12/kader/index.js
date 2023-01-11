@@ -255,7 +255,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         data.append('_token', getToken());
         data.append('formdata',$('._formdata').val());
         data.append('lampiran_e',file);
-        $('.harta-file').html(file.name);
+
         $.ajax({
             type:'POST',
             url: getUrl() + '/form/api/property/save',
@@ -267,6 +267,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
                 let d = resp.success;
                 if(d == 1) {
                     toasting('Dokumen berjaya sudah dimuat naik', 'success');
+                    $('.harta-file').html(file.name);
                 } else {
                     toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
@@ -285,7 +286,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         data.append('selesai',$('.selesai_bayar').val());
         data.append('penyata_bayaran',file);
         data.append('formdata',$('._formid').val());
-        $('.loan-file').html(file.name);
+
         $.ajax({
             type:'POST',
             url: getUrl() + '/form/api/loan/save',
@@ -297,6 +298,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
                 let d = resp.success;
                 if(d == 1) {
                     toasting('Dokumen berjaya sudah dimuat naik', 'success');
+                    $('.loan-file').html(file.name);
                 } else {
                     toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
@@ -331,7 +333,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         data.append('_token', getToken());
         data.append('pemohon_id',$('._formid').val());
         data.append('full_form',file);
-        $('.kader-file').html(file.name);
+
         $.ajax({
             type:'POST',
             url: getUrl() + '/form/api/form/upload',
@@ -343,6 +345,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
                 let d = resp.success;
                 if(d == 1) {
                     toasting('Dokumen berjaya sudah dimuat naik', 'success');
+                    $('.kader-file').html(file.name);
                 } else {
                     toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
