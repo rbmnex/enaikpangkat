@@ -350,7 +350,7 @@ class ListPegawai2 extends Model
                     'aktiviti' => $m->LAktiviti->aktiviti,
                     'kod_aktiviti' => $m->kod_aktiviti,
                     'kod_gred_sebenar' => $m->kod_gred_sebenar,
-                    'kod_gelaran_jawatan' => $m->gelaran_jawatan->gelaran_jawatan ? $m->gelaran_jawatan->gelaran_jawatan :''
+                    'kod_gelaran_jawatan' => empty($m->gelaran_jawatan)? '' : $m->gelaran_jawatan->gelaran_jawatan
 
                 ];
             }

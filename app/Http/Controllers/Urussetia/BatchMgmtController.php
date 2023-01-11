@@ -588,10 +588,10 @@ class BatchMgmtController extends Controller
                 $pemohon = new Pemohon();
                 $pemohon->flag = 1;
                 $pemohon->delete_id = 0;
-                $pemohon->id_permohonan = $model->id;
+                $pemohon->id_permohonan = $kumpulan->permohonan->id;
                 $pemohon->id_peribadi = $profile->id;
-                $pemohon->jawatan = $pegawai->jawatan;
-                $pemohon->gred = $pegawai->kod_gred;
+                $pemohon->jawatan = $pegawai[0]->jawatan;
+                $pemohon->gred = $pegawai[0]->kod_gred;
                 $pemohon->created_by = Auth::user()->nokp;
                 $pemohon->updated_by = $nokp;
                 $pemohon->status = 'NA';
@@ -602,7 +602,7 @@ class BatchMgmtController extends Controller
 
         $common = new CommonController();
 
-            $dateline = $common->calc_DateOnWorkingDays(7,\Carbon\Carbon::parse($kumpulan->permohonan->created_at)->format('"Y-m-d H:i:s"'));
+            $dateline = $common->calc_DateOnWorkingDays(7,\Carbon\Carbon::parse($kumpulan->permohonan->created_at)->format("Y-m-d H:i:s"));
             $secure_link = Crypt::encryptString($kumpulan->permohonan->id.'?kp='.$nokp);
             $content = [
                 //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
@@ -617,7 +617,7 @@ class BatchMgmtController extends Controller
                     //$message->to('munirahj@jkr.gov.my',$pegawai[0]->nama);
                     //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
-                    $message->to($pegawai->email,$pegawai[0]->nama);
+                    $message->to($pegawai[0]->email,$pegawai[0]->nama);
                     $message->subject('URUSAN PEMANGKUAN '.$pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
 
                 });

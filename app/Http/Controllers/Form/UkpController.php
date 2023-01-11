@@ -1565,15 +1565,15 @@ class UkpController extends Controller
         $cuti = PermohonanCuti::where('id_pemohon',$pemohon->id)->get();
         $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
         $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
-        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->get();
-        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
-        $akademik = Akademik::where('id_pemohon',$pemohon->id)->get();
-        $profesional = Professional::where('id_pemohon',$pemohon->id)->get();
-        $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->get();
-        $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->get();
+        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->orderBy('tkh_mula_berkhidmat','desc')->get();
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->orderBy('tahun','desc')->get();
+        $akademik = Akademik::where('id_pemohon',$pemohon->id)->orderBy('tkh_kelulusan','desc')->get();
+        $profesional = Professional::where('id_pemohon',$pemohon->id)->orderBy('tkh_kelulusan','desc')->get();
+        $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->orderBy('created_at','desc')->get();
+        $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->orderBy('tkh_mula','desc')->get();
         $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
         $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
-        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->get();
+        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->orderBy('tkh_peristiwa','desc')->get();
 
         $data = [
             'pemohon' => $pemohon,
@@ -1666,21 +1666,21 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         // });
             //21,22,23]
         $innerSelf = new UkpController();
-        $akademik = Kelayakan::where('nokp',$nokp)->whereNotIn('kod_kelulusan',[8,9,10,21,22,23])->get();
-        $profesional = Kelayakan::where('nokp',$nokp)->where('kod_kelulusan',8)->get();
+        $akademik = Kelayakan::where('nokp',$nokp)->whereNotIn('kod_kelulusan',[8,9,10,21,22,23])->orderBy('tkh_kelulusan','desc')->get();
+        $profesional = Kelayakan::where('nokp',$nokp)->where('kod_kelulusan',8)->orderBy('tkh_kelulusan','desc')->get();
         $profesional->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {
-                $item->nama_kelulusan == $item->institusi;
+                $item->nama_kelulusan = $item->institusi;
             } else {
                 $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
                 $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
             }
         });
 
-        $kompeten = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[9,10])->get();
+        $kompeten = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[9,10])->orderBy('tkh_kelulusan','desc')->get();
         $kompeten->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {
-                $item->nama_kelulusan == $item->institusi;
+                $item->nama_kelulusan = $item->institusi;
             } else {
                 $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
                 $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
@@ -1688,8 +1688,8 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         });
 
 
-        $iktiraf = Peristiwa::where('nokp',$nokp)->whereIn('kod_peristiwa',['P8','A1','P10','A4'])->get();
-        $sumbangan = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[21,22,23])->get();
+        $iktiraf = Peristiwa::where('nokp',$nokp)->whereIn('kod_peristiwa',['P8','A1','P10','A4'])->orderBy('tkh_mula_peristiwa','desc')->get();
+        $sumbangan = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[21,22,23])->orderBy('tkh_kelulusan','desc')->get();
         $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
         $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
         $loan = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();

@@ -103,7 +103,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label class="col-form-label" for="vertical-email">Tarikh Lantikan Perkhidmatan</label>
-                            <input type="text" id="sect-1-tkh_lantik" readonly name="tkh_lantikan" class="form-control" value="{{ \Carbon\Carbon::parse($pemohon->tkh_lantikan)->format('d-m-Y')  }}" placeholder=""  />
+                            <input type="text" id="sect-1-tkh_lantik" readonly name="tkh_lantikan" class="form-control" value="{{ \Carbon\Carbon::parse($pemohon->tkh_lantikan_j41)->format('d-m-Y')  }}" placeholder=""  />
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-md-6">
