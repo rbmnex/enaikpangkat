@@ -131,21 +131,23 @@ class UkpController extends Controller
             $pemohon->id_peribadi = $profile->id;
             $pemohon->created_by = $nokp;
             $pemohon->updated_by = $nokp;
-            $pemohon->status = Pemohon::NOT_SUBMITTED;
+        //  $pemohon->status = Pemohon::NOT_SUBMITTED;
             $pemohon->user_id = $user->id;
             $pemohon->save();
         } else {
             $pemohon = Pemohon::where('id_permohonan', $id)->where('user_id',$user->id)->first();
-            $pemohon->status = Pemohon::NOT_SUBMITTED;
-            $pemohon->save();
+
+            //$pemohon->status = Pemohon::NOT_SUBMITTED;
+
             if($pemohon) {
                 $profile = Peribadi::find($pemohon->id_peribadi);
 
                 if($pemohon->status == Pemohon::NOT_SUBMITTED || $pemohon->status == 'NA') {
                     $profile = Peribadi::update_peribadi($profile,$nokp);
-                } else {
-                    return view('form.message',['message' => 'Anda Sudah Menghantar Pemohonan Ini Dan Sedang Diproses, Diharap Sabar Menunggu Keputusan!']);
                 }
+                // else {
+                //     return view('form.message',['message' => 'Anda Sudah Menghantar Pemohonan Ini Dan Sedang Diproses, Diharap Sabar Menunggu Keputusan!']);
+                // }
 
             } else {
                 $profile = Peribadi::recreate($user->id,$nokp);
@@ -157,10 +159,12 @@ class UkpController extends Controller
                 $pemohon->id_peribadi = $profile->id;
                 $pemohon->created_by = $nokp;
                 $pemohon->updated_by = $nokp;
-                $pemohon->status = Pemohon::NOT_SUBMITTED;
+                //$pemohon->status = Pemohon::NOT_SUBMITTED;
                 $pemohon->user_id = $user->id;
-                $pemohon->save();
             }
+
+
+            $pemohon->save();
         }
 
         $maklumat = $this->load_info($profile,$nokp,$pemohon);
@@ -422,6 +426,7 @@ class UkpController extends Controller
                 $loan->tkh_selesai_bayaran = empty($tkh_selesai_bayaran) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_selesai_bayaran)->format('Y-m-d');
                 $loan->jumlah_pinjaman = $jumlah_pinjaman;
                 $loan->updated_by = Auth::user()->nokp;
+                $loan->surat_perakuan = $uploadedFile->id;
                 $loan->id_pemohon = $formdata;
 
                 $loan->save();
@@ -1666,7 +1671,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         // });
             //21,22,23]
         $innerSelf = new UkpController();
-        $akademik = Kelayakan::where('nokp',$nokp)->whereNotIn('kod_kelulusan',[8,9,10,21,22,23])->orderBy('tkh_kelulusan','desc')->get();
+        $akademik = Kelayakan::where('nokp',$nokp)->whereNotIn('kod_kelulusan',[8,9,10,20,21,22,23])->orderBy('tkh_kelulusan','desc')->get();
         $profesional = Kelayakan::where('nokp',$nokp)->where('kod_kelulusan',8)->orderBy('tkh_kelulusan','desc')->get();
         $profesional->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {

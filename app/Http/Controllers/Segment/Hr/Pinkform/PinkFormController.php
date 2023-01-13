@@ -92,6 +92,8 @@ class PinkFormController extends Controller{
         $pink->delete_id = 0;
         $pink->save();
 
+        $file = NULL;
+
         if($request->file('pinkform_borang')){
             $upload = CommonController::base64_upload($request->file('pinkform_borang'));
             $file = new File;
@@ -138,13 +140,16 @@ class PinkFormController extends Controller{
         ];
         //send email
         try{
-            Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon) {
+            Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
                 // testing purpose
                 //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
                 $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
                 //$message->to('munirahj@jkr.gov.my',$pemohon->pemohonPeribadi->nama);
                 $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
+                if($file) {
+                    $message->attachData(base64_decode($file->content_bytes),$file->filename);
+                }
 
             });
 
@@ -195,6 +200,8 @@ class PinkFormController extends Controller{
     public function resend(Request $request) {
         $id = $request->input('pemohon_id');
         $pink = SuratPink::where('id_pemohon',$id)->where('flag',0)->where('delete_id',0)->first();
+        $file = File::find($pink->fail_id);
+
         $pemohon = Pemohon::find($id);
         $content = [
             'link' => url('/').'/pemangku/tawaran/update/'.$pemohon->id,
@@ -203,13 +210,16 @@ class PinkFormController extends Controller{
         ];
         //send email
         try{
-            Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon) {
+            Mail::mailer('smtp')->send('mail.lapordiri-mail',$content,function ($message) use ($pemohon,$file) {
                 // testing purpose
                 //$message->to('rubmin@vn.net.my',$pemohon->pemohonPeribadi->nama);
 
                 $message->to($pemohon->pemohonPeribadi->email,$pemohon->pemohonPeribadi->nama);
                 //$message->to('munirahj@jkr.gov.my',$pemohon->pemohonPeribadi->nama);
                 $message->subject('PENGESAHAN LAPOR DIRI PEGAWAI UNTUK URUSAN PEMANGKUAN');
+                if($file) {
+                    $message->attachData(base64_decode($file->content_bytes),$file->filename);
+                }
 
             });
 

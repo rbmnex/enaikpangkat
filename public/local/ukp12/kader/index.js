@@ -310,7 +310,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         data.append('_token', getToken());
         data.append('pemohon_id',$('._formid').val());
         data.append('borang_pengesahan',file);
-        $('.cuti-file').html(file.name);
+
         $.ajax({
             type:'POST',
             url: getUrl() + '/form/api/cuti/upload',
@@ -322,6 +322,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
                 let d = resp.success;
                 if(d == 1) {
                     toasting('Dokumen berjaya sudah dimuat naik', 'success');
+                    $('.cuti-file').html(file.name);
                 } else {
                     toasting('Ralat telah berlaku, Dokumen telah gagal dimuat naik', 'error');
                 }
