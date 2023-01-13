@@ -76,11 +76,13 @@ class Penempatan extends Model
 
             $arr_waran = Penempatan::split_kod_waran($tempat->kod_waran);
 
-            $model->unit = Penempatan::waran_name($arr_waran['unit'])->waran_pej;
-            $model->bahagian = Penempatan::waran_name($arr_waran['bahagian'])->waran_pej;
+            $unit = Penempatan::waran_name($arr_waran['unit']);
+            $model->unit = empty($unit) ? '' : $unit->waran_pej;
+            $bahagian = Penempatan::waran_name($arr_waran['bahagian']);
+            $model->bahagian = empty($bahagian) ? '' : $bahagian->waran_pej;
             $pejabat = Penempatan::waran_name($arr_waran['cawangan']);
-            $model->cawangan = $pejabat->waran_pej;
-            $model->pejabat = $pejabat->blok;
+            $model->cawangan = empty($pejabat) ? '' : $pejabat->waran_pej;
+            $model->pejabat = empty($pejabat) ? '' : $pejabat->blok;
 
             //$model->id_peribadi = $id_peribadi;
             $model->user_id = $user_id;

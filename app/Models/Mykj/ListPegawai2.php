@@ -382,8 +382,8 @@ class ListPegawai2 extends Model
 
                     $data['khusus'][$m->LAktiviti->aktiviti]['data'][] = [
                         'tempat' => $m->tempat,
-                        'interval_month' => $interval->m,
-                        'interval_year' => $interval->y,
+                        'interval_month' => empty($interval) ? '' : $interval->m,
+                        'interval_year' => empty($interval) ? '' : $interval->y,
                         // 'diff' => $diff->format("%R%a days"),
                         'aktiviti' => $m->LAktiviti->aktiviti,
                         'kod_gred_sebenar' => $m->kod_gred_sebenar,
@@ -404,8 +404,12 @@ class ListPegawai2 extends Model
                     $totalYear = 0;
                     $totalMonth = 0;
                     foreach($value['data'] as $v){
-                        $totalMonth += $v['interval_month'];
-                        $totalYear += $v['interval_year'];
+                        if(is_numeric($v['interval_month'])) {
+                            $totalMonth += $v['interval_month'];
+                        }
+                        if(is_numeric($v['interval_year'])) {
+                            $totalYear += $v['interval_year'];
+                        }
                     }
 
                     if($totalMonth >= 12){

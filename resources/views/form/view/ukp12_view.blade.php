@@ -760,7 +760,9 @@
                         </div>
                         <div class="form-group col-md-12">
                             <label class="col-form-label" for="">a) Tindakan tatatertib:</label>
-                            @if($akuan_pegawai->tatatertib == 1)
+                            @if(empty($akuan_pegawai))
+                            <input type="text" class="form-control" readonly value="Tiada Maklumat"/>
+                            @elseif($akuan_pegawai->tatatertib == 1)
                             <input type="text" class="form-control" readonly value="Pernah"/>
                             @else
                             <input type="text" class="form-control" readonly value="Tidak Pernah"/>
@@ -798,7 +800,9 @@
                         </div> --}}
                         <div class="form-group col-md-12">
                             <label class="col-form-label" for="">c) Lanjutan tempoh percubaan dengan denda</label>
-                            @if($akuan_pegawai->tempoh_percubaan_denda == 1)
+                            @if(empty($akuan_pegawai))
+                            <input type="text" class="form-control" readonly value="Tiada Maklumat"/>
+                            @elseif($akuan_pegawai->tempoh_percubaan_denda == 1)
                             <input type="text" class="form-control" readonly value="Pernah"/>
                             @else
                             <input type="text" class="form-control" readonly value="Tidak Pernah"/>
@@ -821,7 +825,9 @@
                         </div> --}}
                         <div class="form-group col-md-12">
                             <label class="col-form-label" for="">d) Cuti Tanpa Gaji selain Cuti Belajar Tanpa Gaji</label>
-                            @if($akuan_pegawai->cuti_tanpa_gaji == 1)
+                            @if(empty($akuan_pegawai))
+                            <input type="text" class="form-control" readonly value="Tiada Maklumat"/>
+                            @elseif($akuan_pegawai->cuti_tanpa_gaji == 1)
                             <input type="text" class="form-control" readonly value="Pernah"/>
                             @else
                             <input type="text" class="form-control" readonly value="Tidak Pernah"/>
@@ -858,7 +864,11 @@
                             <label class="col-form-label" for="">Alamat Pejabat: {{ $peribadi->alamat_pejabat }}</label>
                         </div>
                         <div class="form-group col-md-12">
+                            @if(empty($akuan_pegawai))
+                            <label class="col-form-label" for="">Tarikh: - </label>
+                            @else
                             <label class="col-form-label" for="">Tarikh: {{ \Carbon\Carbon::parse($akuan_pegawai->perakuan_tkh)->format('d-m-Y') }}</label>
+                            @endif
                         </div>
                     </div>
                 </div>
