@@ -74,10 +74,10 @@ class ViewController extends Controller
             $lnpt = Markah::where('nokp',$peribadi->nokp)->whereIn('tahun',[$year-1,$year-2,$year-3])->orderBy('tahun','desc')->limit(3)->get();
             $clerk = NULL;
             if(!empty($pemohon->pengesahan_perkhidmatan_nokp))
-            $clerk = ListPegawai2::getMaklumatPegawai($pemohon->pengesahan_perkhidmatan_nokp);
+            $clerk = ListPegawai2::getMaklumatPegawaiRingkas($pemohon->pengesahan_perkhidmatan_nokp);
             $hod = NULL;
             if(!empty($pemohon->nokp_ketua_jabatan))
-            $hod = ListPegawai2::getMaklumatPegawai($pemohon->nokp_ketua_jabatan);
+            $hod = ListPegawai2::getMaklumatPegawaiRingkas($pemohon->nokp_ketua_jabatan);
             $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
             $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->orderBy('tkh_peristiwa','desc')->get();
 
@@ -237,8 +237,8 @@ class ViewController extends Controller
         $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
         $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
         $lnpt = Markah::where('nokp',$peribadi->nokp)->whereIn('tahun',[$year-1,$year-2,$year-3])->orderBy('tahun','desc')->limit(3)->get();
-        $clerk = ListPegawai2::getMaklumatPegawai($pemohon->pengesahan_perkhidmatan_nokp);
-        $hod = ListPegawai2::getMaklumatPegawai($pemohon->nokp_ketua_jabatan);
+        $clerk = ListPegawai2::getMaklumatPegawaiRingkas($pemohon->pengesahan_perkhidmatan_nokp);
+        $hod = ListPegawai2::getMaklumatPegawaiRingkas($pemohon->nokp_ketua_jabatan);
         $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
         $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->orderBy('tkh_peristiwa','desc')->get();
 

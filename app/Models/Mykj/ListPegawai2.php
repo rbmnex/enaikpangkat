@@ -40,6 +40,30 @@ class ListPegawai2 extends Model
         return $this->hasOne(Resume::class, 'nokp', 'nokp')->where('status',1)->orderBy('id', 'desc');
     }
 
+    public static function getMaklumatPegawaiRingkas(Int $no_ic) : array {
+        $data = [];
+        $maklumatPegawaiGet = ListPegawai2::where('nokp', $no_ic)->first();
+
+        if($maklumatPegawaiGet) {
+            $maklumatPegawai = $maklumatPegawaiGet;
+
+            $data['nokp'] = $no_ic;
+            $data['gelaran'] = $maklumatPegawai->gelaran;
+            $data['name'] = html_entity_decode($maklumatPegawai->nama, ENT_QUOTES | ENT_HTML5);
+            $data['tel_bimbit'] = $maklumatPegawai->tel_bimbit;
+            $data['tel_pejabat'] = $maklumatPegawai->tel_pejabat;
+            $data['alamat_pejabat'] = $maklumatPegawai->alamat_pejabat;
+            $data['gred'] = $maklumatPegawai->kod_gred;
+            $data['email'] = $maklumatPegawai->email;
+            $data['jawatan'] = $maklumatPegawai->jawatan;
+            $data['waran_split'] = ListPegawai2::split_kod_waran($maklumatPegawai->kod_waran);
+            $data['waran_name'] = ListPegawai2::split_kod_waran_name($data['waran_split']);
+            $data['peribadi'] = ListPegawai2::peribadi($no_ic);
+        }
+
+        return $data;
+    }
+
     public static function getMaklumatPegawai(Int $no_ic) : array{
         $data = [];
         $maklumatPegawaiGet = ListPegawai2::where('nokp', $no_ic)->first();

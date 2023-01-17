@@ -71,7 +71,7 @@ class BoranglpnkController extends Controller
             unset($data['user']['sumbangan']);
         }
 
-        $data['penyelia'] = $pl = ListPegawai2::getMaklumatPegawai($p->nokp_penyelia);
+        $data['penyelia'] = $pl = ListPegawai2::getMaklumatPegawaiRingkas($p->nokp_penyelia);
 
         $data['soalan'] = self::getSoalan();
 //        echo '<pre>';

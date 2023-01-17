@@ -120,11 +120,13 @@ class Peribadi extends Model
 
         $arr_waran = Penempatan::split_kod_waran($tempat->kod_waran);
 
-        $info['unit'] = Penempatan::waran_name($arr_waran['unit'])->waran_pej;
-        $info['bahagian'] = Penempatan::waran_name($arr_waran['bahagian'])->waran_pej;
+        $unit = Penempatan::waran_name($arr_waran['unit']);
+        $info['unit'] = empty($unit) ? '' : $unit->waran_pej;
+        $bahagian = Penempatan::waran_name($arr_waran['bahagian']);
+        $info['bahagian'] = empty($bahagian) ? '' : $bahagian->waran_pej;
         $pejabat = Penempatan::waran_name($arr_waran['cawangan']);
-        $info['cawangan'] = $pejabat->waran_pej;
-        $info['pejabat'] = $pejabat->blok;
+        $info['cawangan'] = empty($pejabat) ? '' : $pejabat->waran_pej;
+        $info['pejabat'] = empty($pejabat) ? '' : $pejabat->blok;
 
         return $info;
     }
