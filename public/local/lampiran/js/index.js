@@ -410,31 +410,7 @@ $(document).on('change', '.pinjam-status, .upload-harta, .upload-beban .penyata_
                 }
             }
         });
-     } else if(selectedClass.hasClass('upload-beban')) {
-        //var form = $('#upload-harta')[0];
-        let data = new FormData();
-        var file = $('#lampiran_beban')[0].files[0];
-        data.append('_token', getToken());
-        data.append('formdata',$('input[name="_formdata"]').val());
-        data.append('lampiran_beban',file);
-        $('.lampiran_beban').html(file.name);
-        $.ajax({
-            type:'POST',
-            url: getUrl() + '/form/api/bebankerja',
-            data:data,
-            processData: false,
-            contentType: false,
-            context: this,
-            success: function(resp) {
-                let d = resp.success;
-                if(d == 1) {
-                    toasting('Fail berjaya sudah dimuat naik', 'success');
-                } else {
-                    toasting('Ralat telah berlaku, Data telah gagal dimuat naik', 'error');
-                }
-            }
-        });
-    } else if(selectedClass.hasClass('penyata_bayaran')) {
+     } else if(selectedClass.hasClass('penyata_bayaran')) {
         let data = new FormData();
         var file = $('.penyata_bayaran')[0].files[0];
         data.append('_token', getToken());

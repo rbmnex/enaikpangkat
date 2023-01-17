@@ -36,10 +36,10 @@
         <div class="form-group col-md-12"> 
            
         </div>
-        <div class="form-group col-md-12">
+        <div class="form-group col-md-12">      <button type="button" class="btn btn-info selesai-calon" data-toggle="modal" data-target="#modal-selesai"><i data-feather='send'></i>Hantar</button>
             <br/>
              <!-- @if($lampirankursus->count() != 0 && $lampiranbeban->count() != 0 && $lampiranprojek->count() != 0 && $lampiranpendedahan->count() != 0 && $lampiranpencapaian->count() != 0) -->
-            <button type="button" class="btn btn-info selesai-calon" data-toggle="modal" data-target="#modal-selesai"><i data-feather='send'></i>Hantar</button>
+      
            <!--  @else
              <button type="button" disabled class="btn btn-info selesai-lampiran" data-toggle="modal" data-target="#modal-selesai"><i data-feather='send'></i>Hantar</button><br>
              @endif
