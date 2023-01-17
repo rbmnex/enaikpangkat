@@ -73,6 +73,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['role:superadmin']], functio
 
     Route::prefix('/holiday')->group(function() {
         Route::get('/', [HolidayMgmtController::class,'index']);
+        Route::get('/list', [HolidayMgmtController::class,'list']);
+        Route::post('/save', [HolidayMgmtController::class,'save'])->middleware(['auth']);
+        Route::post('/load', [HolidayMgmtController::class,'load']);
+        Route::post('/toggle-active', [HolidayMgmtController::class,'toggleActive']);
+        Route::post('/delete-flag', [HolidayMgmtController::class,'flag_delete']);
     });
 });
 Route::get('/admin/pengguna/carian',[UserMgmtController::class,'carian_pengguna']);

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Mykj\ListPegawai2;
 use App\Models\Profail\Peribadi;
 use App\Models\Role;
 use App\Models\RoleUser;
@@ -157,7 +158,7 @@ class UserMgmtController extends Controller
         $model= [];
 
         if($request->input('nokp')){
-            $model=ListPegawai2::getMaklumatPegawai($request->input('nokp'));
+            $model=ListPegawai2::getMaklumatPegawaiRingkas($request->input('nokp'));
             // echo '<pre>';
             // print_r($model);
             // echo '</pre>';
@@ -176,7 +177,7 @@ class UserMgmtController extends Controller
     {
         $model= [];
 
-        $model=ListPegawai2::getMaklumatPegawai($ic);
+        $model=ListPegawai2::getMaklumatPegawaiRingkas($ic);
 
 
         // echo '<pre>';

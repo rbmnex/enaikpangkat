@@ -140,6 +140,22 @@
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Pengguna</span>
                         </a>
                     </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">
+                        Cuti
+                    </span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/admin/holiday/') }}">
+                            <i data-feather="circle"></i>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Cuti</span>
+                        </a>
+                    </li>
                     {{-- <li>
                         <a class="d-flex align-items-center" href="/admin/pengguna/mockup1">
                             <i data-feather="circle"></i>
@@ -201,7 +217,7 @@
                     <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Resume</span>
                 </a>
-                
+
                 <!-- <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/user/resume/dashboard') }}">

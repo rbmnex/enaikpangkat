@@ -12,12 +12,6 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('asset/images/ico/favicon.ico')}}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
 
-    <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/vendors.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/charts/apexcharts.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/extensions/toastr.min.css')}}">
-    <!-- END: Vendor CSS-->
-    @yield('CSS')
     <!-- BEGIN: Theme CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/bootstrap.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/bootstrap-extended.css')}}">
@@ -27,6 +21,12 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/themes/bordered-layout.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/themes/semi-dark-layout.css')}}">
 
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/vendors.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/charts/apexcharts.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('asset/vendors/css/extensions/toastr.min.css')}}">
+    <!-- END: Vendor CSS-->
+
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/core/menu/menu-types/vertical-menu.css')}}">
     {{-- <link rel="stylesheet" type="text/css" href="{{asset('asset/css/pages/dashboard-ecommerce.css')}}"> --}}
@@ -34,7 +34,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('asset/css/plugins/extensions/ext-component-toastr.css')}}">
     <!-- END: Page CSS-->
 
-
+    @yield('CSS')
     @yield('customCss')
     <style>
     .flatpickr-wrapper {
