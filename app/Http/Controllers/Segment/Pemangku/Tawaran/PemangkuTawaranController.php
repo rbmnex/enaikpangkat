@@ -130,7 +130,7 @@ class PemangkuTawaranController extends Controller{
         $ukp11->alamat_pejabat = $alamat_pejabat;
 
         if($tawaran_ketua_bahagian) {
-            $kerani = ListPegawai2::getMaklumatPegawai($tawaran_ketua_bahagian);
+            $kerani = ListPegawai2::getMaklumatPegawaiRingkas($tawaran_ketua_bahagian);
 
             $ukp11->nokp_kerani = $tawaran_ketua_bahagian;
             $ukp11->nama_kerani = $kerani['name'];
@@ -174,7 +174,7 @@ class PemangkuTawaranController extends Controller{
         }
 
         if($tawaran_ketua_jabatan) {
-            $ketuaJabatan = ListPegawai2::getMaklumatPegawai($tawaran_ketua_jabatan);
+            $ketuaJabatan = ListPegawai2::getMaklumatPegawaiRingkas($tawaran_ketua_jabatan);
 
             $ukp11->nokp_ketua_jabatan = $tawaran_ketua_jabatan;
             $ukp11->nama_ketua_jabatan = $ketuaJabatan['name'];

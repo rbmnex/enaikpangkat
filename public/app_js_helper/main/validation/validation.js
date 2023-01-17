@@ -11,10 +11,11 @@ class Validation extends Common{
                 let value = v.value;
                 let label = v.label;
                 let key = v.key;
+                let custom = v.custom;
 
                 let ve = Validation.verifyEmpty(value);
                 if(ve === true){
-                    Validation.addInvalidUI(selector, label);
+                    Validation.addInvalidUI(selector, label, custom);
                     pass = false;
                 }else{
                     Validation.removeInvalidUI(selector);
@@ -40,13 +41,14 @@ class Validation extends Common{
         return value === '' || typeof value == 'undefined';
     }
 
-    getValue(selector, type, label, key){
+    getValue(selector, type, label, key, custom = true){
         return {
             selector : selector,
             label : label,
             type : type,
             value : type == 'picture' ? $(selector)[0].files[0] : $(selector).val(),
-            key : key
+            key : key,
+            custom : !custom,
         };
     }
 
@@ -112,7 +114,7 @@ class ValidateInput{
             case 'datedash':
                 reObject = {
                     regex: /^\d{4}-\d{2}-\d{2}$/,
-                    label: 'Must Be In The Correct Date Format DD-MM-YYYY',
+                    label: 'Must Be In The Correct Date Format YYYY-MM-DD',
                 };
                 break;
             case 'datedashstandard':
