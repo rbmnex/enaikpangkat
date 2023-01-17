@@ -27,6 +27,10 @@ class ListPegawai2 extends Model
         return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->where('flag',1)->orderBy('id_perkhidmatan', 'desc');
     }
 
+      public function getBukanSokongan(){
+        return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->whereIn('kod_kumpulan',[1,2,3]);
+    }
+
     public function getLampiran(){
         return $this->hasOne(LampiranBebanKerja::class, 'nokp', 'nokp')->orderBy('id', 'desc');
     }
@@ -464,6 +468,7 @@ class ListPegawai2 extends Model
         $data= [];
 
         $model = Perkhidmatan::where('nokp', $ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
+       // $model = Perkhidmatan::where('nokp', $ic)->orderBy('tkh_lantik', 'desc')->first();
 
         if($model){
                 $data = [
