@@ -1,5 +1,5 @@
 <?php
-$fileName = 'Lampiran-doc'.".docx";
+$fileName = 'Lampiran-doc'.".doc";
 
 // Headers for download
 header("Content-Disposition: attachment; filename=\"$fileName\"");

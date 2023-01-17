@@ -45,10 +45,10 @@
       
         <div class="row" style="background-color:#d9d9d9; height: 250px;">
            
-
+             @if($resume)
                     <div class="col-6" style=" text-align: justify;color:#000000;"><h2 class="text-primary">Status Resume</h2>
                         <p>
-                 @if($resume)
+               
                  <table>
                 <tr><thead colspan= 2> <b>Status Lampiran </b></thead>
                 </tr>
@@ -95,15 +95,17 @@
                 </tr>
 
             </table>
-        @endif
+      
     </p>
                     </div>
+                      @endif
                     <div class="col-6" style=" text-align: justify; color:#000000;"><h2 class="text-primary">PAUTAN</h2>
                            @if($resume)
                            <button  onclick="location.href='{{url('/user/resume/lampiran')}}'" target="_blank" type="button" class="btn btn-info borang-lampiran"><i data-feather='paperclip'></i>Borang Lampiran</button>
                            @endif
+                           <button  onclick="location.href='{{ url('/user/resume/download') }}'" type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>Muat Turun</button>
                            <button onclick="location.href='{{ url('/user/resume/paparan') }}'"  target="_blank" type="button" class="btn btn-warning paparan-resume"><i data-feather='eye'></i>Paparan Resume</button>
-                            <button  onclick="location.href='{{ url('/user/resume/download') }}'"type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>Muat Turun</button>
+                            
                             <div></div></div>
                     {{-- <div class="col-4 "><h2 class="text-primary">RESUME</h2></div> --}}
 
