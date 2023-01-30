@@ -75,6 +75,20 @@
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Naik Pangkat</span>
+                </a>
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/promote/') }}">
+                            <i data-feather='users'></i>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Calon Naik Pangkat</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Pengurusan<br/>Resume</span>
                 </a>
                 <ul class="menu-content">
