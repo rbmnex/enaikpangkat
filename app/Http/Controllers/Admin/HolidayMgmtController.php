@@ -54,8 +54,9 @@ class HolidayMgmtController extends Controller
         } else {
             $model = Holidays::find($id);
             if($model->ref != 0) {
+                $ref =  $model->ref;
                 $model = Holidays::find($model->ref);
-                Holidays::where('ref',$model->ref)->delete();
+                Holidays::where('ref',$ref)->delete();
             }
         }
 

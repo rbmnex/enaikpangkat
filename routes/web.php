@@ -11,6 +11,7 @@ use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
+use App\Http\Controllers\Urussetia\CandidateController;
 use App\Http\Controllers\Urussetia\QualifyController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Http\Controllers\User\PermohonanController;
@@ -160,6 +161,12 @@ Route::prefix('/urussetia')->group(function() {
             Route::post('/process',[QualifyController::class,'proceed']);
         });
     });
+
+    Route::prefix('/promote')->group(function() {
+        Route::get('/',[CandidateController::class,'index']);
+        Route::get('/load',[CandidateController::class,'load']);
+        Route::post('/send',[CandidateController::class,'send_promotion']);
+    });
 });
 
 Route::prefix('/hr')->group(function() {
@@ -186,6 +193,7 @@ Route::prefix('/form')->group(function() {
 
     Route::prefix('/ukp13')->group(function() {
         Route::get('/send/promotion/{id}',[ApplicationController::class,'send_promotion']);
+
     });
 
     Route::prefix('/api')->group(function() {
