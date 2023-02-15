@@ -454,16 +454,13 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 // $diff=date_diff($m->tkh_mula,$m->tkh_tamat);
-                if($m->kod_aktiviti){
-                    if($m->tkh_mula && $m->tkh_tamat){
+                  if($m->kod_aktiviti ==4 || $m->kod_aktiviti ==10 || $m->kod_aktiviti >= 50)  
 
+                    if($m->tkh_mula && $m->tkh_tamat){
                         $date1 = new DateTime($m->tkh_mula);
-                        if($m->tkh_tamat = 0001-01-01){
-                            $date2 = new DateTime(Date::now());
-                        }else{
                         $date2 = new DateTime($m->tkh_tamat);
-                        }
-                        $interval = $date1->diff($date2);
+                        $date3 = $date2->format('Y') == '0001' ? new DateTime(Date::now()) : $date2;
+                        $interval = $date1->diff($date3);
                     }else{
                         $interval = '';
                     }
@@ -483,7 +480,7 @@ class ListPegawai2 extends Model
                 }
 
             }
-        }
+
 
 
         if(isset($data['khusus'])){
