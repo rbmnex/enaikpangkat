@@ -11,6 +11,10 @@ use App\Models\Mykj\Peristiwa;
 use App\Models\Pink\LampiranBebanKerja;
 use App\Models\Pink\Resume;
 
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\Date;
+
 
 use DateTime;
 
@@ -22,6 +26,19 @@ class ListPegawai2 extends Model
     protected $connection = 'pgsqlmykj';
     protected $table = 'list_pegawai2';
 //    public $timestamps = false;
+
+    private function findKompentesi($jenis,$kod) {
+        $record = NULL;
+        if($jenis == 9) {
+            $record = LKompetenanTemp::where('kod_kompetenan',$kod)->first();
+        } else if($jenis == 10) {
+            $record = LKompetenanAnt::where('kod_kompetenan',$kod)->first();
+        } else if($jenis == 8) {
+            $record = LKompetenanPro::where('kod_kompetenan',$kod)->first();
+        }
+        return $record;
+    }
+
 
     public function getPerkhidmatan(){
         return $this->hasOne(Perkhidmatan::class, 'nokp', 'nokp')->where('flag',1)->orderBy('id_perkhidmatan', 'desc');
@@ -124,9 +141,21 @@ class ListPegawai2 extends Model
 
 
     public static function professional($ic){
+        $innerSelf = new ListPegawai2();
         $data= [];
 
+        //$laktiviti = LAktiviti::all();
+
         $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '=',[8])->get();
+
+        $model = $model->each(function($item,$key) use ($innerSelf) {
+            if($item->nama_kelulusan == '9999') {
+                $item->nama_kelulusan = $item->institusi;
+            } else {
+                $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
+                $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            }
+        });
 
         if($model){
             foreach($model as $m){
@@ -148,10 +177,23 @@ class ListPegawai2 extends Model
         return $data;
     }
 
+
+
  public static function tempatan($ic){
+        $innerSelf = new ListPegawai2();
+
         $data= [];
 
         $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '=',[9])->get();
+
+        $model = $model->each(function($item,$key) use ($innerSelf) {
+            if($item->nama_kelulusan == '9999') {
+                $item->nama_kelulusan = $item->institusi;
+            } else {
+                $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
+                $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            }
+        });
 
         if($model){
             foreach($model as $m){
@@ -161,6 +203,7 @@ class ListPegawai2 extends Model
                     'taraf'=> $m->PerkhidmatanTaraf ?$m->PerkhidmatanTaraf->perkhidmatan:'',
                     // 'skim' => $m->LKumpulan->kumpulan ? $m->LKumpulan->kumpulan : '',
                     'gred_hakiki' =>$m->kod_gred,
+                    'tahap' =>$m->tahap,
                     'tkh_mula_gred_hakiki' =>$m->tkh_lantik ? $m->tkh_lantik:'',
                     'nama_kelulusan' => $m->nama_kelulusan,
                     'institusi' => $m->institusi,
@@ -173,9 +216,19 @@ class ListPegawai2 extends Model
         return $data;
     }
  public static function antarabangsa($ic){
+        $innerSelf = new ListPegawai2();
         $data= [];
 
         $model = Kelayakan::where('nokp', $ic)->where('kod_kelulusan', '=',[10])->get();
+
+        $model = $model->each(function($item,$key) use ($innerSelf) {
+            if($item->nama_kelulusan == '9999') {
+                $item->nama_kelulusan = $item->institusi;
+            } else {
+                $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
+                $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            }
+        });
 
         if($model){
             foreach($model as $m){
@@ -345,6 +398,9 @@ class ListPegawai2 extends Model
 
         $model = Markah::where('nokp', $ic)->orderBy('tahun', 'desc')->limit(3)->get();
 
+
+        $model = $model->sortBy('tahun');
+
         if($model){
             foreach($model as $m){
                 $data[] = [
@@ -361,7 +417,7 @@ class ListPegawai2 extends Model
         $data= [];
         //$days='';
 
-        $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
+        $model = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
 
         if($model){
             foreach($model as $m){
@@ -390,7 +446,7 @@ class ListPegawai2 extends Model
     public static function pengalamanPengkhususan($ic){
         $data= [];
 
-        $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
+        $model = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
         // $model = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->distinct('kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
@@ -398,10 +454,15 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 // $diff=date_diff($m->tkh_mula,$m->tkh_tamat);
-                if($m->kod_aktiviti >= 50){
+                if($m->kod_aktiviti){
                     if($m->tkh_mula && $m->tkh_tamat){
+
                         $date1 = new DateTime($m->tkh_mula);
+                        if($m->tkh_tamat = 0001-01-01){
+                            $date2 = new DateTime(Date::now());
+                        }else{
                         $date2 = new DateTime($m->tkh_tamat);
+                        }
                         $interval = $date1->diff($date2);
                     }else{
                         $interval = '';
@@ -415,7 +476,7 @@ class ListPegawai2 extends Model
                         // 'diff' => $diff->format("%R%a days"),
                         'aktiviti' => $m->LAktiviti->aktiviti,
                         'kod_gred_sebenar' => $m->kod_gred_sebenar,
-                        'kod_gelaran_jawatan' => $m->gelaran_jawatan->gelaran_jawatan ? $m->gelaran_jawatan->gelaran_jawatan:'',
+                        'kod_gelaran_jawatan' => $m->kod_gelaran_jawatan ? $m->kod_gelaran_jawatan:'',
                         'kod_aktiviti' => $m->kod_aktiviti
 
                     ];
