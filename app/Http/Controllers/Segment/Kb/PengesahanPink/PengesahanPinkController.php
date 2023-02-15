@@ -84,8 +84,8 @@ class PengesahanPinkController extends Controller{
         $ukp11->tkh_kuatkuasa_pemangkuan = $tawaran_tkh_mula_tugas;
         $ukp11->id_surat_pink = $pemohon->pemohonPink->id;
 
-        $kerani = ListPegawai2::getMaklumatPegawai($tawaran_ketua_bahagian);
-        $ketuaJabatan = ListPegawai2::getMaklumatPegawai($tawaran_ketua_jabatan);
+        $kerani = ListPegawai2::getMaklumatPegawaiRingkas($tawaran_ketua_bahagian);
+        $ketuaJabatan = ListPegawai2::getMaklumatPegawaiRingkas($tawaran_ketua_jabatan);
 
         $ukp11->nokp_kerani = $tawaran_ketua_bahagian;
         $ukp11->nama_kerani = $kerani['name'];
@@ -152,7 +152,7 @@ class PengesahanPinkController extends Controller{
         $data = PenerimaanUkp11::where('id_pemohon', $pemohon_id)->first();
         $data->kerani_tkh = $setuju == 1 ? date('Y-m-d') : date('Y-m-d');
         $data->save();
-        $kerani = ListPegawai2::getMaklumatPegawai($data->nokp_ketua_jabatan);
+        $kerani = ListPegawai2::getMaklumatPegawaiRingkas($data->nokp_ketua_jabatan);
         try{
 
             $content = [

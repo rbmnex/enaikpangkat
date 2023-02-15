@@ -129,7 +129,7 @@ class CommonController extends Controller
     }
 
     public function pengguna_telefon(Request $request){
-        $model = ListPegawai2::getMaklumatPegawai($request->input('nokp'));
+        $model = ListPegawai2::getMaklumatPegawaiRingkas($request->input('nokp'));
 
         return response()->json([
             'data' => str_replace('-', '', $model['tel_bimbit'])

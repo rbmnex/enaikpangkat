@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Form;
 
 use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Main\CommonController as MainCommonController;
 use App\Models\File;
 use App\Models\Mykj\Cuti;
 use App\Models\Mykj\Gaji;
-use App\Models\Mykj\Harta;
 use App\Models\Mykj\Kelayakan;
 use App\Models\Mykj\LKompetenanAnt;
 use App\Models\Mykj\LKompetenanPro;
@@ -40,7 +38,6 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Support\Facades\Session;
 
 class UkpController extends Controller
 {
@@ -408,7 +405,7 @@ class UkpController extends Controller
         //id_pemohon
         //flag
         //delete_id
-        $loan = PinjamanPendidikan::where('id_pemohon',$formdata)->first();
+        $loan = PinjamanPendidikan::where('id_pemohon',$formdata)->where('flag',1)->where('delete_id',0)->first();
         if($loan) {
             $uploadedFile = File::find($loan->surat_kelulusan_id);
             if(empty($uploadedFile)) {
@@ -831,7 +828,7 @@ class UkpController extends Controller
             $rekod_iktiraf->save();
         }
 
-        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->first();
+        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->where('flag',1)->where('delete_id',0)->first();
         if(empty($loan)) {
             $loan = new PinjamanPendidikan;
             $loan->created_by = Auth::user()->nokp;
@@ -1164,7 +1161,7 @@ class UkpController extends Controller
             $rekod_iktiraf->save();
         }
 
-        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->first();
+        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->where('flag',1)->where('delete_id',0)->first();
         if(empty($loan)) {
             $loan = new PinjamanPendidikan;
             $loan->created_by = Auth::user()->nokp;
@@ -1511,7 +1508,7 @@ class UkpController extends Controller
             $rekod_iktiraf->save();
         }
 
-        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->first();
+        $loan = PinjamanPendidikan::where('id_pemohon',$formdata->pemohon_id)->where('flag',1)->where('delete_id',0)->first();
         if(empty($loan)) {
             $loan = new PinjamanPendidikan;
             $loan->created_by = Auth::user()->nokp;
@@ -1697,7 +1694,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $sumbangan = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[21,22,23])->orderBy('tkh_kelulusan','desc')->get();
         $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
         $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
-        $loan = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
+        $loan = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->where('flag',1)->where('delete_id',0)->first();
 
         $maklumat = array();
         $maklumat['nama'] = $profile->nama;
