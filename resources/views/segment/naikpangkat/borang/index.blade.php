@@ -201,21 +201,30 @@
                                     </span>
                                 </button>
                             </div>
-                            <div class="step" data-target="#carian-pegawai">
+                            <div class="step" data-target="#penyelia-vertical">
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">13</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 13</span>
+                                        <span class="bs-stepper-subtitle"><span>Penyelia</span>
+                                    </span>
+                                </button>
+                            </div>
+                            <div class="step" data-target="#carian-pegawai">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">14</span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Bahagian 14</span>
                                         <span class="bs-stepper-subtitle"><span>Ketua Jabatan /</span><br/>
-                                            <span>Bahagian</span></span>
+                                            <span>Bahagian Perkhidmatan</span></span>
                                     </span>
                                 </button>
                             </div>
                             <div class="step" data-target="#terima-tawaran">
                                 <button type="button" class="step-trigger">
-                                    <span class="bs-stepper-box">14</span>
+                                    <span class="bs-stepper-box">15</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Bahagian 14</span>
+                                        <span class="bs-stepper-title">Bahagian 15</span>
                                         <span class="bs-stepper-subtitle">Penerimaan Tawaran</span>
                                     </span>
                                 </button>
@@ -238,8 +247,9 @@
                                 @include('form.ukp12.section11')
                                 @include('form.ukp12.section12')
                                 @include('form.ukp12.section13')
-                                @include('form.ukp12.section14')
-                                @include('form.ukp12.section15')
+                                @include('form.ukp13.section_supervisor')
+                                @include('form.ukp13.section14')
+                                @include('form.ukp13.section15')
                             {{-- </form> --}}
                         </div>
                     </div>
@@ -270,7 +280,7 @@
     <script src="{{ asset('asset/vendors/js/forms/wizard/bs-stepper.min.js') }}"></script>
     {{-- <script src="{{ asset('asset/vendors/js/forms/validation/jquery.validate.min.js') }}"></script> --}}
     @include('segment.layouts.custom_view_links.customjavascript.index')
-
+    <script src="{{ asset('app_js_helper/segment/naikpangkat/borang/controller.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/naikpangkat/borang/page_setting.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/naikpangkat/borang/index.js') }}"></script>
     <script type="text/javascript">

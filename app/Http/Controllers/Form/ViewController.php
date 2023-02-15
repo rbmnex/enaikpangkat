@@ -54,6 +54,11 @@ class ViewController extends Controller
         return $this->view_form($request,$id);
     }
 
+    public function secure_view_ukp13(Request $request,$encrypted) {
+        $id = Crypt::decryptString($encrypted);
+        return $this->view_form_ukp13($request,$id);
+    }
+
     public function view_form(Request $request, $id) {
             $view = $request->input('view');
             $year = Carbon::parse(Date::now())->format('Y');
@@ -220,6 +225,173 @@ class ViewController extends Controller
                 'borang_pengesahan' => $file_pengesahan,
             ]);
     }
+
+    public function view_form_ukp13(Request $request, $id) {
+        $view = $request->input('view');
+        $year = Carbon::parse(Date::now())->format('Y');
+        $pemohon = Pemohon::find($id);
+        $peribadi = Peribadi::find($pemohon->id_peribadi);
+        $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();
+        $file_pengesahan = File::find($pemohon->pengesahan_cuti);
+        $harta = Harta::where('id_pemohon',$pemohon->id)->first();
+        $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
+        $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->orderBy('tkh_mula_berkhidmat','desc')->get();
+    $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->orderBy('tahun','desc')->get();
+    $akademik = Akademik::where('id_pemohon',$pemohon->id)->orderBy('tkh_kelulusan','desc')->get();
+    $profesional = Professional::where('id_pemohon',$pemohon->id)->orderBy('tkh_kelulusan','desc')->get();
+    $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->orderBy('created_at','desc')->get();
+    $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->orderBy('tkh_mula','desc')->get();
+        $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
+        $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
+        $lnpt = Markah::where('nokp',$peribadi->nokp)->whereIn('tahun',[$year-1,$year-2,$year-3])->orderBy('tahun','desc')->limit(3)->get();
+        $clerk = NULL;
+        if(!empty($pemohon->pengesahan_perkhidmatan_nokp))
+        $clerk = ListPegawai2::getMaklumatPegawaiRingkas($pemohon->pengesahan_perkhidmatan_nokp);
+        $hod = NULL;
+        if(!empty($pemohon->nokp_ketua_jabatan))
+        $hod = ListPegawai2::getMaklumatPegawaiRingkas($pemohon->nokp_ketua_jabatan);
+        $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
+        $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->orderBy('tkh_peristiwa','desc')->get();
+
+        $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->get();
+        $markah =  collect([]);
+
+        if($rekod_markah->count() == 0) {
+            $first = new stdClass;
+            $first->tahun = $year-1;
+            $first->purata = 0;
+                $markah->push($first);
+            $second = new stdClass;
+            $second->tahun = $year-2;
+            $second->purata = 0;
+                $markah->push($second);
+            $third = new stdClass;
+            $third->tahun = $year-3;
+            $third->purata = 0;
+                $markah->push($third);
+            if(!empty($lnpt)) {
+                $markah->each(function ($item, $key) use ($lnpt) {
+                    foreach($lnpt as $l) {
+                        if($l->tahun == $item->tahun) {
+                            $item->purata = $l->purata;
+                        }
+                    }
+                });
+            }
+        } else {
+            $markah = $rekod_markah;
+            $markah->each(function ($item, $key) {
+                $item->purata = $item->markah;
+            });
+        }
+
+        $includes = array();
+        if($view == 'n') {
+            if($pemohon->jenis_penempatan != 2) {
+                array_push($includes, ViewController::LNPK_VIEW);
+                array_push($includes, ViewController::HOS_VIEW);
+                array_push($includes, ViewController::HOD_VIEW);
+                array_push($includes, 'form.view.include.ukp12-dowload');
+            } else {
+                array_push($includes, ViewController::LNPK_VIEW);
+                array_push($includes, ViewController::KADER_VIEW);
+            }
+
+        } else if($view == 'k') {
+            if($pemohon->jenis_penempatan == 2) {
+                array_push($includes, ViewController::LNPK_VIEW);
+                array_push($includes, ViewController::KADER_VIEW);
+            } else {
+                array_push($includes, ViewController::LNPK_VIEW);
+                array_push($includes, ViewController::HOS_VIEW);
+                array_push($includes, ViewController::HOD_VIEW);
+                array_push($includes, 'form.view.include.ukp12-dowload');
+            }
+        } else if($view == 'l') {
+            if(Laratrust::hasRole('secretariat')) {
+                if($pemohon->jenis_penempatan != 2) {
+                    array_push($includes, ViewController::HOS_VIEW);
+                    array_push($includes, ViewController::HOD_VIEW);
+                } else {
+                    array_push($includes, ViewController::KADER_VIEW);
+                }
+                array_push($includes, ViewController::LNPK_FORM);
+            } else {
+                if($pemohon->jenis_penempatan != 2) {
+                    array_push($includes, ViewController::LNPK_VIEW);
+                    array_push($includes, ViewController::HOS_VIEW);
+                    array_push($includes, ViewController::HOD_VIEW);
+                    array_push($includes, 'form.view.include.ukp12-dowload');
+                } else {
+                    array_push($includes, ViewController::LNPK_VIEW);
+                    array_push($includes, ViewController::KADER_VIEW);
+                }
+            }
+        } else if($view == 'h') {
+            $user = Auth::user();
+            if($user->hasRole('hod') && $user->nokp == $pemohon->nokp_ketua_jabatan) {
+                array_push($includes, ViewController::HOS_VIEW);
+                if(empty($pemohon->perakuan_ketua_jabatan_tkh)) {
+                    array_push($includes, ViewController::HOD_FORM);
+                } else {
+                    array_push($includes, ViewController::HOD_VIEW);
+                }
+            } else {
+                if($pemohon->jenis_penempatan != 2) {
+                    array_push($includes, ViewController::LNPK_VIEW);
+                    array_push($includes, ViewController::HOS_VIEW);
+                    array_push($includes, ViewController::HOD_VIEW);
+                    array_push($includes, 'form.view.include.ukp12-dowload');
+                } else {
+                    array_push($includes, ViewController::LNPK_VIEW);
+                    array_push($includes, ViewController::KADER_VIEW);
+                }
+            }
+
+        } else if($view == 's') {
+            $user = Auth::user();
+            if($user->hasRole('clerk') && $user->nokp == $pemohon->pengesahan_perkhidmatan_nokp) {
+                if(empty($pemohon->pengesahan_perkhidmatan_tkh)) {
+                    array_push($includes, ViewController::HOS_FORM);
+                } else {
+                    array_push($includes, ViewController::HOS_VIEW);
+                }
+            } else {
+                if($pemohon->jenis_penempatan != 2) {
+                    array_push($includes, ViewController::LNPK_VIEW);
+                    array_push($includes, ViewController::HOS_VIEW);
+                    array_push($includes, ViewController::HOD_VIEW);
+                } else {
+                    array_push($includes, ViewController::LNPK_VIEW);
+                    array_push($includes, ViewController::KADER_VIEW);
+                }
+            }
+
+        }
+
+        return view('form.view.ukp13_view',[
+            'pemohon' => $pemohon,
+            'peribadi' => $peribadi,
+            'cutis' => $cuti,
+            'harta' => $harta,
+            'pasangan' => $pasangan,
+            'perkhidmatans' => $perkhidmatan,
+            'pertubuhans' => $pertubuhan,
+            'akademiks' => $akademik,
+            'profesionals' => $profesional,
+            'kompetenans' => $kompetenan,
+            'pengiktirafans' => $pengiktirafan,
+            'akuan_pinjaman' => $akuan_pinjaman,
+            'akuan_pegawai' => $akuan_pegawai,
+            'lnpt' => $markah,
+            'clerk' => $clerk,
+            'hod' => $hod,
+            'tatatertib' => $tatatertib,
+            'sumbangan' => $contribution,
+            'pages' => $includes,
+            'borang_pengesahan' => $file_pengesahan,
+        ]);
+}
 
     public function load_view(Request $request,$id) {
         $year = Carbon::parse(Date::now())->format('Y');

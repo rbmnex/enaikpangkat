@@ -1,6 +1,6 @@
 <div id="penyelia-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 1 - Butiran Prestasi Kerja</h5>
+        <h5 class="mb-0">Bahagian 13 - Butiran Prestasi Kerja</h5>
         <small class="text-notice"></small>
     </div>
     <div class="row">
@@ -15,7 +15,7 @@
                 <i data-feather='upload'></i> Muat Naik
                 <input class="file-input upload-work" type="file" id="work_doc" name="work_doc" />
             </div>
-            <span class="col-form-label work-file">{{ '' }}</span>
+            <span class="col-form-label work-file">{{ $profile['work_file'] ? $profile['work_file']->filename : '' }}</span>
             <div class="invalid-feedback"></div>
         </div>
 

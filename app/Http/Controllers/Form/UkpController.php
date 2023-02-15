@@ -694,7 +694,7 @@ class UkpController extends Controller
         foreach($formdata->pengalaman as $pengalaman) {
             $rekod_khidmat = new Perkhidmatan;
             $rekod_khidmat->jawatan = $pengalaman->gelaran_jawatan ? $pengalaman->gelaran_jawatan->gelaran_jawatan : '';
-            $rekod_khidmat->gred = $pengalaman->kod_gelaran_jawatan;
+            $rekod_khidmat->gred = $pengalaman->kod_gred_sebenar;
             $rekod_khidmat->penempatan = $pengalaman->tempat;
             $rekod_khidmat->tkh_mula_berkhidmat = $pengalaman->tkh_mula;
             $rekod_khidmat->tkh_akhir_berkhidmat = $pengalaman->tkh_tamat;
@@ -1661,7 +1661,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         'CUTI SEPARUH GAJI',
         'CUTI BELAJAR BERGAJI PENUH',
         'CUTI BELAJAR SEPARUH GAJI'))->get();
-        $pengalaman = Pengalaman::where('nokp',$nokp)->orderBy('tkh_mula', 'desc')->get();
+        $pengalaman = Pengalaman::with('gelaran_jawatan')->where('nokp',$nokp)->orderBy('tkh_mula', 'desc')->get();
 
         // $pengalaman->each(function ($item, $key) {
 
@@ -1690,7 +1690,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         });
 
 
-        $iktiraf = Peristiwa::where('nokp',$nokp)->whereIn('kod_peristiwa',['P8','A1','P10','A4'])->orderBy('tkh_mula_peristiwa','desc')->get();
+        $iktiraf = Peristiwa::with('jenis')->where('nokp',$nokp)->whereIn('kod_peristiwa',['P8','A1','P10','A4'])->orderBy('tkh_mula_peristiwa','desc')->get();
         $sumbangan = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[21,22,23])->orderBy('tkh_kelulusan','desc')->get();
         $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
         $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();

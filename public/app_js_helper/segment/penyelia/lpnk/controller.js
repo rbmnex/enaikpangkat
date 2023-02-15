@@ -5,12 +5,14 @@ class SoalanController extends Ajax{
             data: data,
             func: function(postData){
                 if(postData.data.trigger == 0){
-                    ToastAlert.toasting('Anda Tidak Setuju', 'Borang Dihantar!', 'success');
+                    ToastAlert.toasting('Anda Setuju', 'Borang Dihantar!', 'success');
+                    window.open(getUrl() + '/penyelia/lpnk','_self');
                 }else{
                     ToastAlert.toasting('Anda Tidak Setuju', 'Borang Dihantar!', 'error');
                 }
 
                 $('#soalan-modal').modal('hide');
+
             }
         });
     }

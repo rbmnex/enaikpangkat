@@ -10,16 +10,16 @@ DatatableUI.init({
     ],
     url: '/penyelia/lpnk/get-list',
     buttons: [
-        {
-            text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Soalan Baru',
-            className: 'btn btn-primary',
-            attr: {
-                'id': 'add-soalan-modal'
-            },
-            init: function (api, node, config) {
-                $(node).removeClass('btn-secondary');
-            }
-        }
+        // {
+        //     text: feather.icons['plus'].toSvg({ class: 'me-50 font-small-4' }) + 'Soalan Baru',
+        //     className: 'btn btn-primary',
+        //     attr: {
+        //         'id': 'add-soalan-modal'
+        //     },
+        //     init: function (api, node, config) {
+        //         $(node).removeClass('btn-secondary');
+        //     }
+        // }
     ],
     columnDef: [
         {
@@ -41,5 +41,5 @@ DatatableUI.init({
             }
         }
     ],
-    label: 'Soalan LNPK'
+    label: 'Senarai LNPK'
 });
