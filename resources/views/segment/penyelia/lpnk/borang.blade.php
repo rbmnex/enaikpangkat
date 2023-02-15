@@ -8,6 +8,11 @@
 @endsection
 
 @section('customCss')
+<style>
+.table td {
+    border-top-color: black !important;
+}
+</style>
 @endsection
 
 @section('content')
@@ -31,31 +36,31 @@
                     <h3>Bahagian 1 - Maklumat Pegawai</h3>
                 </div>
                 <br><br><br>
-                <div class="col-md-3">(i) Nama</div>
-                <div class="col-md-9">
+                <div class="col-md-4">(i) Nama</div>
+                <div class="col-md-8">
                     : {{ $data['user']['nama'] }}<br>
                 </div>
-                <div class="col-md-3">(ii) Nokp </div>
-                <div class="col-md-9">
+                <div class="col-md-4">(ii) Nokp </div>
+                <div class="col-md-8">
                     : {{ $data['user']['nokp_baru'] }}
                 </div>
-                <div class="col-md-3">(iii) Skim Perkhidmatan</div>
-                <div class="col-md-9">
+                <div class="col-md-4">(iii) Skim Perkhidmatan</div>
+                <div class="col-md-8">
                     : {{ $data['user']['jawatan'] }}
                 </div>
-                <div class="col-md-3">(iv) Gred Hakiki</div>
-                <div class="col-md-9">
+                <div class="col-md-4">(iv) Gred Hakiki</div>
+                <div class="col-md-8">
                     : {{ $pemohon->gred }}
                 </div>
-                <div class="col-md-3">(v) Nama & Gred Jawatan yang Disandang Sekarang</div>
-                <div class="col-md-9">
-                    : {{ $pemohon->gred.' / '.$pemohon->jawatan}}
+                <div class="col-md-4">(v) Nama & Gred Jawatan yang Disandang Sekarang</div>
+                <div class="col-md-8">
+                    : {{ $pemohon->pemohonPermohonan->gred.' / '.$pemohon->jawatan}}
                 </div>
-                <div class="col-md-3">(vii) Tarikh Memangku Jawatan Sekarang</div>
-                <div class="col-md-9">
+                <div class="col-md-4">(vii) Tarikh Memangku Jawatan Sekarang</div>
+                <div class="col-md-8">
                     : {{ $ukp11->tkh_lapor_diri ?? 'Tiada Tarikh'}}
                 </div>
-                <br><br><br>
+                <br/><br/><br/>
                 <div class="col-md-12">
                     <h3>Bahagian 2 - KRITERIA YANG DINILAI</h3>
                 </div>
@@ -99,11 +104,11 @@
                     </div>
 
                     @foreach($s['get_child'] as $sc)
-                        <div class="col-md-11" style="margin-bottom: 20px">
+                        <div class="col-md-10" style="margin-bottom: 20px">
                             <span style="font-size:15px;font-weight:bold">{{ $sc['nama'] }}</span><br>
                             {{ $sc['penerangan'] }}
                         </div>
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <select class="form-control lpnk-skor" data-soalan-id="{{$sc['id']}}">
                                 <option value="">Pilih</option>
                                 <option value="1">1</option>
@@ -147,6 +152,14 @@
                     <textarea class="form-control penyelia-ulasan"></textarea>
                     <div class="invalid-feedback"></div><br>
                 </div>
+                <div class="col-md-12">Borang Sasaran Kerja & Laporan Kerja: </div>
+                <div class="col-md-12 form-group">
+                    @if($doc)
+                    <iframe src="data:{{ \App\Http\Controllers\Common\CommonController::mime_type($doc->filename) }};base64,{{ $doc->content_bytes }}" height="500px" width="100%">
+
+                    </iframe>
+                    @endif
+                </div>
                 <br><br><br><br>
                 <div class="col-md-3">Nama Pegawai Penilai</div>
                 <div class="col-md-9">
@@ -168,11 +181,13 @@
                     : {{ $data['penyelia']['waran_name']['waran_penuh'] }}<br>
                 </div>
                 <br><br>
-                <div class="col-md-3">Borang Sasaran Kerja: </div>
-                <div class="col-md-9 form-group">
-                    <input type="file" class="form-control" id="skt">
-                    <div class="invalid-feedback"></div><br>
-                </div>
+                <br><br>
+
+            </div>
+            <br><br>
+                <br><br>
+            <div class="row">
+
                 <div class="col-md-6">
                     <button class="btn btn-danger post-tidak-setuju" style="width:100%">Tidak Setuju</button>
                 </div>

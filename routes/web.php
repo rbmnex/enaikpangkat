@@ -193,6 +193,8 @@ Route::prefix('/form')->group(function() {
 
     Route::prefix('/ukp13')->group(function() {
         Route::get('/send/promotion/{id}',[ApplicationController::class,'send_promotion']);
+        Route::get('/eview/{encryted}',[ViewController::class,'secure_view_ukp13'])->middleware(['auth']);
+        Route::get('/nview/{id}',[ViewController::class,'view_form_ukp13'])->middleware(['auth']);
 
     });
 
