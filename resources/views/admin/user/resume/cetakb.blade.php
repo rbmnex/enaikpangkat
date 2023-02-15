@@ -30,7 +30,6 @@ header("Expires:0");
 .smallbox {
 	font-family:Tahoma, sans-serif;
 	font-size: 8.5px;
-	width: 100%;
 
 }
 
@@ -52,6 +51,7 @@ header("Expires:0");
 .bordertop{
 	border-top: 1px solid black;
 	border-right: 1px solid black;
+	width: 50px;
 
 }
 
@@ -75,13 +75,13 @@ div{
 	<div class="resume">
 		<table class="outerline">
 			<tr  class="grey">
-				<th colspan="7" >RESUME</th>
+				<th colspan="6" >RESUME</th>
 			</tr>
 			<tr>
-				<td colspan="7"><b>A.BUTIRAN PERIBADI</b></td>
+				<td colspan="6"><b>A.BUTIRAN PERIBADI</b></td>
 			</tr>
 			<tr>
-				<td colspan="7">
+				<td colspan="6">
 					<table class="noline">
 
 						<tr>
@@ -175,7 +175,7 @@ div{
 			</tr>
 			<tr >
 				<td colspan="2" class="bordertop"><b>B. PRESTASI</b><br>(LNPT 3 tahun terkini)</td>
-				<td colspan="5" class="righttop">
+				<td colspan="4" class="righttop">
 					<ul>
 						@if(isset($model['markah']))
 						@foreach($model['markah'] as $markah)
@@ -212,9 +212,8 @@ div{
 						<br><br>
 
 						<ul>
-							<li>Tempoh Perkhidmatan di Gred Terkini selama {{$tempoh_gred->y}} tahun</li>
 							<li>Tempoh Perkhidmatan Sektor Awam selama {{$tempoh_awam->y}} tahun</li>
-							<!-- <li>Tempoh Perkhidmatan di Gred P&P selama {{$tempoh_pnp->y}} tahun</li> -->
+							<li>Tempoh Perkhidmatan di Gred P&P selama {{$tempoh_pnp->y}} tahun</li>
 						</ul>
 					</td>
 				</tr>
@@ -251,9 +250,9 @@ div{
 							@if(isset($model['pengalaman']))
 							@foreach($model['pengalaman'] as $pengalaman)
 							<tr>
-								<td class="boxpengalaman">{{ strtoupper($pengalaman['aktiviti']) }}</td>
-								<td class="boxpengalaman">{{ strtoupper($pengalaman['tempat']) }}</td>
-								<td class="boxpengalaman">{{ strtoupper($pengalaman['kod_gred_sebenar']) }}</td>
+								<td class="boxpengalaman">{{ $pengalaman['aktiviti'] }}</td>
+								<td class="boxpengalaman">{{ $pengalaman['tempat'] }}</td>
+								<td class="boxpengalaman">{{ $pengalaman['kod_gred_sebenar'] }}</td>
 								<td class="boxpengalaman">{{ $pengalaman['kod_gelaran_jawatan']}}</td>
 								<td class="boxpengalaman">{{date('d-m-Y', strtotime($pengalaman['mula']))  }} sehingga {{ date('d-m-Y', strtotime($pengalaman['tamat'] )) }} </td></tr>
 								@endforeach
@@ -263,12 +262,12 @@ div{
 					</tr>
 					<tr>
 						<td colspan="2"  class="bordertop">
-							<p><b>E. KELAYAKAN AKADEMIK DAN PROFESSIONAL</b></p>
-							<p><b>KELAYAKAN KOMPETENSI TEMPATAN/</b></p>
-						    <p><b>KELAYAKAN KOMPETENSI ANTARABANGSA</b></p></td>
-							<td colspan="5" class="righttop">
+							<b>E. KELAYAKAN AKADEMIK DAN PROFESSIONAL/<br>
+							KELAYAKAN KOMPETENSI TEMPATAN/ <br>
+						KELAYAKAN KOMPETENSI ANTARABANGSA</b></td>
+							<td colspan="4" class="righttop">
 								<table class="smallbox" >
-									<tr class="grey"><td colspan="5"><center><b>KELAYAKAN AKADEMIK</b></center></td></tr>
+									<tr class="grey"><td colspan="5"><b>KELAYAKAN AKADEMIK</b></td></tr>
 									<tr>
 										<th class="boxpengalaman">No</th>
 										<th class="boxpengalaman" colspan="2">Tajuk Kelulusan</th>
@@ -285,9 +284,10 @@ div{
 										<?php $i++; ?>
 										@endforeach
 										@endif
-										<tr class="grey"> <td colspan="5"><center><b>PROFESIONAL</b></center></td></tr>
+										<tr class="grey"> <td colspan="5"><b>PROFESIONAL</b></td></tr>
 										<tr><th class="boxpengalaman">No</th>
-											<th class="boxpengalaman" colspan="2">Badan Profesional yang diiktiaf dan Kelayakan</th>
+											<th class="boxpengalaman">Kelayakan Profesional /Pendaftaran Dengan Badan Profesional</th>
+											<th class="boxpengalaman">Badan Profesional Yang Diiktiraf</th>
 											<th class="boxpengalaman">No pendaftaran</th>
 											<th class="boxpengalaman">Tahun</th>
 										</tr>
@@ -295,13 +295,14 @@ div{
 										@if(isset($model['professional']))
 										@foreach($model['professional'] as $professional)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-											<td class="boxpengalaman" colspan="2">{{ strtoupper($professional['nama_kelulusan']) }}</td>
+											<td class="boxpengalaman">{{ strtoupper($professional['nama_kelulusan']) }}</td>
+											<td class="boxpengalaman">{{ strtoupper($professional['institusi']) }}</td>
 											<td class="boxpengalaman">{{strtoupper($professional['no_daftar'])}}</td>
 											<td class="boxpengalaman">{{ date('Y', strtotime($professional['tkh_kelulusan'])) }}</td></tr>
 											<?php $i++; ?>
 											@endforeach
 											@endif
-											<tr class="grey"> <td colspan="5"><center><b>KELAYAKAN KOMPETENSI TEMPATAN</b></center></td></tr>
+											<tr class="grey"> <td colspan="5"><b>KELAYAKAN KOMPETENSI TEMPATAN</b></td></tr>
 										<tr><th class="boxpengalaman">No</th>
 											<th class="boxpengalaman">Pensijilan Kompetensi</th>
 											<th class="boxpengalaman">Tahap</th>
@@ -317,13 +318,13 @@ div{
 											@else
 											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
 											@endif
-											<td class="boxpengalaman">{{ strtoupper($tempatan['tahap']) }}</td>
+											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
 											<td class="boxpengalaman">{{strtoupper($tempatan['no_daftar'])}}</td>
 											<td class="boxpengalaman">{{ date('Y', strtotime($tempatan['tkh_kelulusan'])) }}</td></tr>
 											<?php $i++; ?>
 											@endforeach
 											@endif
-											<tr class="grey"> <td colspan="5"><center><b>KELAYAKAN KOMPETENSI ANTARABANGSA</b></center></td></tr>
+											<tr class="grey"> <td colspan="5"><b>KELAYAKAN KOMPETENSI ANTARABANGSA</b></td></tr>
 										<tr><th class="boxpengalaman">No</th>
 											<th class="boxpengalaman">Pensijilan Kompetensi</th>
 											<th class="boxpengalaman">Tahap</th>
@@ -339,7 +340,99 @@ div{
 											@else
 											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
 											@endif
-											<td class="boxpengalaman">{{ strtoupper($antarabangsa['tahap']) }}</td>
+											<td class="boxpengalaman">{{ strtoupper($antarabangsa['institusi']) }}</td>
+											<td class="boxpengalaman">{{strtoupper($antarabangsa['no_daftar'])}}</td>
+											<td class="boxpengalaman">{{ date('Y', strtotime($antarabangsa['tkh_kelulusan'])) }}</td></tr>
+											<?php $i++; ?>
+											@endforeach
+											@endif
+
+										</table>
+
+
+									</td>
+								</tr>
+								<tr>
+						<td colspan="2"  class="bordertop">
+							<b>E. KELAYAKAN AKADEMIK DAN PROFESSIONAL/<br>
+							KELAYAKAN KOMPETENSI TEMPATAN/ <br>
+						KELAYAKAN KOMPETENSI ANTARABANGSA</b></td>
+							<td colspan="4" class="righttop">
+								<table class="smallbox" >
+									<tr class="grey"><td colspan="5"><b>KELAYAKAN AKADEMIK</b></td></tr>
+									<tr>
+										<th class="boxpengalaman">No</th>
+										<th class="boxpengalaman" colspan="2">Tajuk Kelulusan</th>
+										<th class="boxpengalaman">Institusi Pengajian</th>
+										<th class="boxpengalaman">Tahun Kelulusan</th>
+									</tr>
+									<?php $i=0; ?>
+									@if(isset($model['kelayakan']))
+									@foreach($model['kelayakan'] as $kelayakan)
+									<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
+										<td class="boxpengalaman"colspan="2">{{ strtoupper($kelayakan['nama_kelulusan']) }}</td>
+										<td class="boxpengalaman">{{ strtoupper($kelayakan['institusi']) }}</td>
+										<td class="boxpengalaman">{{ date('Y', strtotime($kelayakan['tkh_kelulusan'])) }}</td></tr>
+										<?php $i++; ?>
+										@endforeach
+										@endif
+										<tr class="grey"> <td colspan="5"><b>PROFESIONAL</b></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman">Kelayakan Profesional /Pendaftaran Dengan Badan Profesional</th>
+											<th class="boxpengalaman">Badan Profesional Yang Diiktiraf</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+										<?php $i=0; ?>
+										@if(isset($model['professional']))
+										@foreach($model['professional'] as $professional)
+										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
+											<td class="boxpengalaman">{{ strtoupper($professional['nama_kelulusan']) }}</td>
+											<td class="boxpengalaman">{{ strtoupper($professional['institusi']) }}</td>
+											<td class="boxpengalaman">{{strtoupper($professional['no_daftar'])}}</td>
+											<td class="boxpengalaman">{{ date('Y', strtotime($professional['tkh_kelulusan'])) }}</td></tr>
+											<?php $i++; ?>
+											@endforeach
+											@endif
+											<tr class="grey"> <td colspan="5"><b>KELAYAKAN KOMPETENSI TEMPATAN</b></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman">Pensijilan Kompetensi</th>
+											<th class="boxpengalaman">Tahap</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+										<?php $i=0; ?>
+										@if(isset($model['tempatan']))
+										@foreach($model['tempatan'] as $tempatan)
+										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
+											@if($tempatan['nama_kelulusan'] != 9999)
+											<td class="boxpengalaman">{{ strtoupper($tempatan['nama_kelulusan']) }}</td>
+											@else
+											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
+											@endif
+											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
+											<td class="boxpengalaman">{{strtoupper($tempatan['no_daftar'])}}</td>
+											<td class="boxpengalaman">{{ date('Y', strtotime($tempatan['tkh_kelulusan'])) }}</td></tr>
+											<?php $i++; ?>
+											@endforeach
+											@endif
+											<tr class="grey"> <td colspan="5"><b>KELAYAKAN KOMPETENSI ANTARABANGSA</b></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman">Pensijilan Kompetensi</th>
+											<th class="boxpengalaman">Tahap</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+										<?php $i=0; ?>
+										@if(isset($model['antarabangsa']))
+										@foreach($model['antarabangsa'] as $antarabangsa)
+										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
+											@if($tempatan['nama_kelulusan'] != 9999)
+											<td class="boxpengalaman">{{ strtoupper($tempatan['nama_kelulusan']) }}</td>
+											@else
+											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
+											@endif
+											<td class="boxpengalaman">{{ strtoupper($antarabangsa['institusi']) }}</td>
 											<td class="boxpengalaman">{{strtoupper($antarabangsa['no_daftar'])}}</td>
 											<td class="boxpengalaman">{{ date('Y', strtotime($antarabangsa['tkh_kelulusan'])) }}</td></tr>
 											<?php $i++; ?>
@@ -353,123 +446,145 @@ div{
 								</tr>
 								<tr>
 									<td colspan="2" class="bordertop"><b>F. SUMBANGAN DAN KEGIATAN</b></td>
-									<td colspan="5" class="righttop">
+									<td colspan="4" class="righttop">
 										<table class="smallbox">
-											<tr  class="grey"><td colspan="7"><center><b>JURNAL/BULETIN/KERTAS UTAMA</center></b></td></tr>
+											<tr  class="grey"><td colspan="5"><center><b>JURNAL/BULETIN/KERTAS UTAMA</center></b></td></tr>
 											@if(isset($model['jurnal']))
 											<tr><th class="boxpengalaman" >No</th>
-												<th class="boxpengalaman" colspan="5">Tajuk</th>
+												<th class="boxpengalaman" colspan="3">Tajuk</th>
 												<th class="boxpengalaman" >Tahun</th></tr>
+												@if(count($model['jurnal']) != 0)
 												<?php $i=0; ?>
 												@foreach($model['jurnal'] as $jurnal)
 												<tr><td class="boxpengalaman" >{{ $i + 1 }}</td>
-													<td class="boxpengalaman" colspan="5">{{ strtoupper($jurnal['nama_kelulusan']) }}</td>
+													<td class="boxpengalaman" colspan="3">{{ strtoupper($jurnal['nama_kelulusan']) }}</td>
 													<td class="boxpengalaman" >{{ date('Y', strtotime($jurnal['tkh_kelulusan'])) }}</td></tr>
 
 													<?php $i++; ?>
 													@endforeach
 
+													@else
+													<tr><td colspan="6" class="boxpengalaman" >tiada rekod</td> </tr>
+													@endif
 													@endif
 
-													<tr  class="grey"><td colspan="7"><center><b>JAWATAN KUASA TEKNIKAL</center></b></td></tr>
+													<tr  class="grey"><td colspan="5"><center><b>JAWATAN KUASA TEKNIKAL</center></b></td></tr>
 													<tr>
 														<th class="boxpengalaman">No</th>
-														<th class="boxpengalaman"colspan="5">Jawatankuasa Teknikal</th>
+														<th class="boxpengalaman"colspan="3">Jawatankuasa Teknikal</th>
 														<th class="boxpengalaman">Tahun</th>
 													</tr>
+													@if(count($model['jawatanKuasateknikal']) != 0)
 													<?php $i=0; ?>
 													@foreach($model['jawatanKuasateknikal'] as $jawatanKuasateknikal)
 													<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-														<td class="boxpengalaman" colspan="5">{{ strtoupper($jawatanKuasateknikal['nama_kelulusan']) }}</td>
+														<td class="boxpengalaman" colspan="3">{{ strtoupper($jawatanKuasateknikal['nama_kelulusan']) }}</td>
 														<td class="boxpengalaman">{{ date('Y', strtotime($jawatanKuasateknikal['tkh_kelulusan'])) }}</td></tr>
 
 														<?php $i++; ?>
 														@endforeach
-												
-														<tr class="grey"><td colspan="7"><center><b>SUMBANGAN DAN KEGIATAN DI DALAM TUGAS RASMI</center></b></td></tr>
+														@else
+														<tr><td class="boxpengalaman"colspan="5">tiada rekod</td> </tr>
+														@endif
+														<tr class="grey"><td colspan="5"><center><b>SUMBANGAN DAN KEGIATAN DI DALAM TUGAS RASMI</center></b></td></tr>
 														<tr>
 															<th class="boxpengalaman">No</th>
-															<th class="boxpengalaman" colspan="5">Sumbangan</th>
+															<th class="boxpengalaman" colspan="3">Sumbangan</th>
 															<th class="boxpengalaman">Tahun</th>
 														</tr>
+														@if(count($model['dalamTugasrasmi']) != 0)
 														<?php $i=0; ?>
 
 														@foreach($model['dalamTugasrasmi'] as $dalamTugasrasmi)
 														<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-															<td class="boxpengalaman" colspan="5">{{ strtoupper($dalamTugasrasmi['nama_kelulusan']) }}</td>
+															<td class="boxpengalaman" colspan="3">{{ strtoupper($dalamTugasrasmi['nama_kelulusan']) }}</td>
 															<td class="boxpengalaman" >{{ date('Y', strtotime($dalamTugasrasmi['tkh_kelulusan'])) }}</td></tr>
 															<?php $i++; ?>
 															@endforeach
-														
-															<tr class="grey"><td colspan="7"><center><b>SUMBANGAN DAN KEGIATAN DI LUAR TUGAS RASMI</center></b></td></tr>
+															@else
+															<tr><td class="boxpengalaman" colspan="5">tiada rekod</td> </tr>
+															@endif
+															<tr class="grey"><td colspan="5"><center><b>SUMBANGAN DAN KEGIATAN DI LUAR TUGAS RASMI</center></b></td></tr>
 															<tr>
 																<th class="boxpengalaman">No</th>
-																<th class="boxpengalaman"colspan="5">Sumbangan</th>
+																<th class="boxpengalaman"colspan="3">Sumbangan</th>
 																<th class="boxpengalaman">Tahun</th>
 															</tr>
+															@if(count($model['luarTugasrasmi']) != 0)
 															<?php $i=0; ?>
 
 															@foreach($model['luarTugasrasmi'] as $luarTugasrasmi)
 															<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-																<td class="boxpengalaman"colspan="5">{{ strtoupper($luarTugasrasmi['nama_kelulusan']) }}</td>
+																<td class="boxpengalaman"colspan="3">{{ strtoupper($luarTugasrasmi['nama_kelulusan']) }}</td>
 																<td class="boxpengalaman">{{ date('Y', strtotime($luarTugasrasmi['tkh_kelulusan'])) }}</td></tr>
 																<?php $i++; ?>
 																@endforeach
-																
+																@else
+																<tr><td class="boxpengalaman" colspan="5">tiada rekod</td> </tr>
+																@endif
 
 															</table>
 														</td>
 													</tr>
 													<tr>
-														<td colspan="2" class="bordertop"><b>G.PENGIKTIRAFAN</b></td>
-														<td colspan="5" class="righttop">
+														<td colspan="2" class="bordertop"><center><b>G.PENGIKTIRAFAN</center></b></td>
+														<td colspan="4" class="righttop">
 															<table class="smallbox">
-																<tr class="grey"><td colspan="7"><center><b>APC</b></center></td></tr>
+																<tr class="grey"><td colspan="5"><center><b>APC</b></center></td></tr>
 																<tr>
 																	<th class="boxpengalaman"> No</th>
-																	<th class="boxpengalaman" colspan="5">APC</th>
+																	<th class="boxpengalaman" colspan="3">APC</th>
 																	<th class="boxpengalaman" >Tahun</th>
 
 																</tr>
+																@if(count($model['aPC']) != 0)
 																<?php $i=0; ?>
 
 																@foreach($model['aPC'] as $aPC)
 																<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-																	<td class="boxpengalaman"colspan="5">{{ strtoupper($aPC['kod_peristiwa']) }}</td>
+																	<td colspan="3">{{ strtoupper($aPC['kod_peristiwa']) }}</td>
 																	<td class="boxpengalaman">{{date('Y', strtotime($aPC['tkh_mula_peristiwa']))  }}</td></tr>
 																	<?php $i++; ?>
 																	@endforeach
-																
-																	<tr class="grey"><td colspan="7"><center><b>PINGAT</center></b></td></tr>
+																	@else
+																	<tr><td class="boxpengalaman" colspan="5">tiada rekod</td> </tr>
+																	@endif
+																	<tr class="grey"><td colspan="5"><center><b>PINGAT</center></b></td></tr>
 																	<tr>
 																		<th class="boxpengalaman">No</th>
-																		<th class="boxpengalaman" colspan="5">Pingat</th>
+																		<th class="boxpengalaman" colspan="3">Pingat</th>
 																		<th class="boxpengalaman" >Tahun</th>
 																	</tr>
+																	@if(count($model['pingat']) != 0)
 																	<?php $i=0; ?>
 
 																	@foreach($model['pingat'] as $pingat)
 																	<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-																		<td class="boxpengalaman"colspan="5">{{ strtoupper($pingat['kod_peristiwa']) }}</td>
+																		<td class="boxpengalaman"colspan="3">{{ strtoupper($pingat['kod_peristiwa']) }}</td>
 																		<td class="boxpengalaman">{{date('Y', strtotime($pingat['tkh_mula_peristiwa']))  }}</td></tr>
 																		<?php $i++; ?>
 																		@endforeach
-																		
-																		<tr class="grey"><td colspan="7"><center><b>ANUGERAH UMUM</center></b></td></tr>
+																		@else
+																		<tr><td class="boxpengalaman"colspan="5">tiada rekod</td> </tr>
+																		@endif
+																		<tr class="grey"><td colspan="5"><center><b>ANUGERAH UMUM</center></b></td></tr>
 																		<tr>
 																			<th class="boxpengalaman">No</th>
-																			<th class="boxpengalaman" colspan="5">Anugerah Umum</th>
+																			<th class="boxpengalaman" colspan="3">Anugerah Umum</th>
 																			<th class="boxpengalaman">Tahun</th>
 																		</tr>
+																		@if(count($model['anugerahUmum']) != 0)
 																		<?php $i=0; ?>
 
 																		@foreach($model['anugerahUmum'] as $anugerahUmum)
 																		<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-																			<td class="boxpengalaman" colspan="5">{{ strtoupper($anugerahUmum['kod_peristiwa']) }}</td>
+																			<td class="boxpengalaman" colspan="3">{{ strtoupper($anugerahUmum['kod_peristiwa']) }}</td>
 																			<td class="boxpengalaman">{{date('Y', strtotime($anugerahUmum['tkh_mula_peristiwa']))  }}</td></tr>
 																			<?php $i++; ?>
 																			@endforeach
-																		
+																			@else
+																			<tr><td class="boxpengalaman"colspan="5">tiada rekod</td> </tr>
+																			@endif
 																		</table>
 
 																	</td>
@@ -485,7 +600,7 @@ div{
 															<div class="lampiran2">
 																<table class="font">
 																	<tr>
-																		<td colspan="7" style="text-align:right; width:100%"><h5>LAMPIRAN 2</h5></td>
+																		<td colspan="6" style="text-align:right"><h5>LAMPIRAN 2</h5></td>
 																	</tr>
 																	<tr>
 																		<td colspan="6">

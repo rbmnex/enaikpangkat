@@ -610,6 +610,13 @@ public function lampiran3($ic)
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_awam = $date1->diff($date2);
 
+         //gred terkini
+        $kod_gred_mula = Perkhidmatan::where('nokp',$ic)->where('flag',1)->first();
+        $kod_gred_tamat = Carbon::now();
+        $date2 = new DateTime($kod_gred_mula->tkh_lantik);
+        $date1 = new DateTime($kod_gred_tamat);
+        $tempoh_gred = $date1->diff($date2);
+
          //PNP
         $pnp = Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan','>=',3)->orderBy('tkh_lantik','asc')->first();
         $sektor_awam_tamat = Carbon::now();
@@ -648,9 +655,10 @@ public function lampiran3($ic)
         // print_r($model);
         // echo '</pre>';
         // die();        
-         return view('admin.user.resume.cetak_sendiri', compact('model','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+         return view('admin.user.resume.cetak_sendiri', compact('model','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
      }
+
 
     public function document($ic)
     {
@@ -662,7 +670,7 @@ public function lampiran3($ic)
 
         $mula_khidmat=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
         $gred_sekarang = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
-
+        $gred_terkini = Perkhidmatan::where('nokp',$ic)->where('flag',1)->first();
         $mula_gred_hakiki=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->where('status_perkhidmatan','H')->orderBy('tkh_lantik', 'desc')->first();
         $modelp = Pengalaman::where('nokp', $ic)->where('kod_aktiviti','>=', [50])->groupBy('id_pengalaman','kod_aktiviti')->orderBy('kod_aktiviti')->get();
 
@@ -674,6 +682,13 @@ public function lampiran3($ic)
         $date2 = new DateTime($sektor_awam_mula->tkh_lantik);
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_awam = $date1->diff($date2);
+
+         //gred terkini
+        $kod_gred_mula = Perkhidmatan::where('nokp',$ic)->where('flag',1)->first();
+        $kod_gred_tamat = Carbon::now();
+        $date2 = new DateTime($kod_gred_mula->tkh_lantik);
+        $date1 = new DateTime($kod_gred_tamat);
+        $tempoh_gred = $date1->diff($date2);
 
          //PNP
         $pnp = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan','>=',3)->orderBy('tkh_lantik','asc')->first();
@@ -712,7 +727,7 @@ public function lampiran3($ic)
 
 
 
-         return view('admin.user.resume.cetak', compact('model','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+         return view('admin.user.resume.cetak', compact('model','tempoh_gred','gred_terkini','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
     }
@@ -742,6 +757,13 @@ public function lampiran3($ic)
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_awam = $date1->diff($date2);
 
+         //gred terkini
+        $kod_gred_mula = Perkhidmatan::where('nokp',$ic)->where('flag',1)->first();
+        $kod_gred_tamat = Carbon::now();
+        $date2 = new DateTime($kod_gred_mula->tkh_lantik);
+        $date1 = new DateTime($kod_gred_tamat);
+        $tempoh_gred = $date1->diff($date2);
+
          //PNP
         $pnp = Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan','>=',3)->orderBy('tkh_lantik','asc')->first();
         $sektor_awam_tamat = Carbon::now();
@@ -780,7 +802,7 @@ public function lampiran3($ic)
         // print_r($model);
         // echo '</pre>';
         // die();        
-         return view('paparan_lampiran', compact('model','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+         return view('paparan_lampiran', compact('model','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
     }
@@ -808,6 +830,13 @@ public function lampiran3($ic)
         $date2 = new DateTime($sektor_awam_mula->tkh_lantik);
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_awam = $date1->diff($date2);
+
+         //gred terkini
+        $kod_gred_mula = Perkhidmatan::where('nokp',$ic)->where('flag',1)->first();
+        $kod_gred_tamat = Carbon::now();
+        $date2 = new DateTime($kod_gred_mula->tkh_lantik);
+        $date1 = new DateTime($kod_gred_tamat);
+        $tempoh_gred = $date1->diff($date2);
 
          //PNP
         $pnp = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan','>=',3)->orderBy('tkh_lantik','asc')->first();
@@ -847,7 +876,7 @@ public function lampiran3($ic)
         // print_r($model);
         // echo '</pre>';
         // die();        
-         return view('paparan_lampiran', compact('model','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+         return view('paparan_lampiran', compact('model','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
     }
