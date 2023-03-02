@@ -12,9 +12,11 @@ use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
 use App\Http\Controllers\Urussetia\CandidateController;
+use App\Http\Controllers\Urussetia\PromotedController;
 use App\Http\Controllers\Urussetia\QualifyController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Http\Controllers\User\PermohonanController;
+use App\Models\Lpnk\LpnkParent;
 use App\Models\Role;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
@@ -166,6 +168,8 @@ Route::prefix('/urussetia')->group(function() {
         Route::get('/',[CandidateController::class,'index']);
         Route::get('/load',[CandidateController::class,'load']);
         Route::post('/send',[CandidateController::class,'send_promotion']);
+        Route::get('/manage',[PromotedController::class,'index']);
+        Route::get('/list',[PromotedController::class,'list']);
     });
 });
 
@@ -271,10 +275,11 @@ Route::get('/test/file',function() {
 });
 
 Route::get('/test/view_pdf',function() {
-    //  $pdf = PDF::loadView('pdf.ukp12', [], []);
-    //  return $pdf->stream();
+    $lpnk = LpnkParent::with('getChild')->where('delete_id', 0)->get()->toArray();
+     $pdf = PDF::loadView('pdf.lnpk', ['soalan' => $lpnk], []);
+     return $pdf->stream();
 
-    return view('pdf.ukp12');
+    // return view('pdf.lnpk');
 });
 
 Route::get('/test/pdf',function() {

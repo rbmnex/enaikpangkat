@@ -56,7 +56,7 @@
 <div class="content-body">
     <section id="basic-datatable">
     <div class="row">
-        <h4 class=""><span style="font-weight: bold;">Borang Pemangkuan JKR/UKP/12</span></h4>
+        <h4 class=""><span style="font-weight: bold;">Borang Naik Pangkat JKR/UKP/13</span></h4>
         <div class="col-12">
             <div class="card">
                 <div class="card-header">

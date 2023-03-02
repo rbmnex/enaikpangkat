@@ -654,7 +654,7 @@ public function lampiran3($ic)
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('admin.user.resume.cetak_sendiri', compact('model','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
      }
@@ -796,12 +796,12 @@ public function lampiran3($ic)
         $lampiran_projek = LampiranProjek::where('nokp',$ic->nokp)->get();
         $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',1)->get();
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',2)->get();
-     
+
 
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('paparan_lampiran', compact('model','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
@@ -870,12 +870,12 @@ public function lampiran3($ic)
         $lampiran_projek = LampiranProjek::where('nokp',$ic)->get();
         $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',1)->get();
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
-     
+
 
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('paparan_lampiran', compact('model','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
@@ -907,6 +907,7 @@ public function lampiran3($ic)
                     // testing purpose
                   $message->to($pegawai->email,$pegawai->nama);
                   $message->subject('KEMASKINI RESUME');
+                  $message->from('eHR@jkr.gov.my','Sistem ENP');
 
                 });
 
@@ -991,7 +992,7 @@ public function lampiran3($ic)
                     $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                     $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                      $lpn = LampiranPendedahan::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
-   
+
 
 
 if($lampirankursus && $lampiranbeban && $lampiranprojek && $lampiranpencapaian && $lampiranpendedahan){

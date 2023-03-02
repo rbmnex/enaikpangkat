@@ -84,6 +84,12 @@
                             <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Calon Naik Pangkat</span>
                         </a>
                     </li>
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/promote/manage') }}">
+                            <i data-feather='users'></i>
+                            <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Permohonan <br/> Naik Pangkat</span>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li class=" nav-item">
