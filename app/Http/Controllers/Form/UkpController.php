@@ -1673,9 +1673,11 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $profesional->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {
                 $item->nama_kelulusan = $item->institusi;
-            } else {
+            } else if(is_numeric($item->nama_kelulusan)) {
                 $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
                 $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            } else {
+                
             }
         });
 
@@ -1683,9 +1685,11 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $kompeten->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {
                 $item->nama_kelulusan = $item->institusi;
-            } else {
+            } else if(is_numeric($item->nama_kelulusan)) {
                 $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
                 $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
+            } else {
+
             }
         });
 
