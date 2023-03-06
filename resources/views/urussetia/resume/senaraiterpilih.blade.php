@@ -12,14 +12,14 @@
     <div class="content-header-left col-md-9 col-12 mb-2">
         <div class="row breadcrumbs-top">
             <div class="col-12">
-                <h2 class="content-header-title float-left mb-0">Senarai Pegawai Terpilih</h2>
+                <h2 class="content-header-title float-left mb-0">Senarai Perlu Kemaskini</h2>
                 <div class="breadcrumb-wrapper">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Laman Utama</a>
                         </li>
-                        <li class="breadcrumb-item">Admin
+                        <li class="breadcrumb-item">Seksyen Jusa
                         </li>
-                        <li class="breadcrumb-item active"><a href="#">Senarai Pegawai Terpilih </a>
+                        <li class="breadcrumb-item active"><a href="#">Senarai Perlu Kemaskini </a>
                         </li>
                     </ol>
                 </div>

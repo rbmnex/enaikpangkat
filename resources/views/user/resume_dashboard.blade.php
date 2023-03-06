@@ -104,7 +104,7 @@
                            <button  onclick="location.href='{{url('/user/resume/lampiran')}}'" target="_blank" type="button" class="btn btn-info borang-lampiran"><i data-feather='paperclip'></i>Borang Lampiran</button>
                            @endif
                            <button  onclick="location.href='{{ url('/user/resume/download') }}'" type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>Muat Turun</button>
-                           <button onclick="location.href='{{ url('/user/resume/paparan') }}'"  target="_blank" type="button" class="btn btn-warning paparan-resume"><i data-feather='eye'></i>Paparan Resume</button>
+                            <button class="btn btn-warning paparan-resume" onClick="javascript:window.open('{{ url('/user/resume/paparan') }}', '_blank');"><i data-feather='eye'></i>Paparan Resume</button>
                             
                             <div></div></div>
                     {{-- <div class="col-4 "><h2 class="text-primary">RESUME</h2></div> --}}

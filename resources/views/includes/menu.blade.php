@@ -38,6 +38,35 @@
                     </li>
                 </ul>
             </li> --}}
+            @role(['superadmin','adminjusa','admindisiplin'])
+            <li class=" nav-item">
+                <a class="d-flex align-items-center" href="#">
+                    <i data-feather="file-text"></i>
+                    <span class="menu-title text-truncate" data-i18n="Pages">Pengurusan<br/>Resume</span>
+                </a>
+                @role(['superadmin', 'adminjusa','admindisiplin'])
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/resume/') }}">
+                            <i data-feather='file-text'></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Resume</span>
+                            </a>
+                    </li>
+                </ul>
+                @endrole
+                 @role(['superadmin', 'adminjusa'])
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/resume/terpilih') }}">
+                            <i data-feather='file-text'></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Senarai <br/> Perlu<br/>Kemaskini</span>
+                            </a>
+                    </li>
+                </ul>
+                @endrole
+            </li>
+
+            @endrole
             @role(['secretariat'])
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
@@ -86,7 +115,7 @@
                     </li>
                 </ul>
             </li>
-            <li class=" nav-item">
+            <!-- <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Pengurusan<br/>Resume</span>
@@ -107,7 +136,7 @@
                             </a>
                     </li>
                 </ul>
-            </li>
+            </li> -->
             <li class=" nav-item">
                 <a class="d-flex align-items-center" href="#">
                     <i data-feather="file-text"></i>

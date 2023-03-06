@@ -589,13 +589,11 @@ public function lampiran3($ic)
      {
           $ic = Auth::user();
 
-        $model= [];
+           $model= [];
         $mula_khidmat ='';
         $common = new CommonController();
          $resume=Resume::where('nokp',$ic->nokp)->first();
         $model=ListPegawai2::getMaklumatPegawai($ic->nokp);
-     
-
         $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
         $mula_khidmat=Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
         $gred_sekarang = Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
@@ -625,24 +623,10 @@ public function lampiran3($ic)
         $date2 = new DateTime($pnp->tkh_lantik);
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
-
-        //count kelayakan
-        $kira_kelayakan1 = Kelayakan::where('nokp',$ic->nokp)->whereNotIn('kod_kelulusan',[20,21,22,23])->get();
-        $kira_kelayakan = count($kira_kelayakan1) + 9;
-
-        $kira_sumbangan1 = Kelayakan::where('nokp', $ic->nokp)->whereIn('kod_kelulusan',[20,21,22,23])->get();
-         $kira_sumbangan = count($kira_sumbangan1) + 9;
-
-        $kira_iktiraf1 = Peristiwa::where('nokp',$ic->nokp)->where('kod_peristiwa','A1')->orWhere('kod_peristiwa','A4')->orWhere('kod_peristiwa','P8')->get();
-        $kira_iktiraf = count($kira_iktiraf1) + 9;
-
-        $kira_pengalaman1 = Pengalaman::where('nokp', $ic->nokp)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
-        if (count($kira_pengalaman1) < 4){
-              $kira_pengalaman = 5; 
-         }else{   
-              $kira_pengalaman = count($kira_pengalaman1) +2;
-         }
-         
+           // echo '<pre>';
+           //  print_r($tempoh_awam);
+           //  echo '</pre>';
+           //  die();
         $pengalaman = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
                                          ->leftJoin('public.l_aktiviti as la','p.kod_aktiviti','la.kod_aktiviti')->select('p.kod_aktiviti','la.aktiviti')
                                         ->where('p.nokp',$ic->nokp)
@@ -671,7 +655,7 @@ public function lampiran3($ic)
         // print_r($model);
         // echo '</pre>';
         // die();        
-         return view('admin.user.resume.cetak_sendiri', compact('model','kira_kelayakan','kira_sumbangan','kira_pengalaman','kira_iktiraf','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+         return view('admin.user.resume.cetak_sendiri', compact('model','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
      }
 
@@ -682,10 +666,6 @@ public function lampiran3($ic)
         $model= [];
         $mula_khidmat ='';
         $model=ListPegawai2::getMaklumatPegawai($ic);
-            // echo '<pre>';
-            // print_r($model);
-            // echo '</pre>';
-            // die();
         $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
 
         $mula_khidmat=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
@@ -717,11 +697,11 @@ public function lampiran3($ic)
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
 
-        //count kelayakan
-        $kira_kelayakan1 = Kelayakan::where('nokp',$ic)->whereNotIn('kod_kelulusan',[20,21,22,23])->get();
-        $kira_kelayakan = count($kira_kelayakan1) + 9;
+	//count kelayakan
+        $kira_kelayakan1 = Kelayakan::where('nokp',$ic)->get();
+        $kira_kelayakan = count($kira_kelayakan1) + 8;
 
-        $kira_sumbangan1 = Kelayakan::where('nokp', $ic)->whereIn('kod_kelulusan',[20,21,22,23])->get();
+        $kira_sumbangan1 = Kelayakan::where('nokp', $ic)->where('kod_kelulusan',[20,21,22,23])->get();
          $kira_sumbangan = count($kira_sumbangan1) + 9;
 
         $kira_iktiraf1 = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','A1')->orWhere('kod_peristiwa','A4')->orWhere('kod_peristiwa','P8')->get();
@@ -732,7 +712,7 @@ public function lampiran3($ic)
               $kira_pengalaman = 5; 
          }else{   
               $kira_pengalaman = count($kira_pengalaman1) +2;
-         }
+          }
 
            // echo '<pre>';
            //  print_r($tempoh_awam);
@@ -765,7 +745,7 @@ public function lampiran3($ic)
 
 
 
-         return view('admin.user.resume.cetak', compact('model','kira_kelayakan','kira_sumbangan','kira_pengalaman','kira_iktiraf','tempoh_gred','gred_terkini','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+         return view('admin.user.resume.cetak', compact('model','tempoh_gred','gred_terkini','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
     }
@@ -799,7 +779,7 @@ public function lampiran3($ic)
         $kod_gred_mula = Perkhidmatan::where('nokp',$ic->nokp)->where('flag',1)->first();
         $kod_gred_tamat = Carbon::now();
         $date2 = new DateTime($kod_gred_mula->tkh_lantik);
-        $date1 = new DateTime($kod_gred_tamat);
+        $date1 = new DateTime($kod_gred_tamat); 
         $tempoh_gred = $date1->diff($date2);
 
          //PNP
@@ -809,22 +789,22 @@ public function lampiran3($ic)
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
 
-           //count kelayakan
-        $kira_kelayakan1 = Kelayakan::where('nokp',$ic->nokp)->whereNotIn('kod_kelulusan',[20,21,22,23])->get();
+        //count kelayakan
+        $kira_kelayakan1 = Kelayakan::where('nokp',$ic)->get();
         $kira_kelayakan = count($kira_kelayakan1) + 9;
 
-        $kira_sumbangan1 = Kelayakan::where('nokp', $ic->nokp)->whereIn('kod_kelulusan',[20,21,22,23])->get();
+        $kira_sumbangan1 = Kelayakan::where('nokp', $ic)->where('kod_kelulusan',[20,21,22,23])->get();
          $kira_sumbangan = count($kira_sumbangan1) + 9;
 
-        $kira_iktiraf1 = Peristiwa::where('nokp', $ic->nokp)->where('kod_peristiwa','A1')->orWhere('kod_peristiwa','A4')->orWhere('kod_peristiwa','P8')->get();
+        $kira_iktiraf1 = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','A1')->orWhere('kod_peristiwa','A4')->orWhere('kod_peristiwa','P8')->get();
         $kira_iktiraf = count($kira_iktiraf1) + 9;
 
-        $kira_pengalaman1 = Pengalaman::where('nokp', $ic->nokp)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
+        $kira_pengalaman1 = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4){
               $kira_pengalaman = 5; 
          }else{   
               $kira_pengalaman = count($kira_pengalaman1) +2;
-         }
+          }
            // echo '<pre>';
            //  print_r($tempoh_awam);
            //  echo '</pre>';
@@ -857,7 +837,7 @@ public function lampiran3($ic)
         // print_r($model);
         // echo '</pre>';
         // die();        
-         return view('paparan_lampiran', compact('model','kira_kelayakan','kira_sumbangan','kira_pengalaman','kira_iktiraf','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+         return view('paparan_lampiran', compact('model','kira_kelayakan','kira_sumbangan','kira_pengalaman','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
     }
@@ -900,11 +880,11 @@ public function lampiran3($ic)
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
 
-            //count kelayakan
-        $kira_kelayakan1 = Kelayakan::where('nokp',$ic)->whereNotIn('kod_kelulusan',[20,21,22,23])->get();
+         //count kelayakan
+        $kira_kelayakan1 = Kelayakan::where('nokp',$ic)->get();
         $kira_kelayakan = count($kira_kelayakan1) + 9;
 
-        $kira_sumbangan1 = Kelayakan::where('nokp', $ic)->whereIn('kod_kelulusan',[20,21,22,23])->get();
+        $kira_sumbangan1 = Kelayakan::where('nokp', $ic)->where('kod_kelulusan',[20,21,22,23])->get();
          $kira_sumbangan = count($kira_sumbangan1) + 9;
 
         $kira_iktiraf1 = Peristiwa::where('nokp', $ic)->where('kod_peristiwa','A1')->orWhere('kod_peristiwa','A4')->orWhere('kod_peristiwa','P8')->get();
@@ -915,7 +895,6 @@ public function lampiran3($ic)
               $kira_pengalaman = 5; 
          }else{   
               $kira_pengalaman = count($kira_pengalaman1) +2;
-         }
            // echo '<pre>';
            //  print_r($tempoh_awam);
            //  echo '</pre>';
@@ -948,7 +927,7 @@ public function lampiran3($ic)
         // print_r($model);
         // echo '</pre>';
         // die();        
-         return view('paparan', compact('model','kira_kelayakan','kira_sumbangan','kira_pengalaman','kira_iktiraf','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
+         return view('paparan', compact('model','tempoh_gred','resume','kira_kelayakan','kira_sumbangan','kira_pengalaman','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
     }
