@@ -99,7 +99,7 @@
                                 <button type="button" class="step-trigger">
                                     <span class="bs-stepper-box">2</span>
                                     <span class="bs-stepper-label">
-                                        <span class="bs-stepper-title">Senarai Beban Kerja</span>
+                                        <span class="bs-stepper-title">Senarai Deskripsi Tugas</span>
                                         <span class="bs-stepper-subtitle"> </span>
                                     </span>
                                 </button>

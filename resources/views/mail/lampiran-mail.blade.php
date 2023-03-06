@@ -14,9 +14,9 @@ body { font-family: Arial; font-size: 16.2px }
                                   <div class="card-body">
                                         <p>Salam Sejahtera,</p>
                                         <p>YBhg. Dato'/ Datuk/ Datin/ YBrs. Ir./ Ar./Sr/ Dr./ Tuan/ Puan,</p>
-                                        <p><strong>Mohon Salinan Buku Perkhidmatan, RESUME dan Lampiran E (PERISYTIHARAN HARTA).</strong></p>
+                                        <p><strong>KEMASKINI RESUME, PENGEMUKAAN SALINAN BUKU PERKHIDMATAN DAN LAMPIRAN E (PENGISYTIHARAN HARTA)</strong></p>
                                         <p>Dengan hormatnya saya diarah merujuk kepada perkara di atas.</p>
-                                        <p>2.		Mohon jasa baik YBhg. Dato'/ Datuk/ Datin/ YBrs. Ir./ Ar./Sr/ Dr./ Tuan/ Puan untuk mengemukakan maklumat seperti berikut selewat-lewatnya 5 hari bekerja dari tarikh emel ini pada <strong>{{ $date }}</strong> untuk tindakan kami selanjutnya.:</p>
+                                        <p>2.		Mohon jasa baik YBhg. Dato'/ Datuk/ Datin/ YBrs. Ir./ Ar./Sr/ Dr./ Tuan/ Puan untuk mengemukakan maklumat seperti berikut selewat-lewatnya pada <strong style="color: red">{{ $date }}</strong> untuk tindakan kami selanjutnya.:</p>
                                         <p>
                                                     i. <b>Salinan Buku Perkhidmatan  (Ke alamat seperti berikut)  :</b><br/>
                                                         Bahagian Pengurusan Sumber Manusia<br/>
@@ -26,21 +26,24 @@ body { font-family: Arial; font-size: 16.2px }
                                                         <strong>(u.p. : Ir. RAHAYU BINTI MD. DIAH)</strong>
                                         </p>
                                         <p>
-                                                   ii. Resume terkini (Mohon kemaskini data di dalam sistem My-KJ dan isi Lampiran 2, Lampiran 3, Lampiran 4 dan Lampiran 5 di dalam sistem e-naikpangkat dengan menekan pautan di bawah : <br/>
+                                                   ii. Resume terkini (<b>Mohon kemaskini data di dalam sistem My-KJ dan isi Lampiran 2, Lampiran 3, Lampiran 4 dan Lampiran 5</b> di dalam sistem e-naikpangkat dengan menekan pautan di bawah : <br/>
                                                     {{ $link }}
                                         </p>
+
+                                        <p><strong><i>“Urusan ini adalah SULIT dan hanya untuk pengetahuan dan tindakan penerima e-mel sahaja. Tidak dibenarkan untuk membocorkan, menyiarkan, atau menyampaikan, sama ada secara lisan atau dengan bertulis, kepada sesiapa jua dalam apa-apa bentuk.”</i></strong></p>
+
                                         <p>Sekian, terima kasih.</p>
 
+                                        <p><strong>"MALAYSIA MADANI"</strong></p>
                                         <p><strong>"BERKHIDMAT UNTUK NEGARA"</strong></p>
                                         <p>Saya yang menjalankan amanah,</p>
                                         <p>
-                                            <strong>Ir. NOR EZATI BINTI BAHRIN</strong><br/>
-                                            Jurutera Awam (J44)<br/>
+                                          
                                             <strong>BAHAGIAN PENGURUSAN SUMBER MANUSIA (BPSM)</strong><br/>
                                             Cawangan Dasar Dan Pengurusan Korporat<br/>
                                             Ibu Pejabat JKR Malaysia<br/>
-                                            Tel. No. : 03-2618 8639<br/>
-                                            Email : <u>Nor_Ezati@jkr.gov.my</u>
+                                            Tel. No. : 03-2618 8639 / 8629 / 8626 /8624<br/>
+                                            
                                         </p>
                                   </div>
                                </div>

@@ -166,7 +166,7 @@ div{
 
 
             </tr>
-            <!-- <tr >
+            <tr >
                 <td colspan="2" class="bordertop"><b>B. PRESTASI</b><br>(LNPT 3 tahun terkini)</td>
                 <td colspan="4" class="righttop">
                     <ul>
@@ -177,7 +177,7 @@ div{
                         @endif
                     </ul>
                 </td>
-            </tr> -->
+            </tr>
            
             <tr>
                 <td colspan="2"  class="bordertop"><b>B. KEPAKARAN DAN PENGALAMAN</b><br>
@@ -344,7 +344,7 @@ div{
                                 <tr>
                                     <td colspan="2" class="bordertop" rowspan={{$kira_sumbangan}} ><b>F. SUMBANGAN DAN KEGIATAN</b></td>
                                     <td colspan="5" class="righttop">
-                                            <tr ><td colspan="5"><center><b>JURNAL/BULETIN/KERTAS UTAMA</center></b></td>
+                                            <tr ><td colspan="5"><center><b>JURNAL/BULETIN/KERTAS UTAMA {{$kira_sumbangan}}</center></b></td>
                                             </tr>
                                             @if(isset($model['jurnal']))
                                             <tr><th style="width: 6px;" class="boxpengalaman" >No</th>
@@ -459,7 +459,6 @@ div{
                                                                      
                                                                     </td>
                                                                 </tr>
-
 
 
                                                             </table>

@@ -1,6 +1,6 @@
 <div id="bebankerja-vertical" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 2 -Senarai Tugas Pegawai</h5>
+        <h5 class="mb-0">Bahagian 2 -Senarai Deskripsi Tugas</h5>
     </div>
     <div class="row">
     
@@ -19,8 +19,12 @@
             </div>
             <span class="col-form-label beban-file"></span>
 
+             <div class="form-group col-md-12">
+                  <label class="col-form-label" style="font-style: italic" for="">* PDF – max size 5MB</label>
+             </div>
+
      <div class="form-group col-md-12">
-            <label class="col-form-label" style="font-style: italic" for=""><b>* SILA MUAT TURUN LAMPIRAN BEBAN KERJA yang dijana dari HRMIS dan MUAT NAIK DI SINI</b></label>
+            <label class="col-form-label" style="font-style: italic" for=""><b>* SILA MUAT NAIK LAMPIRAN DESKRIPSI TUGAS (JD) yang dijana dari HRMIS DI SINI</b></label>
        
     </div>
     <!-- <div class="d-flex justify-content-between">

@@ -1,0 +1,444 @@
+<html>
+<head><title>Resume</title>
+	<style>
+
+		
+		.grey{
+			background-color: #D1D0CE;
+			height: 30px;
+		}
+		.outerline {
+			border: 1px solid black;
+/*			border-collapse: collapse;*/
+			width: 100%;
+			font-family:Tahoma, sans-serif;
+			font-size: 10.5px;
+}
+
+.noline {
+	font-family:Tahoma, sans-serif;
+	font-size: 10.5px;
+}
+
+.smallbox {
+	font-family:Tahoma, sans-serif;
+	font-size: 10.5px;
+	width: 100%;
+
+}
+
+.boxpengalaman{
+	border: 1px solid black;
+	border-collapse: collapse;
+	font-family:Tahoma, sans-serif;
+	font-size: 10.5px;9
+	border-left: 0px;
+
+}
+
+
+.font{
+	font-family:Arial, sans-serif;
+	font-size: 12px;
+
+}
+
+
+.bordertop{
+	border-top: 1px solid black;
+	border-right: 1px solid black;
+
+}
+
+
+.righttop{
+	border-top: 1px solid black;
+}
+
+
+.photo{
+	margin-top: 20px;
+	margin-right: 0px;
+/*	text-align:right;*/
+}
+
+.pagebreak { 
+	page-break-after: always; 
+} 
+
+</style>
+</head>
+<body bgcolor="white">
+	<div class="resume">
+		<table class="outerline">
+			<tr >
+				<th class="grey" colspan="7" >RESUME</th>
+			</tr>
+			<tr>
+				<td colspan="7"><b>A.BUTIRAN PERIBADI</b></td>
+			</tr>
+			<tr>
+				<td colspan="7">
+					<table class="noline">
+
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>NAMA</td>
+							<td>:</td>
+							<td>Ir. NOR EZATI BINTI BAHRIN</td>
+							<td rowspan="7" class="photo">
+							<img src="https://e-naikpangkat.jkr.gov.my/files/foto.jpg"
+							alt="" width="120" height="140" align="top">
+						   </td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>JAWATAN</td>
+							<td>:</td>
+							<td>JURUTERA AWAM</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>KAD PENGALAMAN</td>
+							<td>:</td>
+							<td>850327055224</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>TARIKH LAHIR</td>
+							<td>:</td>
+							<td>27-03-1985</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>TEMPAT LAHIR</td>
+							<td>:</td>
+							<td> NEGERI SEMBILAN </td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>ALAMAT PEJABAT</td>
+							<td>:</td>
+							<td>UNIT NAIK PANGKAT, CAW. DASAR &amp; PENGURUSAN KORPORAT, TGKT 29 BLOK G (KKR 2),
+IBU PEJABAT JKR ,
+50400 KUALA LUMPUR</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>ALAMAT RUMAH</td>
+							<td>:</td>
+							<td>NO.5, JALAN SR 7/1D, TAMAN SAUJANA RAWANG,48000 RAWANG</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>TARAF PERKAHWINAN</td>
+							<td>:</td>
+							<td>KAHWIN </td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>NO. TELEFON PEJABAT</td>
+							<td>:</td>
+							<td>03-26188639</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>NO. TELEFON BIMBIT</td>
+							<td>:</td>
+							<td>012-3099820</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>NO. FAX</td>
+							<td>:</td>
+							<td>03-26187217</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>EMEL</td>
+							<td>:</td>
+							<td>Nor_Ezati@jkr.gov.my</td>
+						</tr>
+						<tr>
+							<td><span>&#8226;</span></td>
+							<td>TARIKH PENGISYTIHARAN HARTA TERKINI</td>
+							<td>:</td>
+							<td> 09-08-2016</td>
+						</tr>
+
+					</table>
+
+				</td>
+
+
+			</tr>
+			<tr >
+				<td colspan="2" class="bordertop"><b>B. PRESTASI</b><br>(LNPT 3 tahun terkini)</td>
+				<td colspan="5" class="righttop">
+					<ul>
+																		<li>2019 - 93.43 % </li>
+												<li>2020 - 94.99 % </li>
+												<li>2021 - 94.99 % </li>
+																	</ul>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2"  class="bordertop"><b>C. KEPAKARAN DAN PENGALAMAN</b><br>
+					<ul>
+						<li>Tempoh bidang pengkhususan</li>
+						<li>Tempoh atas gred terakhir</li>
+						<li>Tempoh perkhidmatan</li>
+					</ul></td>
+					<td colspan="5" class="righttop">
+						<b>Pengkhususan</b>
+																		<ul>
+							<li>
+								IBU PEJABAT - REKA BENTUK selama 2 tahun, 3 bulan
+							</li>
+						</ul>
+												<ul>
+							<li>
+								IBU PEJABAT - PENYELIDIKAN DAN PEMBANGUNAN selama 0 tahun, 6 bulan
+							</li>
+						</ul>
+												<ul>
+							<li>
+								NEGERI selama 4 tahun, 2 bulan
+							</li>
+						</ul>
+																		<br><br>
+
+						<ul>
+							<li>Tempoh Perkhidmatan di Gred Terkini selama 4 tahun</li>
+							<li>Tempoh Perkhidmatan Sektor Awam selama 11 tahun</li>
+							<!-- <li>Tempoh Perkhidmatan di Gred P&P selama 11 tahun</li> -->
+						</ul>
+					</td>
+				</tr>
+
+
+				<tr>
+					<td colspan="2"  class="bordertop">
+						<b>D. PENDEDAHAN</b><br><br>
+						<table class="smallbox" >
+							<tr>Majikan : <br>  JABATAN KERJA RAYA MALAYSIA</tr>
+							<tr>Skim Perkhidmatan  : <br>PENGURUSAN DAN PROFESSIONAL</tr>
+							<tr>Tarikh Mula Perkhidmatan    : <br>28-10-2011</tr>
+							<tr>Tarikh Bersara Wajib  :<br> 27-03-2045</tr>
+														<tr>Gred Hakiki     : <br>    J44</tr>
+							<tr>Tarikh Mula Gred Hakiki    : <br>18-01-2019</tr>
+													</table>
+
+					</td>
+					<td colspan="5" class="righttop">
+						<b>Pengalaman Kerja</b>
+						<table class="boxpengalaman" >
+							<tr class="boxpengalaman">
+								<th class="boxpengalaman">Kategori</th>
+								<th class="boxpengalaman">Penempatan</th>
+								<th class="boxpengalaman">Gred Jawatan</th>
+								<th class="boxpengalaman">Gelaran Jawatan</th>
+								<th class="boxpengalaman">Tempoh Khidmat</th>
+							</tr>
+																					<tr>
+								<td class="boxpengalaman">IBU PEJABAT - REKA BENTUK</td>
+								<td class="boxpengalaman">CAWANGAN PENDIDIKAN DAN PENGAJIAN TINGGI (CFS)</td>
+								<td class="boxpengalaman">J41</td>
+								<td class="boxpengalaman">JURUTERA AWAM (J41)</td>
+								<td class="boxpengalaman">01-01-2009 sehingga 07-04-2011 </td></tr>
+															<tr>
+								<td class="boxpengalaman">IBU PEJABAT - PENYELIDIKAN DAN PEMBANGUNAN</td>
+								<td class="boxpengalaman">BAHAGIAN LATIHAN DAN PENYELIDIKAN (CFS)</td>
+								<td class="boxpengalaman"></td>
+								<td class="boxpengalaman"></td>
+								<td class="boxpengalaman">08-04-2011 sehingga 27-10-2011 </td></tr>
+															<tr>
+								<td class="boxpengalaman">NEGERI</td>
+								<td class="boxpengalaman">CAWANGAN DASAR &amp; PENGURUSAN KORPORAT</td>
+								<td class="boxpengalaman">J44</td>
+								<td class="boxpengalaman">JURUTERA AWAM (J44)</td>
+								<td class="boxpengalaman">01-01-2019 sehingga 01-01-0001 </td></tr>
+																							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2" rowspan=11 class="bordertop">
+							<p><b>E. KELAYAKAN AKADEMIK DAN PROFESSIONAL</b></p>
+							<p><b>KELAYAKAN KOMPETENSI TEMPATAN/</b></p>
+						    <p><b>KELAYAKAN KOMPETENSI ANTARABANGSA</b></p></td>
+							<td  colspan="5" class="righttop" style="border-spacing:0px;">
+									<tr class="grey"><td colspan="5"><center><b>KELAYAKAN AKADEMIK</b></center></td></tr>
+									<tr>
+										<th  class="boxpengalaman">No</th>
+										<th class="boxpengalaman" colspan="2">Tajuk <br/> Kelulusan</th>
+										<th class="boxpengalaman">Institusi Pengajian</th>
+										<th class="boxpengalaman" style="width: 10%"><center>Tahun Kelulusan</center></th>
+									</tr>
+																																				<tr><td class="boxpengalaman"><center>1</center></td>
+										<td class="boxpengalaman"colspan="2">IJAZAH SARJANA MUDA KEJURUTERAAN AWAM</td>
+										<td class="boxpengalaman">UNIVERSITI TUN HUSSEIN ONN MALAYSIA</td>
+										<td class="boxpengalaman" style="width: 10%"><center>2008</center></td></tr>
+																																								<tr class="grey"> <td colspan="5"><center><b>PROFESIONAL</b></center></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman" colspan="2">Badan Profesional yang diiktiaf dan Kelayakan</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+																																								<tr><td class="boxpengalaman"><center>1</center></td>
+											<td class="boxpengalaman" colspan="2">JURUTERA PROFESIONAL (IR.)</td>
+											<td class="boxpengalaman">P120023</td>
+											<td class="boxpengalaman"><center>2020</center></td></tr>
+																																												<tr class="grey"> <td colspan="5"><center><b>KELAYAKAN KOMPETENSI TEMPATAN</b></center></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman">Pensijilan Kompetensi</th>
+											<th class="boxpengalaman">Tahap</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+																																																				<tr class="grey"> <td colspan="5"><center><b>KELAYAKAN KOMPETENSI ANTARABANGSA</b></center></td></tr>
+										<tr><th class="boxpengalaman">No</th>
+											<th class="boxpengalaman">Pensijilan Kompetensi</th>
+											<th class="boxpengalaman">Tahap</th>
+											<th class="boxpengalaman">No pendaftaran</th>
+											<th class="boxpengalaman">Tahun</th>
+										</tr>
+																																									
+									</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="bordertop" rowspan=9 ><b>F. SUMBANGAN DAN KEGIATAN</b></td>
+									<td colspan="5" class="righttop">
+                                            <tr class="grey"><td colspan="5"><center><b>JURNAL/BULETIN/KERTAS UTAMA 9</center></b></td>
+                                            </tr>
+                                                                                        <tr><th style="width: 6px;" class="boxpengalaman" >No</th>
+                                                <th class="boxpengalaman" colspan="3">Tajuk</th>
+                                                <th style="width: 90px;" class="boxpengalaman" >Tahun</th></tr>
+                                                                                                
+                                                    
+                                                    <tr class="grey"><td colspan="5" ><center><b>JAWATAN KUASA TEKNIKAL</center></b></td></tr>
+                                                    <tr>
+                                                        <th style="width: 6px;" class="boxpengalaman">No</th>
+                                                        <th class="boxpengalaman"colspan="3">Jawatankuasa Teknikal</th>
+                                                        <th class="boxpengalaman">Tahun</th>
+                                                    </tr>
+                                                                                                                                                        
+                                                        <tr class="grey"><td colspan="5"><center><b>SUMBANGAN DAN KEGIATAN DI DALAM TUGAS RASMI</center></b></td></tr>
+                                                        <tr>
+                                                            <th style="width: 6px;" class="boxpengalaman">No</th>
+                                                            <th class="boxpengalaman" colspan="3">Sumbangan</th>
+                                                            <th class="boxpengalaman">Tahun</th>
+                                                        </tr>
+                                                        
+                                                                                                                
+                                                            <tr class="grey"><td colspan="5"><center><b>SUMBANGAN DAN KEGIATAN DI LUAR TUGAS RASMI</center></b></td></tr>
+                                                            <tr>
+                                                                <th style="width: 6px;"class="boxpengalaman">No</th>
+                                                                <th class="boxpengalaman"colspan="3">Sumbangan</th>
+                                                                <th class="boxpengalaman">Tahun</th>
+                                                            </tr>
+                                                            
+                                                                                                                          
+														</td>
+													</tr>
+													<tr>
+														<td colspan="2" class="bordertop" rowspan=1366><b>G.PENGIKTIRAFAN</b></td>
+														<td colspan="5" class="righttop">
+                                                                <tr class="grey" ><td colspan="5"><center><b>APC</b></center></td></tr>
+                                                                <tr>
+                                                                    <th style="width: 6px;"class="boxpengalaman"> No</th>
+                                                                    <th class="boxpengalaman" colspan="3">APC</th>
+                                                                    <th class="boxpengalaman" >Tahun</th>
+
+                                                                </tr>
+                                                                
+                                                                                                                                <tr><td style="width: 6px;"class="boxpengalaman"><center>1</center></td>
+                                                                    <td class="boxpengalaman"colspan="3">ANUGERAH PERKHIDMATAN CEMERLANG</td>
+                                                                    <td class="boxpengalaman"><center>2014</center></td></tr>
+                                                                                                                                                                                                        <tr><td style="width: 6px;"class="boxpengalaman"><center>2</center></td>
+                                                                    <td class="boxpengalaman"colspan="3">ANUGERAH PERKHIDMATAN CEMERLANG</td>
+                                                                    <td class="boxpengalaman"><center>2020</center></td></tr>
+                                                                                                                                                                                                        
+                                                                    <tr class="grey"><td colspan="5"><center><b>PINGAT</center></b></td></tr>
+                                                                    <tr>
+                                                                        <th style="width: 6px;"class="boxpengalaman">No</th>
+                                                                        <th class="boxpengalaman" colspan="3">Pingat</th>
+                                                                        <th class="boxpengalaman" >Tahun</th>
+                                                                    </tr>
+                                                                    
+                                                                                                                                            
+                                                                        <tr class="grey"><td colspan="5"><center><b>ANUGERAH UMUM</center></b></td></tr>
+                                                                        <tr>
+                                                                            <th style="width: 6px;"class="boxpengalaman">No</th>
+                                                                            <th class="boxpengalaman" colspan="3">Anugerah Umum</th>
+                                                                            <th class="boxpengalaman">Tahun</th>
+                                                                        </tr>
+                                                                        
+                                                                                                                                             
+																	</td>
+																</tr>
+															</table>
+
+															<div ><p style="page-break-after: always"> </div>
+
+															<div class="lampiran2">
+																<table class="font">
+																	<tr>
+																		<td colspan="7" style="text-align:right; width:800px"><h5>LAMPIRAN 2</h5></td>
+																	</tr>
+																	<tr>
+																		<td colspan="7">
+																			<h5>KURSUS DAN SEMINAR YANG DIHADIRI</h5>
+																		</td>
+																	</tr>
+																	<tr>
+																																																																							  </tr>
+																</table><br>
+															</div>
+															<div> <p style="page-break-after: always"></div>
+															<div class="lampiran3">
+																<table class="font">
+																	<tr>
+																		<td colspan="7" style="text-align:right; width:800px"><h5>LAMPIRAN 3</h5></td>
+																	</tr>
+																																		<tr>																	</tr>
+																</table><br>
+															</div>
+															<div><p style="page-break-after: always"></div>
+															<div class="lampiran4">
+															<table class="font">
+																<tr>
+																	<td colspan="7" style="text-align:right;  width:800px"><h5>LAMPIRAN 4</h5></td>
+																</tr>
+																<tr>
+																	<td colspan="7">
+																		<h5>SENARAI PROJEK BESERTA KOS(DI PENEMPATAN SEMASA SAHAJA)</h5>
+																	</td>
+																</tr>
+																<tr>
+																																																																			  </tr>
+															</table>
+															</div>
+															<div><p style="page-break-after: always"></div>
+															<div class="lampiran5">
+															<table class="font">
+																<tr>
+																	<td colspan="7"style="text-align:right; width:800px"><h5>LAMPIRAN 5</h5></td>
+																</tr>
+																<tr>
+																	<td colspan="7">
+																		<h5>SENARAI KEPAKARAN</h5>
+																	</td>
+																</tr>
+																<tr>
+																																																																			  </tr>
+																<tr>
+																	<td colspan="7">
+																		<h5>SENARAI PENCAPAIAN TERTINGGI</h5>
+																	</td>
+																</tr>
+																<tr>
+																																																																			  </tr>
+															</table>
+															</div>
+														</body>
+														</html>
