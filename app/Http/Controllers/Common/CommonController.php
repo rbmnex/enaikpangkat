@@ -209,10 +209,10 @@ class CommonController extends Controller
         return \Carbon\Carbon::parse($next5WD);
     }
 
-    public function saveImageFromUrl($url) {
+    public function saveImageFromUrl($url,$name) {
         $contents = file_get_contents($url);
         $storage_disk = 'web';
-        Storage::disk($storage_disk)->put('foto.jpg', $contents);
+        Storage::disk($storage_disk)->put('foto-'.$name.'.jpg', $contents);
     }
 
     public static function mime_type($filename) {

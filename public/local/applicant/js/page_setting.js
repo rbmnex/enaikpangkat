@@ -24,6 +24,14 @@ DatatableUI.init({
     ],
     columnDef: [
         {
+            target: 1,
+            title: 'Nama',
+            searchable: false,
+            render: function (data, type, full, meta) {
+                return $.parseHTML(full.nama);
+            }
+        },
+        {
             targets: -3,
             title: 'Status',
             orderable: false,

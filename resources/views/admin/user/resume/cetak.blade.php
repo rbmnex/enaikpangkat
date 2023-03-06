@@ -1,9 +1,10 @@
 <?php
-$fileName = 'Lampiran-doc'.".doc";
+$fileName = 'Lampiran-doc-'.strtoupper($model['nokp']).".doc";
 
 // Headers for download
 header("Content-Disposition: attachment; filename=\"$fileName\"");
 header("Content-Type: application/vnd.ms-word");
+//header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document")
 header("Pragma:no-cache");
 header("Expires:0");
 ?>
@@ -90,7 +91,7 @@ div{
 							<td>:</td>
 							<td>{{$model['gelaran']}} {{ strtoupper($model['name']) }}</td>
 							<td rowspan="7" class="photo">
-							<img src="../files/foto.jpg"
+							<img src="{{ asset('files/foto-'.strtoupper($model['nokp']).'.jpg') }}"
 							alt="" width="120" height="140" align="top">
 						   </td>
 						</tr>
@@ -226,9 +227,12 @@ div{
 						<table class="smallbox" >
 							<tr>Majikan :   JABATAN KERJA RAYA MALAYSIA</tr>
 							<tr>Skim Perkhidmatan  :PENGURUSAN DAN PROFESSIONAL</tr>
-							<tr>Tarikh Mula Perkhidmatan    :{{ date('d-m-Y', strtotime($mula_khidmat->tkh_lantik)) }}</tr>
+							<tr>Tarikh Mula Perkhidmatan    :{{ isset($mula_khidmat->tkh_lantik) ? date('d-m-Y', strtotime($mula_khidmat->tkh_lantik)) : ''}}</tr>
 							<tr>Tarikh Bersara Wajib  : {{date('d-m-Y', strtotime($model['peribadi']['tkh_wajib_bersara']))}}</tr>
-							@if($gred_sekarang->status_perkhidmatan == 'H')
+                            @if(empty($gred_sekarang->status_perkhidmatan))
+                            <tr>Gred Hakiki     :     </tr>
+							<tr>Tarikh Mula Gred Hakiki    : </tr>
+							@elseif($gred_sekarang->status_perkhidmatan == 'H')
 							<tr>Gred Hakiki     :     {{$model['perkhidmatan']['gred_sekarang']}}</tr>
 							<tr>Tarikh Mula Gred Hakiki    : {{date('d-m-Y', strtotime($gred_sekarang->tkh_lantik))}}</tr>
 							@elseif ($gred_sekarang->status_perkhidmatan == 'M')
@@ -334,12 +338,12 @@ div{
 										@if(isset($model['antarabangsa']))
 										@foreach($model['antarabangsa'] as $antarabangsa)
 										<tr><td class="boxpengalaman">{{ $i + 1 }}</td>
-											@if($tempatan['nama_kelulusan'] != 9999)
-											<td class="boxpengalaman">{{ strtoupper($tempatan['nama_kelulusan']) }}</td>
+											@if($antarabangsa['nama_kelulusan'] != 9999)
+											<td class="boxpengalaman">{{ strtoupper($antarabangsa['nama_kelulusan']) }}</td>
 											@else
-											<td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
+											<td class="boxpengalaman">{{ strtoupper($antarabangsa['institusi']) }}</td>
 											@endif
-											<td class="boxpengalaman">{{ strtoupper($antarabangsa['tahap']) }}</td>
+											<td class="boxpengalaman">{{ isset($antarabangsa['tahap']) ? strtoupper($antarabangsa['tahap']) : '' }}</td>
 											<td class="boxpengalaman">{{strtoupper($antarabangsa['no_daftar'])}}</td>
 											<td class="boxpengalaman">{{ date('Y', strtotime($antarabangsa['tkh_kelulusan'])) }}</td></tr>
 											<?php $i++; ?>
@@ -385,7 +389,7 @@ div{
 
 														<?php $i++; ?>
 														@endforeach
-												
+
 														<tr class="grey"><td colspan="7"><center><b>SUMBANGAN DAN KEGIATAN DI DALAM TUGAS RASMI</center></b></td></tr>
 														<tr>
 															<th class="boxpengalaman">No</th>
@@ -400,7 +404,7 @@ div{
 															<td class="boxpengalaman" >{{ date('Y', strtotime($dalamTugasrasmi['tkh_kelulusan'])) }}</td></tr>
 															<?php $i++; ?>
 															@endforeach
-														
+
 															<tr class="grey"><td colspan="7"><center><b>SUMBANGAN DAN KEGIATAN DI LUAR TUGAS RASMI</center></b></td></tr>
 															<tr>
 																<th class="boxpengalaman">No</th>
@@ -415,7 +419,7 @@ div{
 																<td class="boxpengalaman">{{ date('Y', strtotime($luarTugasrasmi['tkh_kelulusan'])) }}</td></tr>
 																<?php $i++; ?>
 																@endforeach
-																
+
 
 															</table>
 														</td>
@@ -439,7 +443,7 @@ div{
 																	<td class="boxpengalaman">{{date('Y', strtotime($aPC['tkh_mula_peristiwa']))  }}</td></tr>
 																	<?php $i++; ?>
 																	@endforeach
-																
+
 																	<tr class="grey"><td colspan="7"><center><b>PINGAT</center></b></td></tr>
 																	<tr>
 																		<th class="boxpengalaman">No</th>
@@ -454,7 +458,7 @@ div{
 																		<td class="boxpengalaman">{{date('Y', strtotime($pingat['tkh_mula_peristiwa']))  }}</td></tr>
 																		<?php $i++; ?>
 																		@endforeach
-																		
+
 																		<tr class="grey"><td colspan="7"><center><b>ANUGERAH UMUM</center></b></td></tr>
 																		<tr>
 																			<th class="boxpengalaman">No</th>
@@ -469,7 +473,7 @@ div{
 																			<td class="boxpengalaman">{{date('Y', strtotime($anugerahUmum['tkh_mula_peristiwa']))  }}</td></tr>
 																			<?php $i++; ?>
 																			@endforeach
-																		
+
 																		</table>
 
 																	</td>
