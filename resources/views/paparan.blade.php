@@ -83,7 +83,7 @@ div{
                             <td>:</td>
                             <td>{{$model['gelaran']}} {{ strtoupper($model['name']) }}</td>
                             <td rowspan="7" class="photo">
-                            <img src="https://e-naikpangkat.jkr.gov.my/files/foto.jpg"
+                                <img src="{{ asset('files/foto-'.$model['nokp'].'.jpg') }}"
                             alt="" width="120" height="140" align="top">
                            </td>
                         </tr>
@@ -178,7 +178,7 @@ div{
                     </ul>
                 </td>
             </tr>
-           
+
             <tr>
                 <td colspan="2"  class="bordertop"><b>B. KEPAKARAN DAN PENGALAMAN</b><br>
                     <ul>
@@ -375,7 +375,7 @@ div{
 
                                                         <?php $i++; ?>
                                                         @endforeach
-                                                
+
                                                         <tr ><td colspan="5"><center><b>SUMBANGAN DAN KEGIATAN DI DALAM TUGAS RASMI</center></b></td></tr>
                                                         <tr>
                                                             <th style="width: 6px;" class="boxpengalaman">No</th>
@@ -390,7 +390,7 @@ div{
                                                             <td class="boxpengalaman" ><center>{{ date('Y', strtotime($dalamTugasrasmi['tkh_kelulusan'])) }}</center></td></tr>
                                                             <?php $i++; ?>
                                                             @endforeach
-                                                        
+
                                                             <tr ><td colspan="5"><center><b>SUMBANGAN DAN KEGIATAN DI LUAR TUGAS RASMI</center></b></td></tr>
                                                             <tr>
                                                                 <th style="width: 6px;"class="boxpengalaman">No</th>
@@ -405,7 +405,7 @@ div{
                                                                 <td class="boxpengalaman"><center>{{ date('Y', strtotime($luarTugasrasmi['tkh_kelulusan'])) }}</center></td></tr>
                                                                 <?php $i++; ?>
                                                                 @endforeach
-                                                              
+
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -426,7 +426,7 @@ div{
                                                                     <td class="boxpengalaman"><center>{{date('Y', strtotime($aPC['tkh_mula_peristiwa']))  }}</center></td></tr>
                                                                     <?php $i++; ?>
                                                                     @endforeach
-                                                                
+
                                                                     <tr ><td colspan="5"><center><b>PINGAT</center></b></td></tr>
                                                                     <tr>
                                                                         <th style="width: 6px;"class="boxpengalaman">No</th>
@@ -441,7 +441,7 @@ div{
                                                                         <td class="boxpengalaman"><center>{{date('Y', strtotime($pingat['tkh_mula_peristiwa']))  }}</center></td></tr>
                                                                         <?php $i++; ?>
                                                                         @endforeach
-                                                                        
+
                                                                         <tr ><td colspan="5"><center><b>ANUGERAH UMUM</center></b></td></tr>
                                                                         <tr>
                                                                             <th style="width: 6px;"class="boxpengalaman">No</th>
@@ -456,7 +456,7 @@ div{
                                                                             <td class="boxpengalaman"><center>{{date('Y', strtotime($anugerahUmum['tkh_mula_peristiwa']))  }}</center></td></tr>
                                                                             <?php $i++; ?>
                                                                             @endforeach
-                                                                     
+
                                                                     </td>
                                                                 </tr>
 
