@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Segment\Penyelia;
 use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Form\UkpController;
+use App\Models\File;
 use App\Models\Lpnk\JawapanLpnk;
 use App\Models\Lpnk\Lnpk;
 use App\Models\Lpnk\LpnkParent;
@@ -12,6 +13,7 @@ use App\Models\Mykj\ListPegawai2;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PenerimaanUkp11;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
@@ -56,6 +58,8 @@ class BoranglpnkController extends Controller
         $ukpC = new UkpController();
         $p = Pemohon::find($pemohon_id);
         $ukp11 = PenerimaanUkp11::where('id_pemohon', $p->id)->first();
+        $lnpk = Lnpk::where('id_pemohon',$pemohon_id)->first();
+        $file = File::find($lnpk->fail_skt);
         $data = [];
 
         if($p){
@@ -81,7 +85,8 @@ class BoranglpnkController extends Controller
             'data' => $data,
             'id_permohonan' => $p->id_permohonan,
             'pemohon' => $p,
-            'ukp11' => $ukp11
+            'ukp11' => $ukp11,
+            'doc' => $file
         ]);
     }
 
@@ -97,15 +102,23 @@ class BoranglpnkController extends Controller
         $id_permohonan = $request->input('id_permohonan');
         $id_pemohon = $request->input('id_pemohon');
 
-        $skt = $request->file('skt');
+        //$skt = $request->file('skt');
 
         $trigger = $request->input('trigger');
-        $lnpk = new Lnpk;
+        $lnpk = Lnpk::where('id_pemohon',$id_pemohon)->first();
+        if(empty($lnpk))
+            $lnpk = new Lnpk;
         //$lnpk->id_permohonan = $id_permohonan;
         $lnpk->id_pemohon = $id_pemohon;
         $lnpk->ulasan = $ulasan;
         $lnpk->tempoh = $jumlah_pengawasan;
         //$lnpk->fail_skt = CommonController::upload_image($skt, 'lnpk');
+        $lnpk->tkh_penilaian = Carbon::now();
+        $penilai = ListPegawai2::getMaklumatPegawaiRingkas($lnpk->nokp_penilai);
+
+        $lnpk->nama_penilai = $penilai['name'];
+        $lnpk->jawatan_penilai = $penilai['jawatan'];
+        $lnpk->jabatan_penilai = $penilai[''];
 
         if($lnpk->save()){
             foreach($skorArr as $sk){
@@ -121,7 +134,7 @@ class BoranglpnkController extends Controller
         //1 adalah setuju
         $p->lpnk_status = $trigger == 0 ? 1 : 2;
         // if($p->lpnk_status == 1) {
-            $p->status = Pemohon::PROCESSING;
+        $p->status = Pemohon::PROCESSING;
         // } else {
         //     $p->status = Pemohon::WAITING_VERIFICATION
         // }

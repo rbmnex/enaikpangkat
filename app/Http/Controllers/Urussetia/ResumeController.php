@@ -594,9 +594,9 @@ public function lampiran3($ic)
         $common = new CommonController();
          $resume=Resume::where('nokp',$ic->nokp)->first();
         $model=ListPegawai2::getMaklumatPegawai($ic->nokp);
-     
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$ic->nokp.'.jpg',$ic->nokp);
 
-        $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
+
         $mula_khidmat=Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
         $gred_sekarang = Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
 
@@ -682,11 +682,7 @@ public function lampiran3($ic)
         $model= [];
         $mula_khidmat ='';
         $model=ListPegawai2::getMaklumatPegawai($ic);
-            // echo '<pre>';
-            // print_r($model);
-            // echo '</pre>';
-            // die();
-        $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$ic.'.jpg',$ic);
 
         $mula_khidmat=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
         $gred_sekarang = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
@@ -851,7 +847,7 @@ public function lampiran3($ic)
         $lampiran_projek = LampiranProjek::where('nokp',$ic->nokp)->get();
         $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',1)->get();
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic->nokp)->where('kod_kategori',2)->get();
-     
+
 
         // echo '<pre>';
         // print_r($model);
@@ -942,7 +938,7 @@ public function lampiran3($ic)
         $lampiran_projek = LampiranProjek::where('nokp',$ic)->get();
         $lampiran_kepakaran = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',1)->get();
         $lampiran_pencapaian = LampiranPendedahan::where('nokp',$ic)->where('kod_kategori',2)->get();
-     
+
 
         // echo '<pre>';
         // print_r($model);
@@ -979,6 +975,7 @@ public function lampiran3($ic)
                     // testing purpose
                   $message->to($pegawai->email,$pegawai->nama);
                   $message->subject('KEMASKINI RESUME');
+                  $message->from('eHR@jkr.gov.my','Sistem ENP');
 
                 });
 
@@ -1063,7 +1060,7 @@ public function lampiran3($ic)
                     $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                     $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                      $lpn = LampiranPendedahan::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
-   
+
 
 
 if($lampirankursus && $lampiranbeban && $lampiranprojek && $lampiranpencapaian && $lampiranpendedahan){

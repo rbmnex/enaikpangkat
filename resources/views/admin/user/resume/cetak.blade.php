@@ -1,9 +1,10 @@
 <?php
-$fileName = 'Lampiran-doc'.".doc";
+$fileName = 'Lampiran-doc-'.strtoupper($model['nokp']).".doc";
 
 // Headers for download
 header("Content-Disposition: attachment; filename=\"$fileName\"");
 header("Content-Type: application/vnd.ms-word");
+//header("Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document")
 header("Pragma:no-cache");
 header("Expires:0");
 ?>

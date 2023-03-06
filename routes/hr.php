@@ -62,6 +62,8 @@ Route::prefix('/naikpangkat')->group(function() {
         Route::get('/download/part',[NaikpangkatController::class,'download_form_part']);
         Route::prefix('/api')->group(function() {
             Route::post('/upload',[NaikpangkatController::class,'upload_file']);
+            Route::post('/normal-submit',[NaikpangkatController::class,'submit_normal']);
+            Route::post('/preview-download',[NaikpangkatController::class,'save_for_preview']);
         });
     });
 });

@@ -7,8 +7,8 @@ $(document).on('click', '.post-tidak-setuju, .post-setuju', function(){
     try{
         v = validate.checkEmpty(
             validate.getValue('#jumlah-pengawasan', 'int', 'Soalan', 'jumlah_pengawasan'),
-            validate.getValue('.penyelia-ulasan', 'mix', 'Penerangan', 'ulasan'),
-            validate.getValue('#skt', 'picture', 'SKT', 'skt')
+            validate.getValue('.penyelia-ulasan', 'mix', 'Penerangan', 'ulasan')
+            //validate.getValue('#skt', 'picture', 'SKT', 'skt')
         );
     }catch (e) {
         pass++;

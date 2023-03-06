@@ -14,7 +14,7 @@
                     <div class="invalid-feedback"></div>
                 </div>
                 <div class="form-group col-md-12" style="height: 700px">
-                    <iframe src="data:application/pdf;base64,{{ $borang_pengesahan->content_bytes }}" height="100%" width="100%">
+                    <iframe src="data:{{ mime_content_type($borang_pengesahan->filename) }};base64,{{ $borang_pengesahan->content_bytes }}" height="100%" width="100%">
 
                     </iframe>
                 </div>

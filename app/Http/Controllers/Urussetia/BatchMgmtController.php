@@ -98,7 +98,9 @@ class BatchMgmtController extends Controller
             ->select('list_pegawai_naikpangkat.nokp','list_pegawai_naikpangkat.nama','list_pegawai_naikpangkat.kod_gred','list_pegawai_naikpangkat.jawatan','l_jurusan.jurusan','list_pegawai_naikpangkat.tkh_sah_perkhidmatan','list_pegawai_naikpangkat.kod_kanan', 'list_pegawai_naikpangkat.tkh_lantik','list_pegawai_naikpangkat.kod_kategori_penempatan');
 
         if(!empty($tahun)) {
-            $model = $model->where(DB::raw('extract(year from list_pegawai_naikpangkat.tkh_sah_perkhidmatan)'),$tahun);
+            // $model = $model->where(DB::raw('extract(year from list_pegawai_naikpangkat.tkh_sah_perkhidmatan)'),$tahun);
+            // $model = $model->orWhere(DB::raw('extract(year from list_pegawai_naikpangkat.tkh_lantik)'),$tahun);
+            $model = $model->whereRaw('(extract(year from list_pegawai_naikpangkat.tkh_sah_perkhidmatan) = ? or extract(year from list_pegawai_naikpangkat.tkh_lantik) = ?)',[$tahun,$tahun]);
         }
         if(!empty($jurusan)) {
             $model = $model->where('l_jurusan.kod_jurusan',$jurusan);

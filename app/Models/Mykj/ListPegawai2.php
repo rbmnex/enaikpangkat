@@ -151,10 +151,10 @@ class ListPegawai2 extends Model
         $model = $model->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {
                 $item->nama_kelulusan = $item->institusi;
-            } else {
+            } else if(is_numeric($item->nama_kelulusan)) {
                 $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
                 $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
-            }
+            } else { }
         });
 
         if($model){
@@ -189,10 +189,10 @@ class ListPegawai2 extends Model
         $model = $model->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {
                 $item->nama_kelulusan = $item->institusi;
-            } else {
+            } else if(is_numeric($item->nama_kelulusan)) {
                 $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
                 $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
-            }
+            } else {}
         });
 
         if($model){
@@ -224,10 +224,10 @@ class ListPegawai2 extends Model
         $model = $model->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {
                 $item->nama_kelulusan = $item->institusi;
-            } else {
+            } else if(is_numeric($item->nama_kelulusan)) {
                 $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
                 $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
-            }
+            } else { }
         });
 
         if($model){
@@ -454,7 +454,7 @@ class ListPegawai2 extends Model
         if($model){
             foreach($model as $m){
                 // $diff=date_diff($m->tkh_mula,$m->tkh_tamat);
-                  if($m->kod_aktiviti ==4 || $m->kod_aktiviti ==10 || $m->kod_aktiviti >= 50)  
+                  if($m->kod_aktiviti ==4 || $m->kod_aktiviti ==10 || $m->kod_aktiviti >= 50)
 
                     if($m->tkh_mula && $m->tkh_tamat){
                         $date1 = new DateTime($m->tkh_mula);

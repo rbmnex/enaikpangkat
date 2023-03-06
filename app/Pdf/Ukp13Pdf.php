@@ -5,6 +5,76 @@ namespace App\Pdf;
 use Codedge\Fpdf\Fpdf\Fpdf;
 
 class Ukp13Pdf extends Fpdf {
+    function InlineImage($file, $x=null, $y=null, $w=0, $h=0, $type='', $link='')
+    {
+        // ----- Code from FPDF->Image() -----
+        // Put an image on the page
+        if($file=='')
+            $this->Error('Image file name is empty');
+        if(!isset($this->images[$file]))
+        {
+            // First use of this image, get info
+            if($type=='')
+            {
+                $pos = strrpos($file,'.');
+                if(!$pos)
+                    $this->Error('Image file has no extension and no type was specified: '.$file);
+                $type = substr($file,$pos+1);
+            }
+            $type = strtolower($type);
+            if($type=='jpeg')
+                $type = 'jpg';
+            $mtd = '_parse'.$type;
+            if(!method_exists($this,$mtd))
+                $this->Error('Unsupported image type: '.$type);
+            $info = $this->$mtd($file);
+            $info['i'] = count($this->images)+1;
+            $this->images[$file] = $info;
+        }
+        else
+            $info = $this->images[$file];
+
+        // Automatic width and height calculation if needed
+        if($w==0 && $h==0)
+        {
+            // Put image at 96 dpi
+            $w = -96;
+            $h = -96;
+        }
+        if($w<0)
+            $w = -$info['w']*72/$w/$this->k;
+        if($h<0)
+            $h = -$info['h']*72/$h/$this->k;
+        if($w==0)
+            $w = $h*$info['w']/$info['h'];
+        if($h==0)
+            $h = $w*$info['h']/$info['w'];
+
+        // Flowing mode
+        if($y===null)
+        {
+            if($this->y+$h>$this->PageBreakTrigger && !$this->InHeader && !$this->InFooter && $this->AcceptPageBreak())
+            {
+                // Automatic page break
+                $x2 = $this->x;
+                $this->AddPage($this->CurOrientation,$this->CurPageSize,$this->CurRotation);
+                $this->x = $x2;
+            }
+            $y = $this->y;
+            $this->y += $h;
+        }
+
+        if($x===null)
+            $x = $this->x;
+        $this->_out(sprintf('q %.2F 0 0 %.2F %.2F %.2F cm /I%d Do Q',$w*$this->k,$h*$this->k,$x*$this->k,($this->h-($y+$h))*$this->k,$info['i']));
+        if($link)
+            $this->Link($x,$y,$w,$h,$link);
+        # -----------------------
+
+        // Update Y
+        $this->y += $h;
+    }
+
     // Page footer
     function Footer() {
         // Position at 1.5 cm from bottom
@@ -17,12 +87,13 @@ class Ukp13Pdf extends Fpdf {
 
     function kepala() {
         $this->SetFont('Arial','B',12);
+        $this->Cell(0,10,$this->Image(asset('images/jkr_logo.png') ,95,20,25,15),0,0,'L',false);
         $this->Cell(0,10,'JKR/UKP/13',0,0,'R');
         $this->Ln(4);
         $this->SetFont('Arial','BI',8);
         $this->Cell(0,10,'Pindaan 1/2021',0,0,'R');
         //$this->SetY(1);
-        $this->Image(asset('images/jkr_logo.png') ,95,20,25,15);
+
         $this->Ln(20);
         $this->SetFont('Arial','',10);
         $this->Cell(0,10,'Pengarah',0,0,'L');
@@ -114,7 +185,7 @@ class Ukp13Pdf extends Fpdf {
         $this->Ln(3);
         $this->SetFont('Arial','B',10);
         $this->Cell(15,5,'','L',0,'L');
-        $this->Cell(50,5,'Cuti',1,0,'C');
+        $this->Cell(70,5,'Cuti',1,0,'C');
         $this->Cell(30,5,'Tarikh Mula','TBR',0,'C');
         $this->Cell(30,5,'Tarikh Akhir','TBR',0,'C');
         $this->Cell(0,5,'','R',0,'C');
@@ -125,9 +196,9 @@ class Ukp13Pdf extends Fpdf {
             if(count($input->cuti) > 0) {
                 foreach($input->cuti as $cuti) {
                     $this->Cell(15,5,'','L',0,'L');
-                    $this->Cell(50,5,$cuti->jenis_cuti,'RL',0,'L');
-                    $this->Cell(30,5,\Carbon\Carbon::parse($cuti->tkh_mula)->format('d-m-Y') ,'R',0,'L');
-                    $this->Cell(30,5,\Carbon\Carbon::parse($cuti->tkh_tamat)->format('d-m-Y') ,'R',0,'L');
+                    $this->Cell(70,5,$cuti->jenis_cuti,'RLB',0,'L');
+                    $this->Cell(30,5,\Carbon\Carbon::parse($cuti->tkh_mula)->format('d-m-Y') ,'RB',0,'L');
+                    $this->Cell(30,5,\Carbon\Carbon::parse($cuti->tkh_tamat)->format('d-m-Y') ,'RB',0,'L');
                     $this->Cell(0,5,'','R',0,'L');
                     $this->Ln(5);
                 }
@@ -213,6 +284,8 @@ class Ukp13Pdf extends Fpdf {
         }
 
         $this->SetFont('Arial','BI',10);
+        $this->Cell(0,10,'','RL',0,'L');
+        $this->Ln(10);
         $this->Cell(0,5,' * Surat Kelulusan Cuti yang disahkan perlu diserta bersama','RLB',0,'L');
         $this->Ln(5);
         $this->Cell(0,7,'','LR',0,'C');

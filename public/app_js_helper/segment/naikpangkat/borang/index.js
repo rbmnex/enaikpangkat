@@ -1,4 +1,4 @@
-$(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
+$(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-preview',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('btn-submit')) {
         //$('#modal-cuti').modal('show');
@@ -36,7 +36,7 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
                 icon: 'info',
                 confirmButtonText: 'Hantar',
                 postData: {
-                    url : '/naikpangkat/ukp13/borang-submit',
+                    url : '/naikpangkat/ukp13/api/normal-submit',
                     data: data,
                     postfunc: function(data) {
                         let success = data.success;
@@ -63,6 +63,57 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept',function() {
             $('.reason_reject').hide();
         } else {
             $('.reason_reject').show();
+        }
+    } else if(selectedClass.hasClass('btn-preview')) {
+        let process = validate_form();
+        if(process) {
+            // submit proccess
+            var data = new FormData;
+            data.append('_token', getToken());
+            data.append('id_pemohon',$('input[name="_formid"]').val());
+            data.append('accept',$('.radio-accept').filter(':checked').val());
+            data.append('alasan',$('.alasan_tolak').val());
+            data.append('ketua_nokp',$('.pegawai-nokp').val());
+            data.append('kerani_nokp',$('.pengguna-nokp').val());
+            data.append('penyelia_nokp',$('.penyelia-nokp').val());
+            data.append('tatatertib',$('.tatatertib').filter(':checked').val());
+            data.append('denda',$('.denda').filter(':checked').val());
+            data.append('cuti',$('.cuti_check').filter(':checked').val());
+            if($('.akuan_peribadi').is(':checked')) {
+                data.append('akuan',1);
+            } else {
+                data.append('akuan',0);
+            }
+
+            data.append('status_pinjam',$('.pinjam-status').val());
+            data.append('nama_pinjam',$('.nama_tabung').val());
+            data.append('jumlah_pinjam',$('.jumlah_pinjaman').val());
+            data.append('mula_pinjam',$('.mula_pinjam').val());
+            data.append('akhir_pinjam',$('.akhir_pinjam').val());
+            data.append('bayar_pinjam',$('.bayar_mula').val());
+            data.append('selesai_pinjam',$('.selesai_bayar').val());
+
+            let id_pemohon = $('input[name="_formid"]').val();
+            let url = getUrl() + '/form/ukp13/nview/'+id_pemohon+'?view=n'
+            let target = '_blank';
+
+            $.ajax({
+                type:'POST',
+                url: getUrl() + '/naikpangkat/ukp13/api/preview-download',
+                data:data,
+                processData: false,
+                contentType: false,
+                context: this,
+                success: function(resp) {
+                    let d = resp.success;
+                    if(d == 1) {
+                        //toasting('Dokumen berjaya sudah dimuat naik', 'success');
+                        window.open(url,target);
+                    } else {
+                        toasting('Ralat telah berlaku, Dokumen telah gagal dimuat turun', 'error');
+                    }
+                }
+            });
         }
     }
 });

@@ -668,6 +668,25 @@ function validate_form() {
     }
 
     if(valid) {
+        if($('.penyelia-nokp').val() == '' || $('.penyelia-nokp').val() == undefined) {
+            valid = false;
+            addInvalid('.penyelia_nokp', 'Sila Pilih Pegawai Penyelia');
+            console.log('Tiada nokp penyelia');
+        }
+
+        if($('.work-file').is(':empty')) {
+            valid = false;
+            addInvalid('.upload-work', 'Sila Muat Naik Borang Sasaran Kerja Dan Laporan Pencapaian');
+            console.log('Tiada nokp penyelia');
+        }
+
+        if(!valid) {
+            verticalStepper.to(13);
+            return valid;
+        }
+    }
+
+    if(valid) {
         if($('.pengguna-nokp').val() == '' || $('.pengguna-nokp').val() == undefined) {
             valid = false;
             addInvalid('.pengguna-nokp', 'Sila Pilih Ketua Bahagian Perkhidmatan / Kerani');
@@ -679,7 +698,7 @@ function validate_form() {
         }
 
         if(!valid) {
-            verticalStepper.to(13);
+            verticalStepper.to(14);
             return valid;
         }
 
@@ -698,7 +717,7 @@ function validate_form() {
         }
 
         if(!valid) {
-            verticalStepper.to(14);
+            verticalStepper.to(15);
             return valid;
         }
     }
