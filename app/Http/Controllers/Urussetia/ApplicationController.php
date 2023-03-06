@@ -212,7 +212,7 @@ class ApplicationController extends Controller
             $candidates->each(function ($item, $key) use ($batch) {
                 $info = $this->get_info($item->nokp,$batch->permohonan_id);
                 $item->email_status = empty($item->status) ? 'UNKNOWN' : $item->status;
-                $item->nama = $info['name'];
+                $item->nama = html_entity_decode($info['name']);
                 $item->jawatan = $info['jawatan'];
                 $item->gred = $info['gred'];
                 $item->status = $info['status'];

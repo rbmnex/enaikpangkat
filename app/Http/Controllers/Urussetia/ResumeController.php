@@ -594,7 +594,9 @@ public function lampiran3($ic)
         $common = new CommonController();
          $resume=Resume::where('nokp',$ic->nokp)->first();
         $model=ListPegawai2::getMaklumatPegawai($ic->nokp);
-        $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$ic->nokp.'.jpg',$ic->nokp);
+
+
         $mula_khidmat=Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
         $gred_sekarang = Perkhidmatan::where('nokp',$ic->nokp)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
 
@@ -666,7 +668,7 @@ public function lampiran3($ic)
         $model= [];
         $mula_khidmat ='';
         $model=ListPegawai2::getMaklumatPegawai($ic);
-        $common->saveImageFromUrl('http://10.8.80.68/'.$model['peribadi']['gambar']);
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$ic.'.jpg',$ic);
 
         $mula_khidmat=Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'asc')->first();
         $gred_sekarang = Perkhidmatan::where('nokp',$ic)->where('kod_kumpulan',3)->orderBy('tkh_lantik', 'desc')->first();
