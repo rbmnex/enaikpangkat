@@ -34,7 +34,8 @@
 
         </div>
         <div class="form-group col-md-12"> 
-           
+            <button class="btn btn-warning paparan-resume" onClick="javascript:window.open('{{ url('/user/resume/paparan') }}', '_blank');"><i data-feather='eye'></i>Paparan Resume</button>
+
         </div>
         <div class="form-group col-md-12">      <button type="button" class="btn btn-info selesai-calon" data-toggle="modal" data-target="#modal-selesai"><i data-feather='send'></i>Hantar</button>
             <br/>
