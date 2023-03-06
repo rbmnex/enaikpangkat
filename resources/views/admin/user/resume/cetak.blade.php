@@ -12,7 +12,7 @@ header("Expires:0");
 <head><title>Resume</title>
 	<style>
 
-		
+
 .grey{
 	background-color: #D1D0CE;
 	height: 30px;
@@ -21,7 +21,7 @@ header("Expires:0");
 	.grey1{
 	background-color: #D1D0CE;
 	}
-		
+
 .outerline {
 			border: 1px solid black;
 /*			border-collapse: collapse;*/
@@ -77,15 +77,15 @@ header("Expires:0");
 /*	text-align:right;*/
 }
 
-/*.page-break { 
+/*.page-break {
 	page-break-after: always!important;
 }
 
 @media print {
 
-.page-break { 
+.page-break {
 	page-break-after: always!important;
-} 
+}
 }*/
 
 </style>
@@ -108,7 +108,7 @@ header("Expires:0");
                   <td>:</td>
                   <td>{{$model['gelaran']}} {{ strtoupper($model['name']) }}</td>
                   <td rowspan="7" class="photo">
-                     <img src="https://e-naikpangkat.jkr.gov.my/files/foto.jpg"
+                     <img src="{{ asset('files/foto-'.$model['nokp'].'.jpg') }}"
                         alt="" width="120" height="140" align="top">
                   </td>
                </tr>
@@ -621,13 +621,13 @@ header("Expires:0");
          <?php
             // A few settings
             // $image =url('/').$lampiran_beban->path;
-            
+
             // // Read image path, convert to base65 encoding
             // $imageData = base64_encode(file_get_contents($image));
-            
+
             // // Format the image SRC:  data:{mime};base64,{data};
             // $src = 'data:'.mime_content_type($image).';base64,'.$imageData;
-            
+
             // // Echo out a sample image
             // echo '<img src="',$src,'">';
             ?>
@@ -637,7 +637,7 @@ header("Expires:0");
       </table>
       <br>
    </div>
-  
+
    <div style="page-break-before: always" class="lampiran4">
       <table class="font">
          <tr>
@@ -663,7 +663,7 @@ header("Expires:0");
          @endif  </tr>
       </table>
    </div>
-  
+
   <div style="page-break-after: always" class="lampiran5">
        <table class="font">
          <tr>
@@ -703,14 +703,14 @@ header("Expires:0");
          <?php $i//++; ?>
          @endforeach
          @endif  </tr>
-      </table> 
+      </table>
    </div>
-   
+
   <!--  <div style="page-break-before: always" class="lampiran6">
    	<span>tmat</span>
    	<table></table>
    </div> -->
-   
+
 </body>
 
 														</html>

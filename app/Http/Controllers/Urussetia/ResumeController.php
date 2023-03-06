@@ -638,11 +638,11 @@ public function lampiran3($ic)
 
         $kira_pengalaman1 = Pengalaman::where('nokp', $ic->nokp)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4){
-              $kira_pengalaman = 5; 
-         }else{   
+              $kira_pengalaman = 5;
+         }else{
               $kira_pengalaman = count($kira_pengalaman1) +2;
          }
-         
+
         $pengalaman = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
                                          ->leftJoin('public.l_aktiviti as la','p.kod_aktiviti','la.kod_aktiviti')->select('p.kod_aktiviti','la.aktiviti')
                                         ->where('p.nokp',$ic->nokp)
@@ -670,7 +670,7 @@ public function lampiran3($ic)
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('admin.user.resume.cetak_sendiri', compact('model','kira_kelayakan','kira_sumbangan','kira_pengalaman','kira_iktiraf','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
      }
@@ -715,7 +715,7 @@ public function lampiran3($ic)
 
         //count kelayakan
         $kira_kelayakan1 = Kelayakan::where('nokp',$ic)->whereNotIn('kod_kelulusan',[20,21,22,23])->get();
-        $kira_kelayakan = count($kira_kelayakan1) + 9;
+        $kira_kelayakan = count($kira_kelayakan1 ?? 0) + 9;
 
         $kira_sumbangan1 = Kelayakan::where('nokp', $ic)->whereIn('kod_kelulusan',[20,21,22,23])->get();
          $kira_sumbangan = count($kira_sumbangan1) + 9;
@@ -725,8 +725,8 @@ public function lampiran3($ic)
 
         $kira_pengalaman1 = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4){
-              $kira_pengalaman = 5; 
-         }else{   
+              $kira_pengalaman = 5;
+         }else{
               $kira_pengalaman = count($kira_pengalaman1) +2;
          }
 
@@ -817,8 +817,8 @@ public function lampiran3($ic)
 
         $kira_pengalaman1 = Pengalaman::where('nokp', $ic->nokp)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4){
-              $kira_pengalaman = 5; 
-         }else{   
+              $kira_pengalaman = 5;
+         }else{
               $kira_pengalaman = count($kira_pengalaman1) +2;
          }
            // echo '<pre>';
@@ -852,7 +852,7 @@ public function lampiran3($ic)
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('paparan_lampiran', compact('model','kira_kelayakan','kira_sumbangan','kira_pengalaman','kira_iktiraf','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
@@ -864,6 +864,9 @@ public function lampiran3($ic)
     {
         $model= [];
         $mula_khidmat ='';
+
+        $common =  new CommonController();
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$ic.'.jpg',$ic);
 
         $model=ListPegawai2::getMaklumatPegawai($ic);
         $resume=Resume::where('nokp',$ic)->first();
@@ -908,8 +911,8 @@ public function lampiran3($ic)
 
         $kira_pengalaman1 = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4){
-              $kira_pengalaman = 5; 
-         }else{   
+              $kira_pengalaman = 5;
+         }else{
               $kira_pengalaman = count($kira_pengalaman1) +2;
          }
            // echo '<pre>';
@@ -943,7 +946,7 @@ public function lampiran3($ic)
         // echo '<pre>';
         // print_r($model);
         // echo '</pre>';
-        // die();        
+        // die();
          return view('paparan', compact('model','kira_kelayakan','kira_sumbangan','kira_pengalaman','kira_iktiraf','tempoh_gred','resume','mula_khidmat','mula_gred_hakiki','tempoh_awam','pengalaman','pengalaman_mula','lampiran_kursus','lampiran_beban','lampiran_projek', 'lampiran_kepakaran','lampiran_pencapaian','tempoh_pnp','modelp','gred_sekarang'));
 
 
