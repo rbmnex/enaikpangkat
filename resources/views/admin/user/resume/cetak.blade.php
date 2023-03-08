@@ -394,7 +394,7 @@ header("Expires:0");
          @else
          <td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
          @endif
-         <td class="boxpengalaman">{{ strtoupper($antarabangsa['tahap']) }}</td>
+         <td class="boxpengalaman">{{ isset($antarabangsa['tahap']) ? strtoupper($antarabangsa['tahap']) : '' }}</td>
          <td class="boxpengalaman">{{strtoupper($antarabangsa['no_daftar'])}}</td>
          <td class="boxpengalaman">
             <center>{{ date('Y', strtotime($antarabangsa['tkh_kelulusan'])) }}</center>
@@ -575,7 +575,7 @@ header("Expires:0");
          <td style="width: 6px;"class="boxpengalaman">
             <center>{{ $i + 1 }}</center>
          </td>
-         <td class="boxpengalaman" colspan="3">{{ strtoupper($anugerahUmum['catatan']) }}</td>
+         <td class="boxpengalaman" colspan="3">{{ isset($anugerahUmum['catatan']) ? strtoupper($anugerahUmum['catatan']) : '' }}</td>
          <td class="boxpengalaman">
             <center>{{date('Y', strtotime($anugerahUmum['tkh_mula_peristiwa']))  }}</center>
          </td>

@@ -332,7 +332,7 @@ div{
                                             @else
                                             <td class="boxpengalaman">{{ strtoupper($tempatan['institusi']) }}</td>
                                             @endif
-                                            <td class="boxpengalaman">{{ strtoupper($antarabangsa['tahap']) }}</td>
+                                            <td class="boxpengalaman">{{ isset($antarabangsa['tahap']) ? strtoupper($antarabangsa['tahap']) : '' }}</td>
                                             <td class="boxpengalaman">{{strtoupper($antarabangsa['no_daftar'])}}</td>
                                             <td class="boxpengalaman"><center>{{ date('Y', strtotime($antarabangsa['tkh_kelulusan'])) }}</center></td></tr>
                                             <?php $i++; ?>
