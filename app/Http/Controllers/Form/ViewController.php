@@ -102,15 +102,22 @@ class ViewController extends Controller
                 $third->tahun = $year-3;
                 $third->purata = 0;
                     $markah->push($third);
-                if(!empty($lnpt)) {
-                    $markah->each(function ($item, $key) use ($lnpt) {
-                        foreach($lnpt as $l) {
-                            if($l->tahun == $item->tahun) {
-                                $item->purata = $l->purata;
+
+                if($pemohon->status == 'NA' || $pemohon->status == 'BH') {
+
+                } else {
+                    if(!empty($lnpt)) {
+                        $markah->each(function ($item, $key) use ($lnpt) {
+                            foreach($lnpt as $l) {
+                                if($l->tahun == $item->tahun) {
+                                    $item->purata = $l->purata;
+                                }
                             }
-                        }
-                    });
+                        });
+                    }
                 }
+
+
             } else {
                 $markah = $rekod_markah;
                 $markah->each(function ($item, $key) {
@@ -269,15 +276,20 @@ class ViewController extends Controller
             $third->tahun = $year-3;
             $third->purata = 0;
                 $markah->push($third);
-            if(!empty($lnpt)) {
-                $markah->each(function ($item, $key) use ($lnpt) {
-                    foreach($lnpt as $l) {
-                        if($l->tahun == $item->tahun) {
-                            $item->purata = $l->purata;
-                        }
+
+                if($pemohon->status == 'NA' || $pemohon->status == 'BH') {
+
+                } else {
+                    if(!empty($lnpt)) {
+                        $markah->each(function ($item, $key) use ($lnpt) {
+                            foreach($lnpt as $l) {
+                                if($l->tahun == $item->tahun) {
+                                    $item->purata = $l->purata;
+                                }
+                            }
+                        });
                     }
-                });
-            }
+                }
         } else {
             $markah = $rekod_markah;
             $markah->each(function ($item, $key) {
