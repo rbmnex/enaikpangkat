@@ -14,4 +14,12 @@ class Ukp13Controller extends Ajax{
             }
         });
     }
+
+    static crud_work({data, url, func}){
+        this.runAjax({
+            url : url,
+            data: data,
+            func: func
+        });
+    }
 }

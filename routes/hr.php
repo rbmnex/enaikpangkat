@@ -64,6 +64,9 @@ Route::prefix('/naikpangkat')->group(function() {
             Route::post('/upload',[NaikpangkatController::class,'upload_file']);
             Route::post('/normal-submit',[NaikpangkatController::class,'submit_normal']);
             Route::post('/preview-download',[NaikpangkatController::class,'save_for_preview']);
+            Route::post('/save-work',[NaikpangkatController::class,'save_sasaran_kerja']);
+            Route::post('/delete-work',[NaikpangkatController::class,'delete_sasaran_kerja']);
+            Route::get('/load-work/{id}',[NaikpangkatController::class,'load_sasaran_kerja']);
         });
     });
 });

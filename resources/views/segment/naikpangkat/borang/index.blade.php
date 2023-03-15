@@ -247,7 +247,7 @@
                                 @include('form.ukp12.section11')
                                 @include('form.ukp12.section12')
                                 @include('form.ukp12.section13')
-                                @include('form.ukp13.section_supervisor')
+                                @include('form.ukp13.section_supervisor_2')
                                 @include('form.ukp13.section14')
                                 @include('form.ukp13.section15')
                             {{-- </form> --}}
@@ -266,6 +266,7 @@
 
 </div>
 @include('form.ukp12.notice')
+@include('form.ukp13.modal')
 <input type="hidden" id="_token_alt" class="_token_alt" name="_token_alt" value="{{csrf_token()}}">
 <input type="hidden" id="_formid" class="_formid" name="_formid" value="{{ $pemohon_id }}">
 
@@ -280,6 +281,7 @@
     <script src="{{ asset('asset/vendors/js/forms/wizard/bs-stepper.min.js') }}"></script>
     {{-- <script src="{{ asset('asset/vendors/js/forms/validation/jquery.validate.min.js') }}"></script> --}}
     @include('segment.layouts.custom_view_links.customjavascript.index')
+    <script src="{{ asset('app_js_helper/inits/swal/index.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/naikpangkat/borang/controller.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/naikpangkat/borang/page_setting.js') }}"></script>
     <script src="{{ asset('app_js_helper/segment/naikpangkat/borang/index.js') }}"></script>

@@ -111,6 +111,13 @@ function add_row(selector,row,attribute) {
     $(selector).append(content);
 }
 
+function modify_row(selector, row) {
+    $(selector).children('td').remove();
+    for(var i = 0; i < row.length; i++) {
+        $(selector).append('<td>'+row[i]+'</td>');
+    }
+}
+
 function remove_row(selector) {
     let tr = selector.closest('tr');
     tr.remove();
@@ -723,4 +730,18 @@ function validate_form() {
     }
 
     return valid;
+}
+
+function add_row(selector,row,attribute) {
+    var content = '<tr '+attribute+'>';
+    for(var i = 0; i < row.length; i++) {
+        content+= '<td>'+row[i]+'</td>';
+    }
+    content += '</tr>';
+    $(selector).append(content);
+}
+
+function remove_row(selector) {
+    let tr = selector.closest('tr');
+    tr.remove();
 }
