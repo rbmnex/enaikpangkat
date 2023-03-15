@@ -206,8 +206,8 @@
                                     <span class="bs-stepper-box">13</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 13</span>
-                                        <span class="bs-stepper-subtitle"><span>Ketua Jabatan /</span><br/>
-                                            <span>Bahagian</span></span>
+                                        <span class="bs-stepper-subtitle">Perakuan Ketua Jabatan <br/>dan Ketua
+                                            Bahagian <br/>Perkhidmatan/Pentadbiran</span>
                                     </span>
                                 </button>
                             </div>
