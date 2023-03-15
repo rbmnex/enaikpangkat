@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Form\UkpController;
 use App\Models\File;
 use App\Models\Lpnk\Lnpk;
+use App\Models\Lpnk\SasaranKerja;
 use App\Models\Permohonan\Akademik;
 use App\Models\Permohonan\Cuti as PermohonanCuti;
 use App\Models\Permohonan\Harta as PermohonanHarta;
@@ -87,7 +88,10 @@ class NaikpangkatController extends Controller
 
         $maklumat = $ukpC->load_info($profile,$profile->nokp,$pemohon);
         $work = Lnpk::where('id_pemohon',$pemohon->id)->where('id_permohonan',$pemohon->id_permohonan)->first();
+        $list_work = SasaranKerja::where('id_pemohon',$pemohon->id)->get();
         $maklumat['work_file'] = empty($work) ? NULL : $work->file;
+        $maklumat['work_list'] = $list_work;
+
         $request->session()->put('naikpangkat-'.$id,json_encode($maklumat));
         return view('segment.naikpangkat.borang.index',[
             "profile" => $maklumat,
@@ -120,6 +124,8 @@ class NaikpangkatController extends Controller
             $maklumat = $ukpC->load_info($profile,$profile->nokp,$pemohon);
             $work = Lnpk::where('id_pemohon',$pemohon->id)->where('id_permohonan',$pemohon->id_permohonan)->first();
             $maklumat['work_file'] = empty($work) ? NULL : $work->file;
+            $list_work = SasaranKerja::where('id_pemohon',$pemohon->id)->get();
+            $maklumat['work_list'] = $list_work;
             $request->session()->put('naikpangkat-'.$id,json_encode($maklumat));
             return view('segment.naikpangkat.borang.index',[
                 "profile" => $maklumat,
@@ -531,7 +537,7 @@ class NaikpangkatController extends Controller
 
         $this->save_form($formdata,$alldata);
 
-        // $pemohon = Pemohon::find($alldata['id_pemohon']);
+        $pemohon = Pemohon::find($alldata['id_pemohon']);
 
         if(isset($alldata['kerani_nokp'])) {
             $kerani_user = User::addOrUpdate($alldata['kerani_nokp']);
@@ -554,73 +560,73 @@ class NaikpangkatController extends Controller
             }
         }
 
-        // if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
-        //     //send email
-        //     $secure_link = Crypt::encryptString($pemohon->id);
+        if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
+            //send email
+            $secure_link = Crypt::encryptString($pemohon->id);
 
-        //             $content = [
-        //                 'link' => url('/')."/form/ukp12/eview/".$secure_link."?view=s",
-        //                 'gred' => $pemohon->gred,
-        //                 'jawatan' => $pemohon->jawatan,
-        //                 'nokp' => $formdata->nokp_baru,
-        //                 'nama' => $formdata->nama
-        //             ];
-        //             try {
+                    $content = [
+                        'link' => url('/')."/form/ukp12/eview/".$secure_link."?view=s",
+                        'gred' => $pemohon->gred,
+                        'jawatan' => $pemohon->jawatan,
+                        'nokp' => $formdata->nokp_baru,
+                        'nama' => $formdata->nama
+                    ];
+                    try {
 
-        //                 Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
-        //                     // testing purpose
-        //                     //$message->to('rubmin@vn.net.my',$kerani_user->name);
+                        Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
+                            // testing purpose
+                            //$message->to('rubmin@vn.net.my',$kerani_user->name);
 
-        //                     //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
-        //                     $message->to($kerani_user->email,$kerani_user->name);
-        //                     $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
+                            //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
+                            $message->to($kerani_user->email,$kerani_user->name);
+                            $message->subject('PENGESAHAN PERKHIDMATAN PEGAWAI UNTUK URUSAN PEMANGKUAN');
 
-        //                 });
-        //             } catch(\Exception $e) {
-        //                 var_dump($e->getMessage());
-        //                 return response()->json([
-        //                     'success' => 0,
-        //                     'data' => [
-        //                         'message' => 'Failed to email (email pengesahan ketua perkhidmatan)',
-        //                         'error' => $e->getMessage()
-        //                     ]
-        //                 ]);
-        //             }
-        // } else {
-        //     $content = [
-        //         'gred' => $pemohon->gred,
-        //         'jawatan' => $pemohon->jawatan,
-        //         'nokp' => $formdata->nokp_baru,
-        //         'nama' => $formdata->nama,
-        //         'reason' => $pemohon->alasan,
-        //         'naik_gred' => $pemohon->pemohonPermohonan->gred,
-        //         'alamat' => $pemohon->alamat_pejabat,
-        //         'tarikh' => \Carbon\Carbon::parse(Date::now())->format('d-m-Y')
-        //     ];
+                        });
+                    } catch(\Exception $e) {
+                        var_dump($e->getMessage());
+                        return response()->json([
+                            'success' => 0,
+                            'data' => [
+                                'message' => 'Failed to email (email pengesahan ketua perkhidmatan)',
+                                'error' => $e->getMessage()
+                            ]
+                        ]);
+                    }
+        } else {
+            $content = [
+                'gred' => $pemohon->gred,
+                'jawatan' => $pemohon->jawatan,
+                'nokp' => $formdata->nokp_baru,
+                'nama' => $formdata->nama,
+                'reason' => $pemohon->alasan,
+                'naik_gred' => $pemohon->pemohonPermohonan->gred,
+                'alamat' => $pemohon->alamat_pejabat,
+                'tarikh' => \Carbon\Carbon::parse(Date::now())->format('d-m-Y')
+            ];
 
-        //     try {
-        //         Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
-        //             // testing purpose
-        //             //$message->to('rubmin@vn.net.my','Urusetia e-NaikPangkat');
-        //             $message->to('urusetiakenaikanpangkat@jkr@.gov.my','Urus Setia Kenaik Pangkat');
+            try {
+                Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
+                    // testing purpose
+                    //$message->to('rubmin@vn.net.my','Urusetia e-NaikPangkat');
+                    $message->to('urusetiakenaikanpangkat@jkr@.gov.my','Urus Setia Kenaik Pangkat');
 
 
-        //             //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
-        //             $message->subject('MENOLAK TAWARAN PEMANGKUAN');
+                    //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
+                    $message->subject('MENOLAK TAWARAN PEMANGKUAN');
 
-        //         });
+                });
 
-        //     } catch(\Exception $e) {
-        //         var_dump($e->getMessage());
-        //         return response()->json([
-        //             'success' => 0,
-        //             'data' => [
-        //                 'message' => 'Failed to email (email calon tolak)',
-        //                 'error' => $e->getMessage()
-        //             ]
-        //         ]);
-        //     }
-        // }
+            } catch(\Exception $e) {
+                var_dump($e->getMessage());
+                return response()->json([
+                    'success' => 0,
+                    'data' => [
+                        'message' => 'Failed to email (email calon tolak)',
+                        'error' => $e->getMessage()
+                    ]
+                ]);
+            }
+        }
 
         return response()->json([
             'success' => 1,
@@ -658,5 +664,90 @@ class NaikpangkatController extends Controller
                 'data' => []
             ]);
         }
+    }
+
+    public function save_sasaran_kerja(Request $request) {
+        $activity = $request->input('aktiviti');
+        $performance = $request->input('prestasi');
+        $indicator = $request->input('petunjuk');
+        $target = $request->input('sasaran');
+        $achievement = $request->input('pencapaian');
+        $remark = $request->input('remark');
+        $pemohon_id = $request->input('pemohon');
+        $id = $request->input('id');
+        $user = Auth::user();
+
+        $lnpk = Lnpk::where('id_pemohon',$pemohon_id)->first();
+            if(empty($lnpk)) {
+                $lnpk = new Lnpk();
+                $info = Pemohon::find($id);
+                $lnpk->id_permohonan = $info->id_permohonan;
+                $lnpk->nokp = $user->nokp;
+                $lnpk->nama = $user->name;
+                $lnpk->tahun = \Carbon\Carbon::now()->format('Y');
+                $lnpk->gred = $info->gred;
+                $lnpk->created_by = $user->nokp;
+                $lnpk->flag = 1;
+                $lnpk->delete_id = 0;
+                $lnpk->id_pemohon = $pemohon_id;
+
+                $lnpk->save();
+            }
+
+        $model = NULL;
+        if($id == 0) {
+            $model = new SasaranKerja();
+            $model->created_by = $user->nokp;
+        } else {
+            $model = SasaranKerja::find($id);
+        }
+
+        $model->id_lnpk = $lnpk->id;
+        $model->id_pemohon = $pemohon_id;
+        $model->aktiviti = $activity;
+        $model->jenis_petunjuk = $indicator;
+        $model->petunjuk_prestasi = $performance;
+        $model->sasaran_kerja = $target;
+        $model->pencapaian_sebenar = $achievement;
+        $model->ulasan = $remark;
+        $model->updated_by = $user->nokp;
+
+        $model->save();
+
+        return response()->json([
+            'success' => 1,
+            'data' => [
+                'id' => $model->id,
+                'ref' => $id
+            ]
+        ]);
+    }
+
+    public function delete_sasaran_kerja(Request $request) {
+        $model_id = $request->input('kerja_id');
+        $model = SasaranKerja::find($model_id)->delete();
+
+        return response()->json([
+            'success' => 1,
+            'data' => [
+
+            ]
+        ]);
+    }
+
+    public function load_sasaran_kerja($id) {
+        $model = SasaranKerja::find($id);
+
+        return response()->json([
+            'success' => 1,
+            'data' => [
+                'aktviti' => $model->aktiviti,
+                'jenis' => $model->jenis_petunjuk,
+                'petunjuk' => $model->petunjuk_prestasi,
+                'sasaran' => $model->sasaran_kerja,
+                'pencapaian' => $model->pencapaian_sebenar,
+                'ulasan' => $model->ulasan
+            ]
+        ]);
     }
 }

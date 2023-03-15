@@ -288,3 +288,135 @@ $(document).on('change', '.penyelia-carian', function(){
     });
 });
 
+$(document).on('click','.add-kerja, .delete-kerja, .tambah-kerja, .update-kerja',function() {
+    let selectedDom = $(this);
+
+    let btnDel = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-kerja">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
+    let btnModify = '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-kerja">'+ feather.icons['edit-2'].toSvg() +' Kemaskini</button>';
+
+    let act = $('#modal-act').val();
+    let type = $('#modal-type').val();
+    let indicator = $('#modal-indicator').val();
+    let target = $('#modal-target').val();
+    let achieve = $('#modal-achieve').val();
+    let remark = $('#modal-remark').val();
+
+    let validate = new Validation();
+    let dt = new FormData();
+
+    if(selectedDom.hasClass('add-kerja')) {
+        dt = validate.checkEmpty(
+            validate.getValue('#modal-act', 'mix', 'AKTIVITI / PROJEK / KETERANGAN', 'aktiviti'),
+            validate.getValue('#modal-type', 'mix', 'JENIS PETUNJUK', 'petunjuk'),
+            validate.getValue('#modal-indicator', 'mix', 'PETUNJUK PRESTASI', 'prestasi'),
+            validate.getValue('#modal-target', 'mix', 'SASARAN KERJA', 'sasaran'),
+            validate.getValue('#modal-achieve', 'mix', 'PENCAPAIAN SEBENAR', 'pencapaian'),
+        );
+
+        dt.append('ulasan',remark);
+        dt.append('id',$("#hdn-id-work").val());
+        dt.append('pemohon',$('#_formid').val());
+
+        let row = [];
+        row.push('');
+        row.push(act);
+        row.push('<b>'+type+'</b><br/>'+indicator);
+        row.push(target);
+        row.push(achieve);
+        row.push(remark);
+        row.push(btnModify+btnDel);
+
+        let url = 'naikpangkat/ukp13/api/save-work';
+
+        SwalUI.init({
+            title: "Adakah Anda Pasti?",
+            subtitle: "Data akan disimpan",
+            icon: "info",
+            confirmText: "Simpan",
+            callback: function() {
+                Ukp13Controller.crud_work({
+                    data: dt,
+                    url : url,
+                    func: function resp(resp) {
+                        let d = resp.success;
+                        let r = resp.data;
+                        if(d == 1) {
+                            toasting('Data sudah disimpan', 'success');
+                            if(r.ref == 0) {
+                                add_row('#tbody-kerja',row,'data-work-id='+r.id);
+                            } else {
+                                modify_row('#tbody-kerja tr[data-work-id="' + r.id + '"]',row);
+                            }
+                        } else {
+                            toasting('Ralat telah berlaku, Data gagal disimpan', 'error');
+                        }
+                    }
+                });
+            }
+        });
+
+        $('#modal-kerja').modal('hide');
+
+    } else if(selectedDom.hasClass('delete-kerja')) {
+        let kerja_id  = selectedDom.closest('tr').attr('data-work-id');
+        let data = new FormData();
+        data.append('_token', Common.getToken());
+        data.append('kerja_id', kerja_id);
+
+        let url = 'naikpangkat/ukp13/api/delete-work';
+
+        SwalUI.init({
+            title: "Adakah Anda Pasti?",
+            subtitle: "Data akan disimpan",
+            icon: "warning",
+            confirmText: "Hapus",
+            callback: function() {
+                Ukp13Controller.crud_work({
+                    data: data,
+                    url : url,
+                    func: function resp(resp) {
+                        let d = resp.success;
+                        if(d == 1) {
+                            toasting('Data sudah dihapus', 'success');
+                            remove_row(selectedDom);
+                        } else {
+                            toasting('Ralat telah berlaku, Data gagal dihapus', 'error');
+                        }
+                    }
+                });
+            }
+        });
+    } else if(selectedDom.hasClass('update-kerja')) {
+        let kerja_id  = selectedDom.closest('tr').attr('data-work-id');
+        let url = '/naikpangkat/ukp13/api/load-work/';
+        $("#hdn-id-work").val(kerja_id);
+
+        $.ajax({
+            type:'GET',
+            url: Common.getUrl() + url + kerja_id,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            context: this,
+            success: function(resp) {
+                let d = resp.success;
+                let result = resp.data;
+                if(d == 1) {
+                   $('#modal-act').val(result.aktviti);
+                   $('#modal-type').val(result.jenis);
+                   $('#modal-indicator').val(result.petunjuk);
+                   $('#modal-target').val(result.sasaran);
+                   $('#modal-achieve').val(result.pencapaian);
+                   $('#modal-remark').val(result.ulasan);
+
+                   $('#modal-kerja').modal('show');
+                } else {
+                    toasting('Ralat telah berlaku, Data gagal diambil', 'error');
+                }
+
+            }
+        });
+    } else if(selectedDom.hasClass('tambah-kerja')) {
+        $("#hdn-id-work").val(0);
+    }
+});
