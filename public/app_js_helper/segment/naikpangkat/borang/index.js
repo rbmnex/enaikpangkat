@@ -300,6 +300,7 @@ $(document).on('click','.add-kerja, .delete-kerja, .tambah-kerja, .update-kerja'
     let target = $('#modal-target').val();
     let achieve = $('#modal-achieve').val();
     let remark = $('#modal-remark').val();
+    let work_id = $("#hdn-id-work").val();
 
     let validate = new Validation();
     let dt = new FormData();
@@ -314,11 +315,19 @@ $(document).on('click','.add-kerja, .delete-kerja, .tambah-kerja, .update-kerja'
         );
 
         dt.append('ulasan',remark);
-        dt.append('id',$("#hdn-id-work").val());
+        dt.append('id',work_id);
         dt.append('pemohon',$('#_formid').val());
 
+        var ind = 0;
+
+        if(work_id == 0) {
+            ind = selectedDom.closest('tr').children('td').length + 1;
+        } else {
+            ind = selectedDom.closest('tr').find("td:first").text();
+        }
+
         let row = [];
-        row.push('');
+        row.push(ind);
         row.push(act);
         row.push('<b>'+type+'</b><br/>'+indicator);
         row.push(target);

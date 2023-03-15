@@ -206,7 +206,7 @@
                                     <span class="bs-stepper-box">13</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 13</span>
-                                        <span class="bs-stepper-subtitle"><span>Penyelia</span>
+                                        <span class="bs-stepper-subtitle"><span>Sasaran Kerja <br/> Dan Prestasi</span>
                                     </span>
                                 </button>
                             </div>
@@ -215,8 +215,8 @@
                                     <span class="bs-stepper-box">14</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 14</span>
-                                        <span class="bs-stepper-subtitle"><span>Ketua Jabatan /</span><br/>
-                                            <span>Bahagian Perkhidmatan</span></span>
+                                        <span class="bs-stepper-subtitle"><span>Perakuan Ketua Jabatan <br/>dan Ketua
+                                            Bahagian <br/>Perkhidmatan/Pentadbiran</span>
                                     </span>
                                 </button>
                             </div>

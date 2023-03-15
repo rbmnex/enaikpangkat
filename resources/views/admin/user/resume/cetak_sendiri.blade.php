@@ -1,5 +1,5 @@
 <?php
-$fileName = 'Lampiran-doc'.".doc";
+$fileName = 'Lampiran-doc-'.strtoupper($model['nokp']).".doc";
 
 // Headers for download
 header("Content-Disposition: attachment; filename=\"$fileName\"");
@@ -95,9 +95,9 @@ header("Expires:0");
 							<td>:</td>
 							<td>{{$model['gelaran']}} {{ strtoupper($model['name']) }}</td>
 							<td rowspan="7" class="photo">
-							<img src="https://e-naikpangkat.jkr.gov.my/files/foto.jpg"
-							alt="" width="120" height="140" align="top">
-						   </td>
+                     <img src="{{ asset('files/foto-'.$model['nokp'].'.jpg') }}"
+                        alt="" width="120" height="140" align="top">
+                  </td>
 						</tr>
 						<tr>
 							<td><span>&#8226;</span></td>

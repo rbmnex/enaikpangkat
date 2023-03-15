@@ -22,7 +22,7 @@
                 <tbody id="tbody-kerja">
                     @foreach ($profile['work_list'] as $work)
                     <tr data-work-id="{{ $work->id }}">
-                        <td></td>
+                        <td style="text-align: center;">{{ $loop->iteration }}</td>
                         <td>{{ $work->aktiviti }}</td>
                         <td><b>{{ $work->jenis_petunjuk }}</b> <br/> {{ $work->petunjuk_prestasi }}</td>
                         <td>{{ $work->sasaran_kerja }}</td>
@@ -32,15 +32,6 @@
                             <button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-kerja"><i data-feather='edit-2'></i>Kemaskini</button>;</td>
                     </tr>
                     @endforeach
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
                 </tbody>
             </table>
         </div>
