@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers\Segment\Penyelia;
@@ -9,6 +10,7 @@ use App\Models\File;
 use App\Models\Lpnk\JawapanLpnk;
 use App\Models\Lpnk\Lnpk;
 use App\Models\Lpnk\LpnkParent;
+use App\Models\Lpnk\SasaranKerja;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PenerimaanUkp11;
@@ -81,6 +83,10 @@ class BoranglpnkController extends Controller
 //        echo '<pre>';
 //        print_r($data);
 //        echo '</pre>';
+
+        $list_work = SasaranKerja::where('id_pemohon',$p->id)->get();
+        $data['work_list'] = $list_work;
+        
         return view('segment.penyelia.lpnk.borang', [
             'data' => $data,
             'id_permohonan' => $p->id_permohonan,
