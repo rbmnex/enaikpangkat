@@ -243,11 +243,11 @@ class ViewController extends Controller
         $harta = Harta::where('id_pemohon',$pemohon->id)->first();
         $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
         $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->orderBy('tkh_mula_berkhidmat','desc')->get();
-    $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->orderBy('tahun','desc')->get();
-    $akademik = Akademik::where('id_pemohon',$pemohon->id)->orderBy('tkh_kelulusan','desc')->get();
-    $profesional = Professional::where('id_pemohon',$pemohon->id)->orderBy('tkh_kelulusan','desc')->get();
-    $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->orderBy('created_at','desc')->get();
-    $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->orderBy('tkh_mula','desc')->get();
+        $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->orderBy('tahun','desc')->get();
+        $akademik = Akademik::where('id_pemohon',$pemohon->id)->orderBy('tkh_kelulusan','desc')->get();
+        $profesional = Professional::where('id_pemohon',$pemohon->id)->orderBy('tkh_kelulusan','desc')->get();
+        $kompetenan = Kompetensi::where('id_pemohon',$pemohon->id)->orderBy('created_at','desc')->get();
+        $pengiktirafan= Pengiktirafan::where('id_pemohon',$pemohon->id)->orderBy('tkh_mula','desc')->get();
         $akuan_pinjaman = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->first();
         $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
         $lnpt = Markah::where('nokp',$peribadi->nokp)->whereIn('tahun',[$year-1,$year-2,$year-3])->orderBy('tahun','desc')->limit(3)->get();
