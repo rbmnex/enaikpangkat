@@ -680,19 +680,22 @@ class NaikpangkatController extends Controller
         $lnpk = Lnpk::where('id_pemohon',$pemohon_id)->first();
             if(empty($lnpk)) {
                 $lnpk = new Lnpk();
-                $info = Pemohon::find($id);
-                $lnpk->id_permohonan = $info->id_permohonan;
-                $lnpk->nokp = $user->nokp;
-                $lnpk->nama = $user->name;
-                $lnpk->tahun = \Carbon\Carbon::now()->format('Y');
-                $lnpk->gred = $info->gred;
+                
                 $lnpk->created_by = $user->nokp;
                 $lnpk->flag = 1;
                 $lnpk->delete_id = 0;
-                $lnpk->id_pemohon = $pemohon_id;
-
-                $lnpk->save();
+                
+                
             }
+            $info = Pemohon::find($id);
+            $lnpk->id_pemohon = $pemohon_id;
+            $lnpk->id_permohonan = $info->id_permohonan;
+            $lnpk->nokp = $user->nokp;
+            $lnpk->nama = $user->name;
+            $lnpk->tahun = \Carbon\Carbon::now()->format('Y');
+            $lnpk->gred = $info->gred;
+
+            $lnpk->save();
 
         $model = NULL;
         if($id == 0) {

@@ -261,7 +261,7 @@
             <td style="padding-right: 5px; vertical-align: top;">(i)</td>
             <td>Nama</td>
             <td>:</td>
-            <td colspan="10" class="top-border bottom-border"></td>
+            <td colspan="10" class="top-border bottom-border">{{ strtoupper(htmlspecialchars_decode($info->nama)) }}</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -270,7 +270,7 @@
             <td style="padding-right: 5px; vertical-align: top;">(ii)</td>
             <td >No. Kad Pengenalan</td>
             <td>:</td>
-            <td colspan="10" class="top-border bottom-border"></td>
+            <td colspan="10" class="top-border bottom-border">{{ $info->nokp }}</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -288,7 +288,7 @@
             <td style="padding-right: 5px; vertical-align: top;">(iv)</td>
             <td>Gred Hakiki</td>
             <td>:</td>
-            <td colspan="10" class="top-border bottom-border"></td>
+            <td colspan="10" class="top-border bottom-border">{{ $info->gred }}</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -315,7 +315,7 @@
             <td style="padding-right: 5px; vertical-align: top;">(vii)</td>
             <td style="width: 150px">Tarikh Memangku Jawatan Sekarang</td>
             <td style="width: 25px">:</td>
-            <td colspan="10" class="top-border bottom-border"></td>
+            <td colspan="10" class="top-border bottom-border">{{ $info->gred }}</td>
         </tr>
     </table>
     <div class="page-break"></div>
@@ -387,7 +387,7 @@
                         <td style="border-right-style: solid; border-right-width: 1px;">7</td>
                         <td style="border-right-style: solid; border-right-width: 1px;">8</td>
                         <td style="border-right-style: solid; border-right-width: 1px;">9</td>
-                        <td style="">10</td>
+                        <td>10</td>
                     </tr>
                 </table>
             </td>
@@ -403,8 +403,8 @@
             <td class="" colspan="12" style="height:10px;"></td>
         </tr>
         <tr>
-            <td colspan="11" style="">{{ $sc['penerangan'] }}</td>
-            <td class=""><div class="box"></div></td>
+            <td colspan="11">{{ $sc['penerangan'] }}</td>
+            <td class=""><div class="box" style="text-align: center;">{{ $sc['markah'] }}</div></td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -414,7 +414,7 @@
         <tr>
             <td class="" colspan="11" style="font-weight: bold;">Jumlah Markah : </td>
             <td class=""><div class="box-long" style="vertical-align: center; padding-top:15px">
-                <span>&nbsp;&nbsp;&nbsp;/ 100</span>
+                <span>@if($jumlah == 0) &nbsp;&nbsp;&nbsp; @else {{$jumlah}} @endif/ 100</span>
             </div></td>
         </tr>
         <tr>
@@ -542,10 +542,10 @@
             <td class="" colspan="12" style="height: 10px;"></td>
         </tr>
         <tr>
-            <td class="" colspan="12" style=""><span style="font-size: 12px;">Borang Pencapaian Sasaran Kerja</span></td>
+            <td class="" colspan="12"><span style="font-size: 12px;">Borang Pencapaian Sasaran Kerja</span></td>
         </tr>
         <tr>
-            <td class="" colspan="12" style=""><span style="font-size: 12px; font-style: italic;">(PYD hendaklah melaporkan pencapaian kerja dalam tempoh penilaian .......... hingga ...........)</span></td>
+            <td class="" colspan="12" ><span style="font-size: 12px; font-style: italic;">(PYD hendaklah melaporkan pencapaian kerja dalam tempoh penilaian .......... hingga ...........)</span></td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height: 10px;"></td>

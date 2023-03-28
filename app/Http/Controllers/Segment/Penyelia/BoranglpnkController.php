@@ -14,6 +14,7 @@ use App\Models\Lpnk\SasaranKerja;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PenerimaanUkp11;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -152,5 +153,28 @@ class BoranglpnkController extends Controller
                 'trigger' => $trigger
             ]
         ]);
+    }
+
+    public function view_pdf(Request $request,$id) {
+        $lnpk = Lnpk::where('id_pemohon',$id)->first();
+        $lpnkResult = LpnkParent::with('getChild')->where('delete_id', 0)->get();
+        $total_markah = 0;
+        $lpnkResult->each(function($item,$key) use ($id,$lnpk,$total_markah) {
+            $item->getChild->each(function($item,$key) use ($id,$lnpk,$total_markah) {
+                $model = JawapanLpnk::where('id_soalan',$item->id)->where('id_lnpk',$lnpk->id)->first();
+                if($model) {
+                    $item->markah = $model->jawapan;
+                    $total_markah += $model->jawapan;
+                } else {
+                    $item->markah = '';
+                }
+            });
+        });
+        $pdf = PDF::loadView('pdf.lnpk', [
+            'soalan' => $lpnkResult, 
+            'jumlah' => $total_markah,
+            'info' => $lnpk
+        ], []);
+        return $pdf->stream('lnpk-'.$lnpk->tahun.'-'.$lnpk->nokp.'.pdf');
     }
 }

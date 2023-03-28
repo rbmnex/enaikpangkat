@@ -275,7 +275,7 @@ Route::get('/test/file',function() {
 });
 
 Route::get('/test/view_pdf',function() {
-    $lpnk = LpnkParent::with('getChild')->where('delete_id', 0)->get()->toArray();
+     $lpnk = LpnkParent::with('getChild')->where('delete_id', 0)->get()->toArray();
      $pdf = PDF::loadView('pdf.lnpk', ['soalan' => $lpnk], []);
      return $pdf->stream();
 
