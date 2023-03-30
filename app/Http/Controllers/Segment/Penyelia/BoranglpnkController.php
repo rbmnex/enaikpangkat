@@ -170,11 +170,13 @@ class BoranglpnkController extends Controller
                 }
             });
         });
+        $list_work = SasaranKerja::where('id_pemohon',$id)->get();
         $pdf = PDF::loadView('pdf.lnpk', [
             'soalan' => $lpnkResult, 
             'jumlah' => $total_markah,
-            'info' => $lnpk
+            'info' => $lnpk,
+            'kerja' =>$list_work
         ], []);
-        return $pdf->stream('lnpk-'.$lnpk->tahun.'-'.$lnpk->nokp.'.pdf');
+        return $pdf->stream('lnpk_'.$lnpk->tahun.'_'.$lnpk->nokp.'.pdf');
     }
 }
