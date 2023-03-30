@@ -447,7 +447,7 @@
         </tr>
         <tr>
             <td style="width:25px;">1.</td>
-            <td colspan="11">Tempoh Pegawai Yang Dinilai bertugas di bawah pengawasan : <span class="dotted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> bulan.</td>
+            <td colspan="11">Tempoh Pegawai Yang Dinilai bertugas di bawah pengawasan : <span class="dotted">@if($info->tempoh) {{$info->tempoh}} @else &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; @endif</span> bulan.</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -461,7 +461,7 @@
         </tr>
         <tr>
             <td></td>
-            <td colspan="11" style="height: 100px;" class="top-border bottom-border"></td>
+            <td colspan="11" style="height: 100px;" class="top-border bottom-border">{{ $info->ulasan ?? '' }}</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -470,7 +470,7 @@
             <td></td>
             <td colspan="2">Nama Pegawai Penilai</td>
             <td style="text-align: center;">:</td>
-            <td colspan="8" class="top-border bottom-border"></td>
+            <td colspan="8" class="top-border bottom-border">{{ strtoupper($info->nama_penilai ?? '')}}</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -479,7 +479,7 @@
             <td></td>
             <td colspan="2">No. Kad Pengenalan</td>
             <td style="text-align: center;">:</td>
-            <td colspan="8" class="top-border bottom-border"></td>
+            <td colspan="8" class="top-border bottom-border">{{ strtoupper($info->nokp_penilai ?? '')}}</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -488,7 +488,7 @@
             <td></td>
             <td colspan="2">Jawatan</td>
             <td style="text-align: center;">:</td>
-            <td colspan="8" class="top-border bottom-border"></td>
+            <td colspan="8" class="top-border bottom-border">{{ strtoupper($info->jawatan_penilai ?? '')}}</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:10px;"></td>
@@ -497,7 +497,7 @@
             <td></td>
             <td colspan="2" style="vertical-align: top;">Kementerian / Jabatan</td>
             <td style="text-align: center; vertical-align: top;">:</td>
-            <td colspan="8" class="top-border bottom-border" style="height: 50px;"></td>
+            <td colspan="8" class="top-border bottom-border" style="height: 50px;">{{ strtoupper($info->jabatan_penilai ?? '')}}</td>
         </tr>
         <tr>
             <td class="" colspan="12" style="height:30px;"></td>
@@ -505,7 +505,7 @@
         <tr>
             <td colspan="4"><span class="dotted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></td>
             <td colspan="4"></td>
-            <td colspan="4"><span class="dotted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><</td>
+            <td colspan="4" style="text-align: center;"><span class="dotted">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><</td>
         </tr>
         <tr>
             <td colspan="4" style="text-align: center;">Tandatangan PP</td>
@@ -576,6 +576,16 @@
             <td style="border: 1px solid; font-size: 12px;"></td>
             <td style="border: 1px solid; font-size: 12px;"></td>
         </tr>
+        @foreach ($kerja as $work)
+        <tr>
+            <td style="border: 1px solid; font-size: 12px; height: 30px;">{{ $loop->iteration }}</td>
+            <td style="border: 1px solid; font-size: 12px;">{{ $work->aktiviti }}</td>
+            <td style="border: 1px solid; font-size: 12px;"><b>{{ $work->jenis_petunjuk }}</b> <br/> {{ $work->petunjuk_prestasi }}</td>
+            <td style="border: 1px solid; font-size: 12px;">{{ $work->sasaran_kerja }}</td>
+            <td style="border: 1px solid; font-size: 12px;">{{ $work->pencapaian_sebenar }}</td>
+            <td style="border: 1px solid; font-size: 12px;">{{ $work->ulasan }}</td>
+        </tr>
+        @endforeach
     </table>
     <table style="width: 100%;  border-collapse: collapse;">
         <tr>
