@@ -560,22 +560,7 @@
             <td style="text-align: center;  border: 1px solid; font-size: 12px;">PENCAPAIAN SEBENAR<br/>(Diisi pada akhir tempoh penilaian)</td>
             <td style="text-align: center;  border: 1px solid; font-size: 12px;">ULASAN<br/>(Oleh PYD sekiranya berkaitan)</td>
         </tr>
-        <tr>
-            <td style="border: 1px solid; font-size: 12px; height: 30px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-        </tr>
-        <tr>
-            <td style="border: 1px solid; font-size: 12px; height: 30px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-            <td style="border: 1px solid; font-size: 12px;"></td>
-        </tr>
+        @if($kerja->count() > 0)
         @foreach ($kerja as $work)
         <tr>
             <td style="border: 1px solid; font-size: 12px; height: 30px;">{{ $loop->iteration }}</td>
@@ -586,6 +571,24 @@
             <td style="border: 1px solid; font-size: 12px;">{{ $work->ulasan }}</td>
         </tr>
         @endforeach
+        @else
+        <tr>
+            <td style="border: 1px solid; font-size: 12px; height: 30px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+        </tr>
+        <tr>
+            <td style="border: 1px solid; font-size: 12px; height: 30px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+            <td style="border: 1px solid; font-size: 12px;"></td>
+        </tr>
+        @endif
     </table>
     <table style="width: 100%;  border-collapse: collapse;">
         <tr>

@@ -20,7 +20,7 @@
         <div class="content-header-left col-md-9 col-12 mb-2">
             <div class="row breadcrumbs-top">
                 <div class="col-12">
-                    <h2 class="content-header-title float-start mb-0">Borang</h2>
+                    <h2 class="content-header-title float-start mb-0">LAPORAN PENILAIAN PRESTASI KHAS</h2>
                     <div class="breadcrumb-wrapper">
                         <ol class="breadcrumb">
                         </ol>
@@ -31,6 +31,7 @@
     </div>
     <div class="content-body">
         <div class="card" style="padding:25px">
+            <h3>LAPORAN PENILAIAN PRESTASI KHAS</h3>
             <div class="row">
                 <div class="col-md-12">
                     <h3>Bahagian 1 - Maklumat Pegawai</h3>
