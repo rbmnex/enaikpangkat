@@ -1,4 +1,4 @@
-$(document).on('click','.btn-download, .btn-back, .btn-pdf',function() {
+$(document).on('click','.btn-download, .btn-back, .btn-pdf, .btn-pdf-lnpk',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('btn-download')) {
         var file_id = $(this).attr('data-file-id');
@@ -9,6 +9,9 @@ $(document).on('click','.btn-download, .btn-back, .btn-pdf',function() {
     } else if(selectedClass.hasClass('btn-pdf')) {
         var pemohon_id = $('.hidden_id').val();
         window.open(getUrl() + '/form/ukp12/download/view?dataform='+pemohon_id,'_blank');
+    } else if(selectedClass.hasClass('btn-pdf-lnpk')) {
+        var pemohon_id = $('.hidden_id').val();
+        window.open(getUrl() + '/penyelia/lpnk/download/'+pemohon_id,'_blank');
     }
 });
 

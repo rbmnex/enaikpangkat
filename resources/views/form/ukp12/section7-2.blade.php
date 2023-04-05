@@ -21,7 +21,7 @@
                 @foreach ($profile['sumbangan'] as $org)
                     <tr data-pertubuhan-id="{{ $org->id }}">
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $org->nama_kelulusan }}</td>
+                        <td>{{ strtoupper($org->nama_kelulusan) }}</td>
                         {{-- <td>{{ $org->institusi }}</td> --}}
                         <td>{{ $org->tkh_kelulusan ? \Carbon\Carbon::parse($org->tkh_kelulusan)->format('Y') : ''  }}</td>
                         {{-- <td><button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-org"><i data-feather='trash-2'></i> Hapus</button></td> --}}

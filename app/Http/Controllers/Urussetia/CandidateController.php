@@ -10,7 +10,9 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Common\CommonController;
+use App\Models\Lpnk\Lnpk;
 use App\Models\Permohonan\Pemohon;
+use App\Models\Permohonan\PenerimaanUkp11;
 use App\Models\Permohonan\PermohonanUkp12;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -64,6 +66,8 @@ class CandidateController extends Controller
         $pemohon->flag = 2;
         $pemohon->save();
 
+        $ukp11 = PenerimaanUkp11::where('id_pemohon', $pemohon->id)->first();
+
         $application =  new PermohonanUkp12();
         $application->jenis = 'UKP13';
         $application->jawatan = $pemohon->pemohonPermohonan->jawatan;
@@ -89,10 +93,25 @@ class CandidateController extends Controller
             $applicant->gred = $pemohon->gred;
             $applicant->user_id = $pemohon->user_id;
             $applicant->status = 'NA';
-
+            
             $user1 =  User::find($pemohon->user_id);
+            
 
             if($applicant->save()) {
+
+                $lnpk = new Lnpk();
+                $lnpk->id_permohonan = $application->id;
+                $lnpk->nokp = $user1->nokp;
+                $lnpk->nama = $user1->name;
+                $lnpk->tahun = \Carbon\Carbon::now()->format('Y');
+                $lnpk->gred = $applicant->gred;
+                $lnpk->created_by = $user1->nokp;
+                $lnpk->flag = 1;
+                $lnpk->delete_id = 0;
+                $lnpk->tkh_memangku_jawatan_sekarang = $ukp11->tkh_lapor_diri;
+                $lnpk->id_pemohon = $applicant->id;
+                $lnpk->save();
+
                 //send email
                 $common = new CommonController();
                 $secure_link = Crypt::encryptString($applicant->id);
