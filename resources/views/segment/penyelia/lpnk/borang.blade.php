@@ -153,14 +153,38 @@
                     <div class="invalid-feedback"></div><br>
                 </div>
                 <div class="col-md-12">Borang Sasaran Kerja & Laporan Kerja: </div>
-                <div class="col-md-12 form-group">
+                {{-- <div class="col-md-12 form-group">
                     @if($doc)
                     <iframe src="data:{{ \App\Http\Controllers\Common\CommonController::mime_type($doc->filename) }};base64,{{ $doc->content_bytes }}" height="500px" width="100%">
 
                     </iframe>
                     @endif
+                </div> --}}
+                <div class="table-responsive col-md-12">
+                    <table class="datatables table kerja-table">
+                        <thead>
+                            <th style="text-align: center;">Bil.</th>
+                            <th style="text-align: center;">AKTIVITI / PROJEK / KETERANGAN</th>
+                            <th style="text-align: center;">PETUNJUK PRESTASI<br/>(Kuantiti / Kualiti / Masa / Kos yang mana berkaitan)</th>
+                            <th style="text-align: center;">SASARAN KERJA<br/>(Untuk tempoh penilaian)</th>
+                            <th style="text-align: center;">PENCAPAIAN SEBENAR<br/>(Diisi pada akhir tempoh penilaian)</th>
+                            <th style="text-align: center;">ULASAN<br/>(Oleh PYD sekiranya berkaitan)</th>
+                        </thead>
+                        <tbody id="tbody-kerja">
+                            @foreach ($data['work_list'] as $work)
+                            <tr data-work-id="{{ $work->id }}">
+                                <td style="text-align: center;">{{ $loop->iteration }}</td>
+                                <td>{{ $work->aktiviti }}</td>
+                                <td><b>{{ $work->jenis_petunjuk }}</b> <br/> {{ $work->petunjuk_prestasi }}</td>
+                                <td>{{ $work->sasaran_kerja }}</td>
+                                <td>{{ $work->pencapaian_sebenar }}</td>
+                                <td>{{ $work->ulasan }}</td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-                <br><br><br><br>
+                <br/><br/><br/><br/>
                 <div class="col-md-3">Nama Pegawai Penilai</div>
                 <div class="col-md-9">
                     : {{ $data['penyelia']['name'] }}<br>

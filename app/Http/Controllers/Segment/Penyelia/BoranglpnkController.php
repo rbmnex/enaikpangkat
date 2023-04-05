@@ -9,6 +9,7 @@ use App\Models\File;
 use App\Models\Lpnk\JawapanLpnk;
 use App\Models\Lpnk\Lnpk;
 use App\Models\Lpnk\LpnkParent;
+use App\Models\Lpnk\SasaranKerja;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PenerimaanUkp11;
@@ -78,6 +79,8 @@ class BoranglpnkController extends Controller
         $data['penyelia'] = $pl = ListPegawai2::getMaklumatPegawaiRingkas($p->nokp_penyelia);
 
         $data['soalan'] = self::getSoalan();
+        $list_work = SasaranKerja::where('id_pemohon',$p->id)->where('id_lnpk',$lnpk->id)->get();
+        $data['list_work'] = $list_work;
 //        echo '<pre>';
 //        print_r($data);
 //        echo '</pre>';
