@@ -154,14 +154,13 @@
                     <div class="invalid-feedback"></div><br>
                 </div>
                 <div class="col-md-12">Borang Sasaran Kerja & Laporan Kerja: </div>
-                <div class="col-md-12 form-group">
-                    <!-- @if($doc)
+                {{-- <div class="col-md-12 form-group">
+                    @if($doc)
                     <iframe src="data:{{ \App\Http\Controllers\Common\CommonController::mime_type($doc->filename) }};base64,{{ $doc->content_bytes }}" height="500px" width="100%">
 
                     </iframe>
-                    @endif -->
-                    
-                </div>
+                    @endif
+                </div> --}}
                 <div class="table-responsive col-md-12">
                     <table class="datatables table kerja-table">
                         <thead>
@@ -187,7 +186,7 @@
                         </tbody>
                     </table>
                 </div>
-                <br><br><br><br>
+                <br/><br/><br/><br/>
                 <div class="col-md-3">Nama Pegawai Penilai</div>
                 <div class="col-md-9">
                     : {{ $data['penyelia']['name'] }}<br>
