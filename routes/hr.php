@@ -60,6 +60,7 @@ Route::prefix('/naikpangkat')->group(function() {
         Route::get('/apply/{id}',[NaikpangkatController::class,'apply'])->middleware(['auth']);
         Route::post('/borang-submit',[NaikpangkatController::class,'submit_application']);
         Route::get('/download/part',[NaikpangkatController::class,'download_form_part']);
+      
         Route::prefix('/api')->group(function() {
             Route::post('/upload',[NaikpangkatController::class,'upload_file']);
             Route::post('/normal-submit',[NaikpangkatController::class,'submit_normal']);
@@ -91,6 +92,7 @@ Route::prefix('/penyelia')->group(function() {
         Route::get('/get-list',[BoranglpnkController::class,'getList']);
         Route::get('/borang/{pemohon_id}',[BoranglpnkController::class,'borang']);
         Route::post('/post-borang',[BoranglpnkController::class,'post_borang']);
+        Route::get('/download/{pemohon_id}',[BoranglpnkController::class,'view_pdf']);
     });
 });
 
