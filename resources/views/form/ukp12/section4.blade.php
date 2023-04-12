@@ -22,6 +22,7 @@
                 <input class="file-input upload-harta" type="file" id="lampiran_E" name="harta_surat_kelulusan" />
             </div>
             <span class="col-form-label harta-file">{{ $profile['file_harta'] }}</span>
+            <span style="color: red; font-size: 0.857rem; !important; font-style: italic;">Saiz Maksimum 2 MB</span>
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12">

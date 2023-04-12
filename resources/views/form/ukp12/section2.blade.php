@@ -82,6 +82,7 @@
                 <span style="color: red; font-size: 0.857rem; !important; font-weight: bold;" class="align-middle d-sm-inline-block d-none">* Sila Muat Turun Borang Pengesahan Ini (perlu disahkan oleh Kerani Perkhidmatan). Calon perlu memuat naik semula dokumen yang telah disahkan.</span><br/>
 
                 <img style="width:53px; height:60px" src="{{ asset('images/pdf_download.png') }}" />
+                <span style="color:black;  font-weight: bold; ">Muat Turun</span>
             </a>
         </div>
         <div class="form-group col-md-12">
@@ -90,6 +91,7 @@
                 <input class="form-control file-input cuti-upload" type="file" id="cuti_sah" name="cuti_sah"/>
             </div>
             <span class="col-form-label cuti-file">{{ $profile['file_cuti'] }}</span>
+            <span style="color: red; font-size: 0.857rem; !important; font-style: italic;">Saiz Maksimum 2 MB</span>
             <div class="invalid-feedback"></div>
 
         </div>

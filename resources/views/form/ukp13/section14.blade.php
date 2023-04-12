@@ -1,6 +1,7 @@
 <div id="carian-pegawai" class="content">
     <div class="content-header">
-        <h5 class="mb-0">Bahagian 14 - Ketua Jabatan/Bahagian</h5>
+        <h5 class="mb-0">Bahagian 14 - Perakuan Ketua Jabatan dan Ketua
+            Bahagian Perkhidmatan/Pentadbiran</h5>
         <small class="text-muted"></small>
     </div>
         <div class="row">
@@ -72,7 +73,7 @@
         <div class="row">
             <div class="col-xl-12 col-md-6 col-12 mb-1 search-section">
                 <div class="form-group">
-                    <label for="basicInput col-form-label">Carian Ketua Jabatan/Bahagian</label>
+                    <label for="basicInput col-form-label">Carian Ketua Jabatan (cth: Pengarah Kanan/Pengarah)</label>
                     <select class="pegawai-carian form-control" id="select2-ajax-1"></select>
                     <div class="invalid-feedback"></div>
                 </div>

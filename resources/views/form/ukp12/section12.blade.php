@@ -60,6 +60,7 @@
                 <input class="form-control file-input penyata_bayaran" type="file" id="formFileMultiple" name="penyata_bayaran" onchange="upload_pinjam();"/>
             </div>
             <span class="col-form-label loan-file">{{ $profile['loan'] ? ($profile['loan']->file ? $profile['loan']->file->filename : '' ) : '' }}</span>
+            <span style="color: red; font-size: 0.857rem; !important; font-style: italic;">Saiz Maksimum 2 MB</span>
             <div class="invalid-feedback"></div>
         </div>
     </div>

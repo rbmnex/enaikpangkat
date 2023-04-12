@@ -27,6 +27,9 @@
             hr {
                 border: 1px solid black;
             }
+            .spacenormal {
+                height: 10px;
+            }
             @page {
                 size: A4;
                 margin: 0;
@@ -53,7 +56,7 @@
                     <table style="width: 100%; margin-top: 30px;">
                         <tr >
                             <td width="120px" rowspan="7">
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/2/26/Coat_of_arms_of_Malaysia.svg" width="100px">
+                                <img src="https://raw.githubusercontent.com/Mamanggans/For_css_-_JS_VNLeave/master/img_VNLeave/logo_malaysia.png" width="100px">
                             </td>
                         </tr>
                         <tr>
@@ -80,95 +83,92 @@
                     <hr>
                     <table>
                         <tr>
-                            <td><b>SULIT</b></td>
-                        </tr>
-                        <tr>
                             <td height="5px"></td>
                         </tr>
                         <tr>
-                            <td width="498px"></td>
+                            <td width="480px"><b>SULIT</b></td>
                             <td>Ruj Kami</td>
                             <td width="10px">:</td>
-                            <td align="center">JKR. KPKR(S)1/02/03 JLD.7 (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
+                            <td align="center">JKR. KPKR(S) /1/02/03 JLD.7 (&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
                         </tr>
                         <tr>
-                            <td width="498px"></td>
+                            <td></td>
                             <td>Tarikh</td>
                             <td width="10px">:</td>
-                            <td align="center">Januari 2022</td>
-                        </tr>
-                        <tr>
-                            <td height="8px"></td>
-                        </tr>
-                        <tr>
-                            <td width="350px"><b>YBRS. Ir. ELMEIZAL BIN JAMALUDIN<br>NO. KAD PENGENALAN : 751118-05-5531</b></td>
+                            <td align="center">Mac 2022</td>
                         </tr>
                         <tr>
                             <td height="18px"></td>
                         </tr>
                         <tr>
-                            <td>Melalui Salinan Kepada</td>
+                            <td width="350px"><b>PUAN ZURAINI BINTI ZAKARIA<br>NO. KAD PENGENALAN : 690505-03-5550</b></td>
                         </tr>
                         <tr>
                             <td height="18px"></td>
                         </tr>
                         <tr>
-                            <td>Pengarah kanan<br>
-                                Cawangan Kejuruteraan mekanikal<br>
-                                Tkt 24-28, Blok G<br>
+                            <td>Melalui dan Salinan Kepada</td>
+                        </tr>
+                        <tr>
+                            <td height="18px"></td>
+                        </tr>
+                        <tr>
+                            <td>Pengarah Kanan<br>
+                                Cawangan Kejuruteraan Mekanikal<br>
                                 Ibu Pejabat JKR Malaysia<br>
-                                No.6, Jalan Sultan Salahudin<br>
-                                <b>50480 KUALA LUMPUR<b>
+                                Tingkat 24-28 Menara Kerja Raya Blok G<br>
+                                Jalan Sultan Salahudin<br>
                             </td>
                         </tr>
                         <tr>
-                            <td height="18px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                     </table>
                     <table style="width: 100%; text-align: justify">
                         <tr>
-                            <td>YBrs. Ir.,</td>
+                            <td>Puan,</td>
                         </tr>
                         <tr>
-                            <td height="10px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                         <tr>
                             <th style="text-align: left; display:inline">
-                                KEPUTUSAN PEMANGKUAN MEKANIKAL GRED
-                                <p style="display:inline">J48</p>
-                                KE GRED
+                                KEPUTUSAN PEMANGKUAN JURUTERA MEKANIKAL GRED
                                 <p style="display:inline">J52</p>
-                                JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA
+                                KE GRED
+                                <p style="display:inline">J54</p>
+                                DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA
                             </th>
                         </tr>
                         <tr>
-                            <td height="10px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                         <tr>
                             <td>Dengan hormatnya saya diarah merujuk kepada perkara di atas.</td>
                         </tr>
                         <tr>
-                            <td height="10px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                         <tr>
                             <td>
-                                2. Dukacita dimaklumkan, urusan pemangkuan
-                                <p style="display:inline">YBs. Ir.</p>
-                                ke Gred
-                                <p style="display:inline">J52</p>
-                                <b>tidak diluluskan</b> oleh <b>Mesyuarat Lembaga Kenaikan Pangkat Perkhidmatan Awam (LKPPA) Bil. 12 Tahun 2020</b> bertarikh <b>21 Disember 2020</b>.
+                                2. &emsp; Sukacita dimaklumkan, <p style="display:inline">Puan</p> telah diluluskan sebagai <b>Calon Simpanan</b> bagi urusan pemangkuan ke Gred <p style="display:inline">J54</p> oleh Mesyuarat Lembaga Kenaikan Pangkat Perkhidmatan Awam (LKPPA) <p style="display:inline">Bil. 1 Tahun 2022</p> bertarikh <p style="display:inline">15 Februari 2022</p>.
                             </td>
                         </tr>
                         <tr>
-                            <td height="10px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                         <tr>
                             <td>
-                                3. Sekiranya
-                                <p style="display:inline">YBs. Ir.</p>
-                                tidak berpuas hati dengan keputusan ini,
-                                <p style="display:inline">YBs. Ir.</p>
-                                boleh mengemukakan rayuan dalam tempoh tiga puluh (30) hari dari tarikh keputusan ini diberitahu. Rayuan hendaklah dialamatkan kepada <b>Pengerusi, Lembaga Rayuan Kenaikan Pangkat Perkhidmatan Awam</b> yang berkenaan selaras dengan Peraturan 23 dan 24 Peraturan yang sama.
+                                3. &emsp; Seperti deperuntukan di bawah peraturan 14, Peraturan-peraturan Lembaga Kenaikan Pangkat Perkhidmatan Awam, 2010 [P.U(A)75/2010] Lembaga boleh menurut budi bicaranya menaikkan pangkat calon-calon simpanan dalam
+                                satu tempoh selama 6 bulan dari tarikh Mesyuarat Lembaga, sekiranya terdapat kekosongan jawatan dalam tempoh tersebut.
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="spacenormal"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                4. &emsp; Sekiranya <p style="display:inline">puan</p> tidak berpuas hati dengan keputusan ini, <p style="display:inline">puan</p> boleh mengemukakan rayuan dalam tempohh tiga puluh (30) hari dari tarikh keputusan ini diberitahu. Rayuan hendaklah dialamatkan kepada <b>Pengerusi, Lembaga Rayuan Kenaikan Pangkat Perkhidmatan Awam</b> yang berkenaan selaras dengan Peraturan 23 dan 24 Peraturan yang sama.
                             </td>
                         </tr>
                         <tr>
@@ -178,25 +178,25 @@
                             <td>Sekian, terima kasih.</td>
                         </tr>
                         <tr>
-                            <td height="10px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                         <tr>
-<!--                            <th>"WAWASAN KEMAKMURAN BERSAMA 2030"</th>-->
+                            <th>"WAWASAN KEMAKMURAN BERSAMA 2030"</th>
                         </tr>
                         <tr>
-                            <td height="10px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                         <tr>
                             <th>"BERKHIDMAT UNTUK NEGARA"</th>
                         </tr>
                         <tr>
-                            <td height="10px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                         <tr>
                             <td>Saya yang menjalankan amanah,</td>
                         </tr>
                         <tr>
-                            <td height="10px"></td>
+                            <td class="spacenormal"></td>
                         </tr>
                         <tr>
                             <th>NORAZIAN BINTI SALLEH</th>
@@ -205,15 +205,15 @@
                             <td>Bahagian Pengurusan Sumber Manusia</td>
                         </tr>
                         <tr>
-                            <td>b.p. Ketua Pengarah Kerja Raya</td>
+                            <td>Cawangan Dasar dan Pengurusan Korporat</td>
                         </tr>
                         <tr>
-                            <td>Jabatan Kerja Raya Malaysia</td>
+                            <td>b.p. Ketua Pengarah Kerja Raya </td>
                         </tr>
                         <tr>
                             <td height="18px"></td>
                         </tr>
-                        <tr style="text-align: center">
+                        <tr style="text-align: left">
                             <td><i>(Cetakan surat ini adalah janaan komputer. Tandatangan tidak diperlukan.)</i></td>
                         </tr>
                         <tr style="text-align: right">
