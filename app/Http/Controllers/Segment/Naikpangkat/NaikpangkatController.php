@@ -565,7 +565,7 @@ class NaikpangkatController extends Controller
             $secure_link = Crypt::encryptString($pemohon->id);
 
                     $content = [
-                        'link' => url('/')."/form/ukp12/eview/".$secure_link."?view=s",
+                        'link' => url('/')."/form/ukp13/eview/".$secure_link."?view=s",
                         'gred' => $pemohon->gred,
                         'jawatan' => $pemohon->jawatan,
                         'nokp' => $formdata->nokp_baru,
@@ -573,7 +573,7 @@ class NaikpangkatController extends Controller
                     ];
                     try {
 
-                        Mail::mailer('smtp')->send('mail.pengesahan-mail',$content,function($message) use ($kerani_user) {
+                        Mail::mailer('smtp')->send('mail.pengesahan2-mail',$content,function($message) use ($kerani_user) {
                             // testing purpose
                             //$message->to('rubmin@vn.net.my',$kerani_user->name);
 
@@ -680,12 +680,12 @@ class NaikpangkatController extends Controller
         $lnpk = Lnpk::where('id_pemohon',$pemohon_id)->first();
             if(empty($lnpk)) {
                 $lnpk = new Lnpk();
-                
+
                 $lnpk->created_by = $user->nokp;
                 $lnpk->flag = 1;
                 $lnpk->delete_id = 0;
-                
-                
+
+
             }
             $info = Pemohon::find($id);
             $lnpk->id_pemohon = $pemohon_id;

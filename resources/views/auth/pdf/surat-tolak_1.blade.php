@@ -181,7 +181,7 @@
                             <td height="10px"></td>
                         </tr>
                         <tr>
-<!--                            <th>"WAWASAN KEMAKMURAN BERSAMA 2030"</th>-->
+                            <th>"WAWASAN KEMAKMURAN BERSAMA 2030"</th>
                         </tr>
                         <tr>
                             <td height="10px"></td>

@@ -65,5 +65,5 @@ DatatableUI.init({
             }
         }
     ],
-    label: 'Senarai Pink Form'
+    label: 'Senarai Calon'
 });

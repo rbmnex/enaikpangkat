@@ -308,6 +308,7 @@ class ViewController extends Controller
                 array_push($includes, ViewController::LNPK_VIEW);
                 array_push($includes, ViewController::KADER_VIEW);
             }
+            array_push($includes,'form.view.include.lnpt-view');
 
         } else if($view == 'k') {
             if($pemohon->jenis_penempatan == 2) {
@@ -319,6 +320,7 @@ class ViewController extends Controller
                 array_push($includes, ViewController::HOD_VIEW);
                 array_push($includes, 'form.view.include.ukp12-dowload');
             }
+            array_push($includes,'form.view.include.lnpt-view');
         } else if($view == 'l') {
             if(Laratrust::hasRole('secretariat')) {
                 if($pemohon->jenis_penempatan != 2) {
@@ -339,6 +341,7 @@ class ViewController extends Controller
                     array_push($includes, ViewController::KADER_VIEW);
                 }
             }
+            array_push($includes,'form.view.include.lnpt-view');
         } else if($view == 'h') {
             $user = Auth::user();
             if($user->hasRole('hod') && $user->nokp == $pemohon->nokp_ketua_jabatan) {
@@ -565,13 +568,16 @@ class ViewController extends Controller
         $jawatan = $request->input('jawatan');
         $jabatan = $request->input('jabatan');
         //$tkh_pengesahan = $request->input('tkh_pengesahan');
-        $pemohon = Pemohon::find($pemohon_id);
+        $pemohon = Pemohon::with('pemohonPermohonan')->find($pemohon_id);
         $user_pemohon = User::find($pemohon->user_id);
         $pemohon->pengesahan_perkhidmatan = $pengesahan;
         $pemohon->pengesahan_perkhidmatan_jawatan = $jawatan;
         $pemohon->pengesahan_perkhidmatan_cawangan = $jabatan;
         $pemohon->pengesahan_perkhidmatan_tkh = Date::now();
         $pemohon->pengesahan_perkhidmatan_nama = $nama;
+        $jenis = 'ukp12';
+        if($pemohon->pemohonPermohonan->jenis == 'UKP13')
+            $jenis = 'ukp13';
         if($pemohon->save()) {
             $ketua_user = User::addOrUpdate($pemohon->nokp_ketua_jabatan);
         if(!$ketua_user->hasRole('hod')) {
@@ -579,7 +585,7 @@ class ViewController extends Controller
         }
                 $secure_link = Crypt::encryptString($pemohon->id);
                 $content = [
-                    'link' => url('/')."/form/ukp12/eview/".$secure_link."?view=h",
+                    'link' => url('/')."/form/".$jenis."/eview/".$secure_link."?view=h",
                     'gred' => $pemohon->gred,
                     'jawatan' => $pemohon->jawatan,
                     'nokp' => $user_pemohon->nokp,
@@ -722,8 +728,13 @@ class ViewController extends Controller
             'tatatertib' => $tatatertib
         ];
 
+        $title = 'Borang_UKP12_';
+        if($permohonan->jenis == 'UKP13')
+            $title = 'Borang_UKP13_';
+
+
         $pdf = PDF::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('pdf.ukp12', $data, []);
-        return $pdf->stream('Borang_UKP12_'.$peribadi->nokp.'.pdf');
+        return $pdf->stream($title.$peribadi->nokp.'.pdf');
 
         //return PdfRender::render('pdf.ukp12', $data, ['Borang','UKP12',$peribadi->nokp]);
     }

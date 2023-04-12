@@ -1,7 +1,7 @@
 <div id="carian-pegawai" class="content">
     <div class="content-header">
         <h5 class="mb-0">Bahagian 13 - Perakuan Ketua Jabatan dan Ketua
-Bahagian Perkhidmatan/Pentadbiran</h5>
+            Bahagian Perkhidmatan/Pentadbiran</h5>
         <small class="text-muted"></small>
     </div>
         <div class="row">

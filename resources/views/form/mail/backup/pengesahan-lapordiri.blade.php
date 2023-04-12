@@ -11,7 +11,7 @@
                         <p>Sila gunakan pautan link dibawah ini untuk memulakan proses pengesahan :</p>
                         <p>Pautan Link  :   {{ $link }}</p>
                         <p>Sekian, terima kasih.</p>
-                        <!--<p><strong>“WAWASAN KEMAKMURAN BERSAMA 2030”</strong></p>-->
+                        <p><strong>“WAWASAN KEMAKMURAN BERSAMA 2030”</strong></p>
                         <p><strong>“BERKHIDMAT UNTUK NEGARA”</strong></p>  
                         <p>Saya yang menjalankan amanah,</p>
                         <span><strong>URUS SETIA KENAIKAN PANGKAT</strong></span><br/>

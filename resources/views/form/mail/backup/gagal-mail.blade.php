@@ -39,7 +39,7 @@ Dengan hormatnya saya diarah merujuk kepada perkara di atas.
 Sekian, terima kasih.
 </p>
 <p>
-<!--<strong>“WAWASAN KEMAKMURAN BERSAMA 2030”</strong>-->
+<strong>“WAWASAN KEMAKMURAN BERSAMA 2030”</strong>
 </p>
 <p>
     <strong>‘‘BERKHIDMAT UNTUK NEGARA’’</strong>
