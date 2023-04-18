@@ -489,7 +489,7 @@
 
             <tr class="side-border">
                 <td colspan="12" class="word-line">
-                    <span class="normal-size" style="font-style: italic; padding-left: 5px; font-weight: bold;">* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</span>
+                    <span class="normal-size" style="font-style: italic; padding-left: 5px; font-weight: bold;">* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) <!--yang disahkan--> perlu disertakan bersama</span>
                 </td>
             </tr>
             <tr class="side-border">
@@ -782,7 +782,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="5">(Contoh: Jurutera Awam J52)</td>
+                                <td colspan="5"><!--(Contoh: Jurutera Awam J52)--></td>
                                 <td></td>
                                 <td></td>
                                 <td></td>
@@ -793,13 +793,21 @@
                             <tr>
                                 <td>8.</td>
                                 <td colspan="2">
+                                    STATUS
+                                </td>
+                                <td style="text-align: center;">:</td>
+                                <td colspan="8">{{ $peribadi->taraf_perkahwinan}}</td>
+                            </tr>
+                            <tr>
+                                <td>9.</td>
+                                <td colspan="2">
                                     GAJI HAKIKI
                                 </td>
                                 <td style="text-align: center;">:</td>
                                 <td colspan="8">RM {{ $pemohon->gaji_hakiki }}</td>
                             </tr>
                             <tr>
-                                <td>9.</td>
+                                <td>10.</td>
                                 <td colspan="3">
                                     ALAMAT PEJABAT
                                 </td>
@@ -817,7 +825,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>10.</td>
+                                <td>11.</td>
                                 <td colspan="3">
                                     ALAMAT RUMAH
                                 </td>
@@ -835,7 +843,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>11.</td>
+                                <td>12.</td>
                                 <td colspan="4">
                                     NAMA SUAMI/ISTERI
                                 </td>
@@ -853,7 +861,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>12.</td>
+                                <td>13.</td>
                                 <td colspan="6">
                                     JAWATAN/PEKERJAAN SUAMI/ISTERI
                                 </td>
@@ -871,7 +879,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>13.</td>
+                                <td>14.</td>
                                 <td colspan="6">
                                     ALAMAT PEJABAT SUAMI/ISTERI
                                 </td>
@@ -880,7 +888,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td colspan="6">{{ $pasangan ? (empty($pasangan->alamat_pejabat) ? strtoupper($peribadi->alamat) : strtoupper($pasangan->alamat_pejabat)) :  '' }}</td>
+                                <td colspan="6">@if($peribadi->taraf_perkahwinan == 'KAHWIN') {{ $pasangan ? (empty($pasangan->alamat_pejabat) ? strtoupper($peribadi->alamat) : strtoupper($pasangan->alamat_pejabat)) :  '' }} @else {{ '' }} @endif</td>
 
                                 <td></td>
                                 <td></td>
@@ -933,7 +941,7 @@
 
                             </tr>
                             <tr>
-                                <td>14.</td>
+                                <td>15.</td>
                                 <td colspan="11">
                                     JAWATAN/PENEMPATAN SEPANJANG PERKHIDMATAN </td>
                             </tr>
@@ -1077,7 +1085,7 @@
 
                                             </tr>
                                             <tr>
-                                                <td>15.</td>
+                                                <td>16.</td>
                                                 <td colspan="11">
                                                     JAWATAN YANG DIPEGANG DALAM PERTUBUHAN/LAIN-LAIN </td>
                                             </tr>
@@ -1268,7 +1276,7 @@
 
                                                             </tr>
                                                             <tr>
-                                                                <td>16.</td>
+                                                                <td>17.</td>
                                                                 <td colspan="11">REKOD AKADEMIK</td>
                                                             </tr>
                                                         </tbody>
@@ -1366,7 +1374,7 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>17.</td>
+                                <td>18.</td>
                                 <td colspan="11">REKOD KELAYAKAN PROFESSIONAL DAN PENDAFTARAN DENGAN BADAN PROFESIONAL</td>
 
                             </tr>
@@ -1435,7 +1443,7 @@
 
                             </tr>
                             <tr>
-                                <td>18.</td>
+                                <td>19.</td>
                                 <td colspan="11">REKOD PENSIJILAN KEKOMPETENAN</td>
 
                             </tr>
@@ -1491,7 +1499,7 @@
 
                             </tr>
                             <tr>
-                                <td>19.</td>
+                                <td>20.</td>
                                 <td colspan="11">PENGIKTIRAFAN</td>
 
                             </tr>

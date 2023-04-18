@@ -80,14 +80,17 @@
             <input type="text" id="sect-4-gred" readonly name="gred" class="form-control" value="{{ $profile['gred'] }}" placeholder=""  />
             <div class="invalid-feedback"></div>
         </div>
+        <div class="form-group col-md-6">
+            <label class="col-form-label" for="vertical-email">Status</label>
+            <input type="text" id="sect-4-taraf" readonly value="{{ $profile['taraf_perkahwinan'] }}" class="form-control" placeholder=""  />
+            <div class="invalid-feedback"></div>
+        </div>
         <div class="col-form-group col-md-6">
             <label class="col-form-label" for="vertical-email">Gaji Hakiki</label>
             <input type="number" id="sect-4-gaji" readonly name="gaji_hakiki" value="{{ $profile['gaji'] }}" class="form-control" placeholder=""  />
             <div class="invalid-feedback"></div>
         </div>
-        <div class="form-group col-md-6">
-            <input type="hidden" id="sect-4-taraf" value="{{ $profile['taraf_perkahwinan'] }}" />
-        </div>
+
         <div class="form-group col-md-12">
             <label class="col-form-label" for="alamat_bertugas">Alamat Pejabat</label>
             <textarea row=3 type="text" id="sect-4-alamat_bertugas" readonly class="form-control" name="alamat_pejabat"  placeholder="">{{ strtoupper($profile['alamat_pejabat']) }}</textarea>

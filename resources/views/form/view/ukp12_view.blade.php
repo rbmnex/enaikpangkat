@@ -264,7 +264,7 @@
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group col-md-12">
-                            <label class="col-form-label" style="font-style: italic" for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</b></label>
+                            <label class="col-form-label" style="font-style: italic" for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) <!--yang disahkan--> perlu disertakan bersama</b></label>
                         </div>
                         <div class="form-group col-md-12">
                             <label class="col-form-label" style="font-style: italic" for=""><b>* Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir</b></label>
@@ -358,13 +358,14 @@
                             <input type="text" id="sect-4-gred" readonly name="gred" class="form-control" value="{{ $pemohon->gred }}" placeholder=""  />
                             <div class="invalid-feedback"></div>
                         </div>
+                        <div class="form-group col-md-6">
+                            <label class="col-form-label" for="vertical-email">Status</label>
+                            <input type="text" id="sect-4-taraf" class="form-control" placeholder="" readonly value="{{ $peribadi->taraf_perkahwinan }}" />
+                        </div>
                         <div class="col-form-group col-md-6">
                             <label class="col-form-label" for="vertical-email">Gaji Hakiki</label>
                             <input type="number" id="sect-4-gaji" readonly name="gaji_hakiki" value="{{ $pemohon->gaji_hakiki }}" class="form-control" placeholder=""  />
                             <div class="invalid-feedback"></div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <input type="hidden" id="sect-4-taraf" value="{{ $peribadi->taraf_perkahwinan }}" />
                         </div>
                         <div class="form-group col-md-12">
                             <label class="col-form-label" for="alamat_bertugas">Alamat Pejabat</label>
@@ -470,7 +471,7 @@
                                     @foreach ($sumbangan as $org)
                                         <tr data-pertubuhan-id="{{ $org->id }}">
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $org->sumbangan }}</td>
+                                            <td>{{ strtoupper($org->sumbangan) }}</td>
                                             {{-- <td>{{ $org->tempat }}</td> --}}
                                             <td>{{ $org->tkh_peristiwa ? \Carbon\Carbon::parse($org->tkh_peristiwa)->format('Y') : ''  }}</td>
                                         </tr>
@@ -503,8 +504,8 @@
                                     @foreach ($akademiks as $a)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $a->nama_sijil }}</td>
-                                            <td>{{ $a->nama_insititusi }}</td>
+                                            <td>{{ strtoupper($a->nama_sijil) }}</td>
+                                            <td>{{ strtoupper($a->nama_insititusi) }}</td>
                                             <td>{{ empty($a->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($a->tkh_kelulusan)->format('Y') }}</td>
                                         </tr>
                                     @endforeach
@@ -540,9 +541,9 @@
                                     @foreach ($profesionals as $pro)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $pro->nama_sijil }}</td>
-                                            <td>{{ $pro->badan_professional }}</td>
-                                            <td>{{ $pro->no_pendaftaran }}</td>
+                                            <td>{{ strtoupper($pro->nama_sijil) }}</td>
+                                            <td>{{ strtoupper($pro->badan_professional) }}</td>
+                                            <td>{{ strtoupper($pro->no_pendaftaran) }}</td>
                                             <td>{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
                                             <td>
                                                 @if($pro->file_id)
@@ -591,7 +592,7 @@
                                     @foreach ($kompetenans as $k)
                                     <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $k->nama_sijil }}</td>
+                                    <td>{{ strtoupper($k->nama_sijil) }}</td>
                                     <td>{{ $k->tahap }}</td>
                                     <td>
                                         @if($k->file_id)

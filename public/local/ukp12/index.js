@@ -1,4 +1,4 @@
-$(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-preview',function() {
+$(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-preview, .btn-savee',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('btn-submit')) {
         //$('#modal-cuti').modal('show');
@@ -82,6 +82,7 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-preview'
             data.append('tatatertib',$('.tatatertib').filter(':checked').val());
             data.append('denda',$('.denda').filter(':checked').val());
             data.append('cuti',$('.cuti_check').filter(':checked').val());
+
             if($('.akuan_peribadi').is(':checked')) {
                 data.append('akuan',1);
             } else {
@@ -114,6 +115,57 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-preview'
                 }
             });
         }
+    } else if(selectedClass.hasClass('btn-savee')) {
+        let id_pemohon = $('input[name="_formid"]').val();
+            let url = getUrl() + '/form/ukp12/nview/'+id_pemohon+'?view=n'
+            let target = '_blank';
+            let pemohon = $('input[name="_formdata"]').val();
+            var data = new FormData;
+            data.append('_token', getToken());
+            data.append('pemohon',pemohon);
+            data.append('pemohon_id',id_pemohon);
+            data.append('accept',$('.radio-accept').filter(':checked').val());
+            data.append('alasan',$('.alasan_tolak').val());
+            data.append('ketua_nokp',$('.pegawai-nokp').val());
+            data.append('kerani_nokp',$('.pengguna-nokp').val());
+            data.append('tatatertib',$('.tatatertib').filter(':checked').val());
+            data.append('denda',$('.denda').filter(':checked').val());
+            data.append('cuti',$('.cuti_check').filter(':checked').val());
+
+            if($('.akuan_peribadi').is(':checked')) {
+                data.append('akuan',1);
+            } else {
+                data.append('akuan',0);
+            }
+
+            data.append('status_pinjam',$('.pinjam-status').val());
+            data.append('nama_pinjam',$('.nama_tabung').val());
+            data.append('jumlah_pinjam',$('.jumlah_pinjaman').val());
+            data.append('mula_pinjam',$('.mula_pinjam').val());
+            data.append('akhir_pinjam',$('.akhir_pinjam').val());
+            data.append('bayar_pinjam',$('.bayar_mula').val());
+            data.append('selesai_pinjam',$('.selesai_bayar').val());
+
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Data ini akan disimpan',
+            icon: 'info',
+            confirmButtonText: 'Simpan',
+            postData: {
+                url : '/form/api/preview-download',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        toasting('Data berjaya disimpan', 'success');
+
+                    } else {
+                        toasting('Ralat telah berlaku, Data telah gagal disimpan', 'error');
+                    }
+                },
+            }
+        });
     } else if(selectedClass.hasClass('btn-download')) {
         var data = new FormData;
         var dataform = $('input[name="_formid"]').val();

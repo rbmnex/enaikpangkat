@@ -284,5 +284,70 @@
     $('.selesai_bayar').val('{{ $profile['loan']->tkh_selesai_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_selesai_bayaran)->format('d-m-Y') : '' }}');
     $('.loan-file').html('{{ $profile['loan']->file ? $profile['loan']->file->filename : '' }}')
     @endif
+
+    @if($profile['pengakuan'])
+    @if($profile['pengakuan']->tatatertib)
+    $('#radio2').attr('checked','checked');
+    @else
+    $('#radio1').attr('checked','checked');
+    @endif
+    @if($profile['pengakuan']->tempoh_percubaan_denda)
+    $('#radio4').attr('checked','checked');
+    @else
+    $('#radio3').attr('checked','checked');
+    @endif
+    @if($profile['pengakuan']->cuti_tanpa_gaji)
+    $('#radio6').attr('checked','checked');
+    @else
+    $('#radio5').attr('checked','checked');
+    @endif
+    @if($profile['pengakuan']->perakuan)
+    $('#checkbox_akuan').attr('checked','checked');
+    @endif
+    @endif
+
+    @if($profile['kp_ketua_jabatan'])
+    $.ajax({
+        type:'GET',
+        url: getUrl() + '/admin/pengguna/api?no_ic={{ $profile['kp_ketua_jabatan'] }}',
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        context: this,
+        success: function(data) {
+            let result = data.data;
+            $('.pengguna-nama').val(result.nama);
+            $('.pengguna-email').val(result.emel);
+            $('.pengguna-nokp').val(result.nokp);
+            $('.pengguna-cawangan').val(result.cawangan);
+            $('.pengguna-bahagian').val(result.bahagian);
+            $('.pengguna-unit').val(result.unit);
+            $('.pengguna-pejabat').val(result.pejabat);
+            $('.pengguna-jawatan').val(result.jawatan+' '+result.gred);
+        }
+    });
+    @endif
+
+    @if($profile['kp_ketua_perkhidmatan'])
+    $.ajax({
+        type:'GET',
+        url: getUrl() + '/admin/pengguna/api?no_ic={{ $profile['kp_ketua_perkhidmatan'] }}',
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        context: this,
+        success: function(data) {
+            let result = data.data;
+            $('.pegawai-nama').val(result.nama);
+            $('.pegawai-email').val(result.emel);
+            $('.pegawai-nokp').val(result.nokp);
+            $('.pegawai-cawangan').val(result.cawangan);
+            $('.pegawai-bahagian').val(result.bahagian);
+            $('.pegawai-unit').val(result.unit);
+            $('.pegawai-pejabat').val(result.pejabat);
+            $('.pegawai-jawatan').val(result.jawatan+' '+result.gred);
+        }
+    });
+    @endif
 </script>
 @endsection
