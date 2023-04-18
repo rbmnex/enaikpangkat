@@ -26,7 +26,7 @@
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12">
-            <label class="col-form-label" style="font-style: italic; font-size: 0.857rem; " for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) yang disahkan perlu disertakan bersama</b></label>
+            <label class="col-form-label" style="font-style: italic; font-size: 0.857rem; " for=""><b>* Kelulusan Pengisytiharan Harta (LAMPIRAN E yang dijana dari HRMIS) <!--yang disahkan--> perlu disertakan bersama</b></label>
         </div>
         <div class="form-group col-md-12">
             <label class="col-form-label" style="font-style: italic; font-size: 0.857rem; " for=""><b>* Sila pastikan kelulusan Pengisytiharan Harta adalah sah dan tidak melebihi dari lima (5) tahun dari tarikh Pengisytiharan Harta terakhir</b></label>

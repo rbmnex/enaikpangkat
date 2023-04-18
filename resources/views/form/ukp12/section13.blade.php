@@ -45,11 +45,11 @@
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline ">
-                <input type="radio" value="1" class="form-check-input medium denda" name="denda" id="radio1" />
+                <input type="radio" value="1" class="form-check-input medium denda" name="denda" id="radio3" />
                 <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
             <div class="form-check form-check-inline ">
-                <input type="radio" value="0" class="form-check-input medium denda" name="denda" id="radio1" />
+                <input type="radio" value="0" class="form-check-input medium denda" name="denda" id="radio4" />
                 <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
             </div>
         </div>
@@ -63,11 +63,11 @@
         </div>
         <div class="form-group col-md-12">
             <div class="form-check form-check-inline ">
-                <input type="radio" value="1" class="form-check-input medium cuti_check" name="cuti_check" id="radio1" />
+                <input type="radio" value="1" class="form-check-input medium cuti_check" name="cuti_check" id="radio5" />
                 <label class="col-form-label" for="tatatertib"> Pernah</label>
             </div>
             <div class="form-check form-check-inline ">
-                <input type="radio" value="0" class="form-check-input medium cuti_check" name="cuti_check" id="radio1" />
+                <input type="radio" value="0" class="form-check-input medium cuti_check" name="cuti_check" id="radio6" />
                 <label class="col-form-label" for="tatatertib"> Tidak Pernah</label>
             </div>
         </div>

@@ -39,6 +39,10 @@
             <i data-feather="arrow-right" class="align-middle mr-sm-25 mr-0"></i>
             <span class="align-middle d-sm-inline-block d-none">Sebelum</span>
         </button>
+        <button type="button" class="btn btn-warning btn-savee">
+            <span class="align-middle d-sm-inline-block d-none">Simpan</span>
+            <i data-feather="save" class="align-middle ml-sm-25 ml-0"></i>
+        </button>
         <button type="button" class="btn btn-secondary btn-preview">
             <span class="align-middle d-sm-inline-block d-none">Preview Cetak</span>
             <i data-feather="printer" class="align-middle ml-sm-25 ml-0"></i>

@@ -1677,7 +1677,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
                 $code_model = $innerSelf->findKompentesi($item->kod_kelulusan,$item->nama_kelulusan);
                 $item->nama_kelulusan = empty($code_model) ? $item->nama_kelulusan : $code_model->nama;
             } else {
-                
+
             }
         });
 
@@ -1699,6 +1699,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
         $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
         $loan = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->where('flag',1)->where('delete_id',0)->first();
+        $pengakuan = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
 
         $maklumat = array();
         $maklumat['nama'] = $profile->nama;
@@ -1749,6 +1750,9 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $maklumat['sumbangan'] = $sumbangan;
         $maklumat['jenis_penempatan'] = empty($penempatanX) ? 1 : $penempatanX->kod_kategori_penempatan;
         $maklumat['istihar_sah'] = $isValidDate;
+        $maklumat['pengakuan'] = $pengakuan;
+        $maklumat['kp_ketua_jabatan'] = $pemohon->nokp_ketua_jabatan;
+        $maklumat['kp_ketua_perkhidmatan'] = $pemohon->pengesahan_perkhidmatan_nokp;
 
         $pemohon->jawatan =$maklumat['jawatan'] ;
         $pemohon->kod_jawatan = $maklumat['kod_jawatan'];
