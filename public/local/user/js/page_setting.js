@@ -25,7 +25,7 @@ let dt = DatatableUI.init({
                 var text = '';
                 var color = ''
                 if(status == "BH") {
-                    text = 'Belum Siap';
+                    text = 'Dalam Tindakan';
                     color = 'warning';
                 } else if(status == "TA") {
                     text = 'Tunggu Pengesahan';

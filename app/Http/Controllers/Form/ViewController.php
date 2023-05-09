@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Form;
 
+use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
 use App\Models\File;
 use App\Models\Mykj\ListPegawai2;
@@ -88,6 +89,9 @@ class ViewController extends Controller
 
             $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->get();
             $markah =  collect([]);
+
+            $common = new CommonController();
+            $common->saveImageFromUrl('http://10.8.80.68/foto/'.$peribadi->nokp.'.jpg',$peribadi->nokp);
 
             if($rekod_markah->count() == 0) {
                 $first = new stdClass;
@@ -263,6 +267,9 @@ class ViewController extends Controller
         $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->get();
         $markah =  collect([]);
 
+        $common = new CommonController();
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$peribadi->nokp.'.jpg',$peribadi->nokp);
+
         if($rekod_markah->count() == 0) {
             $first = new stdClass;
             $first->tahun = $year-1;
@@ -431,6 +438,9 @@ class ViewController extends Controller
 
         $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->orderBy('tahun','desc')->get();
         $markah =  collect([]);
+
+        $common = new CommonController();
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$peribadi->nokp.'.jpg',$peribadi->nokp);
 
         if($rekod_markah->count() == 0) {
             $first = new stdClass;
@@ -679,6 +689,9 @@ class ViewController extends Controller
         $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->orderBy('tahun','desc')->get();
         $markah =  collect([]);
 
+        $common = new CommonController();
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$peribadi->nokp.'.jpg',$peribadi->nokp);
+
         if($rekod_markah->count() == 0) {
             $first = new stdClass;
             $first->tahun = $year-1;
@@ -760,6 +773,9 @@ class ViewController extends Controller
         $tatatertib = TatatertibUkp12::where('id_pemohon',$pemohon->id)->first();
         $rekod_markah =  LnptUkp12::where('id_pemohon',$pemohon->id)->orderBy('tahun','desc')->get();
         $markah =  collect([]);
+
+        $common = new CommonController();
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$peribadi->nokp.'.jpg',$peribadi->nokp);
 
         if($rekod_markah->count() == 0) {
             $first = new stdClass;

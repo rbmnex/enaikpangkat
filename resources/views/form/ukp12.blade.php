@@ -287,19 +287,19 @@
 
     @if($profile['pengakuan'])
     @if($profile['pengakuan']->tatatertib)
-    $('#radio2').attr('checked','checked');
-    @else
     $('#radio1').attr('checked','checked');
+    @else
+    $('#radio2').attr('checked','checked');
     @endif
     @if($profile['pengakuan']->tempoh_percubaan_denda)
-    $('#radio4').attr('checked','checked');
-    @else
     $('#radio3').attr('checked','checked');
+    @else
+    $('#radio4').attr('checked','checked');
     @endif
     @if($profile['pengakuan']->cuti_tanpa_gaji)
-    $('#radio6').attr('checked','checked');
-    @else
     $('#radio5').attr('checked','checked');
+    @else
+    $('#radio6').attr('checked','checked');
     @endif
     @if($profile['pengakuan']->perakuan)
     $('#checkbox_akuan').attr('checked','checked');

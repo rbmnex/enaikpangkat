@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Urussetia;
 
 use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\AuditTrail;
 use App\Models\Mykj\ListPegawai2;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PermohonanUkp12;
@@ -42,9 +43,16 @@ class ApplicationController extends Controller
         $permohonan_id = $request->input('permohonan_id');
 
         $record = PermohonanUkp12::find($permohonan_id);
+
+        $audit = new AuditTrail();
+        $audit->setInitialObj($record);
+
         $record->flag = 0;
         $record->delete_id = 1;
         if($record->save()) {
+            $audit->setModifyObj($record);
+            $audit->capture(Auth::user()->nokp,"DELETE_APPLICATION","PEMANGKUAN");
+
             return response()->json([
                 'success' => 1,
                 'data' => []
@@ -90,6 +98,10 @@ class ApplicationController extends Controller
         $tkh_mesyuarat = $request->input('date');
         $record =  Pemohon::find($pemohon_id);
         $form = PermohonanUkp12::find($record->id_permohonan);
+
+        $audit = new AuditTrail();
+        $audit->setInitialObj($record);
+
         if($verdict == 1) {
             $record->status = Pemohon::SUCCESSED;
         } else if($verdict == 0){
@@ -97,10 +109,14 @@ class ApplicationController extends Controller
         } else if($verdict == 2){
             $record->status = Pemohon::RESERVE;
         }
+
         $record->ranking = $rank;
         $record->updated_by = Auth::user()->nokp;
 
         if($record->save()) {
+            $audit->setModifyObj($record);
+            $audit->capture(Auth::user()->nokp,"VERDICT_APPLICANT","PEMANGKUAN");
+
             $form->bil_mesyuarat = $bil_mesyuarat;
             $form->tarikh_mesyuarat = empty($tkh_mesyuarat) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $tkh_mesyuarat)->format('Y-m-d');
             $form->updated_by = Auth::user()->nokp;
@@ -197,6 +213,45 @@ class ApplicationController extends Controller
                 'success' => 0,
                 'data' => [
                     'message' => 'Failed to save'
+                ]
+            ]);
+        }
+    }
+
+    public function reset_form(Request $request) {
+        $pemohon_id = $request->input('pemohon_id');
+        $form = Pemohon::find($pemohon_id);
+
+        $audit = new AuditTrail();
+        $audit->setInitialObj($form);
+
+        if($form) {
+            $form->status = Pemohon::NOT_SUBMITTED;
+            $form->updated_by = Auth::user()->nokp;
+            if($form->save()) {
+
+                $audit->setModifyObj($form);
+                $audit->capture(Auth::user()->nokp,"FORM_RESET","PEMANGKUAN");
+
+                return response()->json([
+                    'success' => 1,
+                    'data' => [
+                        'message' => 'Success'
+                    ]
+                ]);
+            } else {
+                return response()->json([
+                    'success' => 0,
+                    'data' => [
+                        'message' => 'Failed to save'
+                    ]
+                ]);
+            }
+        } else {
+            return response()->json([
+                'success' => 0,
+                'data' => [
+                    'message' => 'Empty Datas'
                 ]
             ]);
         }

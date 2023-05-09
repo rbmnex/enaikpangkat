@@ -284,5 +284,26 @@
     $('.selesai_bayar').val('{{ $profile['loan']->tkh_selesai_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_selesai_bayaran)->format('d-m-Y') : '' }}');
     $('.loan-file').html('{{ $profile['loan']->file ? $profile['loan']->file->filename : '' }}')
     @endif
+
+    @if($profile['pengakuan'])
+    @if($profile['pengakuan']->tatatertib)
+    $('#radio1').attr('checked','checked');
+    @else
+    $('#radio2').attr('checked','checked');
+    @endif
+    @if($profile['pengakuan']->tempoh_percubaan_denda)
+    $('#radio3').attr('checked','checked');
+    @else
+    $('#radio4').attr('checked','checked');
+    @endif
+    @if($profile['pengakuan']->cuti_tanpa_gaji)
+    $('#radio5').attr('checked','checked');
+    @else
+    $('#radio6').attr('checked','checked');
+    @endif
+    @if($profile['pengakuan']->perakuan)
+    $('#checkbox_akuan').attr('checked','checked');
+    @endif
+    @endif
 </script>
 @endsection

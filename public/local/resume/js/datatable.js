@@ -1,3 +1,4 @@
+let role_jusa = $('#role_jusa').val();
 $('.table-resume').DataTable({
     processing: true,
     serverSide: true,
@@ -15,7 +16,7 @@ $('.table-resume').DataTable({
         $(row).addClass('pinkform-row');
     },
     columnDefs: [
-       
+
         // {
         //     targets: -2,
         //     title: 'Status',
@@ -31,7 +32,7 @@ $('.table-resume').DataTable({
         //             return (
         //                 '<div class="badge badge-warning">Tidak Lengkap</div>'
         //             );
-               
+
         //         }
 
         //     }
@@ -51,13 +52,18 @@ $('.table-resume').DataTable({
                     }else{
                         lampiran3 += '';
                     }
-                    btn += 
-                    '<button title="Hantar" type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +'</button>' +
-                    '<a href="/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>' +
+                    if(role_jusa == 1) {
+                        btn +=
+                        '<button title="Hantar" type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +'</button>';
+                    }
+                    btn +=
+                    '<a href="/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>';
+
+                    btn +=
                     '<a href="/urussetia/resume/resume/'+nokp+'"  title="Muat Turun"class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['printer'].toSvg() +'</a>' +
                     lampiran3
 
-               
+
                 return btn;
             }
         }
@@ -137,7 +143,7 @@ $('.table-terpilih').DataTable({
         $(row).addClass('pinkform-row');
     },
     columnDefs: [
-       
+
         // {
         //     targets: -2,
         //     title: 'Status',
@@ -153,7 +159,7 @@ $('.table-terpilih').DataTable({
         //             return (
         //                 '<div class="badge badge-warning">Tidak Lengkap</div>'
         //             );
-               
+
         //         }
 
         //     }
@@ -173,13 +179,13 @@ $('.table-terpilih').DataTable({
                     }else{
                         lampiran3 += '';
                     }
-                    btn += 
+                    btn +=
                     '<button title="Hantar" type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +'</button>' +
                     '<a href="/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>' +
                     '<a href="/urussetia/resume/resume/'+nokp+'"  title="Muat Turun"class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['printer'].toSvg() +'</a>' +
                     lampiran3
 
-               
+
                 return btn;
             }
         }

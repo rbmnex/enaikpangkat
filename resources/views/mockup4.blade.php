@@ -50,7 +50,7 @@
     </section>
 </div>
 <input type="hidden" id="_token" class="_token" name="_token" value="{{csrf_token()}}">
-
+<input type="hidden" id="role_jusa" name="role_jus" value="{{ $jusa }}">
 @endsection
 
 @section('customJs')

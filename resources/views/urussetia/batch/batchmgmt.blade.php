@@ -36,6 +36,8 @@
                         <tr>
                             <th>id</th>
                             <th>nama</th>
+                            <th>Tarikh Hantar</th>
+                            <th>Tarikh Tamat</th>
                             <th>status</th>
                             <th>aksi</th>
                         </tr>

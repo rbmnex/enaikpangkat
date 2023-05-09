@@ -151,7 +151,10 @@
                     <span class="normal-size"><strong>50480 KUALA LUMPUR</strong></span><br/>
                     <span class="normal-size">(u.p: Urus Setia Kenaikan Pangkat JKR)</span>
                 </td>
-                <td colspan="8"></td>
+                <td colspan="8">
+                    <img src="{{ asset('files/foto-'.$peribadi->nokp.'.jpg') }}"
+                        alt="" width="120" height="130">
+                </td>
 
             </tr>
             <tr>
