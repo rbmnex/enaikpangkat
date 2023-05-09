@@ -23,7 +23,7 @@ DatatableUI.init({
                 var text = '';
 
                 if(status == "BH") {
-                    text = 'Belum Siap';
+                    text = 'Dalam Tindakan';
                 } else if(status == "TA") {
                     text = 'Tunggu Pengesahan';
                     // if(status_hos == "NOT" && status_hod == "NOT")  {

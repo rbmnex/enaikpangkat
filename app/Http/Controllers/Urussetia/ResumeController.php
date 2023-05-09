@@ -591,9 +591,9 @@ public function lampiran3($ic)
 
         $model= [];
         $mula_khidmat ='';
-        $common = new CommonController();
-         $resume=Resume::where('nokp',$ic->nokp)->first();
+        $resume=Resume::where('nokp',$ic->nokp)->first();
         $model=ListPegawai2::getMaklumatPegawai($ic->nokp);
+        $common = new CommonController();
         $common->saveImageFromUrl('http://10.8.80.68/foto/'.$ic->nokp.'.jpg',$ic->nokp);
 
 

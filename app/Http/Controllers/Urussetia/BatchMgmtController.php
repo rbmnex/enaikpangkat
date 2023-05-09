@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Urussetia;
 
 use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\AuditTrail;
 use App\Models\Mykj\LJurusan;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PermohonanUkp12;
@@ -32,7 +33,7 @@ class BatchMgmtController extends Controller
     }
 
     public function senarai(Request $request) {
-        $model = Kumpulan::where('flag', 1)->where('delete_id',0)->orderBy('created_at','desc')->get();
+        $model = Kumpulan::with('permohonan')->where('flag', 1)->where('delete_id',0)->orderBy('created_at','desc')->get();
 
         return DataTables::of($model)
             ->setRowAttr([
@@ -46,7 +47,25 @@ class BatchMgmtController extends Controller
                         return $data->permohonan->id;
                     }
                 }
-            ])->rawColumns(['aktif','aksi'])
+            ])
+            ->addColumn('tkh_mula',function($data) {
+                if($data->permohonan) {
+                    return Carbon::parse($data->permohonan->created_at)->format('d-m-Y');
+                } else {
+                    return '00-00-0000';
+                }
+            })
+            ->addColumn('tkh_akhir',function($data) {
+                if($data->permohonan) {
+                    $common = new CommonController();
+
+            $dateline = $common->calc_DateOnWorkingDays(7,Carbon::parse($data->permohonan->created_at)->format('d-m-Y'));
+                    return $dateline->format('d-m-Y');
+                } else {
+                    return '00-00-0000';
+                }
+            })
+            ->rawColumns(['aktif','aksi','tkh_mula','tkh_mula'])
             ->make(true);
     }
 
@@ -163,6 +182,9 @@ class BatchMgmtController extends Controller
             $model = Kumpulan::find($batch_id);
             $new = false;
         }
+        $audit = new AuditTrail();
+        $audit->setInitialObj($model);
+
         $model->name = $nama;
         $model->flag = 1;
         $model->delete_id = 0;
@@ -171,7 +193,10 @@ class BatchMgmtController extends Controller
         $model->updated_by = Auth::user()->nokp;
         $model->status = "NEW";
 
+
         if($model->save()) {
+            $audit->setModifyObj($model);
+            $audit->capture(Auth::user()->nokp,"SAVE_BATCH","PEMANGKUAN");
             $id_batch = $model->id;
             if($new) {
                 foreach($staff_list as $nokp) {
@@ -215,11 +240,16 @@ class BatchMgmtController extends Controller
     {
         $batch_id = $request->input('batch_id');
         $model = Kumpulan::find($batch_id);
+        $audit = new AuditTrail();
+        $audit->setInitialObj($model);
+
         $model->flag = 0;
         $model->delete_id = 1;
         $model->updated_by = Auth::user()->nokp;
 
         if($model->save()) {
+            $audit->setModifyObj($model);
+            $audit->capture(Auth::user()->nokp,"DELETE_BATCH","PEMANGKUAN");
             return response()->json([
                 'success' => 1,
                 'data' => []
@@ -240,10 +270,15 @@ class BatchMgmtController extends Controller
         $batch_id = $request->input('batch_id');
         $batch = Kumpulan::find($batch_id);
 
+        $audit = new AuditTrail();
+        $audit->setInitialObj($batch);
+
         $model = new PermohonanUkp12;
         //$jawatan = LJawatan::where('kod_jawatan',$kod_jawatan)->first();
         $jurusan = LJurusan::where('kod_jurusan',$kod_jurusan)->first();
 
+        $common = new CommonController();
+        $dateline = $common->calc_DateOnWorkingDays(7);
         $model->nokp_urusetia = Auth::user()->nokp;
         $model->jenis = 'UKP12';
         //$model->jawatan = $jawatan->jawatan;
@@ -254,6 +289,7 @@ class BatchMgmtController extends Controller
         $model->flag = 1;
         $model->delete_id = 0;
         $model->tajuk = $batch->name;
+        $model->tkh_akhir = $dateline->format('d-m-Y');
 
         if($model->save()) {
             $batch->updated_by = Auth::user()->nokp;
@@ -261,9 +297,11 @@ class BatchMgmtController extends Controller
             $batch->permohonan_id = $model->id;
             $batch->save();
 
+            $audit->setModifyObj($batch);
+            $audit->capture(Auth::user()->nokp,"SEND_EMAIL","PEMANGKUAN");
+
             $list_nokp = Calon::where('kumpulan_id', $batch_id)->where('flag', 1)->where('delete_id',0)->pluck('nokp')->all();
 
-            $common = new CommonController();
 
             foreach($list_nokp as $kp) {
 
@@ -294,7 +332,7 @@ class BatchMgmtController extends Controller
                 $pemohon->user_id = $user->id;
                 $pemohon->save();
 
-                $dateline = $common->calc_DateOnWorkingDays(7);
+
 
                 $secure_link = Crypt::encryptString($model->id.'?kp='.$kp);
 
@@ -437,12 +475,16 @@ class BatchMgmtController extends Controller
         $nokp = $request->input('nokp');
 
         $model = Calon::where('kumpulan_id',$batch_id)->where('nokp',$nokp)->first();
+        $audit = new AuditTrail();
+        $audit->setInitialObj($model);
 
         $model->flag = 0;
         $model->delete_id = 1;
         $model->updated_by = Auth::user()->nokp;
 
         if($model->save()) {
+            $audit->setModifyObj($model);
+            $audit->capture(Auth::user()->nokp,"DELETE_CANDIDATE","PEMANGKUAN");
             return response()->json([
                 'success' => 1,
                 'data' => []
@@ -464,6 +506,7 @@ class BatchMgmtController extends Controller
 
         $model = Calon::where('kumpulan_id',$batch_id)->where('nokp',$nokp)->first();
 
+
         if($model) {
             $model->flag = 1;
             $model->delete_id = 0;
@@ -480,7 +523,12 @@ class BatchMgmtController extends Controller
 
         }
 
+        $audit = new AuditTrail();
+        $audit->setInitialObj($model);
+
         if($model->save()) {
+            $audit->setModifyObj($model);
+            $audit->capture(Auth::user()->nokp,"ADD_APPLICANT","PEMANGKUAN");
             return response()->json([
                 'success' => 1,
                 'data' => []
@@ -572,6 +620,9 @@ class BatchMgmtController extends Controller
             ->where('np.nokp',$nokp)->get();
         $kod_gred = $kumpulan->permohonan->gred;
 
+        $audit = new AuditTrail();
+        $audit->setInitialObj($model);
+
         User::upsert($nokp);
                 $user = User::where('nokp',$nokp)->first();
                 if(!$user->hasRole('user')) {
@@ -601,10 +652,9 @@ class BatchMgmtController extends Controller
                 $pemohon->save();
             }
 
+            $common = new CommonController();
 
-        $common = new CommonController();
-
-            $dateline = $common->calc_DateOnWorkingDays(7,\Carbon\Carbon::parse($kumpulan->permohonan->created_at)->format("Y-m-d H:i:s"));
+            $dateline = $kumpulan->permohonan->tkh_akhir ? \Carbon\Carbon::parse($kumpulan->permohonan->tkh_akhir) : $common->calc_DateOnWorkingDays(7,\Carbon\Carbon::parse($kumpulan->permohonan->created_at)->format("Y-m-d H:i:s"));
             $secure_link = Crypt::encryptString($kumpulan->permohonan->id.'?kp='.$nokp);
             $content = [
                 //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
@@ -625,6 +675,9 @@ class BatchMgmtController extends Controller
                 });
                 $model->status = 'SUCCESSED';
                 $model->save();
+
+                $audit->setModifyObj($model);
+                $audit->capture(Auth::user()->nokp,"RESEND EMAIL","PEMANGKUAN");
 
                 return response()->json([
                     'success' => 1,

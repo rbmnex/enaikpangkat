@@ -96,7 +96,10 @@ class PengesahanController extends Controller
             ->addColumn('jenis',function($data) {
                 return $data->pemohonPermohonan->jenis;
             })
-            ->rawColumns(['aksi'])
+            ->addColumn('tarikh', function($data){
+                return \Carbon\Carbon::parse($data->created_at)->format('d-m-Y');
+            })
+            ->rawColumns(['aksi','tarikh'])
             ->make(true);
     }
 }

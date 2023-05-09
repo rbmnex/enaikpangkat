@@ -144,6 +144,9 @@ class CommonController extends Controller
         $image = file_get_contents($modifyUrl);
 
         if ($image !== false){
+            $storage_disk = 'web';
+            Storage::disk($storage_disk)->put($urlParts['basename'], $image);
+
             $file_info['filename'] = $urlParts['basename'];
             $file_info['extension'] = $urlParts['extension'];
             $file_info['content'] =  base64_encode($image);

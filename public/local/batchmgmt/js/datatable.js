@@ -9,6 +9,8 @@ $('.table-kumpulan').DataTable({
     columns: [
         {data: 'id', visible: false},
         {data: 'name'},
+        {data: 'tkh_mula'},
+        {data: 'tkh_akhir'},
         {data: 'status'},
         {data: 'aksi'},
     ],

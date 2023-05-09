@@ -47,58 +47,6 @@ class UkpController extends Controller
     public function call(Request $request,$id) {
         $nokp = $request->input('kp');
 
-        $mykjPeribadi = DB::connection('pgsqlmykj')->table('public.peribadi as p')
-                ->leftJoin('public.l_agama as la', 'p.kod_agama', 'la.kod_agama')
-                ->leftJoin('public.l_taraf_perkahwinan as ltp', 'p.kod_taraf_perkahwinan', 'ltp.kod_taraf_perkahwinan')
-                ->leftJoin('public.l_bangsa as lb', 'p.kod_bangsa', 'lb.kod_bangsa')
-                ->leftJoin('public.l_negeri as ln2', 'p.kod_negeri_lahir', 'ln2.kod_negeri')
-                ->select('p.*','la.agama','ltp.taraf_perkahwinan', 'lb.bangsa', 'ln2.negeri as negeri_lahir')
-                ->where('p.nokp',$nokp)->first();
-
-                $tempat = DB::connection('pgsqlmykj')->table('penempatanx as p')
-                ->select('p.kod_waran')->where('nokp',$nokp)->where('flag',1)->first();
-
-                $khidmat = DB::connection('pgsqlmykj')->table('perkhidmatan as p')
-                ->join('l_jawatan as j', 'j.kod_jawatan', 'p.kod_jawatan')
-                ->select('p.kod_gred','p.kod_jawatan','j.jawatan','p.tkh_lantik', 'p.tkh_sah_perkhidmatan')
-                ->where('nokp',$nokp)->where('flag',1)->first();
-
-
-        $gaji = Gaji::where('nokp',$nokp)->where('flag',1)->first();
-
-                $maklumat = array();
-                $maklumat['nama'] = $mykjPeribadi->nama;
-                $maklumat['nokp_baru'] = $mykjPeribadi->nokp;
-                $maklumat['nokp_lama'] = $mykjPeribadi->nokp_lama;
-                $maklumat['jawatan'] = $khidmat->jawatan;
-                $maklumat['gred'] = $khidmat->kod_gred;
-                $maklumat['tkh_lantikan'] = $khidmat->tkh_lantik;
-                $maklumat['tkh_sah'] = $khidmat->tkh_sah_perkhidmatan;
-                $maklumat['umur_besara'] = $mykjPeribadi->pilihan_bersara_wajib;
-                $maklumat['alamat_pejabat'] = $mykjPeribadi->alamat_pejabat;
-                $maklumat['tel_pejabat'] = $mykjPeribadi->tel_pejabat;
-                $maklumat['no_faks'] = $mykjPeribadi->fax_pejabat;
-                $maklumat['no_hp'] = $mykjPeribadi->tel_bimbit;
-                $maklumat['email'] = $mykjPeribadi->email;
-                $maklumat['jantina'] = $mykjPeribadi->jantina;
-                $maklumat['bangsa'] = $mykjPeribadi->bangsa;
-                $maklumat['agama'] = $mykjPeribadi->agama;
-                $maklumat['tkh_lahir'] = $mykjPeribadi->tkh_lahir;
-                $maklumat['tmpt_lahir'] = $mykjPeribadi->negeri_lahir;
-                $maklumat['gaji'] = empty($gaji) ? 0 : $gaji->gaji_pokok;
-                $maklumat['alamat_rumah'] = $mykjPeribadi->alamat;
-                $maklumat['gelaran'] =  $mykjPeribadi->gelaran;
-
-        return view('form.ukp12',[
-            "profile" => $maklumat
-        ]);
-
-    }
-
-    // for testing
-    public function open(Request $request,$id) {
-        $nokp = $request->input('kp');
-
         // $access = $this->verify_applicant($nokp,$id);
 
         // if(!$access) {
@@ -161,6 +109,93 @@ class UkpController extends Controller
             }
 
 
+            $pemohon->save();
+        }
+
+        $maklumat = $this->load_info($profile,$nokp,$pemohon);
+
+
+        if($maklumat['jenis_penempatan'] == 2) {
+            return view('form.ukp12-kader',[
+                "profile" => $maklumat,
+                "pemohon_id" =>$pemohon->id
+            ]);
+        } else {
+            return view('form.ukp12',[
+                "profile" => $maklumat,
+                "pemohon_id" =>$pemohon->id
+            ]);
+        }
+    }
+
+    // for testing
+    public function open(Request $request,$id) {
+        $nokp = $request->input('kp');
+
+        // $access = $this->verify_applicant($nokp,$id);
+
+        // if(!$access) {
+        //     return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
+        // }
+
+
+        $profile = NULL;
+        $pemohon = NULL;
+
+        $user = User::where('nokp',$nokp)->first();
+
+        if(empty($user)) {
+            User::upsert($nokp);
+            $user = User::where('nokp',$nokp)->first();
+
+            $profile = Peribadi::where('users_id',$user->id)->where('flag',1)->where('delete_id',0)->first();
+
+            if(empty($profile)) {
+                $profile = $profile = Peribadi::recreate($user->id,$nokp);
+            }
+
+            $pemohon = new Pemohon;
+            $pemohon->flag = 1;
+            $pemohon->delete_id = 0;
+            $pemohon->id_permohonan = $id;
+            $pemohon->id_peribadi = $profile->id;
+            $pemohon->created_by = $nokp;
+            $pemohon->updated_by = $nokp;
+            $pemohon->status = Pemohon::NOT_SUBMITTED;
+            $pemohon->user_id = $user->id;
+            $pemohon->save();
+        } else {
+            $pemohon = Pemohon::where('id_permohonan', $id)->where('user_id',$user->id)->first();
+
+            //$pemohon->status = Pemohon::NOT_SUBMITTED;
+
+            if($pemohon) {
+                $profile = Peribadi::find($pemohon->id_peribadi);
+
+                if($pemohon->status == Pemohon::NOT_SUBMITTED || $pemohon->status == 'NA') {
+                    $profile = Peribadi::update_peribadi($profile,$nokp);
+                }
+                // else {
+                //     return view('form.message',['message' => 'Anda Sudah Menghantar Pemohonan Ini Dan Sedang Diproses, Diharap Sabar Menunggu Keputusan!']);
+                // }
+
+            } else {
+                $profile = Peribadi::recreate($user->id,$nokp);
+
+                $pemohon = new Pemohon;
+                $pemohon->flag = 1;
+                $pemohon->delete_id = 0;
+                $pemohon->id_permohonan = $id;
+                $pemohon->id_peribadi = $profile->id;
+                $pemohon->created_by = $nokp;
+                $pemohon->updated_by = $nokp;
+                //$pemohon->status = Pemohon::NOT_SUBMITTED;
+                $pemohon->user_id = $user->id;
+            }
+
+            if($pemohon->status == 'NA') {
+                $pemohon->status = Pemohon::NOT_SUBMITTED;
+            }
             $pemohon->save();
         }
 
@@ -620,6 +655,9 @@ class UkpController extends Controller
         $pemohon->tkh_lantikan = $formdata->tkh_lantikan;
         $pemohon->tkh_sah_perkhidmatan = $formdata->tkh_sah;
         $pemohon->alamat_pejabat = $formdata->alamat_pejabat;
+        if(empty($pemohon->tkh_hantar)){
+            $pemohon->tkh_hantar = Date::now();
+        }
         $pemohon->save();
 
         PermohonanCuti::where('id_pemohon',$formdata->pemohon_id)->delete();
@@ -976,6 +1014,9 @@ class UkpController extends Controller
         $pemohon->tkh_lantikan = $formdata->tkh_lantikan;
         $pemohon->tkh_sah_perkhidmatan = $formdata->tkh_sah;
         $pemohon->alamat_pejabat = $formdata->alamat_pejabat;
+        if(empty($pemohon->tkh_hantar)){
+            $pemohon->tkh_hantar = Date::now();
+        }
         $pemohon->save();
 
         PermohonanCuti::where('id_pemohon',$formdata->pemohon_id)->delete();
@@ -1012,7 +1053,6 @@ class UkpController extends Controller
                 $rekoc_cuti->save();
             }
         }
-
 
         // pengistiharan harta
         $harta = PermohonanHarta::where('id_pemohon',$formdata->pemohon_id)->first();
@@ -1115,8 +1155,6 @@ class UkpController extends Controller
             }
 
             $rekod_professional->save();
-
-
         }
 
         //Kompetensi
@@ -1577,6 +1615,9 @@ class UkpController extends Controller
         $akuan_pegawai = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
         $contribution = Sumbangan::where('pemohon_id',$pemohon->id)->orderBy('tkh_peristiwa','desc')->get();
 
+        $common = new CommonController();
+        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$peribadi->nokp.'.jpg',$peribadi->nokp);
+
         $data = [
             'pemohon' => $pemohon,
             'peribadi' => $peribadi,
@@ -1699,7 +1740,6 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
         $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
         $loan = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->where('flag',1)->where('delete_id',0)->first();
-        $pengakuan = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
 
         $maklumat = array();
         $maklumat['nama'] = $profile->nama;

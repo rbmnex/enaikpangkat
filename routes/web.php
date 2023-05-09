@@ -17,11 +17,10 @@ use App\Http\Controllers\Urussetia\QualifyController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Http\Controllers\User\PermohonanController;
 use App\Models\Lpnk\LpnkParent;
-use App\Models\Role;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Routing\RouteRegistrar;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -122,7 +121,11 @@ Route::prefix('/urussetia')->group(function() {
     });
 
     Route::prefix('/resume')->group(function() {
-        Route::get('/', function() { return view('mockup4'); });
+        Route::get('/', function() {
+            $user = Auth::user();
+            $jusa = $user->hasRole('adminjusa') ? 1 : 0;
+            return view('mockup4',['jusa' => $jusa]);
+        });
         Route::get('/terpilih', [ResumeController::class,'terpilih']);
         Route::post('/mockup4', [ResumeController::class,'mockup4']);
         Route::get('/lampiran',[ResumeController::class,'lampiran']);
@@ -161,6 +164,7 @@ Route::prefix('/urussetia')->group(function() {
             Route::get('/success/view',[QualifyController::class,'load_page']);
             Route::get('/list/success',[QualifyController::class,'load_list']);
             Route::post('/process',[QualifyController::class,'proceed']);
+            Route::post('/reset',[ApplicationController::class,'reset_form']);
         });
     });
 

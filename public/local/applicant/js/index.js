@@ -1,4 +1,4 @@
-$(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict, .view-full, .ukp11-view',function() {
+$(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict, .view-full, .ukp11-view, .reset-form',function() {
     let selectedClass = $(this);
     if(selectedClass.hasClass('view-form')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
@@ -104,6 +104,33 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
     } else if(selectedClass.hasClass('ukp11-view')) {
         let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
         window.open(getUrl() + '/pemangku/tawaran/preview-pdf/'+pemohon_id,'_blank');
+    } else if(selectedClass.hasClass('reset-form') ){
+        let pemohon_id =  selectedClass.closest('tr').attr('data-pemohon-id');
+        var data = new FormData;
+        data.append('_token', getToken());
+        data.append('pemohon_id',pemohon_id);
+        swalAjax({
+            titleText : 'Adakah Anda Pasti?',
+            mainText : 'Borang calon akan diset semula',
+            icon: 'info',
+            confirmButtonText: 'Set Semula',
+            postData: {
+                url : '/urussetia/appl/calon/reset',
+                data: data,
+                postfunc: function(data) {
+                    let success = data.success;
+                    let parseData = data.data;
+                    if(success == 1) {
+                        //swalPostFire('success', 'Berjaya Disimpan', 'Data sudah disimpan');
+                        toasting('Borang calon sudah set semula', 'success');
+                    } else if(success == 0) {
+                        //swalPostFire('error', 'Gagal Disimpan', 'Ralat telah berlaku');
+                        toasting('Ralat telah berlaku, Sistem ralat', 'error');
+                    }
+                    DatatableUI.reloadTable('.table-pemohon');
+                },
+            }
+        });
     }
 });
 

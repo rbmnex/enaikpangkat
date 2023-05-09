@@ -43,7 +43,7 @@ DatatableUI.init({
                 var text = '';
 
                 if(status == "BH") {
-                    text = 'Belum Siap';
+                    text = 'Dalam Tindakan';
                 } else if(status == "TA") {
                     text = 'Tunggu Pengesahan';
                     if(status_hos == "NOT" && status_hod == "NOT")  {
@@ -102,6 +102,7 @@ DatatableUI.init({
                     btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light view-full">'+ feather.icons['file'].toSvg() +' JKR/UKP/12</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
 
+
                 }
                 if((status != 'NA') && (status != 'BH') && (status != 'TA') && (status != "SP") && (status != "PT")) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
@@ -115,6 +116,9 @@ DatatableUI.init({
                     btn +='<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light calon-resend">'+ feather.icons['mail'].toSvg() +' Hantar Semula</button>';
                 }
 
+                if(status == 'TA') {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light reset-form">'+ feather.icons['rotate-ccw'].toSvg() +' Set Semula</button>';
+                }
 
                 return btn;
             }
