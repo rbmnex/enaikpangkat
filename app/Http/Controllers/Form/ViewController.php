@@ -670,7 +670,7 @@ class ViewController extends Controller
     public function download_form_full(Request $request) {
         $year = Carbon::parse(Date::now())->format('Y');
         $formdata = $request->input('dataform');
-        $pemohon = Pemohon::find($formdata);
+        $pemohon = Pemohon::with('pemohonPermohonan')->find($formdata);
         $permohonan = $pemohon->pemohonPermohonan;
         $peribadi = Peribadi::find($pemohon->id_peribadi);
         $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();

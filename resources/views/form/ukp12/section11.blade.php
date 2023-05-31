@@ -19,7 +19,7 @@
                 @foreach ($profile['pengiktirafan'] as $sijil)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $sijil->jenis->peristiwa ?? '' }}</td>
+                        <td>@if($sijil->kod_peristiwa == 'A4' || $sijil->kod_peristiwa == 'P8'){{ strtoupper($sijil->catatan ?? '') }}@else{{ $sijil->jenis->peristiwa ?? '' }}@endif</td>
                         <td>{{ empty($sijil->tkh_mula_peristiwa) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula_peristiwa)->format('Y') }}</td>
                     </tr>
                 @endforeach

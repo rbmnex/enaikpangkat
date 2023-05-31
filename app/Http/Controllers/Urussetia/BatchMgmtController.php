@@ -200,14 +200,16 @@ class BatchMgmtController extends Controller
             $id_batch = $model->id;
             if($new) {
                 foreach($staff_list as $nokp) {
-                    $child = new Calon;
-                    $child->kumpulan_id = $id_batch;
-                    $child->nokp = $nokp;
-                    $child->flag = 1;
-                    $child->delete_id = 0;
-                    $child->created_by = Auth::user()->nokp;
-                    $child->updated_by = Auth::user()->nokp;
-                    $child->save();
+                    if(!empty($nokp)) {
+                        $child = new Calon;
+                        $child->kumpulan_id = $id_batch;
+                        $child->nokp = $nokp;
+                        $child->flag = 1;
+                        $child->delete_id = 0;
+                        $child->created_by = Auth::user()->nokp;
+                        $child->updated_by = Auth::user()->nokp;
+                        $child->save();
+                    }
                 }
             } else {
                 // on hold - maybe not use

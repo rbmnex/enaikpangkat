@@ -170,7 +170,7 @@
                                     <span class="bs-stepper-box">9</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 9</span>
-                                        <span class="bs-stepper-subtitle">Kekompetenan</span>
+                                        <span class="bs-stepper-subtitle">Kekompetensi</span>
                                     </span>
                                 </button>
                             </div>
@@ -188,7 +188,7 @@
                                     <span class="bs-stepper-box">11</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 11</span>
-                                        <span class="bs-stepper-subtitle">Akaun Pinjaman</span>
+                                        <span class="bs-stepper-subtitle">Akuan Pinjaman</span>
                                     </span>
                                 </button>
                             </div>
@@ -197,7 +197,7 @@
                                     <span class="bs-stepper-box">12</span>
                                     <span class="bs-stepper-label">
                                         <span class="bs-stepper-title">Bahagian 12</span>
-                                        <span class="bs-stepper-subtitle">Akaun Pegawai</span>
+                                        <span class="bs-stepper-subtitle">Akuan Pegawai</span>
                                     </span>
                                 </button>
                             </div>
@@ -278,10 +278,10 @@
     $(".pinjam-status").val('{{ $profile['loan']->status }}').trigger('change');
     $(".nama_tabung").val('{{ $profile['loan']->nama_institusi }}');
     $('.jumlah_pinjaman').val('{{ $profile['loan']->jumlah_pinjaman }}');
-    $('.mula_pinjam').val('{{ $profile['loan']->tkh_mula_pinjaman ? \Carbon\Carbon::parse($profile['loan']->tkh_mula_pinjaman)->format('d-m-Y') : '' }}');
-    $('.akhir_pinjam').val('{{ $profile['loan']->tkh_akhir_pinjaman ? \Carbon\Carbon::parse($profile['loan']->tkh_akhir_pinjaman)->format('d-m-Y') : '' }}');
-    $('.bayar_mula').val('{{ $profile['loan']->tkh_mula_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_mula_bayaran)->format('d-m-Y') : '' }}');
-    $('.selesai_bayar').val('{{ $profile['loan']->tkh_selesai_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_selesai_bayaran)->format('d-m-Y') : '' }}');
+    $('.mula_pinjam').val('{{ $profile['loan']->tkh_mula_pinjaman ? \Carbon\Carbon::parse($profile['loan']->tkh_mula_pinjaman)->format('Y') : '' }}').trigger('change');
+    $('.akhir_pinjam').val('{{ $profile['loan']->tkh_akhir_pinjaman ? \Carbon\Carbon::parse($profile['loan']->tkh_akhir_pinjaman)->format('Y') : '' }}').trigger('change');
+    $('.bayar_mula').val('{{ $profile['loan']->tkh_mula_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_mula_bayaran)->format('Y') : '' }}').trigger('change');
+    $('.selesai_bayar').val('{{ $profile['loan']->tkh_selesai_bayaran ? \Carbon\Carbon::parse($profile['loan']->tkh_selesai_bayaran)->format('Y') : '' }}').trigger('change');
     $('.loan-file').html('{{ $profile['loan']->file ? $profile['loan']->file->filename : '' }}')
     @endif
 

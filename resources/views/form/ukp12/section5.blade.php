@@ -103,12 +103,12 @@
         </div>
         <div class="form-group col-md-6">
            <label class="col-form-label" for="email-id">Nama Pasangan</label>
-            <input type="nama" id="sect-4-nama_pasangan" value="{{ $profile['pasangan'] }}" readonly class="form-control" name="nama_pasangan" placeholder="" />
+            <input type="nama" id="sect-4-nama_pasangan" value="{{ strtoupper($profile['pasangan'] ?? '') }}" readonly class="form-control" name="nama_pasangan" placeholder="" />
             <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-6">
             <label class="col-form-label" for="email-id">Jawatan/Pekerjaan Pasangan</label>
-             <input type="nama" value="{{ $profile['pekerjaan_pasangan'] }}" id="jawatan_pasangan" readonly class="form-control" name="sect-4-jawatan_pasangan" placeholder="" />
+             <input type="nama" value="{{ strtoupper($profile['pekerjaan_pasangan'] ?? '') }}" id="jawatan_pasangan" readonly class="form-control" name="sect-4-jawatan_pasangan" placeholder="" />
              <div class="invalid-feedback"></div>
          </div>
          <div class="form-group col-md-12">

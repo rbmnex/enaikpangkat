@@ -28,10 +28,10 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-form-dow
             data.append('status_pinjam',$('.pinjam-status').val());
             data.append('nama_pinjam',$('.nama_tabung').val());
             data.append('jumlah_pinjam',$('.jumlah_pinjaman').val());
-            data.append('mula_pinjam',$('.mula_pinjam').val());
-            data.append('akhir_pinjam',$('.akhir_pinjam').val());
-            data.append('bayar_pinjam',$('.bayar_mula').val());
-            data.append('selesai_pinjam',$('.selesai_bayar').val());
+            data.append('mula_pinjam','01-01-'+$('.mula_pinjam').val());
+            data.append('akhir_pinjam','01-01-'+$('.akhir_pinjam').val());
+            data.append('bayar_pinjam','01-01-'+$('.bayar_mula').val());
+            data.append('selesai_pinjam','01-01-'+$('.selesai_bayar').val());
 
             swalAjax({
                 titleText : 'Adakah Anda Pasti?',
@@ -91,10 +91,10 @@ $(document).on('click','.btn-submit, .btn-download, .radio-accept, .btn-form-dow
             data.append('status_pinjam',$('.pinjam-status').val());
             data.append('nama_pinjam',$('.nama_tabung').val());
             data.append('jumlah_pinjam',$('.jumlah_pinjaman').val());
-            data.append('mula_pinjam',$('.mula_pinjam').val());
-            data.append('akhir_pinjam',$('.akhir_pinjam').val());
-            data.append('bayar_pinjam',$('.bayar_mula').val());
-            data.append('selesai_pinjam',$('.selesai_bayar').val());
+            data.append('mula_pinjam','01-01-'+$('.mula_pinjam').val());
+            data.append('akhir_pinjam','01-01-'+$('.akhir_pinjam').val());
+            data.append('bayar_pinjam','01-01-'+$('.bayar_mula').val());
+            data.append('selesai_pinjam','01-01-'+$('.selesai_bayar').val());
 
             $.ajax({
                 type:'POST',
@@ -280,10 +280,10 @@ $(document).on('change', '.pinjam-status, .upload-harta, .penyata_bayaran, .cuti
         data.append('status',$('.pinjam-status').val());
         data.append('nama',$('.nama_tabung').val());
         data.append('jumlah',$('.jumlah_pinjaman').val());
-        data.append('mula',$('.mula_pinjam').val());
-        data.append('akhir',$('.akhir_pinjam').val());
-        data.append('bayar',$('.bayar_mula').val());
-        data.append('selesai',$('.selesai_bayar').val());
+        data.append('mula','01-01-'+$('.mula_pinjam').val());
+        data.append('akhir','01-01-'+$('.akhir_pinjam').val());
+        data.append('bayar','01-01-'+$('.bayar_mula').val());
+        data.append('selesai','01-01-'+$('.selesai_bayar').val());
         data.append('penyata_bayaran',file);
         data.append('formdata',$('._formid').val());
 

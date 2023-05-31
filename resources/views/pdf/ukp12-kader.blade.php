@@ -151,7 +151,7 @@
                     <span class="normal-size"><strong>50480 KUALA LUMPUR</strong></span><br/>
                     <span class="normal-size">(u.p: Urus Setia Kenaikan Pangkat JKR)</span>
                 </td>
-                <td colspan="8">
+                <td colspan="8" style="text-align: right;">
                     <img src="{{ asset('files/foto-'.$peribadi->nokp.'.jpg') }}"
                         alt="" width="120" height="130">
                 </td>
@@ -1020,7 +1020,7 @@
                                 <td style="width: 25%; text-align: center;">{{ ++$iteration }}</td>
                                 <td>{{ $pengalaman['jawatan'] ? strtoupper($pengalaman['jawatan']) : '' }}</td>
                                 <td>{{ strtoupper($pengalaman['penempatan']) }}</td>
-                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
+                                <td style="width: 60%; text-align: center;">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -1043,7 +1043,7 @@
                                 <td style="height: 30px; width: 25%; text-align: center;">{{ ++$iteration }}</td>
                                 <td>{{ $pengalaman['jawatan'] ? strtoupper($pengalaman['jawatan']) : '' }}</td>
                                 <td>{{ strtoupper($pengalaman['penempatan']) }}</td>
-                                <td style="width: 60%">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
+                                <td style="width: 60%; text-align: center;">{{  \Carbon\Carbon::parse($pengalaman['tkh_mula_berkhidmat'])->format('Y') }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -1167,7 +1167,7 @@
                                                 <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
                                                 <td>{{ strtoupper($sumbang['sumbangan']) }}</td>
                                                 {{-- <td>{{ $sumbang['tempat'] }}</td> --}}
-                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
+                                                <td style="width: 50%; text-align: center;">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
         </tbody>
@@ -1188,7 +1188,7 @@
                                                 <td style="height: 30px; text-align: center;" class="width-25">{{ ++$iteration }}</td>
                                                 <td>{{ strtoupper($sumbang['sumbangan']) }}</td>
                                                 {{-- <td>{{ $sumbang['tempat'] }}</td> --}}
-                                                <td style="width: 50%">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
+                                                <td style="width: 50%; text-align: center;">{{ \Carbon\Carbon::parse($sumbang['tkh_peristiwa'])->format('Y') }}</td>
                                             </tr>
                                             @endforeach
         </tbody>
@@ -1309,7 +1309,7 @@
                                                     </td>
                                                     <td>{{ strtoupper($a['nama_sijil']) }}</td>
                                                     <td style="width: 75%">{{ strtoupper($a['nama_insititusi']) }}</td>
-                                                    <td style="width: 50%">{{ empty($a['tkh_kelulusan']) ? '' : \Carbon\Carbon::parse($a['tkh_kelulusan'])->format('Y') }}</td>
+                                                    <td style="width: 50%; text-align: center;">{{ empty($a['tkh_kelulusan']) ? '' : \Carbon\Carbon::parse($a['tkh_kelulusan'])->format('Y') }}</td>
                                                 </tr>
                                             @endforeach
                                             @if(count($akademiks) == 0)
@@ -1378,7 +1378,7 @@
                             </tr>
                             <tr>
                                 <td>18.</td>
-                                <td colspan="11">REKOD KELAYAKAN PROFESSIONAL DAN PENDAFTARAN DENGAN BADAN PROFESIONAL</td>
+                                <td colspan="11">REKOD KELAYAKAN PROFESIONAL DAN PENDAFTARAN DENGAN BADAN PROFESIONAL<br/><span style="font-style: italic;">(Cth: Arkitek Profesional (Ar.), Jurutera Profesional (Ir.), Juruukur Bahan Berdaftar (Sr.),Graduate Member)</span></td>
 
                             </tr>
                             <tr>
@@ -1389,8 +1389,8 @@
                                             <th style="text-align: center;" class="width-25">BIL.</th>
                                             <th style="text-align: center;" >KELAYAKAN PROFESIONAL /PENDAFTARAN DENGAN BADAN
                                                 PROFESIONAL
-                                                <span style="font-style: italic;">(Cth: Arkitek Profesional (Ar.), Jurutera Profesional (Ir.), Juruukur Bahan Berdaftar (Sr.),Graduate Member)</span></th>
-                                            <th style="text-align: center; width: 75%;">BADAN PROFESIONAL YANG DIIKTIRAF</th>
+                                                </th>
+                                            {{-- <th style="text-align: center; width: 75%;">BADAN PROFESIONAL YANG DIIKTIRAF</th> --}}
                                             <th style="text-align: center; width: 75%;">NO PENDAFTARAN</th>
                                             <th style="text-align: center; width: 50%">TAHUN</th>
                                         </thead>
@@ -1399,9 +1399,9 @@
                                                 <tr>
                                                     <td style="height: 30px; text-align: center;" class="width-25">{{ $loop->iteration }}</td>
                                                     <td>{{ strtoupper($pro->nama_sijil) }}</td>
-                                                    <td style="width: 75%">{{ strtoupper($pro->badan_professional) }}</td>
+                                                    {{-- <td style="width: 75%">{{ strtoupper($pro->badan_professional) }}</td> --}}
                                                     <td style="width: 75%">{{ strtoupper($pro->no_pendaftaran) }}</td>
-                                                    <td style="width: 50%">{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
+                                                    <td style="width: 50%; text-align: center;">{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
                                                 </tr>
                                             @endforeach
                                             @if($profesionals->count() == 0)
@@ -1409,28 +1409,28 @@
                                                 <td style="height: 30px;" class="width-25"></td>
                                                 <td></td>
                                                 <td style="width: 75%"></td>
-                                                <td style="width: 75%"></td>
+                                                {{-- <td style="width: 75%"></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px;" class="width-25"></td>
                                                 <td></td>
                                                 <td style="width: 75%"></td>
-                                                <td style="width: 75%"></td>
+                                                {{-- <td style="width: 75%"></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px;" class="width-25"></td>
                                                 <td></td>
                                                 <td style="width: 75%"></td>
-                                                <td style="width: 75%"></td>
+                                                {{-- <td style="width: 75%"></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             <tr>
                                                 <td style="height: 30px;" class="width-25"></td>
                                                 <td></td>
                                                 <td style="width: 75%"></td>
-                                                <td style="width: 75%"></td>
+                                                {{-- <td style="width: 75%"></td> --}}
                                                 <td style="width: 50%"></td>
                                             </tr>
                                             @endif
@@ -1447,7 +1447,7 @@
                             </tr>
                             <tr>
                                 <td>19.</td>
-                                <td colspan="11">REKOD PENSIJILAN KEKOMPETENAN</td>
+                                <td colspan="11">REKOD PENSIJILAN KEKOMPETENSI</td>
 
                             </tr>
                             <tr>
@@ -1456,7 +1456,7 @@
                                     <table border="1">
                                         <thead>
                                             <th style="text-align: center; width: 15%" class="">BIL.</th>
-                                            <th style="text-align: center;" >PENSIJILAN KEKOMPETENAN
+                                            <th style="text-align: center;" >PENSIJILAN KEKOMPETENSI
 
                                                 <span style="font-style: italic;">(Cth: Kejuruteraan Struktur Bangunan, Kerja Sivil, Senibina Lestari dll. )</span></th>
 
@@ -1467,7 +1467,7 @@
                                             <tr>
                                                 <td style="height: 30px; text-align: center; width: 15%">{{ $loop->iteration }}</td>
                                                 <td>{{ strtoupper($k->nama_sijil) }}</td>
-                                                <td class="width-25">{{ $k->tahap }}</td>
+                                                <td class="width-25" style="text-align: center;">{{ $k->tahap }}</td>
                                             </tr>
                                             @endforeach
                                             @if($kompetenans->count() == 0)
@@ -1525,7 +1525,7 @@
                                                 <tr>
                                                     <td style="height: 30px; width: 15%; text-align: center;">{{ $loop->iteration }}</td>
                                                     <td>{{ $sijil->jenis ?  strtoupper($sijil->jenis) : '' }}</td>
-                                                    <td class="width-25">{{ empty($sijil->tkh_mula) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula)->format('Y') }}</td>
+                                                    <td class="width-25" style="text-align: center;">{{ empty($sijil->tkh_mula) ? '' : \Carbon\Carbon::parse($sijil->tkh_mula)->format('Y') }}</td>
                                                 </tr>
                                             @endforeach
                                             @if($pengiktirafans->count() == 0)
@@ -1626,7 +1626,7 @@
                             </tr>
                             <tr>
                                 <td>Tahun Pinjaman</td>
-                                <td>{{ $akuan_pinjaman->status == 1 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_mula_pinjaman)->format('d-m-Y') : '' }}</td>
+                                <td>{{ $akuan_pinjaman->status == 1 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_mula_pinjaman)->format('Y') : '' }}</td>
                             </tr>
                             <tr>
                                 <td>Jumlah Pinjaman</td>
@@ -1660,7 +1660,7 @@
                             </tr>
                             <tr>
                                 <td>Tahun Pinjaman</td>
-                                <td>{{ $akuan_pinjaman->status == 2 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_mula_pinjaman)->format('d-m-Y') : '' }}</td>
+                                <td>{{ $akuan_pinjaman->status == 2 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_mula_pinjaman)->format('Y') : '' }}</td>
                             </tr>
                             <tr>
                                 <td>Jumlah Pinjaman</td>
@@ -1668,7 +1668,7 @@
                             </tr>
                             <tr>
                                 <td>Bayaran mulai (Tahun)</td>
-                                <td>{{ $akuan_pinjaman->status == 2 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_mula_bayaran)->format('d-m-Y') : '' }}</td>
+                                <td>{{ $akuan_pinjaman->status == 2 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_mula_bayaran)->format('Y') : '' }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1698,7 +1698,7 @@
                             </tr>
                             <tr>
                                 <td>Tahun Pinjaman</td>
-                                <td>{{ $akuan_pinjaman->status == 3 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_mula_pinjaman)->format('d-m-Y') : '' }}</td>
+                                <td>{{ $akuan_pinjaman->status == 3 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_mula_pinjaman)->format('Y') : '' }}</td>
                             </tr>
                             <tr>
                                 <td>Jumlah Pinjaman</td>
@@ -1706,7 +1706,7 @@
                             </tr>
                             <tr>
                                 <td>Selesai Pembayaran (Tahun)</td>
-                                <td>{{ $akuan_pinjaman->status == 3 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_selesai_bayaran)->format('d-m-Y') : '' }}</td>
+                                <td>{{ $akuan_pinjaman->status == 3 ? \Carbon\Carbon::parse($akuan_pinjaman->tkh_selesai_bayaran)->format('Y') : '' }}</td>
                             </tr>
                         </tbody>
                     </table>

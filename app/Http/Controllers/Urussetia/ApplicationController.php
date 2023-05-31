@@ -279,6 +279,7 @@ class ApplicationController extends Controller
                 $item->pengesahan_hod = $info['pengesahan_hod'];
                 $item->flag = $info['flag'];
                 $item->delete_id = $info['delete_id'];
+                $item->terima = $info['terima'];
             });
 
             $model = $candidates->filter(function ($value, $key) {
@@ -326,6 +327,7 @@ class ApplicationController extends Controller
                 $info['pengesahan_hod'] = empty($pemohon->perakuan_ketua_jabatan) ? 'NOT' : 'DONE';
                 $info['flag'] = $pemohon->flag;
                 $info['delete_id'] = $pemohon->delete_id;
+                $info['terima'] = $pemohon->terima_permohonan;
                 if($pemohon->status == Pemohon::NOT_SUBMITTED) {
                     $info['colour'] = 'warning';
                 } else if($pemohon->status == Pemohon::WAITING_VERIFICATION) {
@@ -372,6 +374,7 @@ class ApplicationController extends Controller
                     $info['pengesahan_hod'] = 'NOT';
                     $info['flag'] = 1;
                     $info['delete_id'] = 0;
+                    $info['terima'] = -1;
             }
 
         } else {
@@ -387,6 +390,7 @@ class ApplicationController extends Controller
             $info['pengesahan_hod'] = 'NOT';
             $info['flag'] = 1;
             $info['delete_id'] = 0;
+            $info['terima'] = -1;
         }
 
         return $info;

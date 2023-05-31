@@ -29,7 +29,8 @@ class DatatableUI{
                     // remove previous & next text from pagination
                     previous: '&nbsp;',
                     next: '&nbsp;'
-                }
+                },
+                processing: '<div class="spinner-grow" role="status"><span class="sr-only">Loading...</span></div>'
             },
             order: order,
             select: jQuery.isEmptyObject(select) ? false : select,

@@ -14,7 +14,7 @@
                     <th>Bil.</th>
                     <th>Kelayakkan Profesional / Pendaftaran Dengan Badan
                         Profesional</th>
-                    <th>Badan Profesional Yang Diiktiraf</th>
+                    {{-- <th>Badan Profesional Yang Diiktiraf</th> --}}
                     <th>No. Pendaftaran</th>
                     <th>Tahun</th>
                     <th>Dokumen</th>
@@ -24,7 +24,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $pro->nama_kelulusan }}</td>
-                        <td>{{ $pro->institusi }}</td>
+                        {{-- <td>{{ $pro->institusi }}</td> --}}
                         <td>{{ $pro->no_pendaftaran }}</td>
                         <td>{{ empty($pro->tkh_kelulusan) ? '' : \Carbon\Carbon::parse($pro->tkh_kelulusan)->format('Y') }}</td>
                         <td>@if(!empty($pro->item_fm))<a class="btn btn-outline-success" target="_blank" href="{{ env('MYKJ_FILE_LINK','https://mykj.jkr.gov.my/').'upload_kelayakan/'.$profile['nokp_baru'].'/'.$pro->item_fm }}"><i data-feather='file'></i></a>@else{{ 'Tiada Dokumen' }}@endif</td>

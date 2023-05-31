@@ -11,12 +11,14 @@ use App\Http\Controllers\Test\FunctionController;
 use App\Http\Controllers\Test\QueryController;
 use App\Http\Controllers\Urussetia\ApplicationController;
 use App\Http\Controllers\Urussetia\BatchMgmtController;
+use App\Http\Controllers\Urussetia\BatchResumeController;
 use App\Http\Controllers\Urussetia\CandidateController;
 use App\Http\Controllers\Urussetia\PromotedController;
 use App\Http\Controllers\Urussetia\QualifyController;
 use App\Http\Controllers\Urussetia\ResumeController;
 use App\Http\Controllers\User\PermohonanController;
 use App\Models\Lpnk\LpnkParent;
+use App\Models\Resume\BatchResume;
 use App\Pdf\Ukp12Pdf;
 use Illuminate\Support\Facades\Route;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -141,11 +143,28 @@ Route::prefix('/urussetia')->group(function() {
         Route::get('/resume/{ic}', [ResumeController::class, 'document']);
 
         Route::get('/lampiran3/{ic}', [ResumeController::class, 'lampiran3']);
-         Route::get('/email/{ic}', [ResumeController::class, 'email']);
-         Route::get('/lampiranlengkap/{ic}', [ResumeController::class, 'lampiranlengkap']);
-         Route::get('/paparanall/{ic}', [ResumeController::class, 'paparanAll']);
+        Route::get('/email/{ic}', [ResumeController::class, 'email']);
+        Route::get('/lampiranlengkap/{ic}', [ResumeController::class, 'lampiranlengkap']);
+        Route::get('/paparanall/{ic}', [ResumeController::class, 'paparanAll']);
 
+        Route::prefix('batch')->group(function() {
+            Route::get('/view',[BatchResumeController::class,'viewBatch']);
+            Route::get('/list',[BatchResumeController::class,'loadBatch']);
+            Route::get('/pegawai',[BatchResumeController::class,'searchPegawai']);
+            Route::post('/add',[BatchResumeController::class, 'addBatch']);
+            Route::post('/delete',[BatchResumeController::class, 'deleteBatch']);
+            Route::post('/sendAll',[BatchResumeController::class, 'sendAll']);
+        });
 
+        Route::prefix('member')->group(function() {
+            Route::get('/view/{id}',[BatchResumeController::class,'viewMember']);
+            Route::get('/list/{id}',[BatchResumeController::class,'loadMember']);
+            Route::get('/search',[BatchResumeController::class,'searchSingle']);
+            Route::get('/info/{nokp}',[BatchResumeController::class,'infoPegawai']);
+            Route::post('/addSingle',[BatchResumeController::class,'addSingle']);
+            Route::post('/delete',[BatchResumeController::class,'deleteMember']);
+            Route::post('/sendSingle',[BatchResumeController::class,'sendSingle']);
+        });
     });
 
     Route::prefix('/appl')->group(function() {
@@ -291,5 +310,9 @@ Route::get('/test/pdf',function() {
     //exit;
 });
 
+
+
 require __DIR__.'/hr.php';
+require __DIR__.'/services.php';
+require __DIR__.'/test.php';
 //Route::get('/test/pdf',[FunctionController::class,'pdf']);

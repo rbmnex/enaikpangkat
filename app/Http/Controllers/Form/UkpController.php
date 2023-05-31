@@ -38,6 +38,7 @@ use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Barryvdh\DomPDF\Facade\Pdf;
+use Illuminate\Support\Collection;
 
 class UkpController extends Controller
 {
@@ -452,10 +453,10 @@ class UkpController extends Controller
             if($uploadedFile->save()) {
                 $loan->status = $status;
                 $loan->nama_institusi = $nama_institusi;
-                $loan->tkh_mula_pinjaman = empty($tkh_mula_pinjaman) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_mula_pinjaman)->format('Y-m-d');
-                $loan->tkh_akhir_pinjaman = empty($tkh_akhir_pinjaman) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_akhir_pinjaman)->format('Y-m-d');
-                $loan->tkh_mula_bayaran = empty($tkh_mula_bayaran) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_mula_bayaran)->format('Y-m-d');
-                $loan->tkh_selesai_bayaran = empty($tkh_selesai_bayaran) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_selesai_bayaran)->format('Y-m-d');
+                $loan->tkh_mula_pinjaman = ($tkh_mula_pinjaman == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_mula_pinjaman)->format('Y-m-d');
+                $loan->tkh_akhir_pinjaman = ($tkh_akhir_pinjaman  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_akhir_pinjaman)->format('Y-m-d');
+                $loan->tkh_mula_bayaran = ($tkh_mula_bayaran  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_mula_bayaran)->format('Y-m-d');
+                $loan->tkh_selesai_bayaran = ($tkh_selesai_bayaran  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_selesai_bayaran)->format('Y-m-d');
                 $loan->jumlah_pinjaman = $jumlah_pinjaman;
                 $loan->updated_by = Auth::user()->nokp;
                 $loan->surat_perakuan = $uploadedFile->id;
@@ -484,10 +485,10 @@ class UkpController extends Controller
                 $loan->delete_id = 0;
                 $loan->status = $status;
                 $loan->nama_institusi = $nama_institusi;
-                $loan->tkh_mula_pinjaman = empty($tkh_mula_pinjaman) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_mula_pinjaman)->format('Y-m-d');
-                $loan->tkh_akhir_pinjaman = empty($tkh_akhir_pinjaman) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_akhir_pinjaman)->format('Y-m-d');
-                $loan->tkh_mula_bayaran = empty($tkh_mula_bayaran) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_mula_bayaran)->format('Y-m-d');
-                $loan->tkh_selesai_bayaran = empty($tkh_selesai_bayaran) ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_selesai_bayaran)->format('Y-m-d');
+                $loan->tkh_mula_pinjaman = ($tkh_mula_pinjaman  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_mula_pinjaman)->format('Y-m-d');
+                $loan->tkh_akhir_pinjaman = ($tkh_akhir_pinjaman  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_akhir_pinjaman)->format('Y-m-d');
+                $loan->tkh_mula_bayaran = ($tkh_mula_bayaran  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_mula_bayaran)->format('Y-m-d');
+                $loan->tkh_selesai_bayaran = ($tkh_selesai_bayaran  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $tkh_selesai_bayaran)->format('Y-m-d');
                 $loan->jumlah_pinjaman = $jumlah_pinjaman;
                 $loan->surat_perakuan = $uploadedFile->id;
                 $loan->created_by = Auth::user()->nokp;
@@ -643,8 +644,10 @@ class UkpController extends Controller
         if(!empty($alldata['accept'])) {
             if($alldata['accept']) {
                 $pemohon->status = Pemohon::PROCESSING;
+                $pemohon->terima_permohonan = 1;
             } else {
                 $pemohon->status = Pemohon::REJECTED_APPLICATION;
+                $pemohon->terima_permohonan = 0;
             }
         }
         $pemohon->alasan = $alldata['alasan'];
@@ -855,7 +858,13 @@ class UkpController extends Controller
         //pengiktirafan
         foreach($formdata->pengiktirafan as $iktiraf) {
             $rekod_iktiraf = new Pengiktirafan;
-            $rekod_iktiraf->jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
+            $jenis = '';
+            if($iktiraf->kod_peristiwa == 'A4' || $iktiraf->kod_peristiwa == 'P8') {
+                $jenis = $iktiraf->catatan;
+            } else {
+                $jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
+            }
+            $rekod_iktiraf->jenis = $jenis;
             $rekod_iktiraf->tkh_mula = $iktiraf->tkh_mula_peristiwa;
             $rekod_iktiraf->tkh_tamat =  $iktiraf->tkh_tamat_peristiwa;
             $rekod_iktiraf->flag = 1;
@@ -875,10 +884,10 @@ class UkpController extends Controller
                 $loan->delete_id = 0;
                 $loan->status = $alldata['status_pinjam'];
                 $loan->nama_institusi = $alldata['nama_pinjam'];
-                $loan->tkh_mula_pinjaman = empty($alldata['mula_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['mula_pinjam'])->format('Y-m-d');
-                $loan->tkh_akhir_pinjaman = empty($alldata['akhir_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['akhir_pinjam'])->format('Y-m-d');
-                $loan->tkh_mula_bayaran = empty($alldata['bayar_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['bayar_pinjam'])->format('Y-m-d');
-                $loan->tkh_selesai_bayaran = empty($alldata['selesai_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['selesai_pinjam'])->format('Y-m-d');
+                $loan->tkh_mula_pinjaman = ($alldata['mula_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['mula_pinjam'])->format('Y-m-d');
+                $loan->tkh_akhir_pinjaman = ($alldata['akhir_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['akhir_pinjam'])->format('Y-m-d');
+                $loan->tkh_mula_bayaran = ($alldata['bayar_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['bayar_pinjam'])->format('Y-m-d');
+                $loan->tkh_selesai_bayaran = ($alldata['selesai_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['selesai_pinjam'])->format('Y-m-d');
                 $loan->jumlah_pinjaman = $alldata['jumlah_pinjam'];
 
                 $loan->updated_by = Auth::user()->nokp;
@@ -1000,11 +1009,15 @@ class UkpController extends Controller
         // $pemohon->pengesahan_perkhidmatan_tkh
 
         if(isset($alldata['accept'])) {
+
             if($alldata['accept']) {
                 $pemohon->status = Pemohon::WAITING_VERIFICATION;
+                $pemohon->terima_permohonan = 1;
             } else {
                 $pemohon->status = Pemohon::REJECTED_APPLICATION;
+                $pemohon->terima_permohonan = 0;
             }
+
         }
         $pemohon->alasan = $alldata['alasan'];
         $pemohon->updated_by = Auth::user()->nokp;
@@ -1188,7 +1201,13 @@ class UkpController extends Controller
         Pengiktirafan::where('id_pemohon',$pemohon->id)->delete();
         foreach($formdata->pengiktirafan as $iktiraf) {
             $rekod_iktiraf = new Pengiktirafan;
-            $rekod_iktiraf->jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
+            $jenis = '';
+            if($iktiraf->kod_peristiwa == 'A4' || $iktiraf->kod_peristiwa == 'P8') {
+                $jenis = $iktiraf->catatan;
+            } else {
+                $jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
+            }
+            $rekod_iktiraf->jenis = $jenis;
             $rekod_iktiraf->tkh_mula = $iktiraf->tkh_mula_peristiwa;
             $rekod_iktiraf->tkh_tamat =  $iktiraf->tkh_tamat_peristiwa;
             $rekod_iktiraf->flag = 1;
@@ -1208,10 +1227,10 @@ class UkpController extends Controller
                 $loan->delete_id = 0;
                 $loan->status = $alldata['status_pinjam'];
                 $loan->nama_institusi = $alldata['nama_pinjam'];
-                $loan->tkh_mula_pinjaman = empty($alldata['mula_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['mula_pinjam'])->format('Y-m-d');
-                $loan->tkh_akhir_pinjaman = empty($alldata['akhir_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['akhir_pinjam'])->format('Y-m-d');
-                $loan->tkh_mula_bayaran = empty($alldata['bayar_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['bayar_pinjam'])->format('Y-m-d');
-                $loan->tkh_selesai_bayaran = empty($alldata['selesai_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['selesai_pinjam'])->format('Y-m-d');
+                $loan->tkh_mula_pinjaman = ($alldata['mula_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['mula_pinjam'])->format('Y-m-d');
+                $loan->tkh_akhir_pinjaman = ($alldata['akhir_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['akhir_pinjam'])->format('Y-m-d');
+                $loan->tkh_mula_bayaran = ($alldata['bayar_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['bayar_pinjam'])->format('Y-m-d');
+                $loan->tkh_selesai_bayaran = ($alldata['selesai_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['selesai_pinjam'])->format('Y-m-d');
                 $loan->jumlah_pinjaman = $alldata['jumlah_pinjam'];
 
                 $loan->updated_by = Auth::user()->nokp;
@@ -1300,7 +1319,7 @@ class UkpController extends Controller
                 Mail::mailer('smtp')->send('mail.tolak_tawaran-mail',$content,function($message) use ($formdata){
                     // testing purpose
                     //$message->to('rubmin@vn.net.my','Urusetia e-NaikPangkat');
-                    $message->to('urusetiakenaikanpangkat@jkr@.gov.my','Urus Setia Kenaik Pangkat');
+                    $message->to('urusetiakenaikanpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
 
 
                     //$message->to($kerani_user->email,'Urus Setia Kenaik Pangkat');
@@ -1535,7 +1554,13 @@ class UkpController extends Controller
         Pengiktirafan::where('id_pemohon',$pemohon->id)->delete();
         foreach($formdata->pengiktirafan as $iktiraf) {
             $rekod_iktiraf = new Pengiktirafan;
-            $rekod_iktiraf->jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
+            $jenis = '';
+            if($iktiraf->kod_peristiwa == 'A4' || $iktiraf->kod_peristiwa == 'P8') {
+                $jenis = $iktiraf->catatan;
+            } else {
+                $jenis = $iktiraf->jenis ? $iktiraf->jenis->peristiwa : '';
+            }
+            $rekod_iktiraf->jenis = $jenis;
             $rekod_iktiraf->tkh_mula = $iktiraf->tkh_mula_peristiwa;
             $rekod_iktiraf->tkh_tamat =  $iktiraf->tkh_tamat_peristiwa;
             $rekod_iktiraf->flag = 1;
@@ -1555,10 +1580,10 @@ class UkpController extends Controller
                 $loan->delete_id = 0;
                 $loan->status = $alldata['status_pinjam'];
                 $loan->nama_institusi = $alldata['nama_pinjam'];
-                $loan->tkh_mula_pinjaman = empty($alldata['mula_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['mula_pinjam'])->format('Y-m-d');
-                $loan->tkh_akhir_pinjaman = empty($alldata['akhir_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['akhir_pinjam'])->format('Y-m-d');
-                $loan->tkh_mula_bayaran = empty($alldata['bayar_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['bayar_pinjam'])->format('Y-m-d');
-                $loan->tkh_selesai_bayaran = empty($alldata['selesai_pinjam']) ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['selesai_pinjam'])->format('Y-m-d');
+                $loan->tkh_mula_pinjaman = ($alldata['mula_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['mula_pinjam'])->format('Y-m-d');
+                $loan->tkh_akhir_pinjaman = ($alldata['akhir_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['akhir_pinjam'])->format('Y-m-d');
+                $loan->tkh_mula_bayaran = ($alldata['bayar_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['bayar_pinjam'])->format('Y-m-d');
+                $loan->tkh_selesai_bayaran = ($alldata['selesai_pinjam']  == '01-01-') ? NULL : Carbon::createFromFormat('d-m-Y', $alldata['selesai_pinjam'])->format('Y-m-d');
                 $loan->jumlah_pinjaman = $alldata['jumlah_pinjam'];
 
                 $loan->updated_by = Auth::user()->nokp;
@@ -1710,7 +1735,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
             //21,22,23]
         $innerSelf = new UkpController();
         $akademik = Kelayakan::where('nokp',$nokp)->whereNotIn('kod_kelulusan',[8,9,10,20,21,22,23])->orderBy('tkh_kelulusan','desc')->get();
-        $profesional = Kelayakan::where('nokp',$nokp)->where('kod_kelulusan',8)->orderBy('tkh_kelulusan','desc')->get();
+        $profesional = Kelayakan::where('nokp',$nokp)->where('kod_kelulusan',8)->orderBy('tkh_kelulusan','desc')->orderBy('nama_kelulusan','desc')->get();
         $profesional->each(function($item,$key) use ($innerSelf) {
             if($item->nama_kelulusan == '9999') {
                 $item->nama_kelulusan = $item->institusi;
@@ -1721,6 +1746,22 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
 
             }
         });
+
+        $pros = new Collection();
+        $sijil = 'empty';
+        $tkh_lulus = Date::parse('1900-01-01');
+
+        foreach($profesional as $ppp) {
+            if($ppp->nama_kelulusan != $sijil) {
+                $pros->push($ppp);
+            } else if(Date::parse($ppp->tkh_kelulusan)->greaterThan($tkh_lulus)) {
+                $pros->push($ppp);
+            } else {
+                // nothing;
+            }
+            $sijil = $ppp->nama_kelulusan;
+            $tkh_lulus = Date::parse($ppp->tkh_kelulusan);
+        }
 
         $kompeten = Kelayakan::where('nokp',$nokp)->whereIn('kod_kelulusan',[9,10])->orderBy('tkh_kelulusan','desc')->get();
         $kompeten->each(function($item,$key) use ($innerSelf) {
@@ -1777,7 +1818,7 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
                 $maklumat['cuti'] = $cuti;
                 $maklumat['pengalaman'] = $pengalaman;
                 $maklumat['akademik'] = $akademik;
-                $maklumat['profesional'] = $profesional;
+                $maklumat['profesional'] = $pros;
                 $maklumat['kompeten'] = $kompeten;
                 $maklumat['pengiktirafan'] = $iktiraf;
                 $maklumat['pertubuhan'] = $pertubuhan;
