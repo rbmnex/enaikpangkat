@@ -581,7 +581,7 @@ class ResumeController extends Controller
         $user = Auth::user();
         $model = LampiranBebanKerja::where('nokp',$user->nokp)->first();
         if(empty($model))
-            $model = new LampiranBebanKerja;
+        $model = new LampiranBebanKerja;
         if ($lampiran) {
             $upload = CommonController::upload_image($lampiran, 'documents');
 
@@ -687,10 +687,10 @@ class ResumeController extends Controller
 
         $kira_pengalaman1 = Pengalaman::where('nokp', $ic->nokp)->whereIn('kod_aktiviti', [4, 10, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59])->groupBy('id_pengalaman', 'kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4) {
-            $kira_pengalaman = 5;
+              $kira_pengalaman = 5;
         } else {
             $kira_pengalaman = count($kira_pengalaman1) + 2;
-        }
+         }
 
         $pengalaman = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
             ->leftJoin('public.l_aktiviti as la', 'p.kod_aktiviti', 'la.kod_aktiviti')->select('p.kod_aktiviti', 'la.aktiviti')
@@ -731,7 +731,7 @@ class ResumeController extends Controller
 
         return response()->view('resume.resume', compact('model', 'kira_kelayakan', 'kira_sumbangan', 'kira_pengalaman', 'kira_iktiraf', 'tempoh_gred', 'resume', 'mula_khidmat', 'mula_gred_hakiki', 'tempoh_awam', 'pengalaman', 'pengalaman_mula', 'lampiran_kursus', 'lampiran_beban', 'lampiran_projek', 'lampiran_kepakaran', 'lampiran_pencapaian', 'tempoh_pnp', 'modelp', 'gred_sekarang'))
             ->withHeaders($headers);
-    }
+     }
 
 
     public function document($ic)
@@ -791,10 +791,10 @@ class ResumeController extends Controller
 
         $kira_pengalaman1 = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti', [4, 10, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59])->groupBy('id_pengalaman', 'kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4) {
-            $kira_pengalaman = 5;
+              $kira_pengalaman = 5;
         } else {
             $kira_pengalaman = count($kira_pengalaman1) + 2;
-        }
+         }
 
         // echo '<pre>';
         //  print_r($tempoh_awam);
@@ -879,7 +879,7 @@ class ResumeController extends Controller
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
 
-        //count kelayakan
+           //count kelayakan
         $kira_kelayakan = (count($model['kelayakan']) == 0 ? 1 : count($model['kelayakan'])) + (count($model['professional']) == 0 ? 1 : count($model['professional'])) + (count($model['tempatan']) == 0 ? 1 : count($model['tempatan'])) + (count($model['antarabangsa']) == 0 ? 1 : count($model['antarabangsa'])) + 9;
 
         $kira_sumbangan = (count($model['jurnal']) == 0 ? 1 : count($model['jurnal'])) + (count($model['jawatanKuasateknikal']) == 0 ? 1 : count($model['jawatanKuasateknikal'])) + (count($model['dalamTugasrasmi']) == 0 ? 1 : count($model['dalamTugasrasmi'])) + (count($model['luarTugasrasmi']) == 0 ? 1 : count($model['luarTugasrasmi']))
@@ -897,14 +897,14 @@ class ResumeController extends Controller
 
         $kira_pengalaman1 = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti', [4, 10, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59])->groupBy('id_pengalaman', 'kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4) {
-            $kira_pengalaman = 5;
+              $kira_pengalaman = 5;
         } else {
             $kira_pengalaman = count($kira_pengalaman1) + 2;
-        }
-        // echo '<pre>';
-        //  print_r($tempoh_awam);
-        //  echo '</pre>';
-        //  die();
+         }
+           // echo '<pre>';
+           //  print_r($tempoh_awam);
+           //  echo '</pre>';
+           //  die();
         $pengalaman = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
             ->leftJoin('public.l_aktiviti as la', 'p.kod_aktiviti', 'la.kod_aktiviti')->select('p.kod_aktiviti', 'la.aktiviti')
             ->where('p.nokp', $ic->nokp)
@@ -978,7 +978,7 @@ class ResumeController extends Controller
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
 
-        //count kelayakan
+            //count kelayakan
         // $kira_kelayakan1 = Kelayakan::where('nokp', $ic)->whereNotIn('kod_kelulusan', [20, 21, 22, 23])->get();
         // $kira_kelayakan = count($kira_kelayakan1) + 9;
 
@@ -996,14 +996,14 @@ class ResumeController extends Controller
 
         $kira_pengalaman1 = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti', [4, 10, 50, 51, 52, 53, 54, 55, 56, 57, 58, 59])->groupBy('id_pengalaman', 'kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
         if (count($kira_pengalaman1) < 4) {
-            $kira_pengalaman = 5;
+              $kira_pengalaman = 5;
         } else {
             $kira_pengalaman = count($kira_pengalaman1) + 2;
-        }
-        // echo '<pre>';
-        //  print_r($tempoh_awam);
-        //  echo '</pre>';
-        //  die();
+         }
+           // echo '<pre>';
+           //  print_r($tempoh_awam);
+           //  echo '</pre>';
+           //  die();
         $pengalaman = DB::connection('pgsqlmykj')->table('public.pengalaman as p')
             ->leftJoin('public.l_aktiviti as la', 'p.kod_aktiviti', 'la.kod_aktiviti')->select('p.kod_aktiviti', 'la.aktiviti')
             ->where('p.nokp', $ic)
@@ -1152,15 +1152,15 @@ class ResumeController extends Controller
 
 
         if ($lampirankursus && $lampiranbeban && $lampiranprojek && $lampiranpencapaian && $lampiranpendedahan) {
-            return response()->json([
-                'success' => 1,
-                'data' => [
-                    'nama' => $model->nama_projek,
-                    'kos' => $model->kos_projek
-                ]
-            ]);
-        }
-    }
+    return response()->json([
+        'success' => 1,
+        'data' => [
+            'nama' => $model->nama_projek,
+            'kos' => $model->kos_projek
+        ]
+    ]);
+}
+ }
 
     public function complete_lampiran(Request $request) {
         $user = Auth::user();
