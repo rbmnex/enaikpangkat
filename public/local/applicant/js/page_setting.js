@@ -40,6 +40,7 @@ DatatableUI.init({
                 var status =  full.status;
                 var status_hos = full.pengesahan_hos;
                 var status_hod = full.pengesahan_hod;
+                var terima = full.terima;
                 var text = '';
 
                 if(status == "BH") {
@@ -74,7 +75,16 @@ DatatableUI.init({
                 } else if(status == "MT") {
                     text = 'Menunggu Tindakan BPSK';
                 }
-                return '<div class="badge badge-'+full.colour+'">'+text+'</div>';
+
+                var badge = '<div class="badge badge-'+full.colour+'">'+text+'</div>';
+                if(terima == '1') {
+                    badge += '<div class="badge badge-primary">Terima</div>';
+                } else if(terima == '0') {
+                    badge += '<div class="badge badge-dark">Tolak</div>';
+                } else {
+                    badge += '' ;
+                }
+                return badge;
             }
         },
         {

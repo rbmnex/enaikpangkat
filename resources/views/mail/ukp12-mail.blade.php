@@ -8,8 +8,8 @@
                         <p>Tuan/Puan,</p>         
                         <p><strong>PERKARA : URUSAN PEMANGKUAN KE GRED {{ $gred }} DI JABATAN KERJA RAYA MALAYSIA</strong></p>
                         <p>Dengan segala hormatnya saya merujuk perkara di atas.</p>
-                        <p>2. &emsp; Sukacita dimaklumkan bahawa Bahagian Pengurusan Sumber Manusia, Cawangan Dasar dan Pengurusan Korporat akan melaksanakan urusan pemangkuan tuan/puan ke Pemangkuan ke Gred {{ $gred }}</p> 
-                        <p>3. &emsp; Sehubungan itu, pejabat ini memohon jasa baik tuan/puan agar dapat melengkapkan maklumat-maklumat yang diperlukan <strong>(KECUALI RESUME) selewat-lewatnya sebelum atau pada {{ $end_date }}</strong> melalui pautan link seperti di bawah:</p>
+                        <p>2. &emsp; Sukacita dimaklumkan bahawa Bahagian Pengurusan Sumber Manusia, Cawangan Dasar dan Pengurusan Korporat akan melaksanakan urusan pemangkuan tuan/puan <!--ke Pemangkuan--> ke Gred {{ $gred }}</p> 
+                        <p>3. &emsp; Sehubungan itu, pejabat ini memohon jasa baik tuan/puan agar dapat melengkapkan maklumat-maklumat yang diperlukan <strong>(KECUALI RESUME) <!--selewat-lewatnya--> sebelum atau pada {{ $end_date }} (sehingga selesai perakuan oleh Ketua Jabatan)</strong> melalui pautan link seperti di bawah:</p>
                         <p>Pautan Link  :   {{ $link }}</p>
                         <p>4. &emsp; Untuk pertanyaan, sila berhubung dengan pegawai-pegawai yang terlibat seperti berikut:</p>
                         <table border =1 style="border: 1px solid black;border-collapse: collapse;">
@@ -59,6 +59,7 @@
                         <p>Kerjasama dan tindakan segera daripada pihak tuan/puan adalah amat diharapkan agar dapat melancarkan proses berkaitan. Sebarang kelewatan akan menjejaskan urusan pemangkuan ini.</p>
                         <p>Sekian, terima kasih.</p>
 <!--                        <p><strong>“WAWASAN KEMAKMURAN BERSAMA 2030”</strong></p>-->
+                        <p><strong>“MALAYSIA MADANI”</strong></p>
                         <p><strong>“BERKHIDMAT UNTUK NEGARA”</strong></p>  
                         <p>Saya yang menjalankan amanah,</p>
                         <span><strong>URUS SETIA KENAIKAN PANGKAT</strong></span><br/>

@@ -1,4 +1,3 @@
-
 <?php
 
 namespace App\Http\Controllers\Segment\Penyelia;
@@ -89,7 +88,7 @@ class BoranglpnkController extends Controller
 
         $list_work = SasaranKerja::where('id_pemohon',$p->id)->get();
         $data['work_list'] = $list_work;
-        
+
         return view('segment.penyelia.lpnk.borang', [
             'data' => $data,
             'id_permohonan' => $p->id_permohonan,
@@ -174,7 +173,7 @@ class BoranglpnkController extends Controller
         });
         $list_work = SasaranKerja::where('id_pemohon',$id)->get();
         $pdf = PDF::loadView('pdf.lnpk', [
-            'soalan' => $lpnkResult, 
+            'soalan' => $lpnkResult,
             'jumlah' => $total_markah,
             'info' => $lnpk,
             'kerja' =>$list_work

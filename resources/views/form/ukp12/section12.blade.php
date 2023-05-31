@@ -28,27 +28,48 @@
             </div>
         </div>
         <div class="form-group col-md-12 div-loan-3">
-            <label class="col-form-label" for="bayaran_mulai">Tarikh Mula Pinjaman</label>
-            <input type="text" class="form-control flatpickr-loan mula_pinjam" id="mula_pinjaman" name="mula_pinjaman"
-                                                        value="" />
+            <label class="col-form-label" for="bayaran_mulai">Tahun Mula Pinjaman</label>
+            {{-- <input type="text" class="form-control flatpickr-loan mula_pinjam" id="mula_pinjaman" name="mula_pinjaman"
+                                                        value="" /> --}}
+            <select  class="form-control select2 mula_pinjam" id="mula_pinjaman" name="mula_pinjaman" >
+                <option selected value="">-- SILA PILIH TAHUN --</option>
+                @for ($i=1900;$i<=date('Y');$i++)
+                <option value="{{  $i }}">{{ $i }}</option>
+                @endfor
+            </select>
                                                         <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-4">
-            <label class="col-form-label" for="bayaran_mulai">Tarikh Akhir Pinjaman</label>
-            <input type="text" class="form-control flatpickr-loan akhir_pinjam" id="akhir_pinjaman" name="akhir_pinjaman"
-                                                        value="" />
+            <label class="col-form-label" for="bayaran_mulai">Tahun Akhir Pinjaman</label>
+            {{-- <input type="text" class="form-control flatpickr-loan akhir_pinjam" id="akhir_pinjaman" name="akhir_pinjaman" value="" /> --}}
+            <select class="form-control select2 akhir_pinjam" id="akhir_pinjaman" name="akhir_pinjaman" >
+                <option selected value="">-- SILA PILIH TAHUN --</option>
+                @for ($i=1900;$i<=date('Y');$i++)
+                <option value="{{  $i }}">{{ $i }}</option>
+                @endfor
+            </select>
                                                         <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-5">
-            <label class="col-form-label" for="bayaran_mulai">Tarikh Bayaran Mulai</label>
-            <input type="text" class="form-control flatpickr-loan bayar_mula" id="bayaran_mulai" name="bayaran_mulai"
-                                                        value="" />
+            <label class="col-form-label" for="bayaran_mulai">Tahun Bayaran Mulai</label>
+            {{-- <input type="text" class="form-control flatpickr-loan bayar_mula" id="bayaran_mulai" name="bayaran_mulai" value="" /> --}}
+            <select class="form-control select2 bayar_mula" id="bayaran_mulai" name="bayaran_mulai" >
+                <option selected value="">-- SILA PILIH TAHUN --</option>
+                @for ($i=1900;$i<=date('Y');$i++)
+                <option value="{{  $i }}">{{ $i }}</option>
+                @endfor
+            </select>
                                                         <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-6">
-            <label class="col-form-label" for="selesai_bayar">Tarikh Selesai Pembayaran</label>
-            <input type="text" class="form-control flatpickr-loan selesai_bayar" id="selesai_bayar" name="selesai_bayar"
-                                                        value="" />
+            <label class="col-form-label" for="selesai_bayar">Tahun Selesai Pembayaran</label>
+            {{-- <input type="text" class="form-control flatpickr-loan selesai_bayar" id="selesai_bayar" name="selesai_bayar" value="" /> --}}
+            <select class="form-control select2 selesai_bayar" id="selesai_bayar" name="selesai_bayar" >
+                <option selected value="">-- SILA PILIH TAHUN --</option>
+                @for ($i=1900;$i<=date('Y')+1;$i++)
+                <option value="{{  $i }}">{{ $i }}</option>
+                @endfor
+            </select>
                                                         <div class="invalid-feedback"></div>
         </div>
         <div class="form-group col-md-12 div-loan-7">
