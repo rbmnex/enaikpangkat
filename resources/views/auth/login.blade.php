@@ -20,7 +20,7 @@
             <div>
                 <x-label for="nokp" :value="'No. KP'" />
 
-                <x-input id="nokp" class="block mt-1 w-full" type="number" name="nokp" :value="old('nokp')" required autofocus />
+                <x-input id="nokp" class="block mt-1 w-full" type="number" name="nokp" :value="old('nokp')" required autofocus  autocomplete="off"/>
             </div>
 
             <!-- Password -->

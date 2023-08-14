@@ -44,6 +44,16 @@
                     <i data-feather="file-text"></i>
                     <span class="menu-title text-truncate" data-i18n="Pages">Pengurusan<br/>Resume</span>
                 </a>
+                @role(['superadmin', 'adminjusa'])
+                <ul class="menu-content">
+                    <li>
+                        <a class="d-flex align-items-center" href="{{ url('/urussetia/resume/batch/view') }}">
+                            <i data-feather='file-text'></i>
+                                <span class="menu-item text-truncate" data-i18n="Pengurusan Pengguna">Pengurusan <br/> Kumpulan</span>
+                            </a>
+                    </li>
+                </ul>
+                @endrole
                 @role(['superadmin', 'adminjusa','admindisiplin'])
                 <ul class="menu-content">
                     <li>
@@ -54,7 +64,7 @@
                     </li>
                 </ul>
                 @endrole
-                 @role(['superadmin', 'adminjusa'])
+                @role(['superadmin', 'adminjusa'])
                 <ul class="menu-content">
                     <li>
                         <a class="d-flex align-items-center" href="{{ url('/urussetia/resume/terpilih') }}">

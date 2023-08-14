@@ -79,8 +79,12 @@
     <div class="row">
         <div class="col-12">
             <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Borang Lampiran</h4>
+                    <button  onclick="location.href='{{url('/user/resume/dashboard')}}'" target="_self" type="button" class="btn btn-success"><i data-feather='arrow-left'></i>&nbsp; Kembali</button>
+                </div>
                 <div class="card-body">
-                <h4 class="card-title">Borang Lampiran</h4>
+
 
                 <section class="vertical-wizard">
                     <div class="bs-stepper vertical vertical-wizard-example">
@@ -144,21 +148,28 @@
                                     </span>
                                 </button>
                             </div> -->
-
-
-
+                            <div class="step" data-target="#harta-vertical">
+                                <button type="button" class="step-trigger">
+                                    <span class="bs-stepper-box">6</span>
+                                    <span class="bs-stepper-label">
+                                        <span class="bs-stepper-title">Lampiran E <br/>Isytihar Harta</span>
+                                        <span class="bs-stepper-subtitle"></span>
+                                    </span>
+                                </button>
+                            </div>
                         </div>
 
 
                         <div class="bs-stepper-content">
                             {{-- <form id="ukp12_form"> --}}
 
-                                @include('form.ukp12.lampirankursus')
-                                 @include('form.ukp12.lampiranbebankerja')
-                                @include('form.ukp12.lampiranprojek')
-                                @include('form.ukp12.lampiranpendedahan')
-                                @include('form.ukp12.lampiranpencapaian')
-                                 @include('form.ukp12.lampiranstatus')
+                                @include('resume.form.lampirankursus')
+                                @include('resume.form.lampiranbebankerja')
+                                @include('resume.form.lampiranprojek')
+                                @include('resume.form.lampiranpendedahan')
+                                @include('resume.form.lampiranpencapaian')
+                                @include('resume.form.lampiranistiharharta')
+                                 {{-- @include('form.ukp12.lampiranstatus') --}}
 
                             {{-- </form> --}}
                         </div>
@@ -189,8 +200,8 @@
 <script src="{{ asset('asset/vendors/js/forms/select/select2.full.min.js') }}"></script>
 <script src="{{ asset('asset/vendors/js/forms/wizard/bs-stepper.min.js') }}"></script>
 <script src="{{ asset('asset/vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
-<script src="{{ asset('local/ukp12/page_setting.js') }}"></script>
-<script src="{{ asset('local/ukp12/index.js') }}"></script>
+<script src="{{ asset('local/lampiran/js/page_setting.js') }}"></script>
+<script src="{{ asset('local/lampiran/js/index.js') }}"></script>
 <script type="text/javascript">
 
 </script>

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 use PHP_CodeSniffer\Util\Common;
 use Yajra\DataTables\DataTables;
 use App\Models\File;
-use Pdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
@@ -83,13 +83,13 @@ class PemangkuTawaranController extends Controller{
         ]);
     }
 
-    public function preview_pdf($id){
+    public function preview_pdf(Request $request,$id){
         $data = Pemohon::find($id);
 
-        $pdf = Pdf::loadView('segment.pemangku.tawaran.preview', compact('data'));
-//        $pdf->setPaper('A4', 'landscape');
+        $pdf = Pdf::setOptions(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])->loadView('segment.pemangku.tawaran.preview', compact('data'));
+
         return $pdf->stream("preview_tawaran.pdf");
-//        return view('segment.pemangku.tawaran.preview', compact('data'));
+    //    return view('segment.pemangku.tawaran.preview',['data' => $data]);
 //        exit(0);
     }
 

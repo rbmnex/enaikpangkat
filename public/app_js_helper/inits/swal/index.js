@@ -5,6 +5,7 @@ class SwalUI{
             subtitle = "You won't be able to revert this!",
             icon,
             confirmText,
+            cancelText = 'Cancel',
             confirmButtonClass = 'btn btn-primary',
             cancelButtonClass = 'btn btn-warning',
             callback = function (){}
@@ -16,6 +17,7 @@ class SwalUI{
             icon: icon,
             showCancelButton: true,
             confirmButtonText: confirmText,
+            cancelButtonText: cancelText,
             customClass: {
                 confirmButton: confirmButtonClass,
                 cancelButton: cancelButtonClass

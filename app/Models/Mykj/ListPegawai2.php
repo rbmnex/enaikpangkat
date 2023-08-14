@@ -8,6 +8,7 @@ use App\Models\Mykj\Perkhidmatan;
 use App\Models\Mykj\Peribadi;
 use App\Models\Mykj\Markah;
 use App\Models\Mykj\Peristiwa;
+use App\Models\Mykj\ListPegawaiResume;
 use App\Models\Pink\LampiranBebanKerja;
 use App\Models\Pink\Resume;
 
@@ -83,7 +84,7 @@ class ListPegawai2 extends Model
 
     public static function getMaklumatPegawai(Int $no_ic) : array{
         $data = [];
-        $maklumatPegawaiGet = ListPegawai2::where('nokp', $no_ic)->first();
+        $maklumatPegawaiGet = ListPegawaiResume::where('nokp', $no_ic)->first();
 
         if($maklumatPegawaiGet) {
             $maklumatPegawai = $maklumatPegawaiGet;
@@ -92,6 +93,7 @@ class ListPegawai2 extends Model
             $data['gelaran'] = $maklumatPegawai->gelaran;
             $data['name'] = html_entity_decode($maklumatPegawai->nama, ENT_QUOTES | ENT_HTML5);
             $data['tel_bimbit'] = $maklumatPegawai->tel_bimbit;
+            $data['gelaran_jawatan'] = $maklumatPegawai->gelaran_jawatan;
             $data['tel_pejabat'] = $maklumatPegawai->tel_pejabat;
             $data['alamat_pejabat'] = $maklumatPegawai->alamat_pejabat;
             $data['gred'] = $maklumatPegawai->kod_gred;
@@ -276,7 +278,9 @@ class ListPegawai2 extends Model
             foreach($model as $m){
                 $data[] = [
                     'kod_peristiwa' => $m->LPeristiwa->peristiwa,
-                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ?  $m->tkh_mula_peristiwa:''
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ?  $m->tkh_mula_peristiwa:'',
+
+                    'catatan' => $m->catatan ? $m->catatan:''
                 ];
             }
         }
@@ -293,7 +297,9 @@ class ListPegawai2 extends Model
             foreach($model as $m){
                 $data[] = [
                     'kod_peristiwa' => $m->LPeristiwa->peristiwa ?  $m->LPeristiwa->peristiwa : '',
-                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa : ''
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa : '',
+
+                    'catatan' => $m->catatan ? $m->catatan:''
                 ];
             }
         }
@@ -310,7 +316,10 @@ class ListPegawai2 extends Model
             foreach($model as $m){
                 $data[] = [
                    'kod_peristiwa' => $m->LAktiviti ? ($m->LAktiviti->peristiwa ? $m->LAktiviti->peristiwa : '') :'',
-                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa :''
+                    'tkh_mula_peristiwa' => $m->tkh_mula_peristiwa ? $m->tkh_mula_peristiwa :'',
+
+                    'catatan' => $m->catatan ? $m->catatan:''
+
                 ];
             }
         }
@@ -417,7 +426,9 @@ class ListPegawai2 extends Model
         $data= [];
         //$days='';
 
-        $model = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->get();
+        // $model = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->groupBy('id_pengalaman','kod_aktiviti')->distinct()->orderBy('kod_aktiviti')->orderBy('tkh_mula','desc')->get();
+
+        $model = Pengalaman::where('nokp', $ic)->whereIn('kod_aktiviti',[4,10,50,51,52,53,54,55,56,57,58,59])->orderBy('tkh_mula','desc')->get();
 
         if($model){
             foreach($model as $m){
