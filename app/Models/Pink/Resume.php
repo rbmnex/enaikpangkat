@@ -11,7 +11,11 @@ class Resume extends Model
     protected $table = 'resume';
 //    public $timestamps = false;
 
-      public function getLampiran(){
+    public function getLampiran(){
         return $this->hasOne(LampiranBebanKerja::class, 'nokp', 'nokp')->orderBy('id', 'desc');
+    }
+
+    public function getIsytiharHarta(){
+        return $this->hasOne(LampiranIstiharHarta::class, 'nokp', 'nokp')->orderBy('id', 'desc');
     }
 }

@@ -3,7 +3,6 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Borang JKR/UKP/11</title>
-
     <style>
         .centerCell {
             text-align: center;
@@ -226,7 +225,7 @@
                 <td colspan="2">Penangguhan (Sekiranya ada),<br>Tempoh Penangguhan<br><br></td>
                 <td colspan="3">:
                     @if( !empty($data->pemohonUkp11->tkh_tangguh_mula) && !empty($data->pemohonUkp11->tkh_tangguh_akhir))
-                    {{ (empty($data->pemohonUkp11->tkh_tangguh_mula) ? '' : strtotime($data->pemohonUkp11->tkh_tangguh_mula)).' hingga '.(empty($data->pemohonUkp11->tkh_tangguh_akhir)) ? '' : strtotime($data->pemohonUkp11->tkh_tangguh_akhir) }}
+                    {{ empty($data->pemohonUkp11->tkh_tangguh_mula) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_tangguh_mula)->format('d-m-Y').' hingga '.empty($data->pemohonUkp11->tkh_tangguh_akhir) ? '' : \Carbon\Carbon::parse($data->pemohonUkp11->tkh_tangguh_akhir)->format('d-m-Y') }}
                     @else
                     @endif
                     <br><br>

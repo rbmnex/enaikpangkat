@@ -41,7 +41,8 @@ $(document).on('click','.btn-back, .post-add-officer, .delete-officer, .send-sin
             title: "Adakah Anda Pasti?",
             subtitle: "Emel akan dihantar",
             icon: "warning",
-            confirmText: "Hapus",
+            confirmText: "Hantar",
+            cancelText: "Batal",
             callback: function() {
                 MemberController.send_mail({
                     data: data

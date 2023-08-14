@@ -125,21 +125,21 @@
             <div class="modal-body">
 
                     <div class="row">
-                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                        <div class="col-xl-6 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Tajuk</label>
                             <input type="textarea" id="modal-tajuk" name="kursus-tajuk" class="form-control" placeholder=""  />
                         </div>
-                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                        <div class="col-xl-6 col-md-6 col-12 mb-1">
+                           <label class="form-label" for="">Tempat</label>
+                           <input type="text" id="modal-title" name="kursus-tempat" class="form-control" placeholder=""  />
+                       </div>
+                        <div class="col-xl-6 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Tarikh Mula</label>
                              <input type="text" id="fp-default" name="kursus-mula" class="form-control flatpickr-basic tkh_mula" placeholder="DD-MM-YYYY" />
                         </div>
-                        <div class="col-xl-4 col-md-6 col-12 mb-1">
+                        <div class="col-xl-6 col-md-6 col-12 mb-1">
                             <label class="form-label" for="">Tarikh Tamat</label>
                              <input type="text" id="fp-default" name="kursus-tamat" class="form-control flatpickr-basic tkh_tamat" placeholder="DD-MM-YYYY" />
-                        </div>
-                         <div class="col-xl-4 col-md-6 col-12 mb-1">
-                            <label class="form-label" for="">Tempat</label>
-                            <input type="text" id="modal-title" name="kursus-tempat" class="form-control" placeholder=""  />
                         </div>
 
 

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin\AuditTrail;
 use App\Models\Mykj\LGred;
 use App\Models\Mykj\ListPegawai2;
+use App\Models\Mykj\ListPegawaiResume;
 use App\Models\Mykj\LJurusan;
 use App\Models\Pink\Resume;
 use App\Models\Resume\BatchResume;
@@ -54,7 +55,7 @@ class BatchResumeController extends Controller
         $jurusan = $request->input('jurusan');
         $gred = $request->input('gred');
 
-        $model = new ListPegawai2;
+        $model = new ListPegawaiResume();
 
         if($jurusan) {
             $model = $model->where('kod_jurusan',$jurusan);
@@ -199,7 +200,7 @@ class BatchResumeController extends Controller
     public function searchSingle(Request $request) {
         $data = [];
         $search_term = $request->input('q');
-        $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
+        $peribadi = DB::connection('pgsqlmykj')->table('list_pegawai_resume_enaikpangkat as np')
         ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
         ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan')->where('np.nokp', 'ilike', '%'.$search_term.'%')
             ->orWhereRaw("LOWER(np.nama) ilike '%".$search_term."%'")->limit(20)->get();
@@ -219,7 +220,7 @@ class BatchResumeController extends Controller
     }
 
     public function infoPegawai($nokp) {
-        $info = DB::connection('pgsqlmykj')->table('list_pegawai2 as np')
+        $info = DB::connection('pgsqlmykj')->table('list_pegawai_resume_enaikpangkat as np')
         ->leftJoin('l_jurusan as lj','np.kod_jurusan','lj.kod_jurusan')
         ->select('np.nokp','np.nama','np.kod_gred','np.jawatan','lj.jurusan','lj.kod_jurusan','np.email')->where('np.nokp', $nokp)->first();
         if($info) {
@@ -329,7 +330,7 @@ class BatchResumeController extends Controller
         $ctrl = new ResumeController();
         if($model->members) {
             foreach($model->members as $member) {
-                if($member->delete_id == 0 && !empty($member->tkh_hantar)) {
+                if($member->delete_id == 0 && empty($member->tkh_hantar)) {
                     if($this->sendMail($member)) {
                         $member->tkh_hantar = Date::now();
                         $member->status = 'sent';
@@ -364,7 +365,8 @@ class BatchResumeController extends Controller
         $memberId = $request->input('member_id');
         $model = ResumeMember::find($memberId);
         if($model) {
-            if($model->delete_id == 0 && !empty($model->tkh_hantar)) {
+
+            if($model->delete_id == 0 && empty($model->tkh_hantar)) {
                 if($this->sendMail($model)) {
                     $model->tkh_hantar = Date::now();
                     $model->status = 'sent';
@@ -386,6 +388,11 @@ class BatchResumeController extends Controller
                         'data' => []
                     ]);
                 }
+            } else {
+                return response()->json([
+                    'success' => 0,
+                    'data' => []
+                ]);
             }
         } else {
             return response()->json([
@@ -404,16 +411,13 @@ class BatchResumeController extends Controller
                     'date' => $common->translateMonth($dateline->format('d M Y'))
                 ];
 
-                Mail::mailer('smtp')->send('mail.lampiran-mail', $content, function ($message) use ($obj) {
-                    // testing purpose
-                    $message->to($obj->email, $obj->nama);
-                    $message->subject('KEMASKINI RESUME');
-                    $message->from('eHR@jkr.gov.my', 'Sistem ENP');
-                });
-
-                if(Mail::failures()) {
-                    return false;
-                } else {
+                try {
+                    Mail::mailer('smtp')->send('mail.lampiran-mail', $content, function ($message) use ($obj) {
+                        // testing purpose
+                        $message->to($obj->email, $obj->nama);
+                        $message->subject('KEMASKINI RESUME');
+                        $message->from('eHR@jkr.gov.my', 'Sistem ENP');
+                    });
                     $model = Resume::where('nokp', $obj->nokp)->first();
                     if(empty($model)) {
                         $model = new Resume();
@@ -428,7 +432,17 @@ class BatchResumeController extends Controller
                     $model->updated_by = Auth::user()->nokp;
                     $model->save();
                     return true;
+                } catch(\Exception $e) {
+                    return false;
                 }
+
+
+
+                // if(Mail::failures()) {
+
+                // } else {
+
+                // }
 
 
     }

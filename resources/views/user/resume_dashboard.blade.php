@@ -42,13 +42,139 @@
     <!-- Dashboard Ecommerce Starts -->
     <section id="dashboard-ecommerce">
         <div class="container-fluid">
-      
-        <div class="row" style="background-color:#d9d9d9; height: 250px;">
-           
+
+        <div class="row" style="background-color:#d9d9d9; padding-top: 10px;">
+
+            <div class="col-lg-12 col-md-6 col-12">
+                <div class="card ">
+                    <div class="card-header">
+                        <h3 class="card-title">Laman Resume</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                @if($resume)
+                <div class="card card-transaction">
+                    <div class="card-header">
+                        <h4 class="card-title">Status Lampiran</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                           <button  onclick="location.href='{{url('/user/resume/lampiran')}}'" target="_blank" type="button" class="btn btn-info borang-lampiran"><i data-feather='paperclip'></i>&nbsp; Borang Lampiran</button>
+
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="transaction-item">
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <h6 class="transaction-title">Lampiran Kursus</h6>
+                                </div>
+                            </div>
+                            @if ($lampirankursus->count() > 0 && $resume->kursus)
+                            <div class="badge badge-success">Lengkap</div>
+                            @else
+                            <div class="badge badge-danger">Tidak Lengkap</div>
+                            @endif
+                        </div>
+                        <div class="transaction-item">
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <h6 class="transaction-title">Lampiran Deskripsi Tugas Kerja</h6>
+                                </div>
+                            </div>
+                            @if ($lampiranbeban->count() > 0 && $resume->beban_kerja)
+                            <div class="badge badge-success">Lengkap</div>
+                            @else
+                            <div class="badge badge-danger">Tidak Lengkap</div>
+                            @endif
+                        </div>
+                        <div class="transaction-item">
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <h6 class="transaction-title">Lampiran Projek</h6>
+                                </div>
+                            </div>
+                            @if ($lampiranprojek->count() > 0 && $resume->projek)
+                            <div class="badge badge-success">Lengkap</div>
+                            @else
+                            <div class="badge badge-danger">Tidak Lengkap</div>
+                            @endif
+                        </div>
+                        <div class="transaction-item">
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <h6 class="transaction-title">Lampiran Kepakaran</h6>
+                                </div>
+                            </div>
+                            @if ($lampiranpendedahan->count() > 0 && $resume->kepakaran)
+                            <div class="badge badge-success">Lengkap</div>
+                            @else
+                            <div class="badge badge-danger">Tidak Lengkap</div>
+                            @endif
+                        </div>
+                        <div class="transaction-item">
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <h6 class="transaction-title">Lampiran Pencapaian Tertinggi</h6>
+                                </div>
+                            </div>
+                            @if ($lampiranpencapaian->count() > 0 && $resume->pencapaian_tertinggi)
+                            <div class="badge badge-success">Lengkap</div>
+                            @else
+                            <div class="badge badge-danger">Tidak Lengkap</div>
+                            @endif
+                        </div>
+
+                        <div class="transaction-item">
+                            <div class="media">
+
+                                <div class="media-body">
+                                    <h6 class="transaction-title">Lampiran Isytihar Harta</h6>
+                                </div>
+                            </div>
+                            @if ($lampiranharta->count() > 0 )
+                            <div class="badge badge-success">Lengkap</div>
+                            @else
+                            <div class="badge badge-danger">Tidak Lengkap</div>
+                            @endif
+                        </div>
+
+                    </div>
+                </div>
+                @endif
+            </div>
+            <div class="col-lg-6 col-md-6 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Pautan</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-12">
+                                <button  onclick="location.href='{{ url('/user/resume/download') }}'" type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>&nbsp; Muat Turun</button>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div class="col-12">
+                                <button class="btn btn-warning paparan-resume" onClick="javascript:window.open('{{ url('/user/resume/paparan') }}', '_blank');"><i data-feather='eye'></i>&nbsp; Paparan Resume</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           <!--
              @if($resume)
                     <div class="col-6" style=" text-align: justify;color:#000000;"><h2 class="text-primary">Status Resume</h2>
-                        <p>
-               
+
+
                  <table>
                 <tr><thead colspan= 2> <b>Status Lampiran </b></thead>
                 </tr>
@@ -76,7 +202,7 @@
                      <td><div class="badge badge-success">Lengkap</div></td>
                      @endif
                 </tr>
-                
+
                 <tr>
                     <td>Lampiran Kepakaran</td>
                      @if($lampiranpendedahan->count() == 0)
@@ -95,8 +221,8 @@
                 </tr>
 
             </table>
-      
-    </p>
+
+
                     </div>
                       @endif
                     <div class="col-6" style=" text-align: justify; color:#000000;"><h2 class="text-primary">PAUTAN</h2>
@@ -105,17 +231,17 @@
                            @endif
                            <button  onclick="location.href='{{ url('/user/resume/download') }}'" type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>Muat Turun</button>
                             <button class="btn btn-warning paparan-resume" onClick="javascript:window.open('{{ url('/user/resume/paparan') }}', '_blank');"><i data-feather='eye'></i>Paparan Resume</button>
-                            
+
                             <div></div></div>
                     {{-- <div class="col-4 "><h2 class="text-primary">RESUME</h2></div> --}}
+
+                    -->
+        </div>
 
 
         </div>
 
-     
-  </div>
 
-</div>
     </section>
     <!-- Dashboard Ecommerce ends -->
 

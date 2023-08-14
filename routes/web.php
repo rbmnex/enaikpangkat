@@ -232,12 +232,14 @@ Route::prefix('/form')->group(function() {
         Route::post('/kursus/del',[ResumeController::class,'delete_kursus']);
         Route::post('/bebankerja',[ResumeController::class,'save_beban']);
          Route::post('/projek',[ResumeController::class,'save_projek']);
+         Route::post('/lampirharta',[ResumeController::class,'save_harta']);
          Route::post('/projek/del',[ResumeController::class,'delete_projek']);
         Route::post('/pendedahan',[ResumeController::class,'save_pendedahan']);
          Route::post('/pendedahan/del',[ResumeController::class,'delete_pendedahan']);
          Route::post('/pencapaian',[ResumeController::class,'save_pencapaian']);
-         Route::post('/pencapaian/del',[ResumeController::class,'delete_pencapaian']);
-         Route::post('/property/save',[UkpController::class,'save_harta']);
+        Route::post('/pencapaian/del',[ResumeController::class,'delete_pencapaian']);
+        Route::post('/lengkap/lampiran',[ResumeController::class,'complete_lampiran']);
+        Route::post('/property/save',[UkpController::class,'save_harta']);
         Route::post('/loan/save',[UkpController::class,'save_loan']);
         Route::post('/submit',[UkpController::class,'submit_application']);
         Route::post('/submit-kader',[UkpController::class,'kader_submission']);
