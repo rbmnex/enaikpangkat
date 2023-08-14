@@ -718,20 +718,12 @@ class ResumeController extends Controller
         //$fileName = 'Lampiran-doc-'.strtoupper($model['nokp']).".doc";
         $fileName =strtoupper($model['gelaran']).strtoupper($model['name']).".doc";
 
-        // Headers for download
-
-        $headers = [
-            'Content-Disposition' => 'attachment; filename="'.$fileName.'"',
-            'Content-Type' => 'application/vnd.ms-word',
-            'Pragma' => 'no-cache',
-            'Expires' => '0'
-        ];
-
-        // return view('admin.user.resume.cetak_sendiri', compact('model', 'kira_kelayakan', 'kira_sumbangan', 'kira_pengalaman', 'kira_iktiraf', 'tempoh_gred', 'resume', 'mula_khidmat', 'mula_gred_hakiki', 'tempoh_awam', 'pengalaman', 'pengalaman_mula', 'lampiran_kursus', 'lampiran_beban', 'lampiran_projek', 'lampiran_kepakaran', 'lampiran_pencapaian', 'tempoh_pnp', 'modelp', 'gred_sekarang'));
-
-        return response()->view('resume.resume', compact('model', 'kira_kelayakan', 'kira_sumbangan', 'kira_pengalaman', 'kira_iktiraf', 'tempoh_gred', 'resume', 'mula_khidmat', 'mula_gred_hakiki', 'tempoh_awam', 'pengalaman', 'pengalaman_mula', 'lampiran_kursus', 'lampiran_beban', 'lampiran_projek', 'lampiran_kepakaran', 'lampiran_pencapaian', 'tempoh_pnp', 'modelp', 'gred_sekarang'))
-            ->withHeaders($headers);
-     }
+        // echo '<pre>';
+        // print_r($model);
+        // echo '</pre>';
+        // die();
+        return view('admin.user.resume.cetak_sendiri', compact('model', 'kira_kelayakan', 'kira_sumbangan', 'kira_pengalaman', 'kira_iktiraf', 'tempoh_gred', 'resume', 'mula_khidmat', 'mula_gred_hakiki', 'tempoh_awam', 'pengalaman', 'pengalaman_mula', 'lampiran_kursus', 'lampiran_beban', 'lampiran_projek', 'lampiran_kepakaran', 'lampiran_pencapaian', 'tempoh_pnp', 'modelp', 'gred_sekarang'));
+    }
 
 
     public function document($ic)
@@ -879,8 +871,9 @@ class ResumeController extends Controller
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
 
-           //count kelayakan
-        $kira_kelayakan = (count($model['kelayakan']) == 0 ? 1 : count($model['kelayakan'])) + (count($model['professional']) == 0 ? 1 : count($model['professional'])) + (count($model['tempatan']) == 0 ? 1 : count($model['tempatan'])) + (count($model['antarabangsa']) == 0 ? 1 : count($model['antarabangsa'])) + 9;
+        //count kelayakan
+        $kira_kelayakan1 = Kelayakan::where('nokp', $ic->nokp)->whereNotIn('kod_kelulusan', [20, 21, 22, 23])->get();
+        $kira_kelayakan = count($kira_kelayakan1) + 9;
 
         $kira_sumbangan = (count($model['jurnal']) == 0 ? 1 : count($model['jurnal'])) + (count($model['jawatanKuasateknikal']) == 0 ? 1 : count($model['jawatanKuasateknikal'])) + (count($model['dalamTugasrasmi']) == 0 ? 1 : count($model['dalamTugasrasmi'])) + (count($model['luarTugasrasmi']) == 0 ? 1 : count($model['luarTugasrasmi']))
         + 9;
@@ -978,9 +971,9 @@ class ResumeController extends Controller
         $date1 = new DateTime($sektor_awam_tamat);
         $tempoh_pnp = $date1->diff($date2);
 
-            //count kelayakan
-        // $kira_kelayakan1 = Kelayakan::where('nokp', $ic)->whereNotIn('kod_kelulusan', [20, 21, 22, 23])->get();
-        // $kira_kelayakan = count($kira_kelayakan1) + 9;
+        //count kelayakan
+        $kira_kelayakan1 = Kelayakan::where('nokp', $ic)->whereNotIn('kod_kelulusan', [20, 21, 22, 23])->get();
+        $kira_kelayakan = count($kira_kelayakan1) + 9;
 
         // $kira_sumbangan1 = Kelayakan::where('nokp', $ic)->whereIn('kod_kelulusan', [20, 21, 22, 23])->get();
         // $kira_sumbangan = count($kira_sumbangan1) + 9;
@@ -1152,58 +1145,12 @@ class ResumeController extends Controller
 
 
         if ($lampirankursus && $lampiranbeban && $lampiranprojek && $lampiranpencapaian && $lampiranpendedahan) {
-    return response()->json([
-        'success' => 1,
-        'data' => [
-            'nama' => $model->nama_projek,
-            'kos' => $model->kos_projek
-        ]
-    ]);
-}
- }
-
-    public function complete_lampiran(Request $request) {
-        $user = Auth::user();
-
-        if($user) {
-            $resume = Resume::where('nokp', $user->nokp)->first();
-            $lampirankursus = LampiranKursus::where('nokp', $user->nokp)->get();
-            $lampiranbeban = LampiranBebanKerja::where('nokp', $user->nokp)->get();
-            $lampiranprojek = LampiranProjek::where('nokp', $user->nokp)->get();
-            $lampiranpendedahan = LampiranPendedahan::where('nokp', $user->nokp)->where('kod_kategori', 1)->get();
-            $lampiranpencapaian = LampiranPendedahan::where('nokp', $user->nokp)->where('kod_kategori', 2)->get();
-
-            if($resume) {
-
-                $resume->kursus = $lampirankursus->count() > 0 ? 1 : 0;
-                $resume->beban_kerja = $lampiranbeban->count() > 0 ? 1 : 0;
-                $resume->projek = $lampiranprojek->count() > 0 ? 1 : 0;
-                $resume->kepakaran = $lampiranpendedahan->count() > 0 ? 1 : 0;
-                $resume->pencapaian_tertinggi = $lampiranpencapaian->count() > 0 ? 1 : 0;
-
-                if($resume->save()) {
-                    return response()->json([
-                        'success' => 1,
-                        'data' => []
-                    ]);
-                } else {
-                    return response()->json([
-                        'success' => 0,
-                        'data' => []
-                    ]);
-                }
-
-            } else {
-                return response()->json([
-                    'success' => 0,
-                    'data' => []
-                ]);
-            }
-
-        } else {
             return response()->json([
-                'success' => 0,
-                'data' => []
+                'success' => 1,
+                'data' => [
+                    'nama' => $model->nama_projek,
+                    'kos' => $model->kos_projek
+                ]
             ]);
         }
     }
