@@ -1781,10 +1781,6 @@ where c.nokp = '830801025623' and k.permohonan_id = 8;
         $pertubuhan = Pertubuhan::where('pemohon_id',$pemohon->id)->get();
         $harta = PermohonanHarta::where('id_pemohon',$pemohon->id)->first();
         $loan = PinjamanPendidikan::where('id_pemohon',$pemohon->id)->where('flag',1)->where('delete_id',0)->first();
-        $pengakuan = PengakuanPemohon::where('id_pemohon',$pemohon->id)->first();
-
-        $common = new CommonController();
-        $common->saveImageFromUrl('http://10.8.80.68/foto/'.$profile->nokp.'.jpg',$profile->nokp);
 
         $maklumat = array();
         $maklumat['nama'] = $profile->nama;
