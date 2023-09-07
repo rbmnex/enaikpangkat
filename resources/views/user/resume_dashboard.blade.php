@@ -157,14 +157,28 @@
                     </div>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-12">
-                                <button  onclick="location.href='{{ url('/user/resume/download') }}'" type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>&nbsp; Muat Turun</button>
+                            <div class="col-4">
+                                <button  onclick="location.href='{{ url('/user/resume/download') }}'" type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>&nbsp; Resume</button>
                             </div>
+                            @if($lampiranbeban->count() > 0)
+                            <div class="col-4">
+                                <button  onclick="location.href='{{ url($lampiranbeban[0]->path) }}'" type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>&nbsp; Deskripsi Tugas Kerja</button>
+                            </div>
+                            @endif
+                            @if($lampiranharta->count() > 0)
+                            <div class="col-4">
+                                <button  onclick="location.href='{{ url($lampiranharta[0]->path) }}'" type="button" class="btn btn-success muat-turun"><i data-feather='printer'></i>&nbsp; Isytihar Harta</button>
+                            </div>
+                            @endif
                         </div>
                         <br/>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-6">
                                 <button class="btn btn-warning paparan-resume" onClick="javascript:window.open('{{ url('/user/resume/paparan') }}', '_blank');"><i data-feather='eye'></i>&nbsp; Paparan Resume</button>
+
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-primary paparan-tatacara" onClick="javascript:window.open('{{ url('/docs/TATACARA_PENGISIAN_RESUME_SISTEM_E-NAIKPANGKAT_(14.8.2023).pdf') }}', '_blank');"><i data-feather='download'></i>&nbsp; Tatacara Pengisian Resume</button>
                             </div>
                         </div>
                     </div>

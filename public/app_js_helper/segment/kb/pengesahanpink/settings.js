@@ -45,11 +45,11 @@ DatatableUI.init({
                     );
                 } else if(row_flag == 'TL'){
                     return (
-                        '<div class="badge badge-warning">Terima Lantikan</div>'
+                        '<div class="badge badge-success">Terima Pemangkuan</div>'
                     );
                 } else if(row_flag == 'PL'){
                     return (
-                        '<div class="badge badge-warning">Tolakan Lantikan</div>'
+                        '<div class="badge badge-dark">Tolakan Pemangkuan</div>'
                     );
                 }
 

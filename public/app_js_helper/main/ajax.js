@@ -21,6 +21,27 @@ class Ajax extends Common{
         });
     }
 
+    static getAjax({url, func}){
+        $.ajax({
+            type:'GET',
+            url: this.getUrl() + '/' + url,
+            dataType: "json",
+            processData: false,
+            contentType: false,
+            context: this,
+            success: function(data) {
+                if(data != '' || typeof data != 'undefined'){
+                    func(Ajax.parseData(data));
+                }else{
+                    func();
+                }
+            },
+            error: function (e){
+                ToastAlert.toasting('WHOOPS!', e.responseJSON, 'error');
+            }
+        });
+    }
+
     static parseData(data){
         return {
             success: data.success,

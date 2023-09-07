@@ -59,7 +59,7 @@
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Pejabat Alamat :<br/>(Pejabat Baru)</label>
                         <div class="col-sm-5">
-                            <textarea class="form-control" rows="5" id="tawaran-alamat">{{$data->pemohonPink->alamat ?? ''}}</textarea>
+                            <textarea class="form-control" rows="5" id="tawaran-alamat">{{ $form ? $form->alamat_pejabat : '' }}</textarea>
                             <div class="invalid-feedback"></div>
                         </div>
                     </div>
@@ -102,11 +102,21 @@
                     <hr>
                     <div class="form-group row">
                         <label for="" class="col-sm-12 col-form-label" style="color:red">Adalah Saya {{$data->pemohonPeribadi->nama}}, No. kad pengenalan {{$data->pemohonPeribadi->nokp}}</label>
+                        @php
+                            $trigger = 2;
+                            if($form) {
+                                if($form->status_terima_pemangkuan == 1) {
+                                    $trigger = 1;
+                                } else {
+                                    $trigger = 0;
+                                }
+                            }
+                        @endphp
                         <div class="col-sm-3">
                             <select class="select2 form-select form-control" id="tawaran-setuju">
                                 <option value="">-- Sila Pilih --</option>
-                                <option value="TL">Setuju</option>
-                                <option value="PL">Tidak Setuju</option>
+                                <option value="TL" @if($trigger == 1) selected @endif>Setuju</option>
+                                <option value="PL" @if($trigger == 0) selected @endif>Tidak Setuju</option>
                             </select>
                             <div class="invalid-feedback"></div>
                         </div>
@@ -150,6 +160,7 @@
                             Tarikh: {{date("d-m-Y")}}
                         </label>
                     </div>
+            <div id="onSetujuDiv">
                     <div class="form-group row">
                         <label for="" class="col-sm-12 col-form-label">
                             Perhatian:<br><br>
@@ -217,6 +228,7 @@
                         </label>
                     </div>
                     @if(empty($data->pemohonPink->jenis_penempatan) || ($data->pemohonPink->jenis_penempatan == 1))
+                    @if(Carbon\Carbon::today()->gte(\Carbon\Carbon::parse($data->pemohonPink->tkh_lapor_diri)))
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Ketua Bahagian Perkhidmatan/ Kerani Perkhidmatan:</label>
                         <div class="col-sm-5">
@@ -236,6 +248,7 @@
                         </div>
                     </div>
                     @endif
+                    @endif
                     @if(!empty($data->pemohonPink->jenis_penempatan) && ($data->pemohonPink->jenis_penempatan == 2))
                     <div class="form-group row">
                         <label for="" class="col-sm-2 col-form-label">Muat Naik Borang JKR/UKP/11 (Kader):</label>
@@ -245,6 +258,7 @@
                         </div>
                     </div>
                     @endif
+            </div>
                     <div class="row">
                         <div class="col-md-12" style="width:100%">
                             @if(!empty($data->pemohonPink->jenis_penempatan) && ($data->pemohonPink->jenis_penempatan == 2))

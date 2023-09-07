@@ -412,11 +412,12 @@ class BatchResumeController extends Controller
                 ];
 
                 try {
-                    Mail::mailer('smtp')->send('mail.lampiran-mail', $content, function ($message) use ($obj) {
+                    Mail::mailer('smtp')->send('mail.lampiran-mail-br', $content, function ($message) use ($obj) {
                         // testing purpose
                         $message->to($obj->email, $obj->nama);
                         $message->subject('KEMASKINI RESUME');
                         $message->from('eHR@jkr.gov.my', 'Sistem ENP');
+                        $message->attach(public_path('docs/TATACARA_PENGISIAN_RESUME_SISTEM_E-NAIKPANGKAT_(14.8.2023).pdf'));
                     });
                     $model = Resume::where('nokp', $obj->nokp)->first();
                     if(empty($model)) {

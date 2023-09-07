@@ -182,10 +182,10 @@ $(document).on('click','.add-projek, .post-edit-projek, .update-projek, .delete-
                     let success = data.success;
                     let parseData = data.data;
                     if(success == 1) {
-                        let row = [];
+                        let row = []
 
                         row.push(parseData.tajuk);
-                        row.push("RM"+ parseData.kos);
+                        row.push("RM"+ separateComma(parseData.kos));
                         var btn = '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-row">'+ feather.icons['trash-2'].toSvg() +'</button>';
                         btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light update-projek" data-toggle="modal" data-target="#modal-projek">'+ feather.icons['check-square'].toSvg() +'</button>';
                         row.push(btn);
@@ -194,8 +194,9 @@ $(document).on('click','.add-projek, .post-edit-projek, .update-projek, .delete-
                         $('#modal-projek').modal('hide');
                         toasting('Senarai Kepakaran Ditambah', 'success');
                     }else if(success == 2) {
+
                         $('tr[data-projek-id='+ parseData.id +']').find('td:first-child').html(parseData.tajuk);
-                        $('tr[data-projek-id='+ parseData.id +']').find('td:eq(1)').html(parseData.kos);
+                        $('tr[data-projek-id='+ parseData.id +']').find('td:eq(1)').html("RM"+separateComma(parseData.kos));
                         $('#modal-projek').modal('hide');
                         toasting('Senarai Kepakaran Dikemaskini', 'success');
                     } else if(success == 0) {

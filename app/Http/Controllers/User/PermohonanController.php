@@ -18,7 +18,7 @@ class PermohonanController extends Controller
 
     public function load_list(Request $request) {
         $user = Auth::user();
-        $model = Pemohon::with('pemohonPeribadi','pemohonPermohonan')->where('user_id',$user->id)->get();
+        $model = Pemohon::with('pemohonPeribadi','pemohonPermohonan', 'pemohonUkp11')->where('user_id',$user->id)->get();
         return DataTables::of($model)
             ->setRowAttr([
                 'data-pemohon-id' => function($data) {

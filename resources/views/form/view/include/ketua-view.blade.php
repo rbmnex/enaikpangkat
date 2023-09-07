@@ -38,7 +38,7 @@
                         <label class="col-form-label" for="first-name">Jawatan</label>
                     </div>
                     <div class="col-sm-10">
-                        <input type="text" id="jawatan-ketua" readonly class="form-control jawatan-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_jawatan) ? $hod['jawatan'] : $pemohon->perakuan_ketua_jabatan_jawatan }}">
+                        <input type="text" id="jawatan-ketua" readonly class="form-control jawatan-ketua" placeholder="" value="{{ empty($pemohon->perakuan_ketua_jabatan_jawatan) ? $hod['jawatan'].' '.$hod['gred'] : $pemohon->perakuan_ketua_jabatan_jawatan }}">
                     </div>
                 </div>
             </div>

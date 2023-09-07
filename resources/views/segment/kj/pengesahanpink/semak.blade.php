@@ -45,10 +45,10 @@
         <div class="row">
             <div class="col-3"></div>
             <div class="col-3" style="text-align:center">
-                <a style="width:100%;" class="btn btn-success" id="button-setuju" href="{{Request::root()}}/kj/pengesahan-pink/setuju/1/{{$pemohon_id}}">Diperaku</a>
+                <a style="width:100%;" class="btn btn-success" id="button-setuju" href="{{Request::root()}}/kj/pengesahan-pink/setuju/1/{{$pemohon_id}}">Disahkan</a>
             </div>
             <div class="col-3" style="text-align:center">
-                <a style="width:100%;" class="btn btn-danger" id="button-tidak-setuju"  href="{{Request::root()}}/kj/pengesahan-pink/setuju/0/{{$pemohon_id}}">Tidak Diperaku</a>
+                <a style="width:100%;" class="btn btn-danger" id="button-tidak-setuju"  href="{{Request::root()}}/kj/pengesahan-pink/setuju/0/{{$pemohon_id}}">Tidak Disahkan</a>
             </div>
             <div class="col-3"></div>
         </div>

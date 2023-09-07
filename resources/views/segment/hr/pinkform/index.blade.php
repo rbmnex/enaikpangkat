@@ -55,6 +55,7 @@
             </div>
         </div>
     </div>
+
     @include('segment.hr.pinkform.modal.index')
 @endsection
 

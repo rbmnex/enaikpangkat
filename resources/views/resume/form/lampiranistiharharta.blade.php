@@ -40,9 +40,18 @@
             <button class="btn btn-warning paparan-resume" onClick="javascript:window.open('{{ url('/user/resume/paparan') }}', '_blank');"><i data-feather='eye'></i>Paparan Resume</button>
 
         </div>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <div class="form-group col-md-12">
             {{-- <button type="button" class="btn btn-info selesai-calon" data-toggle="modal" data-target="#modal-selesai"><i data-feather='send'></i>Hantar</button> --}}
-            <button type="button" class="btn btn-info selesai-calon"><i data-feather='send'></i>Hantar</button>
+            <button type="button" class="btn btn-info selesai-calon"><i data-feather='send'></i>Hantar Keseluruhan Resume</button>
             <br/>
              <!-- @if($lampirankursus->count() != 0 && $lampiranbeban->count() != 0 && $lampiranprojek->count() != 0 && $lampiranpendedahan->count() != 0 && $lampiranpencapaian->count() != 0) -->
 

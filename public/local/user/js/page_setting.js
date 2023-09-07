@@ -48,13 +48,13 @@ let dt = DatatableUI.init({
                     text = 'Calon Gagal';
                     color = 'secondary';
                 } else if(status == "PL") {
-                    text = 'Tolak Lantikan';
+                    text = 'Tolak Pemangkuan';
                     color = 'dark';
                 } else if(status == "MJ") {
                     text = 'Tunggu Jawapan';
                     color = 'info';
                 } else if(status == "TL") {
-                    text = 'Terima Lantikan';
+                    text = 'Terima Pemangkuan';
                     color = 'success';
                 } else if(status == "TK") {
                     text = 'Tunggu Keputusan LKPPA';
@@ -98,6 +98,7 @@ let dt = DatatableUI.init({
             render: function (data, type, full, meta) {
                 var status =  full.status;
                 var jenis =  full.jenis;
+                var ukp11 = full.pemohon_ukp11;
                 var btn = '';
                 if(status == "BH" || status == "NA") {
                     if(jenis == "UKP12") {
@@ -111,12 +112,16 @@ let dt = DatatableUI.init({
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-offer">'+ feather.icons['file-text'].toSvg() +' Surat Pink</button>';
                 }
 
-                if((status == "MJ") && jenis == "UKP12") {
+                if((status == "MJ" || status == "TL" || status == "PL") && jenis == "UKP12") {
+                    if(ukp11.perakuan_ketua_jabatan === null && ukp11.file_id === null) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-reportin">'+ feather.icons['edit'].toSvg() +' Lapor Diri</button>';
+                    }
                 }
 
                 if((status == "SP" || status == "TA" || status == "LL" || status == "MJ" || status == "LS" || status == "GL" || status == "PL" || status == "TL") && jenis == "UKP12") {
+
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light open-form12">'+ feather.icons['file'].toSvg() +' JKR/UKP/12</button>';
+
                 }
                 return btn;
             }

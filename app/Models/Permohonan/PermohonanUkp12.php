@@ -14,4 +14,8 @@ class PermohonanUkp12 extends Model
     public function getPemohon(){
         return $this->hasOne(Pemohon::class, 'id', 'id_permohonan');
     }
+
+    public function getKumpulan() {
+        return $this->belongsTo(Kumpulan::class, 'permohonan_id', 'id');
+    }
 }

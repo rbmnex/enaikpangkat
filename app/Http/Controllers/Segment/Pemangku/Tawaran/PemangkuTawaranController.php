@@ -95,10 +95,11 @@ class PemangkuTawaranController extends Controller{
 
     public function updateTawaran($id){
         $user = Auth::user();
-
+        $ukp11 = PenerimaanUkp11::where('id_pemohon',$id)->where('flag',1)->where('delete_id',0)->first();
         $pemohon = Pemohon::with('pemohonPeribadi', 'pemohonPink', 'pemohonPermohonan')->where('id', $id)->first();
         return view('segment.pemangku.tawaran.tawaran_update', [
             'data' => $pemohon,
+            'form' => $ukp11,
             'pemohon_id' => $id
         ]);
     }
@@ -117,8 +118,10 @@ class PemangkuTawaranController extends Controller{
         $tawaran_tkh_tangguh_end = $request->input('tawaran_tkh_tangguh_end');
         $tawaran_surat_tangguh =  $request->file('tawaran_surat_tangguh');
 
-        $pemohon = Pemohon::with('pemohonPeribadi')->find($pemohon_id);
+        $pemohon = Pemohon::with('pemohonPeribadi','pemohonPermohonan')->find($pemohon_id);
         $pemohon->status = $tawaran_setuju;
+
+
 
         $ukp11 = PenerimaanUkp11::where('id_pemohon', $pemohon_id)->where('flag',1)->where('delete_id',0)->first();
         $ukp11->status_terima_pemangkuan = $tawaran_setuju == 'TL' ? 1 : 0;
@@ -128,6 +131,38 @@ class PemangkuTawaranController extends Controller{
         $ukp11->tkh_kuatkuasa_pemangkuan = date('Y-m-d', strtotime($tawaran_tkh_mula_tugas));
         $ukp11->id_surat_pink = $pemohon->pemohonPink->id;
         $ukp11->alamat_pejabat = $alamat_pejabat;
+
+        if($tawaran_setuju == 'PL') {
+            // email notifikasi kepada urus setia
+            try{
+
+                $content = [
+                    'gred' => $pemohon->gred,
+                    'jawatan' => $pemohon->jawatan,
+                    'nokp' => $pemohon->pemohonPeribadi->nokp,
+                    'nama' => $pemohon->pemohonPeribadi->nama,
+                    'naik_gred' => $pemohon->pemohonPermohonan->gred
+                ];
+                Mail::mailer('smtp')->send('mail.tolak-pemangkuan-mail',$content,function($message) {
+                    // testing purpose
+                    //$message->to('rubmin@mantsoft.com.my',$kerani['name']);
+
+                    //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
+                    $message->to('urusetiakenaikanpangkat@jkr.gov.my','Urus Setia Kenaik Pangkat');
+                    $message->subject('PENGESAHAN LAPOR DIRI (BORANG JKR/UKP/11) PEGAWAI UNTUK URUSAN PEMANGKUAN');
+
+                });
+
+            } catch(\Exception $e) {
+
+            }
+        }
+
+        // if(empty($tawaran_ketua_bahagian) && empty($tawaran_ketua_jabatan) && $pemohon->pemohonPink->jenis_penempatan == 1) {
+        //     $pemohon->status = 'PP';
+        // } else {
+        //     $pemohon->status = $tawaran_setuju;
+        // }
 
         if($tawaran_ketua_bahagian) {
             $kerani = ListPegawai2::getMaklumatPegawaiRingkas($tawaran_ketua_bahagian);
@@ -160,7 +195,7 @@ class PemangkuTawaranController extends Controller{
                 ];
                 Mail::mailer('smtp')->send('mail.pengesahan-lapordiri',$content,function($message) use ($kerani) {
                     // testing purpose
-                    //$message->to('rubmin@vn.net.my',$kerani_user->name);
+                    //$message->to('rubmin@mantsoft.com.my',$kerani['name']);
 
                     //$message->to('munirahj@jkr.gov.my',$kerani_user->name);
                     $message->to($kerani['email'],$kerani['name']);

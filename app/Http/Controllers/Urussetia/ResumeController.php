@@ -112,7 +112,7 @@ class ResumeController extends Controller
         $search = $request->all()['search']['value'];
 
 
-        $model = ListPegawaiResume::with('getLampiran');
+        $model = ListPegawaiResume::with('getLampiran')->with('getIsytiharHarta')->with('getResume');
 
         if ($search) {
             $model->where('nokp', 'ilike', '%' . $search . '%')
@@ -157,8 +157,17 @@ class ResumeController extends Controller
                 $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                 $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                 $lpn = LampiranPendedahan::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                $ih = LampiranIstiharHarta::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
 
-                if ($lbk && $lk && $lp && $lpn) {
+                $complete = false;
+                $resume = $data->getResume;
+                if($resume) {
+                    if($resume->kursus == 1 && $resume->projek == 1 && $resume->kepakaran == 1 && $resume->pencapaian_tertinggi == 1) {
+                        $complete = true;
+                    }
+                }
+
+                if ($lbk && $lk && $lp && $lpn && $ih && $complete) {
                     return '<div class="badge badge-primary">Lengkap</div>';
                 } else {
                     return '<div class="badge badge-danger">Tidak Lengkap</div>';
@@ -176,7 +185,7 @@ class ResumeController extends Controller
 
         $search = $request->all()['search']['value'];
 
-        $model = Resume::select('nokp', 'nama', 'kod_gred', 'jawatan', 'status')->distinct('nama')->with('getLampiran')->with('getIsytiharHarta');
+        $model = Resume::select('nokp', 'nama', 'kod_gred', 'jawatan', 'status', 'kursus', 'projek', 'kepakaran', 'pencapaian_tertinggi')->distinct('nama')->with('getLampiran')->with('getIsytiharHarta');
 
         if ($search) {
             $model->where('nokp', 'ilike', '%' . $search . '%')
@@ -223,8 +232,15 @@ class ResumeController extends Controller
                 $lk = LampiranKursus::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                 $lp = LampiranProjek::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
                 $lpn = LampiranPendedahan::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
+                $ih = LampiranIstiharHarta::select('nokp')->where('nokp', $data->nokp)->first() ? true : false;
 
-                if ($lbk && $lk && $lp && $lpn) {
+                $complete = false;
+
+                if($data->kursus == 1 && $data->projek == 1 && $data->kepakaran == 1 && $data->pencapaian_tertinggi == 1) {
+                        $complete = true;
+                }
+
+                if ($lbk && $lk && $lp && $lpn && $ih && $complete) {
                     return '<div class="badge badge-primary">Lengkap</div>';
                 } else {
                     return '<div class="badge badge-danger">Tidak Lengkap</div>';
@@ -1055,11 +1071,13 @@ class ResumeController extends Controller
             'link' => url('user/resume/lampiran'),
             'date' => $common->translateMonth($dateline->format('d M Y'))
         ];
-        Mail::mailer('smtp')->send('mail.lampiran-mail', $content, function ($message) use ($pegawai) {
+        Mail::mailer('smtp')->send('mail.lampiran-mail-br', $content, function ($message) use ($pegawai) {
             // testing purpose
             $message->to($pegawai->email, $pegawai->nama);
+            //$message->to('rubmin@mantasoft.com.my', $pegawai->nama);
             $message->subject('KEMASKINI RESUME');
             $message->from('eHR@jkr.gov.my', 'Sistem ENP');
+            $message->attach(public_path('docs/TATACARA_PENGISIAN_RESUME_SISTEM_E-NAIKPANGKAT_(14.8.2023).pdf'));
         });
 
         $model = new Resume;

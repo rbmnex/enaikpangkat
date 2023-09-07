@@ -89,7 +89,7 @@
                 </td>
                 <td>:</td>
                 <td colspan="9" style="font-size:16px">
-                    <span style="text-decoration: underline">{{ $data->jawatan }}</span>
+                    <span style="text-decoration: underline">{{ $data->jawatan.' / '.$data->pemohonPermohonan->disiplin }}</span>
                 </td>
             </tr>
             <tr class="word-line">
@@ -107,7 +107,7 @@
                 </td>
                 <td style="vertical-align: top;">:</td>
                 <td colspan="9" style="font-size:16px; vertical-align: top;">
-                    <span style="text-decoration: underline">{{ empty($data->pemohonUkp11->alamat_pejabat) ?strtoupper(empty($data->pemohonPink) ? '' : $data->pemohonPink->alamat) : strtoupper($data->pemohonUkp11->alamat_pejabat)}}</span>
+                    <span style="text-decoration: underline; white-space: pre-wrap;" >{{ empty($data->pemohonUkp11->alamat_pejabat) ?strtoupper(empty($data->pemohonPink) ? '' : $data->pemohonPink->alamat) : strtoupper($data->pemohonUkp11->alamat_pejabat)}}</span>
                 </td>
             </tr>
             <tr class="word-line">

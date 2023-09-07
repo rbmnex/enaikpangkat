@@ -253,6 +253,14 @@
                             <div class="invalid-feedback"></div>
                         </div>
                     </div> --}}
+                    <div class="col-xl-12 col-md-6 col-12 mb-1">
+
+                        <div class="form-group">
+                            <label for="basicInput">Pemangkuan Ke Gred</label>
+                            <input type="text" class="form-control title-affair" id="basicInput4" placeholder=""/>
+                            <div class="invalid-feedback"></div>
+                        </div>
+                    </div>
 
                     <div class="col-xl-6 col-md-6 col-12 mb-1">
 
