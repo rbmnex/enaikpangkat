@@ -268,6 +268,7 @@ class BatchMgmtController extends Controller
         //$kod_jawatan = $request->input('kod_jawatan');
         $kod_gred = $request->input('kod_gred');
         $kod_jurusan = $request->input('kod_jurusan');
+        $title = $request->input('tajuk');
 
         $batch_id = $request->input('batch_id');
         $batch = Kumpulan::find($batch_id);
@@ -290,8 +291,8 @@ class BatchMgmtController extends Controller
         $model->disiplin = $jurusan->jurusan;
         $model->flag = 1;
         $model->delete_id = 0;
-        $model->tajuk = $batch->name;
-        $model->tkh_akhir = $dateline->format('d-m-Y');
+        $model->tajuk = empty($title) ? $batch->name : $title;
+        $model->tkh_akhir = $dateline->format('Y-m-d');
 
         if($model->save()) {
             $batch->updated_by = Auth::user()->nokp;
@@ -338,20 +339,25 @@ class BatchMgmtController extends Controller
 
                 $secure_link = Crypt::encryptString($model->id.'?kp='.$kp);
 
+                $email_title = $title ?? 'URUSAN PEMANGKUAN';
+                $tajuk = $email_title.' '.$pegawai->jawatan.' GRED '.$pegawai->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA';
+
                 $content = [
                     //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                     'link' => url('/')."/form/ukp12/apply/".$secure_link,
+                    'jawatan' => $pegawai->jawatan.' '.$pegawai->kod_gred,
                     'gred' => $kod_gred,
-                    'end_date' => $common->translateMonth($dateline->format('d M Y'))
+                    'end_date' => $common->translateMonth($dateline->format('d M Y')),
+                    'tajuk' => $tajuk
                 ];
                 try {
-                    Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
+                    Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred,$tajuk) {
                         // testing purpose
                         //$message->to('munirahj@jkr.gov.my',$calon->nama);
                         //$message->to('rubmin@vn.net.my',$pegawai->nama);
 
                         $message->to($pegawai->email,$pegawai->nama);
-                        $message->subject('URUSAN PEMANGKUAN '.$pegawai->jawatan.' GRED '.$pegawai->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                        $message->subject($tajuk);
 
                     });
                     Calon::where('kumpulan_id', $batch_id)->where('nokp', $pegawai->nokp)
@@ -662,7 +668,8 @@ class BatchMgmtController extends Controller
                 //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                 'link' => url('/')."/form/ukp12/apply/".$secure_link,
                 'gred' => $kumpulan->permohonan->gred,
-                'end_date' => $common->translateMonth($dateline->format('d M Y'))
+                'end_date' => $common->translateMonth($dateline->format('d M Y')),
+                'jawatan' => $pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred
             ];
 
             try {

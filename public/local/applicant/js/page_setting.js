@@ -42,6 +42,7 @@ DatatableUI.init({
                 var status_hod = full.pengesahan_hod;
                 var terima = full.terima;
                 var text = '';
+                var ccolor = '';
 
                 if(status == "BH") {
                     text = 'Dalam Tindakan';
@@ -61,11 +62,12 @@ DatatableUI.init({
                 } else if(status == "GL") {
                     text = 'Calon Gagal';
                 } else if(status == "PL") {
-                    text = 'Tolak Lantikan';
+                    text = 'Tolak Pemangkuan';
                 } else if(status == "MJ") {
                     text = 'Tunggu Jawapan';
                 } else if(status == "TL") {
-                    text = 'Terima Lantikan';
+                    text = 'Terima Pemangkuan';
+                    ccolor = 'style="background-color: pink;"';
                 } else if(status == "TK") {
                     text = 'Tunggu Keputusan LKPPA';
                 } else if(status == "LS") {
@@ -76,11 +78,11 @@ DatatableUI.init({
                     text = 'Menunggu Tindakan BPSK';
                 }
 
-                var badge = '<div class="badge badge-'+full.colour+'">'+text+'</div>';
+                var badge = '<div class="badge badge-'+full.colour+'" '+ccolor+'>'+text+'</div>';
                 if(terima == '1') {
-                    badge += '<div class="badge badge-primary">Terima</div>';
+                    badge += '<div class="badge badge-primary">Setuju</div>';
                 } else if(terima == '0') {
-                    badge += '<div class="badge badge-dark">Tolak</div>';
+                    badge += '<div class="badge badge-dark">Tidak Setuju</div>';
                 } else {
                     badge += '' ;
                 }
@@ -108,14 +110,18 @@ DatatableUI.init({
                 var btn = '';
                 var status =  full.status
                 if( (status != 'NA') && (status != 'BH') && (status != 'TA') ) {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Kemaskini</button>';
+
+
+                        btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light view-form">'+ feather.icons['file-text'].toSvg() +' Kemaskini</button>';
+
                     btn += '<button type="button" class="btn btn-icon btn-outline-primary mr-1 mb-1 waves-effect waves-light view-full">'+ feather.icons['file'].toSvg() +' JKR/UKP/12</button>';
                     // btn += '<button type="button" class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light delete-appliation">'+ feather.icons['trash-2'].toSvg() +' Hapus</button>';
 
 
                 }
-                if((status != 'NA') && (status != 'BH') && (status != 'TA') && (status != "SP") && (status != "PT")) {
+                if((status != 'NA') && (status != 'BH') && (status != 'TA') && (status != "SP") && (status != "PT" && status != 'PL' && status != 'TL')) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light verdict-applicant">'+ feather.icons['check-square'].toSvg() +' Keputusan</button>';
+
                 }
 
                 if( (status == "MJ") || (status == "PL") || (status == "TL") ) {

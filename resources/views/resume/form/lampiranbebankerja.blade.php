@@ -20,7 +20,7 @@
             <span class="col-form-label beban-file"></span>
 
              <div class="form-group col-md-12">
-                  <label class="col-form-label" style="font-style: italic" for="">* PDF – max size 5MB</label>
+                  <label class="col-form-label" style="font-style: italic; color: red;" for="">* PDF – saiz maksimum 2MB</label>
              </div>
 
      <div class="form-group col-md-12">

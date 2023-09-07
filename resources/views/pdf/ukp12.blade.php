@@ -129,7 +129,7 @@
                 <td></td>
                 <td></td>
                 <td style="line-height: 12px;">
-                    <span style="font-weight:bold; font-size: 16px; padding-bottom: 0px;">JKR/UKP/12</span><br/>
+                    <span style="font-weight:bold; font-size: 16px; padding-bottom: 0px;">@if($borang->jenis == 'UKP12') JKR/UKP/12 @elseif($borang->jenis == 'UKP13') JKR/UKP/13 @endif</span><br/>
                     <span style="font-style:italic; font-weight:bold; font-size: 10px;">Pindaan 1/2021</span>
                 </td>
             </tr>

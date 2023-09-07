@@ -16,7 +16,9 @@ Route::middleware('auth')->group(function () {
             Route::get('/get-pink-form-list',[PinkFormController::class,'getPinkFormList']);
             Route::post('/hantar',[PinkFormController::class,'hantar']);
             Route::get('/download-pink/{id}',[PinkFormController::class,'display_pink']);
-            Route::post('/resend',[PinkFormController::class,'resend']);
+            Route::get('/load-pink/{id}',[PinkFormController::class,'load_pinkform']);
+            Route::post('/kemaskini',[PinkFormController::class,'update_pinkform']);
+
         });
     });
 
@@ -60,7 +62,7 @@ Route::prefix('/naikpangkat')->group(function() {
         Route::get('/apply/{id}',[NaikpangkatController::class,'apply'])->middleware(['auth']);
         Route::post('/borang-submit',[NaikpangkatController::class,'submit_application']);
         Route::get('/download/part',[NaikpangkatController::class,'download_form_part']);
-      
+
         Route::prefix('/api')->group(function() {
             Route::post('/upload',[NaikpangkatController::class,'upload_file']);
             Route::post('/normal-submit',[NaikpangkatController::class,'submit_normal']);

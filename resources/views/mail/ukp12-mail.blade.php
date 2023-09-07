@@ -6,7 +6,7 @@
                   <div class="card-body">
                         <p>Assalamualaikum WBT & Salam Sejahtera,</p>
                         <p>Tuan/Puan,</p>         
-                        <p><strong>PERKARA : URUSAN PEMANGKUAN KE GRED {{ $gred }} DI JABATAN KERJA RAYA MALAYSIA</strong></p>
+                        <p><strong>PERKARA : {{ $tajuk }} {{ $jawatan }} KE GRED {{ $gred }} DI JABATAN KERJA RAYA MALAYSIA</strong></p>
                         <p>Dengan segala hormatnya saya merujuk perkara di atas.</p>
                         <p>2. &emsp; Sukacita dimaklumkan bahawa Bahagian Pengurusan Sumber Manusia, Cawangan Dasar dan Pengurusan Korporat akan melaksanakan urusan pemangkuan tuan/puan <!--ke Pemangkuan--> ke Gred {{ $gred }}</p> 
                         <p>3. &emsp; Sehubungan itu, pejabat ini memohon jasa baik tuan/puan agar dapat melengkapkan maklumat-maklumat yang diperlukan <strong>(KECUALI RESUME) <!--selewat-lewatnya--> sebelum atau pada {{ $end_date }} (sehingga selesai perakuan oleh Ketua Jabatan)</strong> melalui pautan link seperti di bawah:</p>
@@ -15,11 +15,11 @@
                         <table border =1 style="border: 1px solid black;border-collapse: collapse;">
                             <tr>
                                 <th> Bil</th>
-                                <th> Nama</th>
-                                <th> No. Tel</th>
+                                {{-- <th> Nama</th> --}}
                                 <th> Disiplin</th>
+                                <th> No. Tel</th>
                             </tr>
-                            <tr>
+                            {{-- <tr>
                                 <td><strong>1.</strong></td>
                                 <td><strong>Ar. Syuhada binti Mohd Amin (J44)</strong><br/></td>
                                 <td>03-2618 8631 / 8624</td>
@@ -30,30 +30,30 @@
                                 <td><strong>Norshazila binti Mahmood (J44)</strong></td>
                                 <td>03-2618 8622 / 8624</td>
                                 <td>Awam</td>
+                            </tr> --}}
+                            <tr>
+                                <td><strong>1.</strong></td>
+                                {{-- <td><strong>Maisarah binti Rosli (J41)</strong></td> --}}
+                                <td>Awam</td>
+                                <td>03-2618 8622/8413/9892/8624</td>
+                            </tr>
+                            <tr>
+                                <td><strong>2.</strong></td>
+                                {{-- <td><strong>Nur Atika binti Mohd Rohani (JA29)</strong></td> --}}
+                                <td>Mekanikal & Elektrik</td>
+                                <td>03-2618 8623/8624/8477/8624</td>
                             </tr>
                             <tr>
                                 <td><strong>3.</strong></td>
-                                <td><strong>Maisarah binti Rosli (J41)</strong></td>
-                                <td>03-2618 8623 / 8624</td>
-                                <td>Mekanikal / Elektrik</td>
+                                {{-- <td><strong>Zalifah Nor binti Abd Karim (N19)</strong></td> --}}
+                                <td>Arkitek & Ukur Bangunan</td>
+                                <td>03-2618 8631/8477/8624</td>
                             </tr>
                             <tr>
                                 <td><strong>4.</strong></td>
-                                <td><strong>Nur Atika binti Mohd Rohani (JA29)</strong></td>
-                                <td>03-2618 8413</td>
-                                <td>Awam / Juruukur Bahan</td>
-                            </tr>
-                            <tr>
-                                <td><strong>5.</strong></td>
-                                <td><strong>Zalifah Nor binti Abd Karim (N19)</strong></td>
-                                <td>03-2618 8477</td>
-                                <td>Mekanikal / Elektrik</td>
-                            </tr>
-                            <tr>
-                                <td><strong>6.</strong></td>
-                                <td><strong>Norhazimah binti Mustafa (N19)</strong></td>
-                                <td>03-2618 8477</td>
-                                <td>Arkitek / Juruukur Bangunan</td>
+                                {{-- <td><strong>Norhazimah binti Mustafa (N19)</strong></td> --}}
+                                <td>Ukur Bahan</td>
+                                <td>03 - 2618 8631/8637/8624</td>
                             </tr>
                         </table>
                         <p>Kerjasama dan tindakan segera daripada pihak tuan/puan adalah amat diharapkan agar dapat melancarkan proses berkaitan. Sebarang kelewatan akan menjejaskan urusan pemangkuan ini.</p>

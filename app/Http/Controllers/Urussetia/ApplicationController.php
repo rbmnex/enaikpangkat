@@ -10,10 +10,8 @@ use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PermohonanUkp12;
 use App\Models\Urussetia\Kumpulan;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
 use Yajra\DataTables\DataTables;
 
@@ -67,7 +65,7 @@ class ApplicationController extends Controller
 
     public function applicant_info(Request $request) {
         $permohon_id = $request->input('id');
-        $pemohon = Pemohon::find($permohon_id);
+        $pemohon = Pemohon::with('pemohonPeribadi','pemohonPermohonan')->find($permohon_id);
         $peribadi = $pemohon->pemohonPeribadi;
         $permohonan = $pemohon->pemohonPermohonan;
 
@@ -81,7 +79,8 @@ class ApplicationController extends Controller
                 'status' => $pemohon->status,
                 'rank' => $pemohon->ranking,
                 'bil' => $permohonan->bil_mesyuarat,
-                'tkh' => empty($permohonan->tarikh_mesyuarat) ? '' : \Carbon\Carbon::parse($permohonan->tarikh_mesyuarat)->format('d-m-Y')
+                'tkh' => empty($permohonan->tarikh_mesyuarat) ? '' : \Carbon\Carbon::parse($permohonan->tarikh_mesyuarat)->format('d-m-Y'),
+                'cc' => $permohonan->email_cc
             ]
         ]);
     }
@@ -96,6 +95,17 @@ class ApplicationController extends Controller
         $rank = $request->input('rank');
         $bil_mesyuarat = $request->input('bil');
         $tkh_mesyuarat = $request->input('date');
+        $email_cc = $request->input('cc');
+
+        $cc = [];
+        if($email_cc) {
+            if(str_contains($email_cc,',')) {
+                $cc = explode(',',$email_cc);
+            } else {
+                $cc[] = $email_cc;
+            }
+        }
+
         $record =  Pemohon::find($pemohon_id);
         $form = PermohonanUkp12::find($record->id_permohonan);
 
@@ -120,29 +130,31 @@ class ApplicationController extends Controller
             $form->bil_mesyuarat = $bil_mesyuarat;
             $form->tarikh_mesyuarat = empty($tkh_mesyuarat) ? NULL : \Carbon\Carbon::createFromFormat('d-m-Y', $tkh_mesyuarat)->format('Y-m-d');
             $form->updated_by = Auth::user()->nokp;
-
+            $form->email_cc = $email_cc;
             $form->save();
             $common = new CommonController();
 
             if($verdict == 2) {
                 $content = [
-                    'title' => 'KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
-                    'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
+                    'title' => 'KEPUTUSAN PEMANGKUAN '.$record->jawatan.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.' DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
+                    // 'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
+                    'gelaran' => $record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan',
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
                     'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
                     'tarikh' => $common->translateMonth(\Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('d M Y')),
                     'nama' => $record->pemohonPeribadi->nama,
+                    'alamat' => $record->alamat_pejabat
                 ];
                 try {
-                    Mail::mailer('smtp')->send('mail.simpanan-mail',$content,function($message) use ($record) {
+                    Mail::mailer('smtp')->send('mail.simpanan-mail',$content,function($message) use ($record,$cc) {
                         // testing purpose
                         //$message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
-                        //$message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
+                        // $message->to('rubmin@mantasoft.com.my',$record->pemohonPeribadi->nama);
                         $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
-
-                        $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
+                        $message->cc($cc);
+                        $message->subject('KEPUTUSAN PEMANGKUAN '.$record->jawatan.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.' DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
 
                     });
                     return response()->json([
@@ -162,25 +174,28 @@ class ApplicationController extends Controller
                 }
             } else if($verdict == 0) {
                 $content = [
-                    'title' => 'KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
-                    'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
+                    'title' => 'KEPUTUSAN PEMANGKUAN '.$record->jawatan.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.' DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
+                    // 'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
+                    'gelaran' => $record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan',
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
                     'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
                     'tarikh' => $common->translateMonth(\Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('d M Y')),
-                    'nama' => $record->pemohonPeribadi->nama
+                    'nama' => $record->pemohonPeribadi->nama,
+                    'alamat' => $record->alamat_pejabat
                 ];
                 try {
-                    Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record) {
+                    Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record,$cc) {
                         // testing purpose
                         //$message->to('enaikpangkat@jkr.gov.my',$record->pemohonPeribadi->nama);
-                        //$message->to('rubmin@vn.net.my',$record->pemohonPeribadi->nama);
+                        // $message->to('rubmin@mantasoft.com.my',$record->pemohonPeribadi->nama);
                         $message->to($record->pemohonPeribadi->email,$record->pemohonPeribadi->nama);
                         //$message->to('munirahj@jkr.gov.my',$record->pemohonPeribadi->nama);
 
                         //$message->to($kerani_user->email,$kerani_user->name);
-                        $message->subject('KEPUTUSAN PEMANGKUAN '.$record->pemohonPermohonan->disiplin.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.', JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
+                        $message->cc($cc);
+                        $message->subject('KEPUTUSAN PEMANGKUAN '.$record->jawatan.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.' DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA');
 
                     });
                     return response()->json([
@@ -264,7 +279,9 @@ class ApplicationController extends Controller
             $model =  collect();
         } else {
             $candidates = $batch->calons;
-            $candidates->each(function ($item, $key) use ($batch) {
+            $candidates->filter(function($item, $key) {
+                return !empty($item->nokp);
+            })->each(function ($item, $key) use ($batch) {
                 $info = $this->get_info($item->nokp,$batch->permohonan_id);
                 $item->email_status = empty($item->status) ? 'UNKNOWN' : $item->status;
                 $item->nama = html_entity_decode($info['name']);

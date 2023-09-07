@@ -61,11 +61,11 @@ DatatableUI.init({
                     );
                 } else if(row_flag == 'TL'){
                     return (
-                        '<div class="badge badge-warning">Terima Lantikan</div>'
+                        '<div class="badge badge-warning" style="background-color: pink;">Terima Pemangkuan</div>'
                     );
                 } else if(row_flag == 'PL'){
                     return (
-                        '<div class="badge badge-warning">Tolakan Lantikan</div>'
+                        '<div class="badge badge-dark">Tolakan Pemangkuan</div>'
                     );
                 } else if(row_flag == 'MT'){
                     return (
@@ -108,18 +108,22 @@ DatatableUI.init({
                 let row_fail = full.fail_id;
                 let btn = '';
 
-                if(row_status == "MJ" || row_status == "LL" || row_status == "MT") {
-                    btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pinkform" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Hantar</button>';
+                //|| row_status == "MJ"
+                if(row_status == "MT" || row_status == "LL") {
+
+                        btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light update-pinkform">'+ feather.icons['send'].toSvg() +' Hantar</button>';
+
                 }
 
-                    if((row_flag == 'FAILED' || row_flag == null) && (row_status == "MJ" || row_status == "LL" || row_status == "MT")) {
+                if((row_flag == 'FAILED' || row_flag == null) && (row_status == "MJ" || row_status == "LL" || row_status == "MT")) {
                         btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light resend-pinkform" >'+ feather.icons['mail'].toSvg() +'  Hantar Semula</button>';
 
                     }
 
-                    if(row_fail != null) {
-                        btn += '<button type="button" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light download-pinkform" >'+ feather.icons['download'].toSvg() +' Muat turun</button>';
-                    }
+                if(row_fail != null) {
+                    btn += '<button type="button" class="btn btn-icon btn-outline-warning mr-1 mb-1 waves-effect waves-light edit-pinkform" >'+ feather.icons['edit'].toSvg() +' Kemaskini</button>';
+                    btn += '<button type="button" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light download-pinkform" >'+ feather.icons['download'].toSvg() +' Muat turun</button>';
+                }
                 //}
                 return btn;
             }

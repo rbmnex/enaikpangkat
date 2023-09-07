@@ -6,12 +6,13 @@
                   <div class="card-body">
                         <p>Assalamualaikum WBT & Salam Sejahtera,</p>
                         <p>Tuan/Puan,</p>
-                        <p><strong>PERKARA : PENGESAHAN LAPOR DIRI (BORANG UKP 11) PEGAWAI UNTUK URUSAN PEMANGKUAN</strong></p>
-                        <p>Merujuk perkara diatas, pihak Tuan/Puan diminta untuk memberi pengesahan lapor diri (Borang UKP P11) untuk pegawai bernama {{ $nama }} berjawatan {{ $jawatan }} {{ $gred }} dengan nombor kad pengenalan {{ $nokp }} untuk urusan pemangkuan.</p>
+                        <p><strong>PERKARA : PENGESAHAN PENERIMAAN PEMANGKUAN (JKR/UKP/11) PEGAWAI UNTUK URUSAN PEMANGKUAN</strong></p>
+                        <p>Dengan hormatnya merujuk perkara diatas, pihak tuan/puan diminta untuk memberi pengesahan lapor diri (Borang JKR/UKP/11) untuk pegawai bernama {{ $nama }} berjawatan {{ $jawatan }} {{ $gred }} dengan nombor kad pengenalan {{ $nokp }} untuk urusan pemangkuan.</p>
                         <p>Sila gunakan pautan link dibawah ini untuk memulakan proses pengesahan :</p>
                         <p>Pautan Link  :   {{ $link }}</p>
                         <p>Sekian, terima kasih.</p>
                         <!--<p><strong>“WAWASAN KEMAKMURAN BERSAMA 2030”</strong></p>-->
+                        <p><strong>“MALAYSIA MADANI”</strong></p>
                         <p><strong>“BERKHIDMAT UNTUK NEGARA”</strong></p>  
                         <p>Saya yang menjalankan amanah,</p>
                         <span><strong>URUS SETIA KENAIKAN PANGKAT</strong></span><br/>

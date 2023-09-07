@@ -48,19 +48,22 @@ $('.table-resume').DataTable({
                 let lampiran3= '';
                 let btn = '';
                     if(full.get_lampiran != null){
-                        lampiran3 +='<a href="'+ window.location.origin + full.get_lampiran.path +'" download  title="Lampiran 3" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L3</a>';
+                        lampiran3 +='<a href="'+ getUrl() + '/' + full.get_lampiran.path +'" download  title="Lampiran 2" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L2</a>';
                     }else{
                         lampiran3 += '';
+                    }
+                    if(full.get_isytihar_harta != null) {
+                        lampiran3 +='<a href="'+ getUrl() + '/' + full.get_isytihar_harta.path +'" download  title="Isytihar Harta" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L6</a>';
                     }
                     if(role_jusa == 1) {
                         btn +=
                         '<button title="Hantar" type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +'</button>';
                     }
                     btn +=
-                    '<a href="/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>';
+                    '<a href="'+ getUrl() +'/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>';
 
                     btn +=
-                    '<a href="/urussetia/resume/resume/'+nokp+'"  title="Muat Turun"class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['printer'].toSvg() +'</a>' +
+                    '<a href="'+ getUrl() +'/urussetia/resume/resume/'+nokp+'"  title="Muat Turun"class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['printer'].toSvg() +'</a>' +
                     lampiran3
 
 
@@ -175,17 +178,17 @@ $('.table-terpilih').DataTable({
                 let lampiran3= '';
                let btn = '';
                     if(full.get_lampiran != null){
-                        lampiran3 +='<a href="'+ window.location.origin + full.get_lampiran.path +'" download  title="Lampiran 3" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L3</a>';
+                        lampiran3 +='<a href="'+ getUrl() + '/' + full.get_lampiran.path +'" download  title="Lampiran 2" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L2</a>';
                     }else{
                         lampiran3 += '';
                     }
                     if(full.get_isytihar_harta != null) {
-                        lampiran3 +='<a href="'+ window.location.origin + full.get_isytihar_harta.path +'" download  title="Isytihar Harta" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L5</a>';
+                        lampiran3 +='<a href="'+ getUrl() + '/' + full.get_isytihar_harta.path +'" download  title="Isytihar Harta" class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light data-toggle="_blank" data-target=">'+ feather.icons['paperclip'].toSvg() +' L6</a>';
                     }
                     btn +=
                     '<button title="Hantar" type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light hantar-signal" >'+ feather.icons['send'].toSvg() +'</button>' +
-                    '<a href="/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>' +
-                    '<a href="/urussetia/resume/resume/'+nokp+'"  title="Muat Turun"class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['printer'].toSvg() +'</a>' +
+                    '<a href="'+ getUrl() +'/urussetia/resume/paparanall/'+nokp+'"  title="Papar"class="btn btn-icon btn-outline-success mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['eye'].toSvg() +'</a>' +
+                    '<a href="'+ getUrl() +'/urussetia/resume/resume/'+nokp+'"  title="Muat Turun"class="btn btn-icon btn-outline-danger mr-1 mb-1 waves-effect waves-light" target="_blank" data-target="">'+ feather.icons['printer'].toSvg() +'</a>' +
                     lampiran3
 
 

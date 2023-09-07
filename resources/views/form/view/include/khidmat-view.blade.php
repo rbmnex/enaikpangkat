@@ -34,7 +34,7 @@
                             <label class="col-form-label" for="first-name">Jawatan</label>
                         </div>
                         <div class="col-sm-10">
-                            <input type="text" id="jawatan_kerani" readonly class="form-control jawatan_kerani" value="{{ empty($pemohon->pengesahan_perkhidmatan_jawatan) ? $clerk['jawatan'] : $pemohon->pengesahan_perkhidmatan_jawatan }}" placeholder="">
+                            <input type="text" id="jawatan_kerani" readonly class="form-control jawatan_kerani" value="{{ empty($pemohon->pengesahan_perkhidmatan_jawatan) ? $clerk['jawatan'].' '.$clerk['gred'] : $pemohon->pengesahan_perkhidmatan_jawatan }}" placeholder="">
                         </div>
                     </div>
                 </div>

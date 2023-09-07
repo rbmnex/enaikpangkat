@@ -1,12 +1,22 @@
-$(document).on('click', '.update-pinkform', function(){
-    $('#pemohon-id').val($(this).closest('tr').attr('data-pemohon-id'));
+$(document).on('click', '.update-pinkform, .edit-pinkform', function(){
+    let pemohon_id = $(this).closest('tr').attr('data-pemohon-id');
+    $('#pemohon-id').val(pemohon_id);
+    let selectedClass = $(this);
 
-    ModalUI.modal({
-        selector: '#pinkform-modal',
-        mode: 'show',
-        color: 'modal-info',
-        label: 'Hantar Pink Form',
-    });
+    if(selectedClass.hasClass('update-pinkform')) {
+        ModalUI.modal({
+            selector: '#pinkform-modal',
+            mode: 'show',
+            color: 'modal-info',
+            label: 'Hantar Pink Form',
+        });
+    } else if(selectedClass.hasClass('edit-pinkform')) {
+        PinkFormController.loadPink({
+            url : 'hr2/pinkform/load-pink/'+pemohon_id
+        })
+    }
+
+
 });
 
 $(document).on('click', '.download-pinkform, .resend-pinkform', function(){
@@ -37,17 +47,18 @@ $(document).on('click', '.download-pinkform, .resend-pinkform', function(){
 
 $(document).on('click', '#pinkform-hantar', function(){
    let validate = new Validation();
-   let curThis = $(this);
-   let trigger = '';
 
     let v = validate.checkEmpty(
         validate.getValue('#pinkform-name', 'mix', 'Nama', 'pinkform_name'),
         validate.getValue('#pinkform-tkh-lapor-diri', 'mix', 'Tarikh Lapor Diri', 'pinkform_tkh'),
         validate.getValue('#pinkform-borang', 'picture', 'Borang', 'pinkform_borang'),
-        validate.getValue('#pinkform-alamat-pejabat', 'mix', 'Borang', 'pinkform_alamat'),
-        validate.getValue('#pinkform-jenis-penempatan', 'mix', 'Borang', 'pinkform_jenis')
+        // validate.getValue('#pinkform-alamat-pejabat', 'mix', 'Borang', 'pinkform_alamat'),
+        validate.getValue('#pinkform-jenis-penempatan', 'mix', 'Jenis Penempatan', 'pinkform_jenis'),
+        validate.getValue('#pinkform-kategori', 'mix', 'Kategori', 'pinkform_kategori')
     );
 
+    v.append('pinkform_catatan', $('#pinkform-catatan').val());
+    v.append('pinkform_cc', $('#pinkform-emailcc').val());
     v.append('pemohon_id', $('#pemohon-id').val());
 
     SwalUI.init({
@@ -66,36 +77,73 @@ $(document).on('click', '#pinkform-hantar', function(){
 
 });
 
-$(document).on('click', '.fasiliti-activate', function(){
-    let id = $(this).closest('tr').attr('data-fasiliti-id');
-    let curThis = $(this);
-    let trigger = '';
+$(document).on('click', '#pinkform-kemaskini', function(){
+    let validate = new Validation();
 
-    if(curThis.hasClass('btn-outline-success')){
-        curThis.removeClass('btn-outline-success').addClass('btn-outline-danger');
-        trigger = 0;
-    }else if(curThis.hasClass('btn-outline-danger')){
-        curThis.removeClass('btn-outline-danger').addClass('btn-outline-success');
-        trigger = 1;
-    }
+     let v = validate.checkEmpty(
+         validate.getValue('#pinkform-name-1', 'mix', 'Nama', 'pinkform_name'),
+         validate.getValue('#pinkform-tkh-lapor-diri-1', 'mix', 'Tarikh Lapor Diri', 'pinkform_tkh'),
+        //  validate.getValue('#pinkform-borang-1', 'picture', 'Borang', 'pinkform_borang'),
+         // validate.getValue('#pinkform-alamat-pejabat', 'mix', 'Borang', 'pinkform_alamat'),
+         validate.getValue('#pinkform-jenis-penempatan-1', 'mix', 'Jenis Penempatan', 'pinkform_jenis'),
+         validate.getValue('#pinkform-kategori-1', 'mix', 'Kategori', 'pinkform_kategori')
+     );
 
-    let v = Common.emptyRequest();
-    v.append('id', id);
+     v.append('pinkform_borang', $('#pinkform-borang-1')[0].files[0]);
+     v.append('pinkform_catatan', $('#pinkform-catatan-1').val());
+     v.append('pinkform_cc', $('#pinkform-emailcc-1').val());
+     v.append('email_trigger', 0);
+     v.append('pemohon_id', $('#pemohon-id').val());
+     v.append('pink_id', $('#pink-id').val());
 
-    FasilitiController.activateFasiliti({
-        url: 'admin/tetapan/fasiliti/activate',
-        data: v,
-        trigger: trigger
-    });
-});
+     SwalUI.init({
+         title: "Adakah Anda Pasti?",
+         subtitle: "Data akan dihantar",
+         icon: "info",
+         confirmText: "Hantar",
+         callback: function() {
+             PinkFormController.kemaskiniForm({
+                 url: 'hr2/pinkform/kemaskini',
+                 data: v,
+             });
+         }
+     });
 
-$(document).on('click', '.fasiliti-delete', function (){
-    let id = $(this).closest('tr').attr('data-fasiliti-id');
-    let data = Common.emptyRequest();
-    data.append('id', id);
 
-    FasilitiController.deleteFasiliti({
-        url: 'admin/tetapan/fasiliti/delete',
-        data: data,
-    });
-});
+ });
+
+ $(document).on('click', '#pinkform-email', function(){
+    let validate = new Validation();
+
+     let v = validate.checkEmpty(
+         validate.getValue('#pinkform-name-1', 'mix', 'Nama', 'pinkform_name'),
+         validate.getValue('#pinkform-tkh-lapor-diri-1', 'mix', 'Tarikh Lapor Diri', 'pinkform_tkh'),
+        //  validate.getValue('#pinkform-borang-1', 'picture', 'Borang', 'pinkform_borang'),
+         // validate.getValue('#pinkform-alamat-pejabat', 'mix', 'Borang', 'pinkform_alamat'),
+         validate.getValue('#pinkform-jenis-penempatan-1', 'mix', 'Jenis Penempatan', 'pinkform_jenis'),
+         validate.getValue('#pinkform-kategori-1', 'mix', 'Kategori', 'pinkform_kategori')
+     );
+     //
+     v.append('pinkform_borang', $('#pinkform-borang-1')[0].files[0]);
+     v.append('pinkform_catatan', $('#pinkform-catatan-1').val());
+     v.append('pinkform_cc', $('#pinkform-emailcc-1').val());
+     v.append('email_trigger', 1);
+     v.append('pemohon_id', $('#pemohon-id').val());
+     v.append('pink_id', $('#pink-id').val());
+
+     SwalUI.init({
+         title: "Adakah Anda Pasti?",
+         subtitle: "Data akan dihantar",
+         icon: "info",
+         confirmText: "Hantar",
+         callback: function() {
+             PinkFormController.hantarForm({
+                 url: 'hr2/pinkform/kemaskini',
+                 data: v,
+             });
+         }
+     });
+
+
+ });
+

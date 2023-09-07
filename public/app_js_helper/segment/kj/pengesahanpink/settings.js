@@ -45,11 +45,11 @@ DatatableUI.init({
                     );
                 } else if(row_flag == 'TL'){
                     return (
-                        '<div class="badge badge-warning">Terima Lantikan</div>'
+                        '<div class="badge badge-success">Terima Pemangkuan</div>'
                     );
                 } else if(row_flag == 'PL'){
                     return (
-                        '<div class="badge badge-warning">Tolakan Lantikan</div>'
+                        '<div class="badge badge-warning">Tolakan Pemangkuan</div>'
                     );
                 }
 
@@ -67,7 +67,7 @@ DatatableUI.init({
                 if(row_status == '' || row_status == null) {
                     btn += '<button type="button" class="btn btn-icon btn-outline-info mr-1 mb-1 waves-effect waves-light semak-pengesahan" data-pemohon="'+ full.id_pemohon +'" data-toggle="modal" data-target="#pink_modal">'+ feather.icons['send'].toSvg() +' Semak</button>';
                 }else{
-                    btn += 'Diluluskan';
+                    btn += 'Disahkan';
                 }
                 return btn;
             }

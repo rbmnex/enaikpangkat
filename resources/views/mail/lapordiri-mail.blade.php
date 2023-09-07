@@ -8,7 +8,7 @@
 
                   <p>Tuan/Puan,</p>
 
-                  <p><strong>PEMBERITAHUAN PERTUKARAN {{ $jawatan }}</strong></p>
+                  <p><strong>{{ $tajuk }} {{ $jawatan }}</strong></p>
 
                   <p>Dengan segala hormatnya perkara di atas adalah dirujuk.</p>
 
@@ -20,7 +20,7 @@
                   <span>                    Pautan Link  :   {{ $link }}</span><br/>
 
                   <span>             ii.   Tuan/puan boleh menggunakan salinan surat yang dilampirkan untuk tujuan melapor diri.</span><br/>
-                  <span>Pautan Pink Form  :   {{ $pink }}</span><br/>
+                  {{-- <span>Pautan Pink Form  :   {{ $pink }}</span><br/> --}}
 
                   <span>             iii.  Sila ambil surat asal di Tingkat 30 Blok G, Ibu Pejabat JKR Kuala Lumpur</span>
                   </p>

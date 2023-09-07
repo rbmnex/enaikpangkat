@@ -316,14 +316,15 @@
         context: this,
         success: function(data) {
             let result = data.data;
-            $('.pengguna-nama').val(result.nama);
-            $('.pengguna-email').val(result.emel);
-            $('.pengguna-nokp').val(result.nokp);
-            $('.pengguna-cawangan').val(result.cawangan);
-            $('.pengguna-bahagian').val(result.bahagian);
-            $('.pengguna-unit').val(result.unit);
-            $('.pengguna-pejabat').val(result.pejabat);
-            $('.pengguna-jawatan').val(result.jawatan+' '+result.gred);
+
+            $('.pegawai-nama').val(result.nama);
+            $('.pegawai-email').val(result.emel);
+            $('.pegawai-nokp').val(result.nokp);
+            $('.pegawai-cawangan').val(result.cawangan);
+            $('.pegawai-bahagian').val(result.bahagian);
+            $('.pegawai-unit').val(result.unit);
+            $('.pegawai-pejabat').val(result.pejabat);
+            $('.pegawai-jawatan').val(result.jawatan+' '+result.gred);
         }
     });
     @endif
@@ -338,14 +339,15 @@
         context: this,
         success: function(data) {
             let result = data.data;
-            $('.pegawai-nama').val(result.nama);
-            $('.pegawai-email').val(result.emel);
-            $('.pegawai-nokp').val(result.nokp);
-            $('.pegawai-cawangan').val(result.cawangan);
-            $('.pegawai-bahagian').val(result.bahagian);
-            $('.pegawai-unit').val(result.unit);
-            $('.pegawai-pejabat').val(result.pejabat);
-            $('.pegawai-jawatan').val(result.jawatan+' '+result.gred);
+
+            $('.pengguna-nama').val(result.nama);
+            $('.pengguna-email').val(result.emel);
+            $('.pengguna-nokp').val(result.nokp);
+            $('.pengguna-cawangan').val(result.cawangan);
+            $('.pengguna-bahagian').val(result.bahagian);
+            $('.pengguna-unit').val(result.unit);
+            $('.pengguna-pejabat').val(result.pejabat);
+            $('.pengguna-jawatan').val(result.jawatan+' '+result.gred);
         }
     });
     @endif

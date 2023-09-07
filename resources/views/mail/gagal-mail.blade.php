@@ -9,14 +9,10 @@
     <span><strong>NO. KAD PENGENALAN : {{ $nokp }}</strong></span>
 </p>
 
-<p>Melalui dan salinan kepada</p>
+<p>Melalui dan salinan kepada;</p>
 <p>
     <span>Pengarah Kanan</span><br/>
-    <span>Cawangan Kejuruteraan Mekanikal</span><br/>
-    <span>Tkt 24-28 , Blok G</span><br/>
-    <span>Ibu Pejabat JKR Malaysia</span><br/>
-    <span>No.6, Jalan Sultan Salahuddin</span><br/>
-<span><strong>50480 KUALA LUMPUR</strong></span>
+    <span style="white-space: pre-wrap;">{{ $alamat }}</span><br/>
 </p>
 <p>
 {{ $gelaran }},
@@ -29,11 +25,11 @@ Dengan hormatnya saya diarah merujuk kepada perkara di atas.
 </p>
 
 <p>
-    2.	Dukacita dimaklumkan, urusan pemangkuan {{ $gelaran }}  ke Gred {{ $gred_pemangku }} <strong>tidak diluluskan</strong> oleh <strong>Mesyuarat Lembaga Kenaikan Pangkat Perkhidmatan Awam (LKPPA) Bil. {{ $count }} Tahun {{ $year }}</strong> bertarikh <strong>{{ $tarikh }}.</strong>
+    2.	Dukacita dimaklumkan, urusan pemangkuan {{ strtolower($gelaran) }}  ke Gred {{ $gred_pemangku }} <strong>tidak diluluskan</strong> oleh <strong>Mesyuarat Lembaga Kenaikan Pangkat Perkhidmatan Awam (LKPPA) Bil. {{ str_contains($count,"/") ? substr($count,0,strpos($count,"/")) : $count }} Tahun {{ $year }}</strong> bertarikh <strong>{{ ucwords(strtolower($tarikh)) }}.</strong>
 </p>
 
 <p>
-3.	Sekiranya {{ $gelaran }} tidak berpuas hati dengan keputusan ini, {{ $gelaran }} boleh mengemukakan rayuan dalam tempoh tiga puluh (30) hari dari tarikh keputusan ini diberitahu. Rayuan hendaklah dialamatkan kepada <strong>Pengerusi, Lembaga Rayuan Kenaikan Pangkat Perkhidmatan Awam</strong> yang berkenaan selaras  dengan  Peraturan 23  dan  24 Peraturan yang sama.
+3.	Sekiranya {{ strtolower($gelaran) }} tidak berpuas hati dengan keputusan ini, {{ strtolower($gelaran) }} boleh mengemukakan rayuan dalam tempoh tiga puluh (30) hari dari tarikh keputusan ini diberitahu. Rayuan hendaklah dialamatkan kepada <strong>Pengerusi, Lembaga Rayuan Kenaikan Pangkat Perkhidmatan Awam</strong> yang berkenaan selaras  dengan  Peraturan 23  dan  24 Peraturan yang sama.
 </p>
 <p>
 Sekian, terima kasih.
@@ -41,6 +37,7 @@ Sekian, terima kasih.
 <p>
 <!--<strong>“WAWASAN KEMAKMURAN BERSAMA 2030”</strong>-->
 </p>
+<p><strong>“MALAYSIA MADANI”</strong></p>
 <p>
     <strong>‘‘BERKHIDMAT UNTUK NEGARA’’</strong>
 </p>
@@ -49,7 +46,7 @@ Sekian, terima kasih.
     Saya yang menjalankan amanah,
 </p>
 <p>
-<span><strong>(NORAZIAN BINTI SALLEH)</strong></span><br/>
+<span><strong>(TEE GET LIEN)</strong></span><br/>
 <span>Bahagian Pengurusan Sumber Manusia</span><br/>
 <span>b.p. Ketua Pengarah Kerja Raya</span><br/>
 <span>Jabatan Kerja Raya Malaysia</span><br/>

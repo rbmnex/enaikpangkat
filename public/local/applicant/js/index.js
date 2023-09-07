@@ -27,6 +27,7 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
                     $('#verdict-jawatan').val(parseData.jawatan);
                     $('#verdict-gred').val(parseData.gred);
                     $('#verdict-rank').val(parseData.rank);
+                    $('#emailcc').val(parseData.cc);
                     if(parseData.status == 'LL' || parseData.status == 'MT' || parseData.status == 'MJ' || parseData.status == 'TL' || parseData.status == 'PL') {
                         $('#radio-verdict-1').attr('checked','checked');
                         $('#radio-verdict-2').removeAttr('checked');
@@ -68,6 +69,7 @@ $(document).on('click','.view-form, .back-main, .verdict-applicant, .btn-verdict
         data.append('rank',$('#verdict-rank').val());
         data.append('bil',$('#verdict-meeting').val());
         data.append('date',$('#verdict-date').val());
+        data.append('cc',$('#emailcc').val());
         if(valid) {
             swalAjax({
                 titleText : 'Adakah Anda Pasti?',

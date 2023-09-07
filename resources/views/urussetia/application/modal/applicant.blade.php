@@ -44,6 +44,11 @@
                         <input id="verdict-date" type="text" class="form-control"  value="" placeholder="" />
                         <div class="invalid-feedback"></div>
                     </div>
+                    <div class="form-group col-md-6">
+                        <label class="col-form-label" for="vertical-username">CC Emel</label>
+                        <input type="email" class="form-control" id="emailcc" placeholder="nama1@mail.com,nama2@mail.com,nama3@mail.com" multiple/>
+                        <div class="invalid-feedback"></div>
+                    </div>
                     <div class="form-group col-md-12">
                         <label class="col-form-label" for="vertical-username">Keputusan</label>
                     </div>

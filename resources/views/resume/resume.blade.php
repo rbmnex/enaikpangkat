@@ -786,8 +786,8 @@
                        <li>LAMPIRAN 1 - KURSUS DAN SEMINAR YANG DIHADIRI</li>
                        <li>LAMPIRAN 2 - LAMPIRAN DESKRIPSI TUGAS (JD)</li>
                        <li>LAMPIRAN 3 - SENARAI PROJEK BESERTA KOS (DI PENEMPATAN SEMASA SAHAJA)</li>
-                       <li>LAMPIRAN 4 - SENARAI KEPAKARAN</li>
-                       <li>LAMPIRAN 5 - SENARAI PENCAPAIAN TERTINGGI</li>
+                       {{-- <li>LAMPIRAN 4 - SENARAI KEPAKARAN</li>
+                       <li>LAMPIRAN 5 - SENARAI PENCAPAIAN TERTINGGI</li> --}}
                     </ul>
                 </td>
              </tr>
@@ -797,7 +797,27 @@
     <pre><br clear=all style='mso-special-character:line-break;page-break-before:always'></pre>
 
     <p style="page-break-after: always;">&nbsp;</p>
+    @php
+    $user = Auth::user();
+    $allow = false;
+    if(\Laratrust::hasRole('user')) {
+        if(\Laratrust::hasRole('admindisiplin')) {
+            if($user->nokp == $model['nokp']) {
+                $allow = true;
+            } else {
+                $allow = false;
+            }
+        } else if(\Laratrust::hasRole(['superadmin','adminjusa','secretariat'])) {
+            $allow = true;
+        } else {
+            $allow = false;
+        }
+    } else {
+        $allow = false;
+    }
 
+  @endphp
+  @if($allow)
     <div style="" class="font">
         <table class="font" style="width:100%;">
            <tr>
@@ -926,6 +946,9 @@
   <pre><br clear=all style='mso-special-character:line-break;page-break-before:always'></pre>
   <p style="page-break-after: always;">&nbsp;</p>
 
+  {{-- @role(['superadmin','adminjusa','secretariat','user']) --}}
+
+
   <div style="">
     <table class="font" class="lampiran5" style="width: 100%;">
           <tr>
@@ -1006,5 +1029,8 @@
        </table>
         <br>
  </div>
+
+ @endif
+ {{-- @endrole --}}
 </body>
 </html>

@@ -67,6 +67,10 @@ class ViewController extends Controller
             $peribadi = Peribadi::find($pemohon->id_peribadi);
             $cuti = Cuti::where('id_pemohon',$pemohon->id)->get();
             $file_pengesahan = File::find($pemohon->pengesahan_cuti);
+            $mime_type = '';
+            if($file_pengesahan) {
+                $mime_type = CommonController::mime_type($file_pengesahan->filename);
+            }
             $harta = Harta::where('id_pemohon',$pemohon->id)->first();
             $pasangan = Pasangan::where('id_pemohon',$pemohon->id)->first();
             $perkhidmatan = Perkhidmatan::where('id_pemohon',$pemohon->id)->orderBy('tkh_mula_berkhidmat','desc')->get();
@@ -234,6 +238,7 @@ class ViewController extends Controller
                 'sumbangan' => $contribution,
                 'pages' => $includes,
                 'borang_pengesahan' => $file_pengesahan,
+                'mime_type' => $mime_type,
             ]);
     }
 
