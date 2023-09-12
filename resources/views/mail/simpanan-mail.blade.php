@@ -5,22 +5,22 @@
                 <div class="card-header"></div>
                   <div class="card-body">
                     <p>
-                    <span><strong>{{ $nama }}</strong></span><br/>
+                    <span><strong>{{ $title }} {{ $nama }}</strong></span><br/>
                     <span><strong>NO. KAD PENGENALAN : {{$nokp}}</strong>
                     </p>
-                    <p>
+                    {{-- <p>
                     Melalui dan Salinan kepada;
                     </p>
                     <p>
                     <span>Pengarah Kanan</span><br/>
                     <span style="white-space: pre-wrap;">{{ $alamat }}</span><br/>
-                    </p>
+                    </p> --}}
                     <p>
                         {{ $gelaran }},
                     </p>
-                    <p>
+                    {{-- <p>
                         <strong>{{ $title }}</strong>
-                    </p>
+                    </p> --}}
                     <p>
                     Dengan hormatnya saya diarah merujuk kepada perkara di atas.
                     </p>

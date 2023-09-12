@@ -21,6 +21,7 @@ DatatableUI.init({
         {data: 'jawatan', searchable: false},
         {data: 'jenis', searchable: false, visible: false},
         {data: 'status', searchable: false},
+        {data: 'ranking', searchable: false},
         {data: 'email_status', searchable: false},
         {data: 'aksi', searchable: false},
     ],
@@ -30,7 +31,7 @@ DatatableUI.init({
     ],
     columnDef: [
         {
-            target: -4,
+            target: -5,
             title: 'Jenis',
             orderable: false,
             visible: false,
@@ -38,7 +39,7 @@ DatatableUI.init({
                 let row_type = full.jenis;
                 if(row_type == 'UKP12') {
                     return ('Pemangkuan');
-                } else if(row_type == 'UKP11') {
+                } else if(row_type == 'UKP13') {
                     return 'Kenaik Pangkat';
                 } else {
                     return '';
@@ -46,7 +47,7 @@ DatatableUI.init({
             }
         },
         {
-            targets: -3,
+            targets: -4,
             title: 'Status',
             orderable: false,
             render: function (data, type, full, meta) {
