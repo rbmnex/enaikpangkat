@@ -6,7 +6,7 @@
                   <div class="card-body">
                         <p>Assalamualaikum WBT & Salam Sejahtera,</p>
                         <p>Tuan/Puan,</p>         
-                        <p><strong>PERKARA : {{ $tajuk }} {{ $jawatan }} KE GRED {{ $gred }} DI JABATAN KERJA RAYA MALAYSIA</strong></p>
+                        <p><strong>PERKARA : {{ $tajuk }} {{-- $jawatan  KE GRED {{ $gred }} DI JABATAN KERJA RAYA MALAYSIA --}}</strong></p>
                         <p>Dengan segala hormatnya saya merujuk perkara di atas.</p>
                         <p>2. &emsp; Sukacita dimaklumkan bahawa Bahagian Pengurusan Sumber Manusia, Cawangan Dasar dan Pengurusan Korporat akan melaksanakan urusan pemangkuan tuan/puan <!--ke Pemangkuan--> ke Gred {{ $gred }}</p> 
                         <p>3. &emsp; Sehubungan itu, pejabat ini memohon jasa baik tuan/puan agar dapat melengkapkan maklumat-maklumat yang diperlukan <strong>(KECUALI RESUME) <!--selewat-lewatnya--> sebelum atau pada {{ $end_date }} (sehingga selesai perakuan oleh Ketua Jabatan)</strong> melalui pautan link seperti di bawah:</p>

@@ -27,7 +27,7 @@ class PinkFormController extends Controller{
         //     $join->on('pk.flag','=',1);
         //     $join->on('pk.delete_id','=',0);
         // })
-        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status')
+        ->select('p.id','b.nokp','b.nama','p.jawatan','u.gred','u.jenis','p.status','p.ranking')
         ->whereIn('p.status', array(Pemohon::WAITING_OFFER, Pemohon::WAITING_REPLY, Pemohon::ACCEPTED, Pemohon::REFUSED))
         ->where('jenis','UKP12')
         ->where('p.delete_id',0)
@@ -40,7 +40,7 @@ class PinkFormController extends Controller{
             $record = $parent->getPink($item->id);
             $item->email_status = empty($record) ? 'NOT' : $record->email_status;
             $item->fail_id = empty($record) ? NULL : $record->fail_id;
-        });
+        })->sortBy('ranking');
         return DataTables::of($model)
             ->setRowAttr([
                 'data-pemohon-id' => function($data) {

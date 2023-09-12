@@ -5,21 +5,21 @@
                 <div class="card-header"></div>
                   <div class="card-body">
 <p>
-    <span><strong>{{ $gelaran }} {{ $nama }}</strong></span><br/>
+    <span><strong>{{ $title }} {{ $nama }}</strong></span><br/>
     <span><strong>NO. KAD PENGENALAN : {{ $nokp }}</strong></span>
 </p>
 
-<p>Melalui dan salinan kepada;</p>
+{{-- <p>Melalui dan salinan kepada;</p>
 <p>
     <span>Pengarah Kanan</span><br/>
     <span style="white-space: pre-wrap;">{{ $alamat }}</span><br/>
-</p>
+</p> --}}
 <p>
 {{ $gelaran }},
 </p>
-<p>
+{{-- <p>
 <strong>{{ $title }}</strong>
-</p>
+</p> --}}
 <p>
 Dengan hormatnya saya diarah merujuk kepada perkara di atas.
 </p>

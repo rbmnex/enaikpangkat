@@ -97,6 +97,7 @@ class ApplicationController extends Controller
         $tkh_mesyuarat = $request->input('date');
         $email_cc = $request->input('cc');
 
+
         $cc = [];
         if($email_cc) {
             if(str_contains($email_cc,',')) {
@@ -108,6 +109,8 @@ class ApplicationController extends Controller
 
         $record =  Pemohon::find($pemohon_id);
         $form = PermohonanUkp12::find($record->id_permohonan);
+
+        $pegawai = ListPegawai2::getMaklumatPegawaiRingkas($record->pemohonPeribadi->nokp);
 
         $audit = new AuditTrail();
         $audit->setInitialObj($record);
@@ -139,13 +142,14 @@ class ApplicationController extends Controller
                     'title' => 'KEPUTUSAN PEMANGKUAN '.$record->jawatan.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.' DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
                     // 'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
                     'gelaran' => $record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan',
+                    'title' => $record->pemohonPeribadi->gelaran,
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
                     'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
                     'tarikh' => $common->translateMonth(\Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('d M Y')),
                     'nama' => $record->pemohonPeribadi->nama,
-                    'alamat' => $record->alamat_pejabat
+                    'alamat' => $pegawai['alamat_pejabat']
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.simpanan-mail',$content,function($message) use ($record,$cc) {
@@ -177,13 +181,14 @@ class ApplicationController extends Controller
                     'title' => 'KEPUTUSAN PEMANGKUAN '.$record->jawatan.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.' DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
                     // 'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
                     'gelaran' => $record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan',
+                    'title' => $record->pemohonPeribadi->gelaran,
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
                     'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
                     'tarikh' => $common->translateMonth(\Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('d M Y')),
                     'nama' => $record->pemohonPeribadi->nama,
-                    'alamat' => $record->alamat_pejabat
+                    'alamat' => $pegawai['alamat_pejabat']
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record,$cc) {
@@ -300,7 +305,11 @@ class ApplicationController extends Controller
             });
 
             $model = $candidates->filter(function ($value, $key) {
-                            return ($value->flag > 0 && $value->delete_id == 0);
+                            if(empty($value->nokp)) {
+                                return false;
+                            } else {
+                                return ($value->flag > 0 && $value->delete_id == 0);
+                            }
                         })->sortBy('rank');
         }
 
