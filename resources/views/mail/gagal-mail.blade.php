@@ -5,7 +5,7 @@
                 <div class="card-header"></div>
                   <div class="card-body">
 <p>
-    <span><strong>{{ $title }} {{ $nama }}</strong></span><br/>
+    <span><strong>{{ $title1 }} {{ $nama }}</strong></span><br/>
     <span><strong>NO. KAD PENGENALAN : {{ $nokp }}</strong></span>
 </p>
 
@@ -17,9 +17,9 @@
 <p>
 {{ $gelaran }},
 </p>
-{{-- <p>
+<p>
 <strong>{{ $title }}</strong>
-</p> --}}
+</p>
 <p>
 Dengan hormatnya saya diarah merujuk kepada perkara di atas.
 </p>

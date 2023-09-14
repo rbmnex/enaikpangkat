@@ -34,7 +34,7 @@ class PinkFormController extends Controller{
         ->where('p.flag',1)
         // ->where('pk.delete_id',0)
         // ->where('pk.flag',1)
-        ->get();
+        ->orderBy('p.ranking','asc')->get();
         $parent = new PinkFormController();
         $model->each(function($item,$key) use ($parent){
             $record = $parent->getPink($item->id);
@@ -366,8 +366,6 @@ class PinkFormController extends Controller{
             $renew = true;
             $pink = new SuratPink();
         }
-
-        $pink = new SuratPink;
 
         $pink->id_pemohon = $request->input('pemohon_id');
         $pink->no_surat = $request->input('pinkform_name');

@@ -664,22 +664,28 @@ class BatchMgmtController extends Controller
 
             $dateline = $kumpulan->permohonan->tkh_akhir ? \Carbon\Carbon::parse($kumpulan->permohonan->tkh_akhir) : $common->calc_DateOnWorkingDays(7,\Carbon\Carbon::parse($kumpulan->permohonan->created_at)->format("Y-m-d H:i:s"));
             $secure_link = Crypt::encryptString($kumpulan->permohonan->id.'?kp='.$nokp);
+
+            $email_title = $kumpulan->permohonan->tajuk ?? 'URUSAN PEMANGKUAN';
+                $tajuk = $email_title.' '.$pegawai[0]->jawatan.' GRED '.$pegawai[0]->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA';
+
             $content = [
                 //'link' => "http://mywebapp/form/ukp12/display/1?kp=".$calon->nokp
                 'link' => url('/')."/form/ukp12/apply/".$secure_link,
                 'gred' => $kumpulan->permohonan->gred,
                 'end_date' => $common->translateMonth($dateline->format('d M Y')),
-                'jawatan' => $pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred
+                'jawatan' => $pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred,
+                'tajuk' => $tajuk
             ];
 
             try {
-                Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred) {
+                Mail::mailer('smtp')->send('mail.ukp12-mail',$content,function($message) use ($pegawai,$kod_gred,$tajuk) {
                     // testing purpose
                     //$message->to('munirahj@jkr.gov.my',$pegawai[0]->nama);
                     //$message->to('munirahj@jkr.gov.my',$calon->nama);
 
                     $message->to($pegawai[0]->email,$pegawai[0]->nama);
-                    $message->subject('URUSAN PEMANGKUAN '.$pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                    // $message->subject('URUSAN PEMANGKUAN '.$pegawai[0]->jawatan.' '.$pegawai[0]->kod_gred.' KE GRED '.$kod_gred.' DI JABATAN KERJA RAYA MALAYSIA');
+                    $message->subject($tajuk);
 
                 });
                 $model->status = 'SUCCESSED';

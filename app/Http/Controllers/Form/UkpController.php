@@ -23,6 +23,7 @@ use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PengakuanPemohon;
 use App\Models\Permohonan\Pengiktirafan;
 use App\Models\Permohonan\Perkhidmatan;
+use App\Models\Permohonan\PermohonanUkp12;
 use App\Models\Permohonan\Pertubuhan;
 use App\Models\Permohonan\PinjamanPendidikan;
 use App\Models\Permohonan\Professional;
@@ -138,6 +139,11 @@ class UkpController extends Controller
         // if(!$access) {
         //     return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
         // }
+        $formUkp = PermohonanUkp12::find($id);
+
+        if(empty($formUkp)) {
+            return view('form.message',['message' => 'Permohonan ini sudah ditutup atau tiada lagi!']);
+        }
 
 
         $profile = NULL;
@@ -226,6 +232,12 @@ class UkpController extends Controller
 
         $userKp = Auth::user()->nokp;
 
+        $formUkp = PermohonanUkp12::find($formId);
+
+        if(empty($formUkp)) {
+            return view('form.message',['message' => 'Permohonan ini sudah ditutup atau tiada lagi!']);
+        }
+
         if($userKp != $nokp) {
             return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
         }
@@ -235,6 +247,8 @@ class UkpController extends Controller
         if(!$access) {
             return view('form.message',['message' => 'Anda Tidak Layak Untuk Mengambil Permohonan Ini!']);
         }
+
+
 
         $profile = NULL;
         $pemohon = NULL;

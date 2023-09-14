@@ -6,6 +6,8 @@ use App\Http\Controllers\Common\CommonController;
 use App\Http\Controllers\Controller;
 use App\Models\Admin\AuditTrail;
 use App\Models\Mykj\ListPegawai2;
+use App\Models\Mykj\ListPegawaiNaikPngkat;
+use App\Models\Mykj\ListPegawaiResume;
 use App\Models\Permohonan\Pemohon;
 use App\Models\Permohonan\PermohonanUkp12;
 use App\Models\Urussetia\Kumpulan;
@@ -142,14 +144,14 @@ class ApplicationController extends Controller
                     'title' => 'KEPUTUSAN PEMANGKUAN '.$record->jawatan.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.' DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
                     // 'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
                     'gelaran' => $record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan',
-                    'title' => $record->pemohonPeribadi->gelaran,
+                    'title1' => $record->pemohonPeribadi->gelaran,
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
                     'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
                     'tarikh' => $common->translateMonth(\Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('d M Y')),
                     'nama' => $record->pemohonPeribadi->nama,
-                    'alamat' => $pegawai['alamat_pejabat']
+                    'alamat' => $pegawai['alamat_pejabat'] ?? $record->pemohonPeribadi->alamat_pjabat
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.simpanan-mail',$content,function($message) use ($record,$cc) {
@@ -181,14 +183,14 @@ class ApplicationController extends Controller
                     'title' => 'KEPUTUSAN PEMANGKUAN '.$record->jawatan.' GRED '.$record->gred.' KE GRED '.$record->pemohonPermohonan->gred.' DI JABATAN KERJA RAYA, KEMENTERIAN KERJA RAYA MALAYSIA',
                     // 'gelaran' => $record->pemohonPeribadi->gelaran ? $record->pemohonPeribadi->gelaran : ($record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan'),
                     'gelaran' => $record->pemohonPeribadi->jantina == 'L' ? 'Tuan' : 'Puan',
-                    'title' => $record->pemohonPeribadi->gelaran,
+                    'title1' => $record->pemohonPeribadi->gelaran,
                     'nokp' => $record->pemohonPeribadi->nokp,
                     'gred_pemangku' => $record->pemohonPermohonan->gred,
                     'count' => $form->bil_mesyuarat,
                     'year' => \Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('Y'),
                     'tarikh' => $common->translateMonth(\Carbon\Carbon::parse($form->tarikh_mesyuarat)->format('d M Y')),
                     'nama' => $record->pemohonPeribadi->nama,
-                    'alamat' => $pegawai['alamat_pejabat']
+                    'alamat' => $pegawai['alamat_pejabat'] ?? $record->pemohonPeribadi->alamat_pjabat
                 ];
                 try {
                     Mail::mailer('smtp')->send('mail.gagal-mail',$content,function($message) use ($record,$cc) {
@@ -388,7 +390,7 @@ class ApplicationController extends Controller
                     $info['colour'] = 'info';
                 }
             } else {
-                $pegawai = ListPegawai2::where('nokp',$nokp)->first();
+                $pegawai = ListPegawaiNaikPngkat::where('nokp',$nokp)->first();
                     $info['name'] = $pegawai->nama;
                     $info['jawatan'] = $pegawai->jawatan;
                     $info['gred'] = $pegawai->kod_gred;
@@ -404,7 +406,7 @@ class ApplicationController extends Controller
             }
 
         } else {
-            $pegawai = ListPegawai2::where('nokp',$nokp)->first();
+            $pegawai = ListPegawaiNaikPngkat::where('nokp',$nokp)->first();
             $info['name'] = empty($pegawai->nama) ? '' : $pegawai->nama;
             $info['jawatan'] = empty($pegawai->jawatan) ? '' : $pegawai->jawatan;
             $info['gred'] = empty($pegawai->kod_gred) ? '' : $pegawai->kod_gred;
